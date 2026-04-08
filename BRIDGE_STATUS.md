@@ -53,6 +53,7 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 - [ ] Final QA + go-live
 
 ## 🔄 Recently Updated
+- **Homepage converted to Server Component** — now fully server-rendered; animations extracted to reusable FadeIn client component (April 7)
 - **Enriched JSON-LD structured data** on all 28 service pages + 21 location pages (April 7)
 - **Context-aware internal linking system** — cross-category services, scored locations, nearby areas (April 7)
 - **Next.js 15 migration complete** — full SSR/SSG, 73 pages pre-rendered, new repo (April 7)
@@ -64,6 +65,7 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 - Instant estimate engine in AI chat with Good/Better/Best tiers (April 1)
 
 ## ✅ Done
+- **Homepage SSR conversion** — removed `"use client"`, all homepage content now server-rendered with full HTML to crawlers (April 7)
 - **Enriched JSON-LD structured data** — Service + BreadcrumbList on all service pages, RoofingContractor/LocalBusiness + BreadcrumbList on all location pages (April 7)
 - **Internal linking system** — `src/lib/linking.ts` with 4 scoring functions, cross-category map, county adjacency, full-width location strip on service pages (April 7)
 - **Next.js 15 migration** — SSR/SSG, 73 pages, Metadata API, server-rendered JSON-LD

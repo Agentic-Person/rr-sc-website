@@ -11,9 +11,10 @@
 
 ## Last Activity — April 7, 2026
 
-**Session summary:** Implemented enriched JSON-LD structured data across all service and location pages, and built a context-aware internal linking system to maximize SEO cross-link density.
+**Session summary:** Implemented enriched JSON-LD structured data across all service and location pages, built a context-aware internal linking system, and converted the homepage from client-side to server-rendered for full SEO crawlability.
 
 **Work completed:**
+- **Homepage converted to Server Component** — removed `"use client"` directive; extracted Framer Motion animations into a reusable `FadeIn` client component (`src/components/FadeIn.tsx`); homepage now delivers fully server-rendered HTML with all content, headings, links, and JSON-LD baked in at build time — previously served a JS shell to crawlers
 - Enriched JSON-LD structured data on all 28 service pages — `Service` schema with full provider, service type, offer catalog (built from features), area served (all 21 locations), and 4-level `BreadcrumbList`
 - Enriched JSON-LD structured data on all 21 location pages — corrected schema from `Service` to `RoofingContractor`/`LocalBusiness` with geo coordinates, business hours (24/7), price range, offer catalog, and 3-level `BreadcrumbList`
 - Created `src/lib/linking.ts` — context-aware internal linking utility with 4 scoring functions
@@ -282,6 +283,7 @@
 | `src/lib/linking.ts` | Context-aware internal linking (cross-category, scored locations, nearby areas) |
 | `src/lib/supabase.ts` | Supabase client |
 | `src/components/ChatWidget.tsx` | Giraffe mascot AI chat widget |
+| `src/components/FadeIn.tsx` | Reusable client-side animation wrapper (Framer Motion) |
 | `src/components/shared.tsx` | Shared UI components (PageHero, CTABanner, SectionHeader, etc.) |
 | `src/components/Header.tsx` | Navigation with services dropdown |
 | `src/components/Footer.tsx` | Footer with location links |

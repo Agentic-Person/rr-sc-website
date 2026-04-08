@@ -1,12 +1,10 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { COMPANY, IMAGES, SERVICES, LOCATIONS, TESTIMONIALS, PROCESS_STEPS, BLOG_POSTS } from "@/lib/data";
 import processInspectionImg from "@assets/process_free_inspection.webp";
 import processInsuranceImg from "@assets/process_insurance.webp";
 import processInstallationImg from "@assets/process_expert_installation.webp";
 import { SectionHeader, StatsBar, TrustBadges, StarRating, JsonLdScript } from "@/components/shared";
+import { FadeIn } from "@/components/FadeIn";
 import {
   Phone, ArrowRight, ChevronRight, MapPin, Shield, Clock, FileCheck, Hammer, Search,
   Home as HomeIcon, Wrench, Droplets, Settings, Layers, Square, Gem, Building, Sun, SunDim,
@@ -33,39 +31,27 @@ function HeroSection() {
 
       <div className="container relative z-10 py-20 md:py-28 pl-6 md:pl-10 lg:pl-14">
         <div className="max-w-2xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+          <FadeIn delay={0.1} inView={false}
             className="inline-flex items-center gap-2 bg-amber/20 border border-amber/30 rounded-full px-4 py-1.5 mb-6"
           >
             <Star className="w-3.5 h-3.5 text-amber fill-amber" />
             <span className="text-sm text-amber font-medium">{COMPANY.googleRating} Stars on Google · {COMPANY.googleReviewCount}+ Reviews</span>
-          </motion.div>
+          </FadeIn>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6"
-          >
-            Charleston&apos;s Most Trusted{" "}
-            <span className="text-amber">Roofing Experts</span>
-          </motion.h1>
+          <FadeIn delay={0.2} y={30} inView={false}>
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6">
+              Charleston&apos;s Most Trusted{" "}
+              <span className="text-amber">Roofing Experts</span>
+            </h1>
+          </FadeIn>
 
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 max-w-xl"
-          >
-            Family-owned roofing contractor protecting Lowcountry homes since 2020. From hurricane damage repair to complete roof replacements — we handle it all, including your insurance claim.
-          </motion.p>
+          <FadeIn delay={0.3} y={30} inView={false}>
+            <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 max-w-xl">
+              Family-owned roofing contractor protecting Lowcountry homes since 2020. From hurricane damage repair to complete roof replacements — we handle it all, including your insurance claim.
+            </p>
+          </FadeIn>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+          <FadeIn delay={0.4} y={30} inView={false}
             className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
           >
             <Link
@@ -82,12 +68,9 @@ function HeroSection() {
               <Phone className="w-5 h-5" />
               {COMPANY.phone}
             </a>
-          </motion.div>
+          </FadeIn>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
+          <FadeIn delay={0.6} y={0} inView={false}
             className="flex items-center gap-6 mt-10 text-sm text-white/60"
           >
             <span className="flex items-center gap-1.5">
@@ -102,7 +85,7 @@ function HeroSection() {
               <CheckCircle2 className="w-4 h-4 text-amber" />
               Se Habla Español
             </span>
-          </motion.div>
+          </FadeIn>
         </div>
       </div>
     </section>
@@ -127,13 +110,7 @@ function ServicesSection() {
           {featured.map((service, i) => {
             const Icon = iconMap[service.icon] || Shield;
             return (
-              <motion.div
-                key={service.slug}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-              >
+              <FadeIn key={service.slug} delay={i * 0.08}>
                 <Link href={`/services/${service.slug}`}>
                   <article className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl border border-border/40 hover:border-amber/30 transition-all duration-500 h-full flex flex-col ring-1 ring-black/[0.03]">
                     {/* Image */}
@@ -166,7 +143,7 @@ function ServicesSection() {
                     </div>
                   </article>
                 </Link>
-              </motion.div>
+              </FadeIn>
             );
           })}
         </div>
@@ -198,12 +175,9 @@ function ProcessSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
           {PROCESS_STEPS.map((step, i) => (
-            <motion.div
+            <FadeIn
               key={step.step}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
+              delay={i * 0.15}
               className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-500 flex flex-col ring-1 ring-black/[0.03]"
             >
               {/* Image */}
@@ -223,7 +197,7 @@ function ProcessSection() {
                 <h3 className="font-display text-xl font-semibold text-navy mb-3">{step.title}</h3>
                 <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
               </div>
-            </motion.div>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -243,12 +217,9 @@ function TestimonialsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {TESTIMONIALS.slice(0, 6).map((t, i) => (
-            <motion.div
+            <FadeIn
               key={t.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
+              delay={i * 0.08}
               className="bg-white rounded-xl border border-border/50 p-6 shadow-md hover:shadow-lg transition-shadow duration-300 relative"
             >
               <span className="absolute top-3 right-4 font-display text-5xl text-amber/15 leading-none select-none">&ldquo;</span>
@@ -265,7 +236,7 @@ function TestimonialsSection() {
                   {t.location && <div className="text-xs text-gray-600">{t.location}</div>}
                 </div>
               </div>
-            </motion.div>
+            </FadeIn>
           ))}
         </div>
 
@@ -313,13 +284,7 @@ function LocationsSection() {
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
             {featured.map((loc, i) => (
-              <motion.div
-                key={loc.slug}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-              >
+              <FadeIn key={loc.slug} delay={i * 0.05}>
                 <Link href={`/areas-we-serve/${loc.slug}`}>
                   <div className="group relative h-44 md:h-52 rounded-xl overflow-hidden border border-border/50 shadow-md hover:border-amber/30 hover:shadow-xl transition-all duration-300 ring-1 ring-black/[0.03]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -343,7 +308,7 @@ function LocationsSection() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </FadeIn>
             ))}
           </div>
 
@@ -373,13 +338,7 @@ function BlogPreviewSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {BLOG_POSTS.slice(0, 3).map((post, i) => (
-            <motion.div
-              key={post.slug}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-            >
+            <FadeIn key={post.slug} delay={i * 0.1}>
               <Link href={`/blog/${post.slug}`}>
                 <div className="group bg-white rounded-xl border border-border/50 overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 ring-1 ring-black/[0.03]">
                   <div className="aspect-[16/9] overflow-hidden">
@@ -404,7 +363,7 @@ function BlogPreviewSection() {
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </FadeIn>
           ))}
         </div>
 
