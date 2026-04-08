@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.restorationroofingsc.com/sitemap.xml
+
+# Restoration Roofing SC
+# Charleston's Trusted Roofing Experts
+# (843) 306-2939
