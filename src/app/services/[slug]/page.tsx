@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { SERVICES, IMAGES, COMPANY, LOCATIONS } from "@/lib/data";
+import { SERVICES, IMAGES, COMPANY, LOCATIONS, SITE_URL } from "@/lib/data";
 import { PageHero, SectionHeader, CTABanner, JsonLdScript } from "@/components/shared";
 import { ServiceHubContent } from "./service-hub-content";
 import { ServiceDetailContent } from "./service-detail-content";
+import { getRelatedServices, getServiceAreaLinks } from "@/lib/linking";
 import {
   AlertTriangle, Phone,
 } from "lucide-react";
@@ -153,10 +154,8 @@ export default async function ServicePage({
   }
 
   const catInfo = categoryLabels[service.category];
-  const relatedServices = SERVICES.filter(
-    (s) => s.category === service.category && s.slug !== service.slug
-  ).slice(0, 6);
-  const nearbyLocations = LOCATIONS.slice(0, 8);
+  const relatedServices = getRelatedServices(service, SERVICES, 4);
+  const serviceAreaLinks = getServiceAreaLinks(service, LOCATIONS, 8);
 
   const heroImage =
     service.category === "storm"
@@ -171,20 +170,77 @@ export default async function ServicePage({
     { label: service.shortTitle },
   ];
 
+  const serviceUrl = `${SITE_URL}/services/${service.slug}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
+    "@id": `${serviceUrl}#service`,
     name: service.title,
     description: service.description,
+    url: serviceUrl,
+    serviceType: service.shortTitle,
     provider: {
       "@type": "RoofingContractor",
+      "@id": `${SITE_URL}/#business`,
       name: COMPANY.fullName,
       telephone: COMPANY.phone,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "1261 Pearwood Ct",
+        addressLocality: "Mount Pleasant",
+        addressRegion: "SC",
+        postalCode: "29464",
+        addressCountry: "US",
+      },
     },
-    areaServed: {
-      "@type": "State",
-      name: "South Carolina",
+    areaServed: LOCATIONS.map((l) => ({
+      "@type": "City",
+      name: `${l.name}, SC`,
+    })),
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: service.title,
+      itemListElement: service.features.map((feature, index) => ({
+        "@type": "Offer",
+        position: index + 1,
+        itemOffered: {
+          "@type": "Service",
+          name: feature,
+        },
+      })),
     },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: `${SITE_URL}/services`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: catInfo.label,
+        item: `${SITE_URL}${catInfo.href}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: service.shortTitle,
+        item: serviceUrl,
+      },
+    ],
   };
 
   const faqJsonLd =
@@ -206,6 +262,7 @@ export default async function ServicePage({
   return (
     <>
       <JsonLdScript data={jsonLd} />
+      <JsonLdScript data={breadcrumbJsonLd} />
       {faqJsonLd && <JsonLdScript data={faqJsonLd} />}
 
       <PageHero
@@ -320,7 +377,7 @@ export default async function ServicePage({
                     We Serve
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {nearbyLocations.map((loc) => (
+                    {serviceAreaLinks.map((loc) => (
                       <Link
                         key={loc.slug}
                         href={`/areas-we-serve/${loc.slug}`}
@@ -333,7 +390,7 @@ export default async function ServicePage({
                       href="/areas-we-serve"
                       className="inline-flex items-center gap-1 text-xs text-amber font-medium px-2.5 py-1.5"
                     >
-                      +{LOCATIONS.length - nearbyLocations.length} more
+                      +{LOCATIONS.length - serviceAreaLinks.length} more
                     </Link>
                   </div>
                 </div>
@@ -356,6 +413,28 @@ export default async function ServicePage({
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* All Service Areas — full-width link grid for crawlability */}
+      <section className="section-padding bg-linen">
+        <div className="container">
+          <SectionHeader
+            eyebrow="Service Area"
+            title="Available Across the Lowcountry"
+            subtitle={`We bring expert ${service.shortTitle.toLowerCase()} to every community throughout the Charleston metro area and beyond.`}
+          />
+          <div className="flex flex-wrap gap-3 mt-8 justify-center">
+            {LOCATIONS.map((loc) => (
+              <Link
+                key={loc.slug}
+                href={`/areas-we-serve/${loc.slug}`}
+                className="inline-flex items-center px-4 py-2 rounded-full bg-white border border-border/50 text-sm text-gray-700 font-medium hover:bg-amber hover:text-white hover:border-amber transition-colors shadow-sm"
+              >
+                {loc.name}
+              </Link>
+            ))}
           </div>
         </div>
       </section>

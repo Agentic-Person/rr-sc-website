@@ -11,6 +11,22 @@
 
 ## Last Activity — April 7, 2026
 
+**Session summary:** Implemented enriched JSON-LD structured data across all service and location pages, and built a context-aware internal linking system to maximize SEO cross-link density.
+
+**Work completed:**
+- Enriched JSON-LD structured data on all 28 service pages — `Service` schema with full provider, service type, offer catalog (built from features), area served (all 21 locations), and 4-level `BreadcrumbList`
+- Enriched JSON-LD structured data on all 21 location pages — corrected schema from `Service` to `RoofingContractor`/`LocalBusiness` with geo coordinates, business hours (24/7), price range, offer catalog, and 3-level `BreadcrumbList`
+- Created `src/lib/linking.ts` — context-aware internal linking utility with 4 scoring functions
+- Service pages: "Related Services" now pulls cross-category (19-entry cross-category map), "We Serve" locations scored by relevance (barrier islands for storm services, historic areas for roofing)
+- Location pages: "Featured Services" scored by location characteristics (coastal, historic, inland), "Nearby Areas" with county-adjacency fallback for thin counties
+- Added full-width "Available Across the Lowcountry" section on every service detail page — all 21 locations as pill links for maximum crawlable cross-link density
+- Added `SITE_URL` constant to `data.ts` to eliminate URL string duplication
+- Removed mock `aggregateRating` (4.9/47 reviews) from all new schemas — will add back when real Google Reviews are integrated
+
+---
+
+## Previous Activity — April 7, 2026
+
 **Session summary:** Full framework migration from React+Vite SPA to Next.js 15 (App Router) for server-side rendering and SEO/AEO optimization. Pushed to new repo.
 
 **Work completed:**
@@ -28,12 +44,6 @@
 - Giraffe mascot chat widget, contact form, blog CMS all working
 - Removed Express server, Wouter router, Vite build config — all replaced by Next.js
 - New repo created: github.com/Agentic-Person/rr-sc-website
-
-**Why we migrated:**
-- Client-side SPA served empty `<div id="root">` to crawlers — Google had to execute JavaScript to see content
-- Next.js SSR/SSG delivers fully-rendered HTML immediately — critical for local SEO in competitive roofing market
-- `next/image` enables automatic WebP/AVIF conversion, responsive srcset, lazy loading
-- Foundation for planned AEO schema work (FAQ, HowTo, AggregateRating) performs better on pre-rendered pages
 
 ---
 
@@ -117,12 +127,23 @@
 
 ### SEO & Structured Data
 - **Server-rendered metadata** on every page via Next.js Metadata API
-- **Server-rendered JSON-LD** structured data (RoofingContractor, BlogPosting, FAQPage, Service, etc.)
+- **Server-rendered JSON-LD** structured data (RoofingContractor, LocalBusiness, BlogPosting, FAQPage, Service, BreadcrumbList)
+- **Enriched Service schema** on all 28 service pages — service type, offer catalog, area served, full provider block
+- **RoofingContractor/LocalBusiness schema** on all 21 location pages — geo, hours, offers, city-specific areaServed
+- **BreadcrumbList schema** on all service and location pages
 - Open Graph + Twitter Card meta tags
 - Sitemap.xml (100+ URLs) + robots.txt
 - Geo meta tags for local SEO (geo.region, geo.placename, geo.position, ICBM)
 - Breadcrumb navigation on all interior pages
 - `generateStaticParams()` ensures unique meta per service and location page
+
+### Internal Linking System
+- **Context-aware cross-linking** via `src/lib/linking.ts` — 4 scoring functions
+- Service pages: related services pulled cross-category (not just same bucket), location links scored by relevance to service type
+- Location pages: featured services scored by location characteristics (coastal, historic, inland), nearby areas with county-adjacency fallback
+- Full-width "Available Across the Lowcountry" section on every service detail page — all 21 locations as crawlable pill links
+- 19-entry cross-category service map for semantic relatedness
+- County adjacency map for thin-county fallback on nearby locations
 
 ### Security
 - Security headers via vercel.json: X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy
@@ -151,6 +172,9 @@
 - [x] Dark mode toggle
 - [x] GA4 analytics tracking
 - [x] SEO meta tags + structured data server-rendered on all pages
+- [x] Enriched JSON-LD on all service pages (Service + BreadcrumbList)
+- [x] Enriched JSON-LD on all location pages (RoofingContractor/LocalBusiness + BreadcrumbList)
+- [x] Context-aware internal linking system (cross-category services, scored locations, nearby areas)
 - [x] Sitemap + robots.txt
 - [x] AI chat widget (RAG-powered, giraffe mascot)
 - [x] Contact form → Supabase (server-side validated)
@@ -203,7 +227,9 @@
 - [ ] **After-hours voice agent** — Zuper may handle natively; follow up with Zuper to confirm scope before building separately
 
 ### Priority 3 — SEO/AEO Enhancements
-- [ ] FAQ schema on service and location pages
+- [x] ~~Structured data on service and location pages~~ — **Done** (April 7)
+- [x] ~~Internal linking system~~ — **Done** (April 7)
+- [ ] **Blog content launch** — infrastructure built, content ready; launching is a major AEO lever (AI engines cite long-form Q&A articles)
 - [ ] HowTo schema for process-oriented content
 - [ ] AggregateRating schema on Reviews page (once Google Reviews integrated)
 - [ ] Speakable schema for voice search eligibility
@@ -253,6 +279,7 @@
 | `src/app/areas-we-serve/[slug]/page.tsx` | Location detail (SSG, 21 pages) |
 | `src/app/blog/[slug]/page.tsx` | Blog post (SSR from Supabase) |
 | `src/lib/data.ts` | All business content (~1,400 lines) |
+| `src/lib/linking.ts` | Context-aware internal linking (cross-category, scored locations, nearby areas) |
 | `src/lib/supabase.ts` | Supabase client |
 | `src/components/ChatWidget.tsx` | Giraffe mascot AI chat widget |
 | `src/components/shared.tsx` | Shared UI components (PageHero, CTABanner, SectionHeader, etc.) |

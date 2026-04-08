@@ -21,6 +21,8 @@ const blogSummerMaintenance = _blogSummerMaintenance.src;
 const blogSpringMaintenance = _blogSpringMaintenance.src;
 const blogYearRoundProtection = _blogYearRoundProtection.src;
 
+export const SITE_URL = "https://www.restorationroofingsc.com";
+
 export const COMPANY = {
   name: "Restoration Roofing",
   fullName: "Restoration Roofing SC",

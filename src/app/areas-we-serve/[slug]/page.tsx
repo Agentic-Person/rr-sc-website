@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { LOCATIONS, SERVICES, COMPANY, IMAGES, TESTIMONIALS } from "@/lib/data";
+import { LOCATIONS, SERVICES, COMPANY, IMAGES, TESTIMONIALS, SITE_URL } from "@/lib/data";
 import { PageHero, SectionHeader, CTABanner, StarRating, JsonLdScript } from "@/components/shared";
 import { LocationDetailContent } from "./location-detail-content";
+import { getNearbyLocations, getFeaturedServicesForLocation } from "@/lib/linking";
 import {
   Phone, ArrowRight, MapPin,
 } from "lucide-react";
@@ -48,44 +49,100 @@ export default async function LocationDetailPage({
       ?.toLowerCase()
       .includes(location.name.toLowerCase().split(" ")[0])
   );
-  const nearbyLocations = LOCATIONS.filter(
-    (l) => l.slug !== location.slug && l.county === location.county
-  ).slice(0, 6);
-  const featuredServices = SERVICES.filter((s) =>
-    [
-      "roof-installation",
-      "roof-repairs",
-      "storm-damage",
-      "metal-roofing",
-      "gutter-installation",
-      "gutter-repairs",
-    ].includes(s.slug)
-  );
+  const nearbyLocations = getNearbyLocations(location, LOCATIONS, 6);
+  const featuredServices = getFeaturedServicesForLocation(location, SERVICES, 6);
 
   const breadcrumbs = [
     { label: "Areas We Serve", href: "/areas-we-serve" },
     { label: location.name },
   ];
 
+  const locationUrl = `${SITE_URL}/areas-we-serve/${location.slug}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    name: `Roofing Services in ${location.name}, SC`,
+    "@type": ["RoofingContractor", "LocalBusiness"],
+    "@id": `${locationUrl}#business`,
+    name: `${COMPANY.fullName} \u2013 ${location.name}, SC`,
     description: `Expert roofing contractor serving ${location.name}, South Carolina. ${location.description.slice(0, 150)}`,
-    provider: {
-      "@type": "RoofingContractor",
-      name: COMPANY.fullName,
-      telephone: COMPANY.phone,
+    url: locationUrl,
+    telephone: COMPANY.phone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "1261 Pearwood Ct",
+      addressLocality: "Mount Pleasant",
+      addressRegion: "SC",
+      postalCode: "29464",
+      addressCountry: "US",
     },
     areaServed: {
       "@type": "City",
       name: `${location.name}, SC`,
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 32.8468,
+      longitude: -79.8203,
+    },
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: "00:00",
+      closes: "23:59",
+    },
+    priceRange: "$$",
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: `Roofing Services in ${location.name}, SC`,
+      itemListElement: featuredServices.map((svc, index) => ({
+        "@type": "Offer",
+        position: index + 1,
+        itemOffered: {
+          "@type": "Service",
+          name: svc.title,
+          description: svc.description,
+        },
+      })),
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Areas We Serve",
+        item: `${SITE_URL}/areas-we-serve`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: `${location.name}, SC`,
+        item: locationUrl,
+      },
+    ],
   };
 
   return (
     <>
       <JsonLdScript data={jsonLd} />
+      <JsonLdScript data={breadcrumbJsonLd} />
 
       <PageHero
         title={`Roofing Services in ${location.name}, SC`}

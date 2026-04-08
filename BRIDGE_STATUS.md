@@ -39,10 +39,10 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 - [ ] Team gathering real project photos + team headshots
 
 ## ⏳ Up Next
+- [ ] **Blog content launch** — infrastructure built, content ready; major AEO lever once live
 - [ ] **Zuper CRM integration** — wire contact form + chat leads into Zuper for lead management and follow-up
 - [ ] **Instant roof estimator** — finalize and integrate estimator tool into the website
 - [ ] **After-hours voice agent** — Zuper may handle natively; follow up with Zuper to confirm scope
-- [ ] FAQ schema on service + location pages (AEO)
 - [ ] HowTo schema for process pages (AEO)
 - [ ] Google Reviews live feed (API integration)
 - [ ] AggregateRating schema on Reviews page (after Google Reviews)
@@ -53,6 +53,8 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 - [ ] Final QA + go-live
 
 ## 🔄 Recently Updated
+- **Enriched JSON-LD structured data** on all 28 service pages + 21 location pages (April 7)
+- **Context-aware internal linking system** — cross-category services, scored locations, nearby areas (April 7)
 - **Next.js 15 migration complete** — full SSR/SSG, 73 pages pre-rendered, new repo (April 7)
 - Created tech stack, SEO & AEO documentation (April 7)
 - Chat widget enlarged to ~half viewport width (April 3)
@@ -62,6 +64,8 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 - Instant estimate engine in AI chat with Good/Better/Best tiers (April 1)
 
 ## ✅ Done
+- **Enriched JSON-LD structured data** — Service + BreadcrumbList on all service pages, RoofingContractor/LocalBusiness + BreadcrumbList on all location pages (April 7)
+- **Internal linking system** — `src/lib/linking.ts` with 4 scoring functions, cross-category map, county adjacency, full-width location strip on service pages (April 7)
 - **Next.js 15 migration** — SSR/SSG, 73 pages, Metadata API, server-rendered JSON-LD
 - Full 73-page site (12 roofing, 12 gutter, 10 storm damage, 21 locations, 3 hubs, blog, static pages)
 - RAG-powered AI chat widget with giraffe mascot (live)
