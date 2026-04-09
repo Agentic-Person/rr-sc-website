@@ -3,13 +3,32 @@
 > **Client:** Tom Davis
 > **Repo:** github.com/Agentic-Person/rr-sc-website
 > **Previous Repo (Vite SPA):** github.com/SCROOF1/restorationroofing
-> **Live URL:** https://td-rr-website.vercel.app *(pending redeployment from new repo)*
+> **Live URL:** https://rr-sc-website.vercel.app
 > **Vercel Team:** sc-roofing
-> **Last updated:** April 7, 2026
+> **Last updated:** April 9, 2026
 
 ---
 
-## Last Activity — April 7, 2026
+## Last Activity — April 9, 2026
+
+**Session summary:** Deployed site to Vercel, verified all 73 pages live, validated SEO/structured data, set up deploy hook, and cleaned up environment variable config.
+
+**Work completed:**
+- **Site deployed and verified live** — all 73 pages returning 200 with full server-rendered HTML
+- **Deploy hook configured** — replaced `vercel --prod` CLI with Vercel deploy hook URL in CLAUDE.md; deploy now triggers via `curl` POST after pushing to GitHub
+- **Environment variables set in Vercel** — all 6 required vars confirmed (Supabase, OpenAI, GA4, Admin Secret)
+- **`.env.example` cleaned up** — removed stale `VITE_*` prefixes (now `NEXT_PUBLIC_*`), removed unused Frontend Forge / Umami / PORT / NODE_ENV entries, added missing `ADMIN_SECRET`
+- **Full verification passed (14/14 checks):**
+  - Homepage, service pages, location pages, blog — all SSR with real content
+  - JSON-LD structured data on all page types (RoofingContractor, Service, BreadcrumbList, FAQPage)
+  - Meta tags (title, og:title, og:description) on all pages
+  - sitemap.xml and robots.txt accessible
+  - Blog API endpoints returning JSON
+  - Security headers present (HSTS, X-Frame-Options, CSP, etc.)
+
+---
+
+## Previous Activity — April 7, 2026
 
 **Session summary:** Implemented enriched JSON-LD structured data across all service and location pages, built a context-aware internal linking system, and converted the homepage from client-side to server-rendered for full SEO crawlability.
 
@@ -215,12 +234,15 @@
 ## What's Next
 
 ### Priority 1 — Deployment & Verification
-- [ ] Wire Vercel to new repo (Agentic-Person/rr-sc-website)
-- [ ] Set NEXT_PUBLIC_* environment variables in Vercel
-- [ ] Deploy and verify live site
+- [x] ~~Wire Vercel to new repo (Agentic-Person/rr-sc-website)~~ — **Done** (April 9, deploy hook)
+- [x] ~~Set NEXT_PUBLIC_* environment variables in Vercel~~ — **Done** (April 9, 6 vars set)
+- [x] ~~Deploy and verify live site~~ — **Done** (April 9, 14/14 checks passed)
+- [x] ~~View page source to confirm server-rendered HTML on live site~~ — **Done** (April 9, verified SSR)
 - [ ] Run Lighthouse audit — target SEO score ≥ 95
 - [ ] Run Google Rich Results Test on key pages
-- [ ] View page source to confirm server-rendered HTML on live site
+- [ ] Connect production domain in Vercel
+- [ ] Update sitemap.xml URLs to production domain
+- [ ] Submit sitemap to Google Search Console
 
 ### Priority 2 — Integrations
 - [ ] **Zuper CRM integration** — wire contact form + chat leads into Zuper for lead management and follow-up workflows

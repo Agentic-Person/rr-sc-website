@@ -7,14 +7,14 @@ After every commit, run all three steps:
 ```bash
 git push origin main
 git push client main
-vercel --prod --scope sc-roofing --yes
+curl -s -X POST "https://api.vercel.com/v1/integrations/deploy/prj_jgABxNWBIU98USh0Py4MkXCXJYPq/QcPRUiXCDI"
 ```
 
 - **origin** = `Agentic-Person/rr-sc-website` (primary repo)
 - **client** = `SCROOF1/restorationroofing` (Tom's client repo)
-- **vercel --prod** = deploys local build directly to production
+- **deploy hook** = triggers a fresh Vercel production deploy from `main`
 
-Always push to both repos and deploy via CLI.
+Always push to both repos and trigger the deploy hook.
 
 ## Commit Author
 
