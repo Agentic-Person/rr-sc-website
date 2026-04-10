@@ -1,12 +1,13 @@
 # Restoration Roofing SC — Bridge Status
-> Last updated: April 7, 2026
+> Last updated: April 9, 2026
 
-## 🟢 Status: Next.js Migration Complete — Ready for Deployment
+## 🟢 Status: Site Live — Domain Connection + Integrations Next
 
-**Phase:** Deploy new Next.js build, then begin Zuper + estimator integrations
-**Live:** https://td-rr-website.vercel.app *(pending redeployment from new repo)*
-**New Repo:** github.com/Agentic-Person/rr-sc-website
-**Previous Repo (Vite SPA):** github.com/SCROOF1/restorationroofing
+**Phase:** Connect production domain, then begin Zuper CRM + estimator integrations
+**Live:** https://rr-sc-website.vercel.app
+**Repo:** github.com/Agentic-Person/rr-sc-website
+**Client Repo:** github.com/SCROOF1/restorationroofing
+**Previous Repo (Vite SPA):** github.com/Agentic-Person/restorationroofing-sc (archive only)
 
 ---
 
@@ -24,45 +25,52 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 
 ---
 
-## 🚫 Blockers
-- **HIGH** — Need to set `NEXT_PUBLIC_*` env vars in Vercel and redeploy from new repo
-- **HIGH** — Jimmy needs to pull pricing from ABC material list where applicable
-- **MED** — Project photos + team headshots (team is working on getting real photos)
+## 🚫 Blockers / Pending from Client
+- **HIGH** — ABC Supply pricing verification for shingle tiers (Jimmy to pull from ABC material list)
+- **HIGH** — TAMKO Storm Fighter specs (not on ABC Supply yet — need from Tom)
+- **MED** — Product images for 3 shingle tiers
+- **MED** — Real project photos + team headshots
+- ~~**HIGH** — Env vars + deploy from new repo~~ **RESOLVED** (April 9)
 - ~~**MED** — Commercial services yes/no~~ **RESOLVED** — Tom confirmed no commercial services
 
-## 🔨 In Progress
-- [ ] Wire Vercel to new repo + set env vars + deploy
-- [ ] Verify live site serves server-rendered HTML (view page source test)
-- [ ] Run Lighthouse SEO audit on live deployment
-- [ ] Add TAMKO Storm Fighter (Hail Guard) product specs (still need from Tom — not on ABC Supply)
-- [ ] Jimmy to find pricing from ABC material list
-- [ ] Team gathering real project photos + team headshots
+## 🔨 In Progress — Phase 1 Remaining
+- [ ] Run Lighthouse audit — target SEO score ≥ 95
+- [ ] Run Google Rich Results Test on key pages
+- [ ] Connect production domain in Vercel (restorationroofingsc.com)
+- [ ] Update sitemap.xml URLs to production domain
+- [ ] GA4 + Search Console setup — Jimmy has Tom's GoDaddy account, can handle DNS verification
+- [ ] Submit sitemap to Google Search Console
+- [ ] Final QA + go-live
 
-## ⏳ Up Next
-- [ ] **Blog content launch** — infrastructure built, content ready; major AEO lever once live
+## ⏳ Up Next — Phase 2 (Integrations)
 - [ ] **Zuper CRM integration** — wire contact form + chat leads into Zuper for lead management and follow-up
 - [ ] **Instant roof estimator** — finalize and integrate estimator tool into the website
 - [ ] **After-hours voice agent** — Zuper may handle natively; follow up with Zuper to confirm scope
+- [ ] **Blog content launch** — infrastructure built, content ready; major AEO lever once live
+- [ ] **Automated blog system** — 9 posts per month (client confirmed)
+
+## ⏳ Phase 3 — SEO/AEO Enhancements
 - [ ] HowTo schema for process pages (AEO)
+- [ ] Speakable schema for voice search eligibility
 - [ ] Google Reviews live feed (API integration)
 - [ ] AggregateRating schema on Reviews page (after Google Reviews)
-- [ ] Automated blog system — 9 posts per month (client confirmed)
+- [ ] Expand knowledge base for long-tail local queries
+- [ ] Enrich gutter & storm damage service pages (deeper content, more images)
 - ~~Commercial services decision~~ — **Declined** by Tom (April 1)
-- [ ] Domain transfer → restorationroofingsc.com
-- [ ] GA4 + Search Console setup — Jimmy has Tom's GoDaddy account, can handle DNS verification
-- [ ] Final QA + go-live
+
+## ⏳ Phase 4 — New Features
+- [ ] Spanish language pages (`/es/` route)
+- [ ] Accessibility audit (WCAG 2.1 AA)
 
 ## 🔄 Recently Updated
+- **Site deployed and verified live** — 14/14 verification checks passed, all 73 pages SSR confirmed (April 9)
+- **Deploy hook configured** — Vercel redeploy via webhook after every push (April 9)
+- **Environment variables set in Vercel** — all 6 required vars configured (April 9)
+- **.env.example cleaned up** — removed stale VITE_* prefixes, added missing ADMIN_SECRET (April 9)
 - **Homepage converted to Server Component** — now fully server-rendered; animations extracted to reusable FadeIn client component (April 7)
 - **Enriched JSON-LD structured data** on all 28 service pages + 21 location pages (April 7)
 - **Context-aware internal linking system** — cross-category services, scored locations, nearby areas (April 7)
 - **Next.js 15 migration complete** — full SSR/SSG, 73 pages pre-rendered, new repo (April 7)
-- Created tech stack, SEO & AEO documentation (April 7)
-- Chat widget enlarged to ~half viewport width (April 3)
-- Giraffe mascot widget — replaces generic chat FAB (April 3)
-- Color scheme: black (#000000) + orange (#ED5A00) — client-requested rebrand (April 2)
-- 9 custom blog images replacing Unsplash stock (April 1)
-- Instant estimate engine in AI chat with Good/Better/Best tiers (April 1)
 
 ## ✅ Done
 - **Homepage SSR conversion** — removed `"use client"`, all homepage content now server-rendered with full HTML to crawlers (April 7)
