@@ -85,7 +85,6 @@ export default function ContactContent() {
         subtitle="Get a free, no-obligation roof inspection and estimate. We respond to all inquiries within 24 hours."
         image={IMAGES.heroAbout}
         breadcrumbs={[{ label: "Contact" }]}
-        compact
       />
 
       <section className="section-padding bg-white">

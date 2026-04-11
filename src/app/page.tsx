@@ -24,7 +24,7 @@ function HeroSection() {
         <img
           src={IMAGES.heroHomepage}
           alt="Beautiful Lowcountry home with new roof in Charleston, SC"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover ken-burns"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/60 via-[#000000]/40 to-[#000000]/15" />
       </div>

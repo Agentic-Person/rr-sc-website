@@ -75,7 +75,6 @@ export default async function BlogPage() {
         subtitle="Expert advice, maintenance tips, and industry insights from Charleston's trusted roofing professionals."
         image={IMAGES.heroAbout}
         breadcrumbs={[{ label: "Blog" }]}
-        compact
       />
 
       <section className="section-padding bg-white">

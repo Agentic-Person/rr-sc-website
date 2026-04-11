@@ -28,6 +28,7 @@ export interface RoofingMaterial {
   energyEfficiency: 'Excellent' | 'Very Good' | 'Good' | 'Fair' | 'Poor';
   popularityRank: number; // 1 = most popular in Charleston area
   image: string;
+  houseImage?: string; // Photo of actual home with this material installed
   estimateTier?: EstimateTier; // Only shingles used in instant estimate tool
 }
 
@@ -56,7 +57,8 @@ export const ROOFING_MATERIALS: RoofingMaterial[] = [
     saltAirResistance: 'Good',
     energyEfficiency: 'Good',
     popularityRank: 1,
-    image: '', // TODO: Add product image
+    image: '/images/material-asphalt-shingles.webp',
+    houseImage: '/images/material-oc-duration-house.webp',
   },
   {
     id: 'oc-oakridge',
@@ -82,7 +84,8 @@ export const ROOFING_MATERIALS: RoofingMaterial[] = [
     saltAirResistance: 'Good',
     energyEfficiency: 'Fair',
     popularityRank: 2,
-    image: '', // TODO: Add product image
+    image: '/images/material-oc-oakridge.webp',
+    houseImage: '/images/material-oc-oakridge-house.webp',
   },
   {
     id: 'tamko-storm-fighter',
@@ -108,7 +111,8 @@ export const ROOFING_MATERIALS: RoofingMaterial[] = [
     saltAirResistance: 'Good',
     energyEfficiency: 'Fair',
     popularityRank: 3,
-    image: '', // TODO: Add product image
+    image: '/images/material-tamko-shingle.webp',
+    houseImage: '/images/material-tamko-house.webp',
   },
   {
     id: 'standing-seam-metal',
@@ -133,7 +137,7 @@ export const ROOFING_MATERIALS: RoofingMaterial[] = [
     saltAirResistance: 'Very Good',
     energyEfficiency: 'Excellent',
     popularityRank: 4,
-    image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&h=400&fit=crop',
+    image: '/images/material-standing-seam.webp',
   },
   {
     id: 'tpo-flat',
@@ -158,7 +162,7 @@ export const ROOFING_MATERIALS: RoofingMaterial[] = [
     saltAirResistance: 'Very Good',
     energyEfficiency: 'Excellent',
     popularityRank: 5,
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop',
+    image: '/images/tpo- flat-roofing-material-commercial.webp',
   },
   {
     id: 'epdm-flat',
@@ -183,7 +187,7 @@ export const ROOFING_MATERIALS: RoofingMaterial[] = [
     saltAirResistance: 'Good',
     energyEfficiency: 'Fair',
     popularityRank: 6,
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop',
+    image: '/images/epdm-rubber--roofing-material-commercial.webp',
   },
 ];
 

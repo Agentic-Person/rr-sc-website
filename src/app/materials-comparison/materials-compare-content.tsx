@@ -42,8 +42,36 @@ function MaterialCard({ material, isSelected, onToggle }: {
         isSelected ? 'border-[#ED5A00] shadow-lg shadow-amber-100' : 'border-gray-200 hover:border-gray-300'
       }`}
     >
-      {/* Card Header with Image */}
-      <div className="relative h-48 overflow-hidden">
+      {/* House Image (if available) */}
+      {material.houseImage && (
+        <div className="relative h-52 overflow-hidden">
+          <img
+            src={material.houseImage}
+            alt={`Home with ${material.name} installed`}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          {material.popularityRank <= 3 && (
+            <div className="absolute top-3 left-3 bg-[#ED5A00] text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+              <Star className="w-3 h-3" /> #{material.popularityRank} Most Popular
+            </div>
+          )}
+          <button
+            onClick={onToggle}
+            className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+              isSelected
+                ? 'bg-[#ED5A00] text-white'
+                : 'bg-white/90 text-gray-600 hover:bg-[#ED5A00] hover:text-white'
+            }`}
+            title={isSelected ? 'Remove from comparison' : 'Add to comparison'}
+          >
+            {isSelected ? <Check className="w-4 h-4" /> : <BarChart3 className="w-4 h-4" />}
+          </button>
+        </div>
+      )}
+
+      {/* Card Header with Material Close-up */}
+      <div className={`relative ${material.houseImage ? 'h-44' : 'h-48'} overflow-hidden`}>
         <img
           src={material.image}
           alt={material.name}
@@ -57,21 +85,25 @@ function MaterialCard({ material, isSelected, onToggle }: {
           </span>
           <h3 className="text-lg font-bold text-white font-serif">{material.name}</h3>
         </div>
-        <button
-          onClick={onToggle}
-          className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-            isSelected
-              ? 'bg-[#ED5A00] text-white'
-              : 'bg-white/90 text-gray-600 hover:bg-[#ED5A00] hover:text-white'
-          }`}
-          title={isSelected ? 'Remove from comparison' : 'Add to comparison'}
-        >
-          {isSelected ? <Check className="w-4 h-4" /> : <BarChart3 className="w-4 h-4" />}
-        </button>
-        {material.popularityRank <= 3 && (
-          <div className="absolute top-3 left-3 bg-[#ED5A00] text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
-            <Star className="w-3 h-3" /> #{material.popularityRank} Most Popular
-          </div>
+        {!material.houseImage && (
+          <>
+            <button
+              onClick={onToggle}
+              className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                isSelected
+                  ? 'bg-[#ED5A00] text-white'
+                  : 'bg-white/90 text-gray-600 hover:bg-[#ED5A00] hover:text-white'
+              }`}
+              title={isSelected ? 'Remove from comparison' : 'Add to comparison'}
+            >
+              {isSelected ? <Check className="w-4 h-4" /> : <BarChart3 className="w-4 h-4" />}
+            </button>
+            {material.popularityRank <= 3 && (
+              <div className="absolute top-3 left-3 bg-[#ED5A00] text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                <Star className="w-3 h-3" /> #{material.popularityRank} Most Popular
+              </div>
+            )}
+          </>
         )}
       </div>
 
@@ -419,22 +451,42 @@ export default function MaterialsCompareContent() {
         <img
           src={HERO_IMAGE}
           alt="Various roofing materials on Charleston Lowcountry homes"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover ken-burns"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/55 via-[#000000]/35 to-transparent" />
-        <div className="relative h-full container flex items-center">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/70 via-[#000000]/55 to-[#000000]/30" />
+        <div className="relative h-full container flex items-end pb-12 md:pb-16 lg:pb-20">
           <div className="max-w-2xl">
-            <span className="inline-block text-[#ED5A00] font-semibold text-sm uppercase tracking-widest mb-3">
+            <motion.span
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              className="inline-block text-[#ED5A00] font-semibold text-sm uppercase tracking-widest mb-3"
+            >
               Transparent Pricing
-            </span>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+            </motion.span>
+            <motion.h1
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 1.5, ease: "easeOut" }}
+              className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4"
+            >
               Roofing Materials<br />Comparison
-            </h1>
-            <p className="text-lg text-gray-200 leading-relaxed max-w-xl mb-6">
-              Compare 13 roofing materials side by side. Real prices, honest ratings, and how each performs 
-              in Charleston's hurricanes, humidity, and salt air. No surprises — just transparency.
-            </p>
-            <div className="flex flex-wrap gap-3">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 1.5, ease: "easeOut" }}
+              className="text-lg text-gray-200 leading-relaxed max-w-xl mb-6"
+            >
+              Compare 13 roofing materials side by side. Real prices, honest ratings, and how each performs
+              in Charleston&apos;s hurricanes, humidity, and salt air. No surprises — just transparency.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 1.5, ease: "easeOut" }}
+              className="flex flex-wrap gap-3"
+            >
               <a href={`tel:${COMPANY.phone}`}>
                 <Button className="bg-[#ED5A00] hover:bg-[#C44B00] text-white px-6 py-3 text-base font-semibold rounded-lg">
                   <Phone className="w-4 h-4 mr-2" /> Call for Free Estimate
@@ -445,7 +497,7 @@ export default function MaterialsCompareContent() {
                   Get Your Instant Estimate <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

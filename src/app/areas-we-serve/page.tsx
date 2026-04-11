@@ -43,24 +43,10 @@ export default function AreasWeServePage() {
       <PageHero
         title="Areas We Serve"
         subtitle="Proudly serving 21 communities across the Charleston metropolitan area and the South Carolina Lowcountry."
+        body="From the historic streets of downtown Charleston to the barrier islands of the Atlantic coast, Restoration Roofing provides expert roofing services tailored to each community's unique architecture, climate challenges, and building requirements. Based in Mount Pleasant, we understand the Lowcountry like no one else."
         image={IMAGES.heroAbout}
         breadcrumbs={[{ label: "Areas We Serve" }]}
       />
-
-      {/* Intro */}
-      <section className="section-padding bg-white">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-base md:text-lg text-gray-800 leading-relaxed">
-              From the historic streets of downtown Charleston to the barrier
-              islands of the Atlantic coast, Restoration Roofing provides expert
-              roofing services tailored to each community&apos;s unique architecture,
-              climate challenges, and building requirements. Based in Mount
-              Pleasant, we understand the Lowcountry like no one else.
-            </p>
-          </div>
-        </div>
-      </section>
 
       <AreasWeServeContent
         barrierIslands={barrierIslands}

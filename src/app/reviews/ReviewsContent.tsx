@@ -33,7 +33,6 @@ export default function ReviewsContent() {
         subtitle="Don't just take our word for it. Read what your neighbors say about working with Restoration Roofing."
         image={IMAGES.heroAbout}
         breadcrumbs={[{ label: "Reviews" }]}
-        compact
       />
 
       {/* Rating Summary */}

@@ -12,14 +12,14 @@ interface FadeInProps {
   inView?: boolean;
 }
 
-export function FadeIn({ children, className, delay = 0, y = 20, inView = true }: FadeInProps) {
+export function FadeIn({ children, className, delay = 0, y = 60, inView = true }: FadeInProps) {
   if (inView) {
     return (
       <motion.div
         initial={{ opacity: 0, y }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay }}
+        transition={{ delay, duration: 1.5, ease: "easeOut" }}
         className={className}
       >
         {children}
@@ -31,7 +31,7 @@ export function FadeIn({ children, className, delay = 0, y = 20, inView = true }
     <motion.div
       initial={{ opacity: 0, y }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay }}
+      transition={{ delay, duration: 1.5, ease: "easeOut" }}
       className={className}
     >
       {children}

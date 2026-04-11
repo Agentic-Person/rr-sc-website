@@ -60,7 +60,6 @@ export default function FinancingContent() {
         subtitle="Don't let budget concerns delay protecting your home. We offer affordable financing plans to fit every budget."
         image={IMAGES.heroResidential}
         breadcrumbs={[{ label: "Financing" }]}
-        compact
       />
 
       {/* Financing Options */}

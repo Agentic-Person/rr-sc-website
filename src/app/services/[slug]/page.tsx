@@ -111,20 +111,10 @@ export default async function ServicePage({
         <PageHero
           title={hub.title}
           subtitle={hub.subtitle}
+          body={hub.intro}
           image={hub.image}
           breadcrumbs={breadcrumbs}
         />
-
-        {/* Intro section */}
-        <section className="section-padding bg-white">
-          <div className="container">
-            <div className="max-w-3xl mx-auto">
-              <p className="text-base md:text-lg text-gray-800 leading-relaxed">
-                {hub.intro}
-              </p>
-            </div>
-          </div>
-        </section>
 
         {/* Services grid */}
         <section className="section-padding bg-linen">
@@ -270,7 +260,6 @@ export default async function ServicePage({
         subtitle={service.description}
         image={heroImage}
         breadcrumbs={breadcrumbs}
-        compact
       />
 
       {/* Emergency Banner for Storm Services */}

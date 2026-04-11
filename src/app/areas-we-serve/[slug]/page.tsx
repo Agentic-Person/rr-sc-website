@@ -149,7 +149,6 @@ export default async function LocationDetailPage({
         subtitle={`Expert roofing solutions tailored for ${location.name}'s unique architecture and coastal climate challenges.`}
         image={heroImage}
         breadcrumbs={breadcrumbs}
-        compact
       />
 
       <LocationDetailContent

@@ -262,26 +262,27 @@ export function Breadcrumbs({ items }: { items: { label: string; href?: string }
 export function PageHero({
   title,
   subtitle,
+  body,
   image,
   breadcrumbs,
-  compact = false,
 }: {
   title: string;
   subtitle?: string;
+  body?: string;
   image: string;
   breadcrumbs?: { label: string; href?: string }[];
-  compact?: boolean;
+  compact?: boolean; // kept for backward compat, no longer used
 }) {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden min-h-[45vh] md:min-h-[50vh]">
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image} alt="" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/60 via-[#000000]/45 to-[#000000]/25" />
+        <img src={image} alt="" className="w-full h-full object-cover ken-burns" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/70 via-[#000000]/55 to-[#000000]/30" />
       </div>
-      <div className={`container relative z-10 ${compact ? "py-12 md:py-16" : "py-16 md:py-24"}`}>
+      <div className="container relative z-10 flex flex-col justify-end py-12 md:py-16 lg:py-20" style={{ minHeight: 'inherit' }}>
         {breadcrumbs && (
-          <nav className="text-sm text-white/60 mb-4" aria-label="Breadcrumb">
+          <nav className="text-sm text-white/70 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center gap-1.5 flex-wrap">
               <li>
                 <Link href="/" className="hover:text-white transition-colors">Home</Link>
@@ -300,20 +301,31 @@ export function PageHero({
           </nav>
         )}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
           className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white max-w-3xl"
         >
           {title}
         </motion.h1>
         {subtitle && (
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="mt-4 text-base md:text-lg text-white/80 max-w-2xl"
+            transition={{ delay: 0.15, duration: 1.5, ease: "easeOut" }}
+            className="mt-3 text-base md:text-lg text-white/90 max-w-2xl font-medium"
           >
             {subtitle}
+          </motion.p>
+        )}
+        {body && (
+          <motion.p
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 1.5, ease: "easeOut" }}
+            className="mt-5 text-sm md:text-base text-white/85 max-w-2xl leading-relaxed"
+          >
+            {body}
           </motion.p>
         )}
       </div>

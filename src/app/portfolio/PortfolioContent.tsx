@@ -98,7 +98,6 @@ export default function PortfolioContent() {
         subtitle="Browse our portfolio of completed roofing projects across the Charleston area. Every project reflects our commitment to quality craftsmanship."
         image={IMAGES.heroResidential}
         breadcrumbs={[{ label: "Portfolio" }]}
-        compact
       />
 
       <section className="section-padding bg-white">
