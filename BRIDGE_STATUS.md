@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Bridge Status
-> Last updated: April 9, 2026
+> Last updated: April 12, 2026
 
 ## 🟢 Status: Site Live — Domain Connection + Integrations Next
 
@@ -26,7 +26,7 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 ---
 
 ## 🚫 Blockers / Pending from Client
-- **HIGH** — ABC Supply pricing verification for shingle tiers (Jimmy to pull from ABC material list)
+- **HIGH** — ABC Supply pricing for shingle tiers — Jimmy submitted a request through ABC Supply portal but has not received a response. **Will need to get prices directly from Dave** instead. Unblocked once Dave responds.
 - **HIGH** — TAMKO Storm Fighter specs (not on ABC Supply yet — need from Tom)
 - **MED** — Product images for 3 shingle tiers
 - **MED** — Real project photos + team headshots
