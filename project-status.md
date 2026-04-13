@@ -5,11 +5,25 @@
 > **Previous Repo (Vite SPA):** github.com/SCROOF1/restorationroofing
 > **Live URL:** https://rr-sc-website.vercel.app
 > **Vercel Team:** sc-roofing
-> **Last updated:** April 9, 2026
+> **Last updated:** April 12, 2026
 
 ---
 
-## Last Activity — April 9, 2026
+## Last Activity — April 12, 2026
+
+**Session summary:** Removed decommissioned roofing services, fixed Ken Burns hero animation direction, increased section title font sizes, added local skylight installation image, and reordered the roofing services grid.
+
+**Work completed:**
+- **Removed slate roofing + concrete/tile roofing services** (`src/lib/data.ts`) — Tom confirmed these are no longer offered; also cleaned orphaned slug references from `src/lib/linking.ts`
+- **Ken Burns animation fixed** (`src/app/globals.css`) — animation was zooming OUT (scale 1.08→1); corrected to zoom IN (scale 1→1.08)
+- **Section title font sizes** (`src/components/shared.tsx`) — Tailwind classes were being silently overridden by CSS layer cascade; replaced with inline `style={{ fontSize: 'clamp(2.25rem, 4vw, 4rem)' }}` and eyebrow label bumped from `text-xs` to `1rem`; also bumped service card h3 and process step h3 one size class each in `src/app/page.tsx`
+- **Skylight installation image updated** — new local WebP (`public/images/skylight-install-two-roofers.webp`, 1200×805, 277KB) showing two roofers installing a skylight with Spanish moss background; replaced cloudfront placeholder in `data.ts`
+- **Roofing services reordered** — flat-roofing moved from position 8 to after skylight-repair so the grid shows: shingle/skylight-install/skylight-repair on row 3, flat-roofing alone on row 4
+- **Added local images for TPO and EPDM** materials (prior session, same deploy) — `tpo- flat-roofing-material-commercial.webp` and `epdm-rubber--roofing-material-commercial.webp` wired into `src/lib/materials.ts`
+
+---
+
+## Previous Activity — April 9, 2026
 
 **Session summary:** Deployed site to Vercel, verified all 73 pages live, validated SEO/structured data, set up deploy hook, and cleaned up environment variable config.
 
@@ -278,7 +292,7 @@
 
 | Content Type | Count |
 |-------------|-------|
-| Roofing services | 12 |
+| Roofing services | 10 |
 | Gutter services | 12 |
 | Storm damage services | 10 |
 | Service hub pages | 3 |
