@@ -30,6 +30,7 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 - **HIGH** — TAMKO Storm Fighter specs (not on ABC Supply yet — need from Tom)
 - **MED** — Product images for 3 shingle tiers
 - **MED** — Real project photos + team headshots
+- **MED** — Client review needed: "Our Process" section (layout + 3 images) and "What Our Customers Say" reviews section on homepage — awaiting feedback from David or Tom
 - ~~**HIGH** — Env vars + deploy from new repo~~ **RESOLVED** (April 9)
 - ~~**MED** — Commercial services yes/no~~ **RESOLVED** — Tom confirmed no commercial services
 
