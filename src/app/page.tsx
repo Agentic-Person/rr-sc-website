@@ -219,7 +219,7 @@ function ProcessSection() {
               <FadeIn
                 key={step.step}
                 delay={i * 0.1}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-500 flex flex-col ring-1 ring-black/[0.03]"
+                className="group bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl hover:border-amber/20 card-halo transition-all duration-500 flex flex-col ring-1 ring-black/[0.03]"
               >
                 {/* Image */}
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -227,7 +227,7 @@ function ProcessSection() {
                   <img
                     src={processImages[i]}
                     alt={step.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 {/* Content */}
@@ -259,7 +259,7 @@ function TestimonialsSection() {
             <FadeIn
               key={t.name}
               delay={i * 0.08}
-              className="bg-white rounded-xl border border-border/50 p-6 shadow-md hover:shadow-lg transition-shadow duration-300 relative"
+              className="bg-white rounded-xl border border-border/50 p-6 shadow-md hover:shadow-2xl hover:border-amber/30 card-halo transition-all duration-300 relative"
             >
               <span className="absolute top-3 right-4 font-display text-5xl text-amber/15 leading-none select-none">&ldquo;</span>
               <StarRating rating={t.rating} size="sm" />
@@ -379,7 +379,7 @@ function BlogPreviewSection() {
           {BLOG_POSTS.slice(0, 3).map((post, i) => (
             <FadeIn key={post.slug} delay={i * 0.1}>
               <Link href={`/blog/${post.slug}`}>
-                <div className="group bg-white rounded-xl border border-border/50 overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 ring-1 ring-black/[0.03]">
+                <div className="group bg-white rounded-xl border border-border/50 overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-1 hover:border-amber/30 card-halo transition-all duration-300 ring-1 ring-black/[0.03]">
                   <div className="aspect-[16/9] overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img

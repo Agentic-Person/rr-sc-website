@@ -133,7 +133,7 @@ export default function PortfolioContent() {
                   onClick={() => setSelectedProject(project)}
                   className="group cursor-pointer"
                 >
-                  <div className="bg-white rounded-lg border border-border/50 overflow-hidden hover:shadow-lg transition-all">
+                  <div className="bg-white rounded-lg border border-border/50 overflow-hidden hover:shadow-2xl hover:-translate-y-1 hover:border-amber/30 card-halo transition-all duration-300">
                     <div className="aspect-[4/3] overflow-hidden relative">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img

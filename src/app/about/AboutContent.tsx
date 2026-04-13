@@ -129,7 +129,7 @@ export default function AboutContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-white rounded-lg border border-border/50 p-6"
+                className="bg-white rounded-lg border border-border/50 p-6 hover:shadow-lg hover:border-amber/30 card-halo transition-all duration-300"
               >
                 <value.icon className="w-8 h-8 text-amber mb-4" />
                 <h3 className="font-display text-lg font-semibold text-navy mb-2">{value.title}</h3>

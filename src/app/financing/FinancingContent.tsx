@@ -79,10 +79,10 @@ export default function FinancingContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className={`rounded-lg border p-6 text-center relative ${
+                className={`rounded-lg border p-6 text-center relative card-halo transition-all duration-300 ${
                   opt.highlight
-                    ? "border-amber bg-amber/5 shadow-lg"
-                    : "border-border/50 bg-white"
+                    ? "border-amber bg-amber/5 shadow-lg hover:shadow-2xl"
+                    : "border-border/50 bg-white hover:shadow-lg hover:border-amber/30"
                 }`}
               >
                 {opt.highlight && (

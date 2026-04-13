@@ -117,7 +117,7 @@ export default function Header() {
                 >
                   <button
                     onClick={() => handleScrollNav("services")}
-                    className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-800 hover:text-black transition-colors rounded-md hover:bg-gray-100"
+                    className="flex items-center gap-1 px-3 py-2 text-base font-medium text-gray-800 hover:text-black transition-colors rounded-md hover:bg-gray-100"
                   >
                     {item.label}
                     <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
@@ -135,7 +135,7 @@ export default function Header() {
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:text-black hover:bg-gray-50 transition-colors"
+                            className="flex items-center gap-2 px-4 py-2.5 text-[15px] text-gray-700 hover:text-black hover:bg-gray-50 transition-colors"
                           >
                             <ChevronRight className="w-3 h-3 text-amber" />
                             {child.label}
@@ -149,7 +149,7 @@ export default function Header() {
                 <button
                   key={item.label}
                   onClick={() => handleScrollNav(item.scrollTo!)}
-                  className="px-3 py-2 text-sm font-medium rounded-md transition-colors text-gray-800 hover:text-black hover:bg-gray-100"
+                  className="px-3 py-2 text-base font-medium rounded-md transition-colors text-gray-800 hover:text-black hover:bg-gray-100"
                 >
                   {item.label}
                 </button>
@@ -157,7 +157,7 @@ export default function Header() {
                 <Link
                   key={item.label}
                   href={item.href!}
-                  className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                  className={`px-3 py-2 text-base font-medium rounded-md transition-colors ${
                     pathname === item.href
                       ? "text-black bg-gray-100"
                       : "text-gray-800 hover:text-black hover:bg-gray-100"
@@ -181,14 +181,14 @@ export default function Header() {
             </button>
             <a
               href={`tel:${COMPANY.phoneRaw}`}
-              className="flex items-center gap-2 text-black font-semibold text-sm hover:text-amber transition-colors"
+              className="flex items-center gap-2 text-black font-semibold text-base hover:text-amber transition-colors"
             >
               <Phone className="w-4 h-4" />
               {COMPANY.phone}
             </a>
             <Link
               href="/contact"
-              className="btn-amber px-5 py-2.5 rounded-md text-sm inline-flex items-center gap-2"
+              className="btn-amber px-5 py-2.5 rounded-md text-base inline-flex items-center gap-2"
             >
               Free Estimate
             </Link>
@@ -236,7 +236,7 @@ export default function Header() {
                     <div key={item.label}>
                       <button
                         onClick={() => setServicesOpen(!servicesOpen)}
-                        className="flex items-center justify-between w-full px-3 py-3 text-sm font-medium text-gray-800 hover:text-black rounded-md hover:bg-gray-100"
+                        className="flex items-center justify-between w-full px-3 py-3 text-base font-medium text-gray-800 hover:text-black rounded-md hover:bg-gray-100"
                       >
                         {item.label}
                         <ChevronDown className={`w-4 h-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
@@ -253,7 +253,7 @@ export default function Header() {
                               <Link
                                 key={child.href}
                                 href={child.href}
-                                className="flex items-center gap-2 px-3 py-2.5 text-sm text-gray-700 hover:text-black"
+                                className="flex items-center gap-2 px-3 py-2.5 text-[15px] text-gray-700 hover:text-black"
                               >
                                 <ChevronRight className="w-3 h-3 text-amber" />
                                 {child.label}
@@ -267,7 +267,7 @@ export default function Header() {
                     <button
                       key={item.label}
                       onClick={() => handleScrollNav(item.scrollTo!)}
-                      className="block w-full text-left px-3 py-3 text-sm font-medium text-gray-800 hover:text-black rounded-md hover:bg-gray-100"
+                      className="block w-full text-left px-3 py-3 text-base font-medium text-gray-800 hover:text-black rounded-md hover:bg-gray-100"
                     >
                       {item.label}
                     </button>
@@ -275,7 +275,7 @@ export default function Header() {
                     <Link
                       key={item.label}
                       href={item.href!}
-                      className="block px-3 py-3 text-sm font-medium text-gray-800 hover:text-black rounded-md hover:bg-gray-100"
+                      className="block px-3 py-3 text-base font-medium text-gray-800 hover:text-black rounded-md hover:bg-gray-100"
                     >
                       {item.label}
                     </Link>

@@ -23,7 +23,7 @@ function LocationCard({
       transition={{ delay: index * 0.05 }}
     >
       <Link href={`/areas-we-serve/${location.slug}`}>
-        <div className="group bg-white rounded-xl overflow-hidden border border-border/50 hover:border-amber/30 hover:shadow-lg transition-all h-full">
+        <div className="group bg-white rounded-xl overflow-hidden border border-border/50 hover:border-amber/30 hover:shadow-2xl hover:-translate-y-1 card-halo transition-all duration-300 h-full">
           {/* Image */}
           {location.image && (
             <div

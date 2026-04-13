@@ -74,12 +74,12 @@ export function TrustBadges() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="text-center"
+                className="text-center group"
               >
                 <div className="relative w-16 h-16 mx-auto mb-4">
-                  <div className="absolute inset-0 rounded-full bg-amber/10 border-2 border-amber/20" />
-                  <div className="absolute inset-1.5 rounded-full bg-white shadow-sm flex items-center justify-center">
-                    <Icon className="w-6 h-6 text-amber" />
+                  <div className="absolute inset-0 rounded-full bg-amber/10 border-2 border-amber/20 group-hover:bg-amber/20 group-hover:border-amber/40 transition-all duration-300" />
+                  <div className="absolute inset-1.5 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:shadow-md transition-all duration-300">
+                    <Icon className="w-6 h-6 text-amber group-hover:scale-110 transition-transform duration-300" />
                   </div>
                 </div>
                 <h3 className="font-display text-base md:text-lg font-bold text-black mb-1.5">{badge.title}</h3>
