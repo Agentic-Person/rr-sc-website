@@ -16,12 +16,12 @@ const CROSS_CATEGORY_MAP: Record<string, string[]> = {
   "metal-roofing": ["roof-installation", "hurricane-damage-repair"],
   "flat-roofing": ["roof-repairs", "gutter-installation"],
   // Storm → Roofing / Insurance
-  "storm-damage": ["roof-repairs", "insurance-claims-assistance"],
+  "storm-damage-repair": ["roof-repairs", "insurance-claims-assistance"],
   "hurricane-damage-repair": ["roof-installation", "insurance-claims-assistance"],
   "wind-damage-repair": ["roof-repairs", "emergency-tarping"],
   "hail-damage-repair": ["roof-repairs", "insurance-claims-assistance"],
-  "emergency-tarping": ["roof-repairs", "storm-damage"],
-  "insurance-claims-assistance": ["storm-damage", "post-storm-inspection"],
+  "emergency-tarping": ["roof-repairs", "storm-damage-repair"],
+  "insurance-claims-assistance": ["storm-damage-repair", "post-storm-inspection"],
   // Gutters → Roofing / Other gutters
   "gutter-installation": ["downspout-systems", "gutter-guards"],
   "gutter-repairs": ["gutter-installation", "gutter-cleaning"],
@@ -175,7 +175,7 @@ const COASTAL_SERVICE_SLUGS = new Set(["metal-roofing", "hurricane-damage-repair
 const HISTORIC_SERVICE_SLUGS = new Set(["roof-inspections"]);
 
 // Universal high-value services
-const HIGH_VALUE_SLUGS = new Set(["storm-damage", "roof-installation", "roof-repairs"]);
+const HIGH_VALUE_SLUGS = new Set(["storm-damage-repair", "roof-installation", "roof-repairs"]);
 
 // Universal rain / gutter relevance
 const GUTTER_SLUGS = new Set(["gutter-installation", "gutter-guards"]);

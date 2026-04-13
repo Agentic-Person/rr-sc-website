@@ -327,7 +327,7 @@ export const SERVICES: Service[] = [
     signsYouNeed: ["Ponding water that doesn't drain within 48 hours after rain", "Visible blistering, bubbling, or cracking of the membrane", "Seam separation or lifted edges", "Interior leaks or water stains below the flat roof area", "Membrane surface feels soft or spongy when walked on", "Visible plant growth on the roof surface", "Your flat roof is 15+ years old without recent maintenance"],
   },
   {
-    slug: "storm-damage",
+    slug: "storm-damage-repair",
     title: "Storm & Hurricane Damage Repair",
     shortTitle: "Storm Damage",
     category: "storm",

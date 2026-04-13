@@ -94,7 +94,7 @@ function HeroSection() {
 
 function ServicesSection() {
   const featured = SERVICES.filter(s =>
-    ["roof-installation", "roof-repairs", "metal-roofing", "storm-damage", "gutter-installation", "gutter-repairs"].includes(s.slug)
+    ["roof-installation", "roof-repairs", "metal-roofing", "storm-damage-repair", "gutter-installation", "gutter-repairs"].includes(s.slug)
   );
 
   return (
