@@ -9,6 +9,18 @@
 
 ---
 
+## Last Activity — April 12, 2026 (evening)
+
+**Session summary:** Fixed service page hero images, fixed storm-damage slug collision, replaced roof leak repair flashing image with new WebP, bumped section title font sizes.
+
+**Work completed:**
+- **Service page hero now uses service-specific image** (`src/app/services/[slug]/page.tsx`) — replaced category-based fallback (heroResidential/heroStormDamage/heroHomepage) with `service.image`; each of the 12 service pages now shows its own card image as the header
+- **Storm & Hurricane Damage Repair slug renamed** (`src/lib/data.ts`, `src/lib/linking.ts`, `src/app/page.tsx`) — slug was `storm-damage` which collided with the hub route key; renamed to `storm-damage-repair` so clicking the card routes to the detail page; hub URL `/services/storm-damage` unchanged
+- **Roof leak repair flashing image replaced** (`public/images/sc-leak-repair-flashing-v2.webp`, `src/lib/data.ts`) — new photo of roofer installing step flashing at chimney; converted from 8.2 MB PNG to 129 KB WebP (98% reduction) via sharp at 1200px/q82
+- **Section title font sizes bumped** (`src/app/globals.css`, `src/components/shared.tsx`) — mobile 2.75rem, md 4rem, lg 5rem; SectionHeader refactored from inline styles to `.section-title` CSS class
+
+---
+
 ## Last Activity — April 12, 2026
 
 **Session summary:** Removed decommissioned roofing services, fixed Ken Burns hero animation direction, increased section title font sizes, added local skylight installation image, and reordered the roofing services grid.
