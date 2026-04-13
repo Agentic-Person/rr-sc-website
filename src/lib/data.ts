@@ -266,29 +266,7 @@ export const SERVICES: Service[] = [
       { name: "Owens Corning Duration", description: "Features patented SureNail technology for superior wind resistance (130 mph). TruDefinition color palette offers rich, vibrant options. Excellent choice for Charleston's demanding climate." },
       { name: "Impact-Resistant Shingles", description: "Class 4 impact-rated shingles from GAF, CertainTeed, or Owens Corning. Designed to withstand hail impacts and may qualify you for insurance premium discounts in South Carolina." },
     ],
-  },
-  {
-    slug: "flat-roofing",
-    title: "Flat Roofing Systems",
-    shortTitle: "Flat Roofing",
-    category: "roofing",
-    description: "Commercial and residential flat roofing solutions including TPO, EPDM, and modified bitumen systems for Charleston properties.",
-    longDescription: "Flat and low-slope roofing requires specialized expertise, particularly in Charleston's climate where heavy rainfall and standing water can quickly compromise an improperly installed system. Restoration Roofing installs and repairs all major flat roofing systems.\n\nOur flat roofing solutions include TPO (Thermoplastic Polyolefin) for energy-efficient commercial applications, EPDM rubber roofing for durability, and modified bitumen for versatile residential and commercial use. Each system is installed with proper drainage planning to handle Charleston's average 51 inches of annual rainfall.",
-    features: ["TPO, EPDM, and modified bitumen", "Proper drainage design", "Energy-efficient white membrane options", "Commercial and residential", "Ponding water solutions", "Long-term warranties"],
-    icon: "Square",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/112751785/QzW5An8GggbtcG7rNRpiT7/svc-flat-roofing-ZaXCV2Locrs5yTm3yQ6Fj6.webp",
-    faqs: [
-      { q: "What's the best flat roofing material for Charleston?", a: "TPO is our most recommended flat roofing material for Charleston. Its white reflective surface reduces cooling costs, it's resistant to UV and chemical exposure, and it handles our heavy rainfall well when properly installed with adequate drainage." },
-      { q: "How long does a flat roof last?", a: "A properly installed TPO or EPDM flat roof typically lasts 20-30 years in our climate. Regular maintenance and proper drainage are key to maximizing lifespan." },
-    ],
-    additionalImages: [
-      "https://d2xsxph8kpxj0f.cloudfront.net/112751785/QzW5An8GggbtcG7rNRpiT7/flat-roof-tpo-RQfmkcGLp7Ys4DgtzWibPL.webp"
-],
-    whatToExpect: "Flat and low-slope roofing is common on Charleston's commercial buildings, modern residential additions, carports, and porches. These roof systems require specialized materials and installation techniques different from steep-slope roofing \u2014 and they're particularly demanding in our climate where standing water, intense UV, and hurricane-force winds create extreme conditions.\n\nWe install all major flat roofing systems: TPO (Thermoplastic Polyolefin), EPDM (rubber membrane), modified bitumen, and built-up roofing (BUR). Each system has specific advantages depending on your building type, budget, and performance requirements. TPO is our most popular recommendation for Charleston because it offers excellent UV resistance, energy-efficient white reflectivity, and heat-welded seams that create a monolithic waterproof membrane.\n\nFlat roof installations typically take 2-5 days depending on size and system type. Proper drainage design is critical \u2014 we ensure adequate slope to drains or scuppers to prevent ponding water, which is the #1 cause of flat roof failure.",
-    seasonalConsiderations: "Flat roofs in Charleston face unique seasonal challenges. Summer heat can push surface temperatures above 160\u00b0F on dark membranes, accelerating UV degradation \u2014 this is why we recommend white TPO or reflective coatings. Hurricane season demands that all membrane seams, flashings, and edge details are secure against wind uplift, which creates negative pressure that can peel membranes from the deck. Heavy summer thunderstorms test drainage systems \u2014 any ponding water adds weight stress and accelerates membrane deterioration. Winter's occasional freezes can crack aged EPDM and cause ponded water to expand, damaging seams. Regular maintenance is especially critical for flat roofs in our climate.",
-    signsYouNeed: ["Ponding water that doesn't drain within 48 hours after rain", "Visible blistering, bubbling, or cracking of the membrane", "Seam separation or lifted edges", "Interior leaks or water stains below the flat roof area", "Membrane surface feels soft or spongy when walked on", "Visible plant growth on the roof surface", "Your flat roof is 15+ years old without recent maintenance"],
-  },
-  {
+  },  {
     slug: "skylight-installation",
     title: "Skylight Installation",
     shortTitle: "Skylight Installation",
@@ -297,7 +275,7 @@ export const SERVICES: Service[] = [
     longDescription: "Skylights transform dark interior spaces with natural light, and in Charleston's sunny climate, they can dramatically improve your home's ambiance and energy efficiency. However, skylights are also one of the most common sources of roof leaks when improperly installed.\n\nOur skylight installation process ensures a watertight, code-compliant result. We use only hurricane-rated skylight products with impact-resistant glazing, and our flashing details are designed to handle Charleston's heavy rainfall without leaking.",
     features: ["Hurricane-rated products", "Impact-resistant glazing", "Custom flashing details", "Energy-efficient options", "Ventilating and fixed models", "Interior trim finishing"],
     icon: "Sun",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/112751785/QzW5An8GggbtcG7rNRpiT7/svc-skylight-install-5XNaW87EYJ28A63nx2fzwf.webp",
+    image: "/images/skylight-install-two-roofers.webp",
     faqs: [
       { q: "Will a skylight survive a hurricane?", a: "The skylights we install are rated for hurricane conditions with impact-resistant laminated glass. They meet South Carolina's coastal building code requirements for wind-borne debris protection." },
     ],
@@ -325,6 +303,28 @@ export const SERVICES: Service[] = [
 ],
     whatToExpect: "Skylight leaks are one of the most common repair calls we receive, and they're almost always fixable without replacing the entire skylight. The most common causes of skylight leaks in Charleston are deteriorated flashing (the metal pieces that seal the skylight to the roof), failed sealant, condensation issues (often mistaken for leaks), and cracked or fogged glass.\n\nOur skylight repair process begins with a careful diagnosis to determine the exact cause of the problem. We check the flashing system, the skylight frame seals, the glass seal, and the interior finish for signs of condensation vs. actual leaking. For flashing failures, we can often re-flash the skylight without removing it \u2014 saving significant cost compared to full replacement. For older skylights with multiple issues, replacement may be more cost-effective than repeated repairs.\n\nRepair costs typically range from $300-$800 for flashing repairs, $500-$1,200 for glass replacement, and $1,500-$4,000 for full skylight replacement.",
     seasonalConsiderations: "Skylight problems in Charleston often manifest seasonally. Summer condensation on the interior glass surface is common when cold AC air meets the warm glass \u2014 this isn't a leak but can cause water damage if not addressed. Heavy summer rains test flashing integrity, and wind-driven rain during tropical storms can overwhelm compromised seals. Winter's occasional cold snaps can cause sealant to contract and crack, creating new leak points. If your skylight only leaks during heavy rain or wind-driven rain, the issue is likely flashing-related. If it 'leaks' on humid days even without rain, it's likely condensation.",
+  },
+
+  {
+    slug: "flat-roofing",
+    title: "Flat Roofing Systems",
+    shortTitle: "Flat Roofing",
+    category: "roofing",
+    description: "Commercial and residential flat roofing solutions including TPO, EPDM, and modified bitumen systems for Charleston properties.",
+    longDescription: "Flat and low-slope roofing requires specialized expertise, particularly in Charleston's climate where heavy rainfall and standing water can quickly compromise an improperly installed system. Restoration Roofing installs and repairs all major flat roofing systems.\n\nOur flat roofing solutions include TPO (Thermoplastic Polyolefin) for energy-efficient commercial applications, EPDM rubber roofing for durability, and modified bitumen for versatile residential and commercial use. Each system is installed with proper drainage planning to handle Charleston's average 51 inches of annual rainfall.",
+    features: ["TPO, EPDM, and modified bitumen", "Proper drainage design", "Energy-efficient white membrane options", "Commercial and residential", "Ponding water solutions", "Long-term warranties"],
+    icon: "Square",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/112751785/QzW5An8GggbtcG7rNRpiT7/svc-flat-roofing-ZaXCV2Locrs5yTm3yQ6Fj6.webp",
+    faqs: [
+      { q: "What's the best flat roofing material for Charleston?", a: "TPO is our most recommended flat roofing material for Charleston. Its white reflective surface reduces cooling costs, it's resistant to UV and chemical exposure, and it handles our heavy rainfall well when properly installed with adequate drainage." },
+      { q: "How long does a flat roof last?", a: "A properly installed TPO or EPDM flat roof typically lasts 20-30 years in our climate. Regular maintenance and proper drainage are key to maximizing lifespan." },
+    ],
+    additionalImages: [
+      "https://d2xsxph8kpxj0f.cloudfront.net/112751785/QzW5An8GggbtcG7rNRpiT7/flat-roof-tpo-RQfmkcGLp7Ys4DgtzWibPL.webp"
+],
+    whatToExpect: "Flat and low-slope roofing is common on Charleston's commercial buildings, modern residential additions, carports, and porches. These roof systems require specialized materials and installation techniques different from steep-slope roofing \u2014 and they're particularly demanding in our climate where standing water, intense UV, and hurricane-force winds create extreme conditions.\n\nWe install all major flat roofing systems: TPO (Thermoplastic Polyolefin), EPDM (rubber membrane), modified bitumen, and built-up roofing (BUR). Each system has specific advantages depending on your building type, budget, and performance requirements. TPO is our most popular recommendation for Charleston because it offers excellent UV resistance, energy-efficient white reflectivity, and heat-welded seams that create a monolithic waterproof membrane.\n\nFlat roof installations typically take 2-5 days depending on size and system type. Proper drainage design is critical \u2014 we ensure adequate slope to drains or scuppers to prevent ponding water, which is the #1 cause of flat roof failure.",
+    seasonalConsiderations: "Flat roofs in Charleston face unique seasonal challenges. Summer heat can push surface temperatures above 160\u00b0F on dark membranes, accelerating UV degradation \u2014 this is why we recommend white TPO or reflective coatings. Hurricane season demands that all membrane seams, flashings, and edge details are secure against wind uplift, which creates negative pressure that can peel membranes from the deck. Heavy summer thunderstorms test drainage systems \u2014 any ponding water adds weight stress and accelerates membrane deterioration. Winter's occasional freezes can crack aged EPDM and cause ponded water to expand, damaging seams. Regular maintenance is especially critical for flat roofs in our climate.",
+    signsYouNeed: ["Ponding water that doesn't drain within 48 hours after rain", "Visible blistering, bubbling, or cracking of the membrane", "Seam separation or lifted edges", "Interior leaks or water stains below the flat roof area", "Membrane surface feels soft or spongy when walked on", "Visible plant growth on the roof surface", "Your flat roof is 15+ years old without recent maintenance"],
   },
   {
     slug: "storm-damage",
