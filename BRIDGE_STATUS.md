@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Bridge Status
-> Last updated: April 12, 2026
+> Last updated: April 13, 2026
 
 ## 🟢 Status: Site Live — Domain Connection + Integrations Next
 
@@ -30,7 +30,8 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 - **HIGH** — TAMKO Storm Fighter specs (not on ABC Supply yet — need from Tom)
 - **MED** — Product images for 3 shingle tiers
 - **MED** — Real project photos + team headshots
-- **MED** — Client review needed: "Our Process" section (layout + 3 images) and "What Our Customers Say" reviews section on homepage — awaiting feedback from David or Tom
+- **MED** — Real project photos + team headshots for remaining sections
+- **MED** — "What Our Customers Say" reviews section — awaiting feedback from David or Tom
 - ~~**HIGH** — Env vars + deploy from new repo~~ **RESOLVED** (April 9)
 - ~~**MED** — Commercial services yes/no~~ **RESOLVED** — Tom confirmed no commercial services
 
@@ -60,10 +61,19 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 - ~~Commercial services decision~~ — **Declined** by Tom (April 1)
 
 ## ⏳ Phase 4 — New Features
-- [ ] Spanish language pages (`/es/` route)
 - [ ] Accessibility audit (WCAG 2.1 AA)
 
-## 🔄 Recently Updated
+## 🔄 Recently Updated (April 13, 2026)
+- **Process section rebuilt** — expanded from 3 → 6 steps with new homeowner-focused copy; aerial photo banner added; 6 AI-generated WebP images wired to each step card (3×2 grid)
+- **Logo decorator** — company ridge logo replaces star divider in all SectionHeader components across the site
+- **Fade scroll nav** — "Our Process" / "Areas We Serve" nav clicks now fade out → instant jump → fade in instead of animated scroll
+- **Service page heroes** — each of the 12 service pages now shows its own card image as the hero instead of a shared category fallback
+- **Storm-damage slug fix** — "Storm & Hurricane Damage Repair" card was routing to the hub page; renamed slug to storm-damage-repair
+- **Subtitle responsiveness** — description text under section headers wraps sooner on mobile/tablet via max-width constraints
+- **Brand copy** — "Se Habla Español" replaced with "Family Owned & Operated" throughout
+- **Spanish language pages** removed from roadmap (user confirmed not needed)
+
+## 🔄 Previously Updated
 - **Site deployed and verified live** — 14/14 verification checks passed, all 73 pages SSR confirmed (April 9)
 - **Deploy hook configured** — Vercel redeploy via webhook after every push (April 9)
 - **Environment variables set in Vercel** — all 6 required vars configured (April 9)

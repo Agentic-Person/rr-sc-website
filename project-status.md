@@ -19,7 +19,8 @@
 - **Eased scroll nav** (`src/components/Header.tsx`, `src/app/layout.tsx`) — replaced native scrollIntoView with custom cubic-bezier ease-in-out over 900ms; added data-scroll-behavior="smooth" to html element
 - **Subtitle responsiveness** (`src/components/shared.tsx`) — added max-w-md/lg/xl constraints on subtitle paragraphs so descriptions wrap sooner on mobile/tablet
 - **Brand copy** — "Se Habla Español" → "Family Owned & Operated" in header top bar and hero trust badges
-- **Pending:** AI-generated images for 6 process step cards (placeholder in place)
+- **Process images live** — 6 AI-generated images (`sc-process-0[1-6]-*.webp`) converted from JPG to 1200px WebP and wired to each step card; placeholder removed
+- **Fade scroll nav** — "Our Process" nav click now fades out/in instead of animated scroll (Header.tsx)
 
 ---
 
