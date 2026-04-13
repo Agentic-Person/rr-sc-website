@@ -18,31 +18,33 @@ export default function Header() {
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
 
-  const easedScrollTo = (element: HTMLElement, duration = 900) => {
+  const fadeScrollTo = (element: HTMLElement) => {
     const headerOffset = 80;
-    const start = window.scrollY;
-    const target = element.getBoundingClientRect().top + start - headerOffset;
-    const startTime = performance.now();
-    const easeInOutCubic = (t: number) =>
-      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    const step = (now: number) => {
-      const progress = Math.min((now - startTime) / duration, 1);
-      window.scrollTo(0, start + (target - start) * easeInOutCubic(progress));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
+    const overlay = Object.assign(document.createElement("div"), {
+      style: "position:fixed;inset:0;background:#fff;z-index:9998;opacity:0;transition:opacity 250ms ease;pointer-events:none;",
+    });
+    document.body.appendChild(overlay);
+    requestAnimationFrame(() => { overlay.style.opacity = "1"; });
+    setTimeout(() => {
+      const top = element.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo(0, top);
+      setTimeout(() => {
+        overlay.style.opacity = "0";
+        overlay.addEventListener("transitionend", () => overlay.remove(), { once: true });
+      }, 50);
+    }, 270);
   };
 
   const handleScrollNav = (sectionId: string) => {
     setMobileOpen(false);
     if (pathname === "/") {
       const el = document.getElementById(sectionId);
-      if (el) easedScrollTo(el);
+      if (el) fadeScrollTo(el);
     } else {
       router.push("/");
       setTimeout(() => {
         const el = document.getElementById(sectionId);
-        if (el) easedScrollTo(el);
+        if (el) fadeScrollTo(el);
       }, 400);
     }
   };

@@ -162,6 +162,15 @@ const processIconMap: Record<string, React.ElementType> = {
   Search, Shield, Home: HomeIcon, FileCheck, Hammer, Clock,
 };
 
+const processImages = [
+  "/images/sc-process-01-inspection.webp",
+  "/images/sc-process-02-consultation.webp",
+  "/images/sc-process-03-insurance.webp",
+  "/images/sc-process-04-installation-v5.webp",
+  "/images/sc-process-05-walkthrough.webp",
+  "/images/sc-process-06-checkin.webp",
+];
+
 function ProcessSection() {
   return (
     <section id="our-process" className="bg-white">
@@ -216,7 +225,7 @@ function ProcessSection() {
                 <div className="relative aspect-[4/3] overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/nova-city-centreville.webp"
+                    src={processImages[i]}
                     alt={step.title}
                     className="w-full h-full object-cover"
                   />
