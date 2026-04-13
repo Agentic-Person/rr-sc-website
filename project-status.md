@@ -5,7 +5,21 @@
 > **Previous Repo (Vite SPA):** github.com/SCROOF1/restorationroofing
 > **Live URL:** https://rr-sc-website.vercel.app
 > **Vercel Team:** sc-roofing
-> **Last updated:** April 12, 2026
+> **Last updated:** April 13, 2026
+
+---
+
+## Last Activity — April 13, 2026
+
+**Session summary:** Process section overhaul (3 → 6 steps), logo decorator in all section headers, eased scroll nav, mobile subtitle responsiveness, brand copy updates.
+
+**Work completed:**
+- **Process section rebuilt** (`src/app/page.tsx`, `src/lib/data.ts`) — expanded from 3 to 6 homeowner-facing steps: Instant Estimate → Free Inspection → Personal Consultation → Insurance & Financing → Expert Installation → 30-Day Follow-Up; added aerial photo banner with ken-burns animation; 3×2 card grid with placeholder images; removed step number badges
+- **Logo decorator** (`src/components/shared.tsx`) — replaced star SVG divider with company ridge logo (rr-sc-ridge-logo-v3.webp) flanked by amber lines; appears in every SectionHeader across the site
+- **Eased scroll nav** (`src/components/Header.tsx`, `src/app/layout.tsx`) — replaced native scrollIntoView with custom cubic-bezier ease-in-out over 900ms; added data-scroll-behavior="smooth" to html element
+- **Subtitle responsiveness** (`src/components/shared.tsx`) — added max-w-md/lg/xl constraints on subtitle paragraphs so descriptions wrap sooner on mobile/tablet
+- **Brand copy** — "Se Habla Español" → "Family Owned & Operated" in header top bar and hero trust badges
+- **Pending:** AI-generated images for 6 process step cards (placeholder in place)
 
 ---
 
