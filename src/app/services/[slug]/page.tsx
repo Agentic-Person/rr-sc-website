@@ -147,12 +147,7 @@ export default async function ServicePage({
   const relatedServices = getRelatedServices(service, SERVICES, 4);
   const serviceAreaLinks = getServiceAreaLinks(service, LOCATIONS, 8);
 
-  const heroImage =
-    service.category === "storm"
-      ? IMAGES.heroStormDamage
-      : service.category === "roofing"
-        ? IMAGES.heroResidential
-        : IMAGES.heroHomepage;
+  const heroImage = service.image;
 
   const breadcrumbs = [
     { label: "Services" },
