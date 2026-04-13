@@ -14,7 +14,6 @@ const CROSS_CATEGORY_MAP: Record<string, string[]> = {
   "roof-leak": ["emergency-tarping", "roof-inspections"],
   "roof-inspections": ["roof-repairs", "post-storm-inspection"],
   "metal-roofing": ["roof-installation", "hurricane-damage-repair"],
-  "slate-roofing": ["roof-inspections", "roof-installation"],
   "flat-roofing": ["roof-repairs", "gutter-installation"],
   // Storm → Roofing / Insurance
   "storm-damage": ["roof-repairs", "insurance-claims-assistance"],
@@ -173,7 +172,7 @@ export function getNearbyLocations(
 const COASTAL_SERVICE_SLUGS = new Set(["metal-roofing", "hurricane-damage-repair"]);
 
 // Historic-district relevant services
-const HISTORIC_SERVICE_SLUGS = new Set(["slate-roofing", "roof-inspections"]);
+const HISTORIC_SERVICE_SLUGS = new Set(["roof-inspections"]);
 
 // Universal high-value services
 const HIGH_VALUE_SLUGS = new Set(["storm-damage", "roof-installation", "roof-repairs"]);

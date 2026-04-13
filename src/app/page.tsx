@@ -131,7 +131,7 @@ function ServicesSection() {
                     </div>
                     {/* Content */}
                     <div className="p-5 flex flex-col flex-1">
-                      <h3 className="font-display text-lg font-semibold text-navy mb-2 group-hover:text-amber transition-colors">
+                      <h3 className="font-display text-xl font-semibold text-navy mb-2 group-hover:text-amber transition-colors">
                         {service.shortTitle}
                       </h3>
                       <p className="text-sm text-gray-600 leading-relaxed mb-4 flex-1">
@@ -194,7 +194,7 @@ function ProcessSection() {
               </div>
               {/* Content */}
               <div className="p-6 flex flex-col flex-1">
-                <h3 className="font-display text-xl font-semibold text-navy mb-3">{step.title}</h3>
+                <h3 className="font-display text-2xl font-semibold text-navy mb-3">{step.title}</h3>
                 <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
               </div>
             </FadeIn>

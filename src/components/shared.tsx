@@ -172,7 +172,8 @@ export function SectionHeader({
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className={`inline-block text-xs font-semibold tracking-[0.2em] uppercase mb-3 ${
+          style={{ fontSize: '1rem', letterSpacing: '0.18em' }}
+          className={`inline-block font-semibold uppercase mb-3 ${
             light ? "text-amber" : "text-amber"
           }`}
         >
@@ -184,7 +185,8 @@ export function SectionHeader({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.05 }}
-        className={`font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight ${
+        style={{ fontSize: 'clamp(2.25rem, 4vw, 4rem)', lineHeight: 1.15 }}
+        className={`font-display font-bold leading-tight ${
           light ? "text-white" : "text-navy"
         }`}
       >

@@ -8,10 +8,10 @@
 /* Ken Burns zoom-in effect for hero images — starts zoomed out, snaps into frame */
 @keyframes ken-burns {
   0% {
-    transform: scale(1.08);
+    transform: scale(1);
   }
   100% {
-    transform: scale(1);
+    transform: scale(1.08);
   }
 }
 .ken-burns {
@@ -243,6 +243,23 @@
   /* Navy overlay for hero sections */
   .hero-overlay {
     background: linear-gradient(135deg, rgba(0,0,0,0.55), rgba(0,0,0,0.40));
+  }
+
+  /* Section heading sizes — direct CSS, not Tailwind utilities */
+  .section-title {
+    font-size: 2.5rem;
+    line-height: 1.15;
+    font-weight: 700;
+  }
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 3.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .section-title {
+      font-size: 4.5rem;
+    }
   }
 
   /* Amber CTA button style */
