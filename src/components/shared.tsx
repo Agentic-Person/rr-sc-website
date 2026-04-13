@@ -172,7 +172,7 @@ export function SectionHeader({
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className={`inline-block font-semibold uppercase mb-3 text-sm md:text-base lg:text-lg tracking-[0.18em] ${
+          className={`inline-block font-bold uppercase mb-4 text-2xl md:text-3xl lg:text-4xl tracking-[0.12em] ${
             light ? "text-amber" : "text-amber"
           }`}
         >
@@ -198,9 +198,13 @@ export function SectionHeader({
         className={`flex items-center justify-center gap-3 mt-4 ${centered ? "mx-auto" : ""}`}
       >
         <span className={`block h-px w-12 ${light ? "bg-white/30" : "bg-amber/40"}`} />
-        <svg width="20" height="20" viewBox="0 0 20 20" className={`${light ? "text-white/40" : "text-amber"}`}>
-          <path d="M10 2 L12 8 L18 10 L12 12 L10 18 L8 12 L2 10 L8 8 Z" fill="currentColor" opacity="0.6" />
-        </svg>
+        <img
+          src="/images/rr-sc-ridge-logo-v3.webp"
+          alt=""
+          aria-hidden="true"
+          className={`h-5 w-auto ${light ? "opacity-60 brightness-200" : "mix-blend-mode-multiply opacity-80"}`}
+          style={light ? {} : { mixBlendMode: "multiply" }}
+        />
         <span className={`block h-px w-12 ${light ? "bg-white/30" : "bg-amber/40"}`} />
       </motion.div>
       {subtitle && (
@@ -209,7 +213,7 @@ export function SectionHeader({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
-          className={`mt-4 text-base md:text-lg leading-relaxed ${
+          className={`mt-4 text-base md:text-lg leading-relaxed max-w-md sm:max-w-lg md:max-w-xl mx-auto ${
             light ? "text-white/70" : "text-gray-600"
           }`}
         >

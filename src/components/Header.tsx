@@ -18,15 +18,32 @@ export default function Header() {
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
 
+  const easedScrollTo = (element: HTMLElement, duration = 900) => {
+    const headerOffset = 80;
+    const start = window.scrollY;
+    const target = element.getBoundingClientRect().top + start - headerOffset;
+    const startTime = performance.now();
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const step = (now: number) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      window.scrollTo(0, start + (target - start) * easeInOutCubic(progress));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
   const handleScrollNav = (sectionId: string) => {
     setMobileOpen(false);
     if (pathname === "/") {
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+      const el = document.getElementById(sectionId);
+      if (el) easedScrollTo(el);
     } else {
       router.push("/");
       setTimeout(() => {
-        document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
-      }, 350);
+        const el = document.getElementById(sectionId);
+        if (el) easedScrollTo(el);
+      }, 400);
     }
   };
 
@@ -60,7 +77,7 @@ export default function Header() {
             <span className="text-white/50">|</span>
             <span className="text-white/70">Serving Charleston &amp; the Lowcountry</span>
             <span className="text-white/50">|</span>
-            <span className="text-white/70">Se Habla Español</span>
+            <span className="text-white/70">Family Owned &amp; Operated</span>
           </div>
         </div>
       </div>

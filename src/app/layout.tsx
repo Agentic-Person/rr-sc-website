@@ -54,6 +54,7 @@ export default function RootLayout({
       lang="en"
       className={`${dmSans.variable} ${playfair.variable}`}
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
     >
       <body className="font-sans antialiased">
         <ThemeProvider>
