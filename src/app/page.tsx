@@ -1,8 +1,5 @@
 import Link from "next/link";
 import { COMPANY, IMAGES, SERVICES, LOCATIONS, TESTIMONIALS, PROCESS_STEPS, BLOG_POSTS } from "@/lib/data";
-import processInspectionImg from "@assets/process_free_inspection.webp";
-import processInsuranceImg from "@assets/process_insurance.webp";
-import processInstallationImg from "@assets/process_expert_installation.webp";
 import { SectionHeader, StatsBar, TrustBadges, StarRating, JsonLdScript } from "@/components/shared";
 import { FadeIn } from "@/components/FadeIn";
 import {
@@ -83,7 +80,7 @@ function HeroSection() {
             </span>
             <span className="flex items-center gap-1.5 hidden sm:flex">
               <CheckCircle2 className="w-4 h-4 text-amber" />
-              Se Habla Español
+              Family Owned &amp; Operated
             </span>
           </FadeIn>
         </div>
@@ -161,44 +158,77 @@ function ServicesSection() {
   );
 }
 
-const processImages = [processInspectionImg, processInsuranceImg, processInstallationImg];
+const processIconMap: Record<string, React.ElementType> = {
+  Search, Shield, Home: HomeIcon, FileCheck, Hammer, Clock,
+};
 
 function ProcessSection() {
   return (
-    <section id="our-process" className="section-padding bg-white">
-      <div className="container">
-        <SectionHeader
-          eyebrow="Our Process"
-          title="Simple, Transparent, Stress-Free"
-          subtitle="We take the complexity out of roofing. From your first call to the final cleanup, here's how we make it easy."
+    <section id="our-process" className="bg-white">
+      {/* Banner — eyebrow + title only, centered */}
+      <div className="relative overflow-hidden py-14 md:py-20">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/nova-city-centreville.webp"
+          alt="Charleston-area neighborhood"
+          className="absolute inset-0 w-full h-full object-cover ken-burns"
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/35 to-black/20" />
+        <div className="container relative z-10 text-center">
+          <span className="inline-block font-bold uppercase mb-4 text-2xl md:text-3xl lg:text-4xl tracking-[0.12em] text-amber">
+            Our Process
+          </span>
+          <h2 className="font-display font-bold section-title text-white">
+            Simple, Transparent, Stress-Free
+          </h2>
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
-          {PROCESS_STEPS.map((step, i) => (
-            <FadeIn
-              key={step.step}
-              delay={i * 0.15}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-500 flex flex-col ring-1 ring-black/[0.03]"
-            >
-              {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={typeof processImages[i] === "string" ? processImages[i] : processImages[i]?.src ?? ""}
-                  alt={step.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-4 left-4 w-10 h-10 rounded-full bg-amber text-white text-sm font-bold flex items-center justify-center shadow-lg">
-                  {step.step}
+      {/* Decorator + subtitle + cards */}
+      <div className="section-padding">
+        <div className="container">
+          <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="block h-px w-12 bg-amber/40" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/rr-sc-ridge-logo-v3.webp"
+                alt=""
+                aria-hidden="true"
+                className="h-5 w-auto opacity-80"
+                style={{ mixBlendMode: "multiply" }}
+              />
+              <span className="block h-px w-12 bg-amber/40" />
+            </div>
+            <p className="text-base md:text-lg leading-relaxed text-gray-600 max-w-md sm:max-w-lg md:max-w-xl mx-auto">
+              We take the complexity out of roofing. From your first call to the final cleanup, here&apos;s how we make it easy.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
+            {PROCESS_STEPS.map((step, i) => (
+              <FadeIn
+                key={step.step}
+                delay={i * 0.1}
+                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-500 flex flex-col ring-1 ring-black/[0.03]"
+              >
+                {/* Image */}
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/nova-city-centreville.webp"
+                    alt={step.title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-              </div>
-              {/* Content */}
-              <div className="p-6 flex flex-col flex-1">
-                <h3 className="font-display text-2xl font-semibold text-navy mb-3">{step.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
-              </div>
-            </FadeIn>
-          ))}
+                {/* Content */}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="font-display text-2xl font-semibold text-navy mb-3">{step.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
         </div>
       </div>
     </section>

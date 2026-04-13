@@ -1325,21 +1325,39 @@ export const NAV_ITEMS = [
 export const PROCESS_STEPS = [
   {
     step: 1,
-    title: "Free Inspection",
-    description: "We perform a comprehensive 21-point roof inspection, documenting every detail with photos and providing an honest assessment of your roof's condition.",
+    title: "Instant Roof Estimate",
+    description: "Get your exact roof size and price out different materials — all from your phone or computer. No pressure, no commitment. Just real numbers so you know exactly where you stand before we ever show up.",
     icon: "Search",
   },
   {
     step: 2,
-    title: "We Handle Insurance",
-    description: "If your damage is covered, we manage the entire insurance claims process — from documentation to adjuster meetings to final settlement.",
-    icon: "FileCheck",
+    title: "Free On-Site Inspection",
+    description: "We come to you for a comprehensive 21-point inspection, verifying every digital measurement in person and documenting your roof's condition with detailed photos. It's also your chance to meet us face-to-face and see how we do business.",
+    icon: "Shield",
   },
   {
     step: 3,
+    title: "Personal Consultation",
+    description: "We sit down with you — at your kitchen table, not behind a desk — and walk through everything we found. We'll show you the photos, explain your options honestly, and answer every question until you're completely comfortable moving forward.",
+    icon: "Home",
+  },
+  {
+    step: 4,
+    title: "Insurance & Financing Made Simple",
+    description: "If your damage qualifies, we handle your entire insurance claim — documentation, adjuster meetings, and settlement advocacy. If you're paying out of pocket, we'll walk you through flexible financing options that fit your budget.",
+    icon: "FileCheck",
+  },
+  {
+    step: 5,
     title: "Expert Installation",
-    description: "Our skilled crew completes your project with premium materials, hurricane-rated methods, and a thorough 3-part cleanup including magnetic nail sweep.",
+    description: "Our skilled crew gets to work with premium materials and hurricane-rated methods built for coastal South Carolina. We keep a clean job site every day and finish with a thorough 3-part cleanup, including a magnetic nail sweep of your entire property.",
     icon: "Hammer",
+  },
+  {
+    step: 6,
+    title: "30-Day Follow-Up",
+    description: "We check back in 30 days after your project is complete. Is everything holding up? Any concerns? We'll make sure your warranty registration went through, let you know about any manufacturer rebates, and confirm you're completely taken care of.",
+    icon: "Clock",
   },
 ];
 
