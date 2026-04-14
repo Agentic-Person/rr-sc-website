@@ -9,7 +9,30 @@
 
 ---
 
-## Last Activity — April 13, 2026
+## Last Activity — April 13, 2026 (session 3)
+
+**Session summary:** Header font bump across all nav elements, site-wide card hover polish with amber glow utility, Vercel connection verified.
+
+**Work completed:**
+- **Header font bump** (`src/components/Header.tsx`) — nav links bumped `text-sm` → `text-base` on desktop and mobile; Free Estimate button, phone link, and dropdown items also bumped (`text-[15px]`)
+- **`.card-halo` utility** (`src/app/globals.css`) — new amber glow `box-shadow` utility class safe for Framer Motion elements; applies on hover
+- **Process cards** (`src/app/page.tsx`) — added `group` class + image `scale-105` on hover + amber border + `.card-halo` glow
+- **Testimonial cards** — upgraded to `shadow-2xl` + amber border + `.card-halo` on hover
+- **Blog cards** — added `hover:-translate-y-1` lift + amber border + `.card-halo` (grandchild of `FadeIn`, CSS transform safe)
+- **Trust badges** — icon ring pulses amber, inner circle scales, icon scales 110% on hover
+- **Reviews page** — added `shadow` + amber border glow to flat cards
+- **About values** — added `shadow` + amber border glow to flat cards
+- **Portfolio cards** — added lift + `shadow-2xl` + amber border (regular `div` inside `motion.div`, CSS safe)
+- **Areas-we-serve cards** — added lift + `shadow-2xl` + `.card-halo` (grandchild of `motion.div`)
+- **Financing option cards** — added `.card-halo`
+- **Vercel connection verified** — project `rr-sc-website` on team `sc-roofing` confirmed connected to `Agentic-Person/rr-sc-website` on `main`; latest deploy `d809885` status READY
+
+**Key commits:**
+- `d809885` feat: header font bump + card hover polish across all pages
+
+---
+
+## Previous Activity — April 13, 2026 (session 2)
 
 **Session summary:** Process section overhaul (3 → 6 steps), logo decorator in all section headers, eased scroll nav, mobile subtitle responsiveness, brand copy updates.
 
