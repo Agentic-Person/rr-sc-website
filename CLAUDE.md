@@ -7,7 +7,7 @@ After every commit, run all three steps:
 ```bash
 git push origin main
 git push client main
-curl -s -X POST "https://api.vercel.com/v1/integrations/deploy/prj_jgABxNWBIU98USh0Py4MkXCXJYPq/QcPRUiXCDI"
+curl -s -X POST "https://api.vercel.com/v1/integrations/deploy/prj_C14FFEZ1g3RyCo63zONpsxoV5HpT/Pw4HMxoxvX"
 ```
 
 - **origin** = `Agentic-Person/rr-sc-website` (primary repo)
