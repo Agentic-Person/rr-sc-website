@@ -2,19 +2,19 @@
 
 ## Deployment Workflow
 
-After every commit, run all three steps:
+After every commit, run both pushes:
 
 ```bash
 git push origin main
 git push client main
-curl -s -X POST "https://api.vercel.com/v1/integrations/deploy/prj_C14FFEZ1g3RyCo63zONpsxoV5HpT/Pw4HMxoxvX"
 ```
 
-- **origin** = `Agentic-Person/rr-sc-website` (primary repo)
-- **client** = `SCROOF1/restorationroofing` (Tom's client repo)
-- **deploy hook** = triggers a fresh Vercel production deploy from `main`
+- **origin** = `Agentic-Person/rr-sc-website` — Vercel GitHub integration auto-deploys on every push here
+- **client** = `SCROOF1/restorationroofing` (Tom's client repo — needs Vercel connected in dashboard)
 
-Always push to both repos and trigger the deploy hook.
+**Do NOT use a deploy hook.** The Vercel GitHub integration fires automatically on push to `origin`. Running a hook in addition creates duplicate simultaneous production deployments that race to set the production alias, breaking `live` status.
+
+Deploy hook (for reference only, do not call): `https://api.vercel.com/v1/integrations/deploy/prj_jgABxNWBIU98USh0Py4MkXCXJYPq/QcPRUiXCDI`
 
 ## Commit Author
 
