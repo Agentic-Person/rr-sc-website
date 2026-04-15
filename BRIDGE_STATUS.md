@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Bridge Status
-> Last updated: April 14, 2026
+> Last updated: April 15, 2026
 
 ## 🟢 Status: Site Live — Domain Connection + Integrations Next
 
@@ -63,7 +63,12 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 ## ⏳ Phase 4 — New Features
 - [ ] Accessibility audit (WCAG 2.1 AA)
 
-## 🔄 Recently Updated (April 14, 2026)
+## 🔄 Recently Updated (April 15, 2026)
+- **Favicon live** — browser tab now shows the orange ridge logo on black background; proper multi-size ICO (16/32/48) + 512px PNG for `<link rel="icon">`; multiple fix iterations required (invalid ICO format, then zero-contrast orange-on-orange)
+- **Deploy workflow simplified** — CLAUDE.md updated: GitHub integration auto-deploys on push to `origin main`; deploy hook removed from standard workflow to prevent duplicate simultaneous deploys
+- **Marketing team brief prepared** — `docs/marketing-team-brief.md` ready to share; covers tech stack, SEO foundation, GA4 ID, structured data, URL structure, and pre-campaign checklist
+
+## 🔄 Previously Updated (April 14, 2026)
 - **Section header eyebrow fix** — removed inline `style` props from SectionHeader that were overriding all CSS/Tailwind size changes; eyebrow labels ("Our Services", "Our Process", etc.) now render at 2xl–4xl responsive sizes; section titles use `.section-title` CSS class
 - **Client review items added** — "Our Process" section and "What Our Customers Say" section flagged for David/Tom feedback in blockers
 

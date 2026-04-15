@@ -5,11 +5,30 @@
 > **Previous Repo (Vite SPA):** github.com/SCROOF1/restorationroofing
 > **Live URL:** https://rr-sc-website.vercel.app
 > **Vercel Team:** sc-roofing
-> **Last updated:** April 13, 2026
+> **Last updated:** April 15, 2026
 
 ---
 
-## Last Activity — April 13, 2026 (session 3)
+## Last Activity — April 15, 2026
+
+**Session summary:** Favicon replaced with branded ridge logo, deploy workflow fixed (GitHub integration only), marketing team brief prepared.
+
+**Work completed:**
+- **Favicon replaced** (`src/app/icon.png`, `src/app/favicon.ico`) — custom ridge logo now shows in browser tabs; went through three iterations: initial PNG-as-ICO (invalid magic bytes), orange-on-orange (no contrast), final orange ridge logo on black background; white background of source WebP removed via alpha thresholding before compositing; proper multi-size ICO built (16/32/48px frames with correct `00 00 01 00` header)
+- **Deploy workflow fixed** (`CLAUDE.md`) — removed deploy hook from standard workflow; Vercel GitHub integration auto-deploys on every push to `origin main`; running hook simultaneously was causing duplicate deployments racing to set the production alias; new hook URL documented for reference only
+- **New Vercel deploy hook confirmed** — tested hook `Pw4HMxoxvX` (project `prj_C14FFEZ1g3RyCo63zONpsxoV5HpT`), returned PENDING; superseded by GitHub integration which is now the sole deploy trigger
+- **Marketing team brief created** (`docs/marketing-team-brief.md`) — full technical handoff document covering tech stack, SEO foundation, structured data, URL structure, GA4 measurement ID, and pre-campaign checklist; written from Jimmy's voice for sharing with Tom's marketing team
+
+**Key commits:**
+- `fcd1e02` feat: replace favicon with ridge logo icon
+- `a833c90` fix: rebuild favicon.ico as valid multi-size ICO (was PNG bytes)
+- `b4a100d` fix: favicon — orange ridge logo on black background
+- `c50e771` chore: update Vercel deploy hook URL in CLAUDE.md
+- `fa39eae` fix: remove duplicate deploy hook from workflow — GitHub integration handles deploys
+
+---
+
+## Previous Activity — April 13, 2026 (session 3)
 
 **Session summary:** Header font bump across all nav elements, site-wide card hover polish with amber glow utility, Vercel connection verified.
 
