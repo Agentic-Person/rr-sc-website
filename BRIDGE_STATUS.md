@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Bridge Status
-> Last updated: April 13, 2026
+> Last updated: April 14, 2026
 
 ## 🟢 Status: Site Live — Domain Connection + Integrations Next
 
@@ -63,7 +63,11 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 ## ⏳ Phase 4 — New Features
 - [ ] Accessibility audit (WCAG 2.1 AA)
 
-## 🔄 Recently Updated (April 13, 2026)
+## 🔄 Recently Updated (April 14, 2026)
+- **Section header eyebrow fix** — removed inline `style` props from SectionHeader that were overriding all CSS/Tailwind size changes; eyebrow labels ("Our Services", "Our Process", etc.) now render at 2xl–4xl responsive sizes; section titles use `.section-title` CSS class
+- **Client review items added** — "Our Process" section and "What Our Customers Say" section flagged for David/Tom feedback in blockers
+
+## 🔄 Previously Updated (April 13, 2026)
 - **Process section rebuilt** — expanded from 3 → 6 steps with new homeowner-focused copy; aerial photo banner added; 6 AI-generated WebP images wired to each step card (3×2 grid)
 - **Logo decorator** — company ridge logo replaces star divider in all SectionHeader components across the site
 - **Fade scroll nav** — "Our Process" / "Areas We Serve" nav clicks now fade out → instant jump → fade in instead of animated scroll
@@ -73,7 +77,7 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 - **Brand copy** — "Se Habla Español" replaced with "Family Owned & Operated" throughout
 - **Spanish language pages** removed from roadmap (user confirmed not needed)
 
-## 🔄 Previously Updated
+## 🔄 Previously Updated (April 9)
 - **Site deployed and verified live** — 14/14 verification checks passed, all 73 pages SSR confirmed (April 9)
 - **Deploy hook configured** — Vercel redeploy via webhook after every push (April 9)
 - **Environment variables set in Vercel** — all 6 required vars configured (April 9)
