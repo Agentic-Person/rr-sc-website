@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Bridge Status
-> Last updated: April 15, 2026
+> Last updated: April 16, 2026
 
 ## 🟢 Status: Site Live — Domain Connection + Integrations Next
 
@@ -46,7 +46,7 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 
 ## ⏳ Up Next — Phase 2 (Integrations)
 - [ ] **Zuper CRM integration** — wire contact form + chat leads into Zuper for lead management and follow-up
-- [ ] **Instant roof estimator** — finalize and integrate estimator tool into the website
+- [x] **Instant roof estimator** — Roofle RoofQuote PRO slideout integrated site-wide (April 16, 2026); loads in `<head>` per Roofle install spec
 - [ ] **After-hours voice agent** — Zuper may handle natively; follow up with Zuper to confirm scope
 - [ ] **Blog content launch** — infrastructure built, content ready; major AEO lever once live
 - [ ] **Automated blog system** — 9 posts per month (client confirmed)
@@ -62,6 +62,10 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 
 ## ⏳ Phase 4 — New Features
 - [ ] Accessibility audit (WCAG 2.1 AA)
+
+## 🔄 Recently Updated (April 16, 2026)
+- **Roofle RoofQuote PRO slideout live site-wide** — instant roof estimator widget integrated via root layout (`src/app/layout.tsx`); appears as a teaser tab on the right edge of every page; site visitors can now self-serve a roof quote without waiting for a callback. Script loads in `<head>` per Roofle's install requirement (slideout variant)
+- **Hydration warning silenced** — `suppressHydrationWarning` added to `<body>` to handle ColorZilla browser extension's `cz-shortcut-listen` attribute mismatch (cosmetic-only, not a real bug)
 
 ## 🔄 Recently Updated (April 15, 2026)
 - **Favicon live** — browser tab now shows the orange ridge logo on black background; proper multi-size ICO (16/32/48) + 512px PNG for `<link rel="icon">`; multiple fix iterations required (invalid ICO format, then zero-contrast orange-on-orange)

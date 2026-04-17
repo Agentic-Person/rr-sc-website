@@ -5,11 +5,23 @@
 > **Previous Repo (Vite SPA):** github.com/SCROOF1/restorationroofing
 > **Live URL:** https://rr-sc-website.vercel.app
 > **Vercel Team:** sc-roofing
-> **Last updated:** April 15, 2026
+> **Last updated:** April 16, 2026
 
 ---
 
-## Last Activity — April 15, 2026
+## Last Activity — April 16, 2026
+
+**Session summary:** Roofle RoofQuote PRO slideout widget integrated site-wide via root layout; Roofle install requirements verified (must load in `<head>`); hydration warning from browser extension suppressed.
+
+**Work completed:**
+- **Roofle RoofQuote PRO slideout integrated** (`src/app/layout.tsx`) — added `<script async src="https://app.roofle.com/roof-quote-pro-widget.js?id=zco42W_V9MeL04LBXPBx9">` to root layout so the slideout teaser appears on every page
+- **Script placement verified against Roofle docs** — confirmed via Roofle install guide that the slideout variant *must* live in `<head>` (the embedded variant goes in `<body>`); first attempt used `next/script` strategy `afterInteractive` (renders before `</body>`), then `beforeInteractive` (errored under Next.js 16 / React 19 with "Encountered a script tag while rendering React component"), final solution uses a plain `<script async>` tag which React 19 automatically hoists into `<head>` and dedupes
+- **Hydration warning fix** — added `suppressHydrationWarning` to `<body>` in root layout to silence ColorZilla extension's `cz-shortcut-listen="true"` attribute mismatch (extension modifies DOM before React hydrates)
+- **Live verified in DevTools** — Roofle script confirmed present inside `<head>` via View Page Source; widget renders on right edge as expected
+
+---
+
+## Previous Activity — April 15, 2026
 
 **Session summary:** Favicon replaced with branded ridge logo, deploy workflow fixed (GitHub integration only), marketing team brief prepared.
 

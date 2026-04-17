@@ -56,7 +56,7 @@ export default function RootLayout({
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <ThemeProvider>
           <Header />
           <main>{children}</main>
@@ -64,6 +64,12 @@ export default function RootLayout({
           <ChatWidget />
           <ScrollToTop />
         </ThemeProvider>
+
+        {/* Roofle RoofQuote PRO Slideout Widget — React 19 hoists async <script> to <head> per Roofle install guide */}
+        <script
+          async
+          src="https://app.roofle.com/roof-quote-pro-widget.js?id=zco42W_V9MeL04LBXPBx9"
+        />
 
         {/* Google Analytics 4 */}
         <Script
