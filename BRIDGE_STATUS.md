@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Bridge Status
-> Last updated: April 16, 2026
+> Last updated: April 17, 2026
 
 ## 🟢 Status: Site Live — Domain Connection + Integrations Next
 
@@ -63,8 +63,14 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 ## ⏳ Phase 4 — New Features
 - [ ] Accessibility audit (WCAG 2.1 AA)
 
-## 🔄 Recently Updated (April 16, 2026)
-- **Roofle RoofQuote PRO slideout live site-wide** — instant roof estimator widget integrated via root layout (`src/app/layout.tsx`); appears as a teaser tab on the right edge of every page; site visitors can now self-serve a roof quote without waiting for a callback. Script loads in `<head>` per Roofle's install requirement (slideout variant)
+## 🔄 Recently Updated (April 17, 2026)
+- **Vercel deploy pipeline fixed (critical)** — `rr-sc-website` Vercel project was silently linked to the OLD Vite SPA archive repo (`Agentic-Person/restorationroofing-sc`), so every push to the Next.js repo since the April 7 migration was being ignored and `rr-sc-website.vercel.app` was serving stale Vite SPA HTML. Relinked the project to `Agentic-Person/rr-sc-website` on `main` via the Vercel API. Production now serving `dpl_Am5a7bFfiUsQ12fRXAgartshpAZe` (Next.js build) with the Roofle slideout live in `<head>`
+- **Vercel CLI installed and authed** — `vercel` CLI now available locally on team `sc-roofing` for direct deploy/inspect/relink without going through the dashboard
+- **Old deploy hooks dead** — relinking the Vercel project wiped its deploy hooks; the URLs in CLAUDE.md (`…/3Od4x8p5su`, `…/QcPRUiXCDI`) no longer work. Not needed going forward — the GitHub integration auto-deploys on every push to `origin main`. CLAUDE.md updated accordingly
+- **Roofle RoofQuote PRO slideout confirmed live** — verified in production HTML on `rr-sc-website.vercel.app`; widget loads on every page via root layout
+
+## 🔄 Previously Updated (April 16, 2026)
+- **Roofle RoofQuote PRO slideout integrated** — instant roof estimator widget added via root layout (`src/app/layout.tsx`); appears as a teaser tab on the right edge of every page; site visitors can now self-serve a roof quote without waiting for a callback. Script loads in `<head>` per Roofle's install requirement (slideout variant)
 - **Hydration warning silenced** — `suppressHydrationWarning` added to `<body>` to handle ColorZilla browser extension's `cz-shortcut-listen` attribute mismatch (cosmetic-only, not a real bug)
 
 ## 🔄 Recently Updated (April 15, 2026)

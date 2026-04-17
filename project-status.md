@@ -5,11 +5,30 @@
 > **Previous Repo (Vite SPA):** github.com/SCROOF1/restorationroofing
 > **Live URL:** https://rr-sc-website.vercel.app
 > **Vercel Team:** sc-roofing
-> **Last updated:** April 16, 2026
+> **Last updated:** April 17, 2026
 
 ---
 
-## Last Activity — April 16, 2026
+## Last Activity — April 17, 2026
+
+**Session summary:** Diagnosed and fixed a critical Vercel deployment misconfiguration — the `rr-sc-website` Vercel project was silently connected to the old Vite SPA archive repo (`Agentic-Person/restorationroofing-sc`) instead of the Next.js repo (`Agentic-Person/rr-sc-website`). Every commit since the Next.js migration was being ignored, and the production URL was serving a stale Vite SPA build from the archive.
+
+**Work completed:**
+- **Vercel CLI installed** (`npm i -g vercel`) and authed as `jimihacks` on team `sc-roofing`
+- **Root cause identified** — `vercel git connect` confirmed the project was bound to `Agentic-Person/restorationroofing-sc` (Vite archive). HTML inspection of `rr-sc-website.vercel.app` showed Vite-style `/assets/index-*.js` + `<div id="root">` instead of Next.js `_next/static/chunks/...`
+- **Vercel project relinked** via API (`POST /v9/projects/:id/link`) to `Agentic-Person/rr-sc-website` on `main`. Required DELETE on existing link first since project was "already linked to a different repository"
+- **Side effect: deploy hooks wiped** during relink — old hook URLs `prj_jgABxNWBIU98USh0Py4MkXCXJYPq/3Od4x8p5su` and `…/QcPRUiXCDI` are now dead. Going forward the GitHub integration auto-deploys, no hook needed
+- **Production deploy verified** — `vercel deploy --prod` produced `dpl_Am5a7bFfiUsQ12fRXAgartshpAZe`; `rr-sc-website.vercel.app` now serves the Next.js build with the Roofle slideout in `<head>`
+- **Stale alias / second project documented** — `td-rr-website` (project `prj_C14FFEZ1g3RyCo63zONpsxoV5HpT`, Vite framework preset) still exists on the team and should not be touched; it's the legacy build with its own `api/contact.ts` (Zod v3) that fails to compile under current code
+
+**Why this happened:** the Next.js migration created the new Vercel project `rr-sc-website`, but the project's git connection was apparently pointed at the archive repo instead of the new repo. Because the framework preset was set to `nextjs` and deployments succeeded (against the wrong source), this went unnoticed for ~10 days. CLAUDE.md's note that "the GitHub integration auto-deploys on push to origin" was true *for the wrong repo*.
+
+**Key commits:**
+- `3fdfba5` feat: integrate Roofle RoofQuote PRO slideout widget site-wide
+
+---
+
+## Previous Activity — April 16, 2026
 
 **Session summary:** Roofle RoofQuote PRO slideout widget integrated site-wide via root layout; Roofle install requirements verified (must load in `<head>`); hydration warning from browser extension suppressed.
 
