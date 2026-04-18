@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Phone, ArrowRight, Check, X, Shield, Droplets, Wind, Sun,
@@ -45,11 +46,13 @@ function MaterialCard({ material, isSelected, onToggle }: {
       {/* House Image (if available) */}
       {material.houseImage && (
         <div className="relative h-52 overflow-hidden">
-          <img
+          <Image
             src={material.houseImage}
             alt={`Home with ${material.name} installed`}
-            className="w-full h-full object-cover"
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             loading="lazy"
+            className="object-cover"
           />
           {material.popularityRank <= 3 && (
             <div className="absolute top-3 left-3 bg-[#ED5A00] text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
@@ -72,11 +75,13 @@ function MaterialCard({ material, isSelected, onToggle }: {
 
       {/* Card Header with Material Close-up */}
       <div className={`relative ${material.houseImage ? 'h-44' : 'h-48'} overflow-hidden`}>
-        <img
+        <Image
           src={material.image}
           alt={material.name}
-          className="w-full h-full object-cover"
+          fill
+          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           loading="lazy"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/50 via-transparent to-transparent" />
         <div className="absolute bottom-3 left-4 right-4">
@@ -447,11 +452,15 @@ export default function MaterialsCompareContent() {
       }} />
 
       {/* Hero Section */}
-      <section className="relative h-[50vh] min-h-[400px] overflow-hidden">
-        <img
+      <section className="relative h-[50svh] min-h-[400px] overflow-hidden">
+        <Image
           src={HERO_IMAGE}
           alt="Various roofing materials on Charleston Lowcountry homes"
-          className="absolute inset-0 w-full h-full object-cover ken-burns"
+          fill
+          priority
+          sizes="100vw"
+          quality={85}
+          className="object-cover ken-burns"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/70 via-[#000000]/55 to-[#000000]/30" />
         <div className="relative h-full container flex items-end pb-12 md:pb-16 lg:pb-20">

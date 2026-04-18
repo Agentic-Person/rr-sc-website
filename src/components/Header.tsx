@@ -101,6 +101,7 @@ export default function Header() {
               className="h-20 lg:h-24 w-auto py-1"
               width={96}
               height={96}
+              sizes="96px"
               priority
             />
           </Link>
@@ -173,7 +174,7 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-3">
             <button
               onClick={toggleTheme}
-              className="relative p-2 rounded-md text-gray-500 hover:text-black hover:bg-gray-100 transition-colors"
+              className="relative p-2.5 rounded-md text-gray-500 hover:text-black hover:bg-gray-100 transition-colors"
               aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
               <Sun className={`w-4 h-4 transition-all duration-300 ${theme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"} absolute`} />
@@ -198,7 +199,7 @@ export default function Header() {
           <div className="flex items-center gap-3 lg:hidden">
             <button
               onClick={toggleTheme}
-              className="relative p-2 rounded-md text-gray-500 hover:text-black hover:bg-gray-100 transition-colors"
+              className="relative p-2.5 rounded-md min-h-[44px] min-w-[44px] text-gray-500 hover:text-black hover:bg-gray-100 transition-colors"
               aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
               <Sun className={`w-4 h-4 transition-all duration-300 ${theme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"} absolute`} />
@@ -206,14 +207,16 @@ export default function Header() {
             </button>
             <a
               href={`tel:${COMPANY.phoneRaw}`}
-              className="btn-amber p-2.5 rounded-md"
+              className="btn-amber p-3 rounded-md min-h-[44px] min-w-[44px]"
             >
               <Phone className="w-4 h-4" />
             </a>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="p-2 text-black"
-              aria-label="Toggle menu"
+              className="p-2.5 min-h-[44px] min-w-[44px] text-black"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -224,6 +227,7 @@ export default function Header() {
         <AnimatePresence>
           {mobileOpen && (
             <motion.div
+              id="mobile-nav"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
@@ -253,7 +257,7 @@ export default function Header() {
                               <Link
                                 key={child.href}
                                 href={child.href}
-                                className="flex items-center gap-2 px-3 py-2.5 text-[15px] text-gray-700 hover:text-black"
+                                className="flex items-center gap-2 px-3 py-3 text-[15px] text-gray-700 hover:text-black"
                               >
                                 <ChevronRight className="w-3 h-3 text-amber" />
                                 {child.label}

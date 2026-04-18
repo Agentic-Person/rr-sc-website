@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { COMPANY, IMAGES, SERVICES, LOCATIONS, TESTIMONIALS, PROCESS_STEPS, BLOG_POSTS } from "@/lib/data";
 import { SectionHeader, StatsBar, TrustBadges, StarRating, JsonLdScript } from "@/components/shared";
 import { FadeIn } from "@/components/FadeIn";
@@ -15,12 +16,15 @@ const iconMap: Record<string, React.ElementType> = {
 
 function HeroSection() {
   return (
-    <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[85svh] md:min-h-[90svh] flex items-center overflow-hidden">
       <div className="absolute inset-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={IMAGES.heroHomepage}
           alt="Beautiful Lowcountry home with new roof in Charleston, SC"
+          fill
+          priority
+          sizes="100vw"
+          quality={85}
           className="w-full h-full object-cover ken-burns"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/60 via-[#000000]/40 to-[#000000]/15" />
@@ -112,12 +116,12 @@ function ServicesSection() {
                   <article className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl border border-border/40 hover:border-amber/30 transition-all duration-500 h-full flex flex-col ring-1 ring-black/[0.03]">
                     {/* Image */}
                     <div className="relative aspect-[16/10] overflow-hidden">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={service.image}
                         alt={service.shortTitle}
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       <div className="absolute top-3 left-3">
@@ -176,10 +180,11 @@ function ProcessSection() {
     <section id="our-process" className="bg-white">
       {/* Banner — eyebrow + title only, centered */}
       <div className="relative overflow-hidden py-14 md:py-20">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="/images/nova-city-centreville.webp"
           alt="Charleston-area neighborhood"
+          fill
+          sizes="100vw"
           className="absolute inset-0 w-full h-full object-cover ken-burns"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/35 to-black/20" />
@@ -199,11 +204,12 @@ function ProcessSection() {
           <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="block h-px w-12 bg-amber/40" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/images/rr-sc-ridge-logo-v3.webp"
                 alt=""
                 aria-hidden="true"
+                width={80}
+                height={20}
                 className="h-5 w-auto opacity-80"
                 style={{ mixBlendMode: "multiply" }}
               />
@@ -223,10 +229,11 @@ function ProcessSection() {
               >
                 {/* Image */}
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={processImages[i]}
                     alt={step.title}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
@@ -301,10 +308,11 @@ function LocationsSection() {
     <section id="areas-we-serve">
       {/* Banner header with background image */}
       <div className="relative overflow-hidden py-14 md:py-20">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={IMAGES.heroAbout}
           alt=""
+          fill
+          sizes="100vw"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/45 to-black/25" />
@@ -326,12 +334,12 @@ function LocationsSection() {
               <FadeIn key={loc.slug} delay={i * 0.05}>
                 <Link href={`/areas-we-serve/${loc.slug}`}>
                   <div className="group relative h-44 md:h-52 rounded-xl overflow-hidden border border-border/50 shadow-md hover:border-amber/30 hover:shadow-xl transition-all duration-300 ring-1 ring-black/[0.03]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={loc.image}
                       alt={`${loc.name}, South Carolina`}
+                      fill
+                      sizes="(min-width: 768px) 25vw, 50vw"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                     <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
@@ -380,11 +388,12 @@ function BlogPreviewSection() {
             <FadeIn key={post.slug} delay={i * 0.1}>
               <Link href={`/blog/${post.slug}`}>
                 <div className="group bg-white rounded-xl border border-border/50 overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-1 hover:border-amber/30 card-halo transition-all duration-300 ring-1 ring-black/[0.03]">
-                  <div className="aspect-[16/9] overflow-hidden">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <Image
                       src={post.image}
                       alt={post.title}
+                      fill
+                      sizes="(min-width: 768px) 33vw, 100vw"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>

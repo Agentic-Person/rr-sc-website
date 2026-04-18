@@ -18,6 +18,30 @@
   animation: ken-burns 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Disable ken-burns on mobile — transforms on large background images are GPU-expensive on low-end devices */
+@media (max-width: 768px) {
+  .ken-burns {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* Respect user's reduced-motion preference (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  .ken-burns {
+    animation: none;
+    transform: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /*
   DESIGN SYSTEM: "Coastal Heritage" — Southern Architectural Elegance
   Primary: Black #000000 — Black & Orange scheme

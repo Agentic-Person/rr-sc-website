@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { COMPANY, STATS, TRUST_BADGES } from "@/lib/data";
 import { Phone, Shield, Clock, Zap, DollarSign, Star, ChevronRight, ArrowRight, MapPin, Hammer, FileCheck } from "lucide-react";
 import { motion } from "framer-motion";
@@ -198,10 +199,13 @@ export function SectionHeader({
         className={`flex items-center justify-center gap-3 mt-4 ${centered ? "mx-auto" : ""}`}
       >
         <span className={`block h-px w-12 ${light ? "bg-white/30" : "bg-amber/40"}`} />
-        <img
+        <Image
           src="/images/rr-sc-ridge-logo-v3.webp"
           alt=""
           aria-hidden="true"
+          width={20}
+          height={20}
+          sizes="20px"
           className={`h-5 w-auto ${light ? "opacity-60 brightness-200" : "mix-blend-mode-multiply opacity-80"}`}
           style={light ? {} : { mixBlendMode: "multiply" }}
         />
@@ -278,10 +282,17 @@ export function PageHero({
   compact?: boolean; // kept for backward compat, no longer used
 }) {
   return (
-    <section className="relative overflow-hidden min-h-[45vh] md:min-h-[50vh]">
+    <section className="relative overflow-hidden min-h-[45svh] md:min-h-[50svh]">
       <div className="absolute inset-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image} alt="" className="w-full h-full object-cover ken-burns" />
+        <Image
+          src={image}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          quality={85}
+          className="object-cover ken-burns"
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/70 via-[#000000]/55 to-[#000000]/30" />
       </div>
       <div className="container relative z-10 flex flex-col justify-end py-12 md:py-16 lg:py-20" style={{ minHeight: 'inherit' }}>
@@ -304,14 +315,9 @@ export function PageHero({
             </ol>
           </nav>
         )}
-        <motion.h1
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white max-w-3xl"
-        >
+        <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white max-w-3xl">
           {title}
-        </motion.h1>
+        </h1>
         {subtitle && (
           <motion.p
             initial={{ opacity: 0, y: 60 }}

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import { ThemeProvider } from "@/contexts/ThemeContext";
@@ -44,6 +44,16 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+  colorScheme: "light dark",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -66,6 +76,8 @@ export default function RootLayout({
         </ThemeProvider>
 
         {/* Roofle RoofQuote PRO Slideout Widget — React 19 hoists async <script> to <head> per Roofle install guide */}
+        <link rel="preconnect" href="https://app.roofle.com" />
+        <link rel="dns-prefetch" href="https://app.roofle.com" />
         <script
           async
           src="https://app.roofle.com/roof-quote-pro-widget.js?id=zco42W_V9MeL04LBXPBx9"
