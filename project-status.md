@@ -5,11 +5,37 @@
 > **Previous Repo (Vite SPA):** github.com/SCROOF1/restorationroofing
 > **Live URL:** https://rr-sc-website.vercel.app
 > **Vercel Team:** sc-roofing
-> **Last updated:** April 17, 2026
+> **Last updated:** April 18, 2026
 
 ---
 
-## Last Activity — April 17, 2026
+## Last Activity — April 18, 2026
+
+**Session summary:** Full mobile-first overhaul executed by a team of agents — Phase 1 deep perf audit followed by 4 parallel implementation agents on disjoint files, then a hotfix commit for a React 19 hydration regression caught on the preview deploy. Shipped via feature branch + PR review flow to production. Phone-tested and confirmed live.
+
+**Work completed:**
+- **19 raw `<img>` tags migrated to `next/image`** across `page.tsx` (8, incl. hero LCP), `shared.tsx` (PageHero + ridge-logo decorator), `ChatWidget.tsx` (5 giraffe avatars), `PortfolioContent.tsx` (2), `AboutContent.tsx`, `location-detail-content.tsx` — rendered homepage HTML now includes a `<link rel="preload" as="image">` with 8 responsive sizes (640→3840w) pointing at the CloudFront hero, and ~23 `_next/image` optimization markers
+- **Tap targets bumped to 44×44 minimum** (WCAG 2.5.5 / iOS HIG) on Header hamburger, mobile phone CTA, theme toggle, and mobile dropdown children. Hamburger now has state-aware `aria-label` + `aria-expanded` + `aria-controls`
+- **`prefers-reduced-motion` support added globally** via `globals.css` media query (neutralizes all `animation-duration`/`transition-duration` for users with the OS setting on) + `FadeIn` component uses `useReducedMotion()` from framer-motion. `.ken-burns` zoom effect additionally gated off on viewports ≤ 768px (GPU-expensive on low-end Androids)
+- **`vh` → `svh` swaps** on hero `min-h-[85vh]` (homepage), PageHero `min-h-[45vh]/50vh` (all sub-pages), portfolio modal `max-h-[90vh]`, materials-comparison hero — prevents iOS Safari URL-bar collapse from causing layout jump
+- **`viewport` export added to `src/app/layout.tsx`** with `themeColor` for light (`#ffffff`) + dark (`#000000`) via `prefers-color-scheme` media queries (iOS Safari address bar tints correctly), `colorScheme: "light dark"`, `width: device-width`, `initialScale: 1`
+- **`<link rel="preconnect">` + `<link rel="dns-prefetch">` to `app.roofle.com`** added to layout — saves ~150ms on Roofle widget handshake over 4G
+- **LCP unblocked on sub-page hero** — removed 1.5s `motion.h1` fade on `PageHero` in `shared.tsx`; the `h1` (LCP element on every sub-page) now paints at final position on the first frame
+- **ChatWidget/Roofle mobile collision resolved** — ChatWidget moved from `bottom-4` → `bottom-24 md:bottom-4` so the giraffe chat button clears Roofle's floating "Get Instant Roof Quote" button on phones; desktop unchanged
+- **Hotfix: `FadeIn` React 19 hydration mismatch** — original implementation returned a plain `<div>` when `useReducedMotion()` was truthy and `<motion.div>` otherwise. `useReducedMotion()` can return different values between SSR and client hydration, and React 19's strict hydration reconciler cannot swap element types across renders — manifested as `Uncaught SyntaxError: Failed to execute 'appendChild' on 'Node': Invalid or unexpected token` on the Vercel preview (not present on prod). Fix: keep `<motion.div>` constant, gate animation props (`initial={false}`, `duration={0}`) instead — framer-motion's documented pattern
+- **Workflow:** branched `feature/mobile-first-overhaul`, pushed to origin + client, opened PR #1 with full test plan + rollback instructions, Vercel auto-deployed preview, ran curl/build verification (73 static pages, `tsc` clean, 5 routes smoke-tested 200 OK), caught hydration regression via preview console, patched + re-pushed, merged via squash to `main`, mirrored main to `client` remote
+- **Deferred items** (flagged in PR body, separate tickets): convert 6 `"use client"` content pages to server components (framer-motion bundle reduction), trim `FadeIn` 1.5s duration (design call), remove Header `fadeScrollTo` 270ms white overlay (behavior change), `lucide-react` upgrade, Playfair weight trim, Header logo aspect ratio verification
+
+**Key commits:**
+- `7d1ccaa` perf: mobile-first overhaul — next/image, tap targets, reduced-motion, svh (#1)
+
+**Notes:**
+- Production verified live: theme-color meta (light + dark), `_next/image` markers, roofle preconnect, Roofle widget back (domain allowlist matches)
+- Feature branch `feature/mobile-first-overhaul` still exists on both remotes — safe to delete once retention window passes; commits are preserved in main history via the squash
+
+---
+
+## Previous Activity — April 17, 2026
 
 **Session summary:** Diagnosed and fixed a critical Vercel deployment misconfiguration — the `rr-sc-website` Vercel project was silently connected to the old Vite SPA archive repo (`Agentic-Person/restorationroofing-sc`) instead of the Next.js repo (`Agentic-Person/rr-sc-website`). Every commit since the Next.js migration was being ignored, and the production URL was serving a stale Vite SPA build from the archive.
 

@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Bridge Status
-> Last updated: April 17, 2026
+> Last updated: April 18, 2026
 
 ## 🟢 Status: Site Live — Domain Connection + Integrations Next
 
@@ -63,7 +63,19 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 ## ⏳ Phase 4 — New Features
 - [ ] Accessibility audit (WCAG 2.1 AA)
 
-## 🔄 Recently Updated (April 17, 2026)
+## 🔄 Recently Updated (April 18, 2026)
+- **Mobile-first overhaul shipped to production** — Full phone-ready pass executed by a team of agents (Phase 1 deep perf audit → 4 parallel implementation agents on disjoint files → hotfix → PR review → merge to `main`). Production deploy verified live and phone-tested
+- **Images fully optimized** — 19 raw `<img>` tags migrated to `next/image` across homepage, `PageHero`, ChatWidget giraffe avatars, portfolio, about, and location details. Homepage hero now has a preloaded responsive `srcSet` (8 sizes, 640→3840w, AVIF/WebP auto-negotiated) as the LCP element
+- **Tap targets meet WCAG / iOS HIG** — Header hamburger, mobile phone CTA, theme toggle, and dropdown children all now `min-h/min-w [44px]`. Hamburger has state-aware `aria-label` + `aria-expanded` + `aria-controls`
+- **Accessibility uplift** — `prefers-reduced-motion` globally neutralizes all animation/transition durations (WCAG 2.3.3); `.ken-burns` hero zoom additionally disabled on mobile; `FadeIn` uses `useReducedMotion()` from framer-motion
+- **iOS Safari URL-bar jump fixed** — all hero/modal `vh` units swapped to `svh` (homepage hero, all sub-page `PageHero`, portfolio modal, materials-comparison hero)
+- **iOS address-bar tint + preconnect** — `viewport` export with `themeColor` (light `#ffffff` / dark `#000000` via media queries), `colorScheme: "light dark"`. `preconnect` + `dns-prefetch` added to `app.roofle.com` for ~150ms faster widget handshake on 4G
+- **LCP paint unblocked on sub-page heroes** — removed 1.5s `motion.h1` fade-in on `PageHero`; the `h1` (LCP candidate on every sub-page) now paints at final position on the first frame
+- **ChatWidget / Roofle collision resolved on mobile** — chat button moved to `bottom-24` on phones so the giraffe clears Roofle's "Get Instant Roof Quote" button; desktop unchanged
+- **Hotfix: React 19 + framer-motion hydration mismatch** — `FadeIn` was swapping the rendered element type (`<div>` vs `<motion.div>`) based on `useReducedMotion()`, which React 19's strict hydration cannot reconcile across SSR/client renders. Manifested as `appendChild` SyntaxError on the Vercel preview. Fix: keep `<motion.div>` constant, gate animation props instead — framer-motion's documented pattern
+- **Phase 4 accessibility audit partially addressed** — tap-target sizes (WCAG 2.5.5), reduced-motion (2.3.3), and aria improvements on hamburger shipped as part of this overhaul; full WCAG 2.1 AA sweep still open as a dedicated pass
+
+## 🔄 Previously Updated (April 17, 2026)
 - **Vercel deploy pipeline fixed (critical)** — `rr-sc-website` Vercel project was silently linked to the OLD Vite SPA archive repo (`Agentic-Person/restorationroofing-sc`), so every push to the Next.js repo since the April 7 migration was being ignored and `rr-sc-website.vercel.app` was serving stale Vite SPA HTML. Relinked the project to `Agentic-Person/rr-sc-website` on `main` via the Vercel API. Production now serving `dpl_Am5a7bFfiUsQ12fRXAgartshpAZe` (Next.js build) with the Roofle slideout live in `<head>`
 - **Vercel CLI installed and authed** — `vercel` CLI now available locally on team `sc-roofing` for direct deploy/inspect/relink without going through the dashboard
 - **Old deploy hooks dead** — relinking the Vercel project wiped its deploy hooks; the URLs in CLAUDE.md (`…/3Od4x8p5su`, `…/QcPRUiXCDI`) no longer work. Not needed going forward — the GitHub integration auto-deploys on every push to `origin main`. CLAUDE.md updated accordingly
