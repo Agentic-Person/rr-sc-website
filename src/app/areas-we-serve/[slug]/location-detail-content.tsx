@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Location, Service, Testimonial } from "@/lib/data";
 import { COMPANY } from "@/lib/data";
@@ -38,12 +39,16 @@ export function LocationDetailContent({
             {/* Left: Community Image */}
             <motion.div {...fadeUp} className="lg:col-span-2">
               <div className="rounded-xl overflow-hidden shadow-lg sticky top-24">
-                <img
-                  src={location.image}
-                  alt={`${location.name}, South Carolina`}
-                  className="w-full h-[300px] lg:h-[420px] object-cover"
-                  loading="lazy"
-                />
+                <div className="relative w-full h-[300px] lg:h-[420px]">
+                  <Image
+                    src={location.image}
+                    alt={`${location.name}, South Carolina`}
+                    fill
+                    sizes="(min-width: 1024px) 40vw, 100vw"
+                    loading="lazy"
+                    className="object-cover"
+                  />
+                </div>
                 <div className="bg-navy p-5 text-white">
                   <h3 className="font-display text-lg font-semibold mb-3">
                     Quick Facts
@@ -383,12 +388,14 @@ export function LocationDetailContent({
                 <Link href={`/services/${service.slug}`}>
                   <div className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all border border-transparent hover:border-amber/20">
                     {service.image && (
-                      <div className="h-36 overflow-hidden">
-                        <img
+                      <div className="relative h-36 overflow-hidden">
+                        <Image
                           src={service.image}
                           alt={service.shortTitle}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          fill
+                          sizes="(min-width: 1024px) 20vw, (min-width: 640px) 50vw, 100vw"
                           loading="lazy"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                     )}
@@ -466,12 +473,14 @@ export function LocationDetailContent({
                     className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all"
                   >
                     {loc.image && (
-                      <div className="h-24 overflow-hidden">
-                        <img
+                      <div className="relative h-24 overflow-hidden">
+                        <Image
                           src={loc.image}
                           alt={loc.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          fill
+                          sizes="(min-width: 1024px) 16vw, (min-width: 640px) 33vw, 50vw"
                           loading="lazy"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                     )}

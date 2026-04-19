@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { IMAGES } from "@/lib/data";
 import { PageHero, CTABanner, JsonLdScript } from "@/components/shared";
@@ -135,11 +136,12 @@ export default function PortfolioContent() {
                 >
                   <div className="bg-white rounded-lg border border-border/50 overflow-hidden hover:shadow-2xl hover:-translate-y-1 hover:border-amber/30 card-halo transition-all duration-300">
                     <div className="aspect-[4/3] overflow-hidden relative">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/20 transition-colors flex items-center justify-center">
                         <span className="text-white text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity bg-navy/80 px-4 py-2 rounded-md">
@@ -179,15 +181,16 @@ export default function PortfolioContent() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white rounded-xl max-w-3xl w-full max-h-[90svh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+              <div className="relative aspect-[16/9]">
+                <Image
                   src={selectedProject.image}
                   alt={selectedProject.title}
-                  className="w-full aspect-[16/9] object-cover rounded-t-xl"
+                  fill
+                  sizes="(min-width: 768px) 768px, 100vw"
+                  className="object-cover rounded-t-xl"
                 />
                 <button
                   onClick={() => setSelectedProject(null)}

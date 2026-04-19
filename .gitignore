@@ -42,5 +42,3 @@ next-env.d.ts
 
 # screenshots in public (use docs/ for README images)
 public/Screenshot*
-
-.vercel

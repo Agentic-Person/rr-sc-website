@@ -2,11 +2,11 @@
 // DESIGN: Coastal Heritage — Giraffe mascot widget with chat, text, and booking
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { COMPANY } from "@/lib/data";
 import { Send, X, Bot, Minus, MessageCircle, CalendarCheck, Smartphone } from "lucide-react";
 import { nanoid } from "nanoid";
 import giraffeImgData from "@assets/giraffe_style_B_sporty (1).png";
-const giraffeImg = giraffeImgData.src;
 
 function getSessionId(): string {
   const key = "rr_chat_session_id";
@@ -94,7 +94,7 @@ export default function ChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-24 md:bottom-4 right-4 z-50 flex flex-col items-end gap-3">
       {/* ───────── Chat Window ───────── */}
       <AnimatePresence>
         {chatOpen && (
@@ -110,8 +110,8 @@ export default function ChatWidget() {
             <div className="bg-navy px-4 py-3 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-amber bg-white">
-                    <img src={giraffeImg} alt="Roofing Assistant" className="w-full h-full object-cover object-top" />
+                  <div className="relative w-9 h-9 rounded-full overflow-hidden border-2 border-amber bg-white">
+                    <Image src={giraffeImgData} alt="Roofing Assistant" fill sizes="36px" className="object-cover object-top" />
                   </div>
                   <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-navy" />
                 </div>
@@ -142,8 +142,8 @@ export default function ChatWidget() {
             <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-linen/50">
               {/* Welcome message */}
               <div className="flex gap-2.5">
-                <div className="w-7 h-7 rounded-full overflow-hidden bg-white border border-amber/30 shrink-0 mt-0.5">
-                  <img src={giraffeImg} alt="" className="w-full h-full object-cover object-top" />
+                <div className="relative w-7 h-7 rounded-full overflow-hidden bg-white border border-amber/30 shrink-0 mt-0.5">
+                  <Image src={giraffeImgData} alt="" fill sizes="28px" className="object-cover object-top" />
                 </div>
                 <div className="space-y-2 max-w-[460px]">
                   <div className="bg-white rounded-lg rounded-tl-none p-3 shadow-sm border border-border/30">
@@ -174,8 +174,8 @@ export default function ChatWidget() {
                   className={`flex gap-2.5 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
                 >
                   {msg.role === "bot" && (
-                    <div className="w-7 h-7 rounded-full overflow-hidden bg-white border border-amber/30 shrink-0 mt-0.5">
-                      <img src={giraffeImg} alt="" className="w-full h-full object-cover object-top" />
+                    <div className="relative w-7 h-7 rounded-full overflow-hidden bg-white border border-amber/30 shrink-0 mt-0.5">
+                      <Image src={giraffeImgData} alt="" fill sizes="28px" className="object-cover object-top" />
                     </div>
                   )}
                   <div className={`rounded-lg p-3 max-w-[460px] shadow-sm ${
@@ -199,8 +199,8 @@ export default function ChatWidget() {
                   animate={{ opacity: 1 }}
                   className="flex gap-2.5"
                 >
-                  <div className="w-7 h-7 rounded-full overflow-hidden bg-white border border-amber/30 shrink-0 mt-0.5">
-                    <img src={giraffeImg} alt="" className="w-full h-full object-cover object-top" />
+                  <div className="relative w-7 h-7 rounded-full overflow-hidden bg-white border border-amber/30 shrink-0 mt-0.5">
+                    <Image src={giraffeImgData} alt="" fill sizes="28px" className="object-cover object-top" />
                   </div>
                   <div className="bg-white rounded-lg rounded-tl-none p-3 shadow-sm border border-border/30">
                     <div className="flex gap-1">
@@ -282,10 +282,13 @@ export default function ChatWidget() {
               {/* Glowing ring behind giraffe */}
               <div className="absolute inset-0 rounded-full bg-amber/25 animate-pulse" style={{ animationDuration: "2.5s" }} />
               <div className="w-[90px] h-[90px] rounded-full bg-gradient-to-br from-amber via-amber to-amber-dark p-[3px] shadow-xl group-hover:shadow-2xl transition-shadow relative z-10">
-                <div className="w-full h-full rounded-full bg-white overflow-hidden flex items-center justify-center">
-                  <img
-                    src={giraffeImg}
+                <div className="relative w-full h-full rounded-full bg-white overflow-hidden flex items-center justify-center">
+                  <Image
+                    src={giraffeImgData}
                     alt="Restoration Roofing Mascot"
+                    width={68}
+                    height={68}
+                    sizes="90px"
                     className="w-[75%] h-[75%] object-contain object-center"
                   />
                 </div>

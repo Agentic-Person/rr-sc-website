@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { COMPANY, IMAGES } from "@/lib/data";
 import { PageHero, SectionHeader, CTABanner, StatsBar, JsonLdScript } from "@/components/shared";
@@ -95,11 +96,13 @@ export default function AboutContent() {
               viewport={{ once: true }}
               className="relative"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={IMAGES.heroResidential}
                 alt="Charleston neighborhood with beautiful homes"
-                className="rounded-lg shadow-xl w-full"
+                width={1200}
+                height={800}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="rounded-lg shadow-xl w-full h-auto"
               />
               <div className="absolute -bottom-6 -left-6 bg-navy text-white rounded-lg p-5 shadow-xl max-w-xs hidden md:block">
                 <div className="font-display text-2xl font-bold text-amber mb-1">{COMPANY.projectsCompleted}+</div>
