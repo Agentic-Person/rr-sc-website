@@ -1,9 +1,9 @@
 # Restoration Roofing SC — Bridge Status
-> Last updated: April 18, 2026
+> Last updated: April 21, 2026
 
-## 🟢 Status: Site Live — Domain Connection + Integrations Next
+## 🟡 Status: Phase 1.5 Pre-Launch Punch List In Motion
 
-**Phase:** Connect production domain, then begin Zuper CRM + estimator integrations
+**Phase:** Client-driven pre-launch sprint — branding (OC → SC giraffe), mobile-first homepage, dedicated Instant Quote landing page, Zuper CRM + SMS integration, then domain cutover
 **Live:** https://rr-sc-website.vercel.app
 **Repo:** github.com/Agentic-Person/rr-sc-website
 **Client Repo:** github.com/SCROOF1/restorationroofing
@@ -35,7 +35,32 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 - ~~**HIGH** — Env vars + deploy from new repo~~ **RESOLVED** (April 9)
 - ~~**MED** — Commercial services yes/no~~ **RESOLVED** — Tom confirmed no commercial services
 
-## 🔨 In Progress — Phase 1 Remaining
+## 🔨 In Progress — Phase 1.5 Pre-Launch Punch List (April 20 client meeting)
+
+**Priority 1 — Immediate homepage + branding work (Week 1–2)**
+- [ ] **P1.1** Strip all Pink Panther / Owens Corning branding (estimator + chat) and replace with SC Roofing giraffe branding
+- [ ] **P1.2** Design custom giraffe tool visuals — chat/inspection giraffe (headset, laptop, tablet) + estimator giraffe (blueprint, clipboard, tape measure, hard hat); export SVG/PNG
+- [ ] **P1.3** Reorganize homepage above-the-fold (mobile-first) with 3 primary CTAs: Talk to a person now / Get instant online quote / Request callback
+- [ ] **P1.4** Rewrite CTA copy — kill generic "Free Estimate"; distinct copy for phone/text, instant quote, callback request
+- [ ] **P1.5** Apply all previously submitted minor edits in next deployment cycle
+
+**Priority 2 — Instant Quote landing page (Week 3)**
+- [ ] **P2.6** Build dedicated `/instant-quote` landing page (standalone destination for the Roofle tool)
+- [ ] **P2.7** Educational content — what the tool IS and is NOT, how to use it, factors affecting pricing; structured for AEO snippet wins
+- [ ] **P2.8** Supporting visuals — pricing-variability diagrams + estimator giraffe from P1.2
+- [ ] **P2.9** Integrate Roofle embed on the landing page with pre-entry context above the address input
+
+**Priority 3 — Integrations + compliance (Week 2–4)**
+- [ ] **P3.10** Finish lead routing widget integration (not urgent — site not live, so no leads being dropped)
+- [ ] **P3.11** Configure Zuper CRM intake — source tagging, handoff spec
+- [ ] **P3.12** Confirm "Text My Roofer" SMS workflow — Zuper native vs. external provider
+- [ ] **P3.13** SMS compliance — Privacy Policy page, Terms & Conditions page, opt-in language on all CTAs, 10DLC carrier registration (triggered if P3.12 green-lights SMS; 10DLC lead time is 1–3 weeks)
+- [ ] **P3.14** Document tech-stack ownership — confirm Next.js 16 + React 19 + Vercel + Roofle + Zuper stays through launch; define dev vs. marketing/SEO team responsibilities
+
+**Priority 4 — Deferred backlog (post-launch)**
+- [ ] P4.15 Spanish language toggle, Careers page, Referral / lead-gen landing page
+
+## 🔨 In Progress — Domain + Launch QA (Week 4)
 - [ ] Run Lighthouse audit — target SEO score ≥ 95
 - [ ] Run Google Rich Results Test on key pages
 - [ ] Connect production domain in Vercel (restorationroofingsc.com)
@@ -44,8 +69,7 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 - [ ] Submit sitemap to Google Search Console
 - [ ] Final QA + go-live
 
-## ⏳ Up Next — Phase 2 (Integrations)
-- [ ] **Zuper CRM integration** — wire contact form + chat leads into Zuper for lead management and follow-up
+## ⏳ Up Next — Phase 2 (Integrations continued)
 - [x] **Instant roof estimator** — Roofle RoofQuote PRO slideout integrated site-wide (April 16, 2026); loads in `<head>` per Roofle install spec
 - [ ] **After-hours voice agent** — Zuper may handle natively; follow up with Zuper to confirm scope
 - [ ] **Blog content launch** — infrastructure built, content ready; major AEO lever once live
@@ -63,7 +87,14 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 ## ⏳ Phase 4 — New Features
 - [ ] Accessibility audit (WCAG 2.1 AA)
 
-## 🔄 Recently Updated (April 18, 2026)
+## 🔄 Recently Updated (April 20, 2026)
+- **Phase 1.5 punch list captured** from client meeting with Tom — 15 tasks across 4 priority buckets (see "In Progress" above). Status shifted from "Site Live — Domain Connection Next" to "Pre-Launch Punch List In Motion"
+- **P3.10 (lead routing) re-scoped** from "HIGH emergency" to normal priority — Tom confirmed it's a widget wire-up gap, not data loss; site is not live yet so no leads are being missed
+- **Owl Roofing `/roof-quote/` analyzed** as architectural reference for the P2 Instant Quote landing page build. 19-section narrative arc documented (frustration → education → empowerment → reassurance → promise). Borrowing section order + narrative structure only — not copy, not images, not design system. Their weak points (broken image tags, no social proof numbers, no FAQ schema, vague financing, unclear tool mechanics) flagged as deliberate opportunities for us to beat
+- **Roofle tool alignment noted** — Owl Roofing runs the same RoofQuotePRO™ widget we integrated April 16, so their tool-specific framing is directly reusable
+- **Proposed 4-week sequencing:** Week 1 parallel (P1.1 branding, P1.2 giraffes, P1.5 minor edits, P3.10 widget fix) → Week 2 (P1.3 + P1.4 mobile hero + CTA copy; Zuper/SMS kickoff) → Week 3 (P2.6–P2.9 Instant Quote page; 10DLC filing in motion) → Week 4 (P3.14 ownership doc; domain cutover; final QA)
+
+## 🔄 Previously Updated (April 18, 2026)
 - **Mobile-first overhaul shipped to production** — Full phone-ready pass executed by a team of agents (Phase 1 deep perf audit → 4 parallel implementation agents on disjoint files → hotfix → PR review → merge to `main`). Production deploy verified live and phone-tested
 - **Images fully optimized** — 19 raw `<img>` tags migrated to `next/image` across homepage, `PageHero`, ChatWidget giraffe avatars, portfolio, about, and location details. Homepage hero now has a preloaded responsive `srcSet` (8 sizes, 640→3840w, AVIF/WebP auto-negotiated) as the LCP element
 - **Tap targets meet WCAG / iOS HIG** — Header hamburger, mobile phone CTA, theme toggle, and dropdown children all now `min-h/min-w [44px]`. Hamburger has state-aware `aria-label` + `aria-expanded` + `aria-controls`
