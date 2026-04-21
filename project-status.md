@@ -5,11 +5,33 @@
 > **Previous Repo (Vite SPA):** github.com/SCROOF1/restorationroofing
 > **Live URL:** https://rr-sc-website.vercel.app
 > **Vercel Team:** sc-roofing
-> **Last updated:** April 18, 2026
+> **Last updated:** April 20, 2026
 
 ---
 
-## Last Activity — April 18, 2026
+## Last Activity — April 20, 2026
+
+**Session summary:** Met with Tom to align on the pre-launch punch list — converted his 4-priority brief into a 15-item tracked task list. Researched Owl Roofing's `/roof-quote/` landing page as an architectural reference for our own Instant Quote page (P2 bucket). Repriorized P3.10 lead routing from "HIGH" to normal after Tom confirmed it's a widget wire-up and the site isn't live yet.
+
+**Work completed:**
+- **15-task Phase 1.5 punch list captured** across four priority buckets from client meeting:
+  - **P1 (5 tasks):** strip Owens Corning / Pink Panther branding, design custom SC giraffe tool visuals (chat giraffe + estimator giraffe), mobile-first homepage hero redesign with 3-CTA hierarchy (Talk to a person / Get instant quote / Request callback), rewrite generic "Free Estimate" CTA copy, apply pending minor edits
+  - **P2 (4 tasks):** dedicated `/instant-quote` landing page — educational content ("what this tool IS and is NOT"), supporting visuals, Roofle embed with pre-entry context
+  - **P3 (5 tasks):** finish lead routing widget integration, configure Zuper CRM intake with source tagging, spec "Text My Roofer" SMS workflow, SMS compliance (Privacy / Terms / 10DLC carrier registration), tech-stack ownership doc for dev vs. marketing team
+  - **P4 (deferred):** Spanish language toggle, Careers page, Referral/lead-gen landing page — parked until post-launch
+- **P3.10 re-scoped** — not an emergency. Site is not live so no leads are being lost; this is a widget integration that simply hasn't been set up properly yet. Moved out of the Week 1 critical path
+- **Owl Roofing `/roof-quote/` analyzed** as reference for the P2 Instant Quote build. 19-section narrative arc (frustration → education → empowerment → reassurance → promise), RoofQuotePRO™ estimator embedded above the fold, implicit Q&A distributed as long-form sections rather than a schema-marked FAQ accordion. Tool alignment note: Owl uses the same Roofle RoofQuotePRO™ widget we integrated April 16, so their tool-specific framing is directly reusable
+- **Competitor weak points documented** (to beat in our build): broken/empty `<img>` tags, no social proof numbers, vague financing copy, no real FAQ accordion (missed AEO opportunity), unclear tool mechanics, repetitive "clarity/kindness/competence" phrasing
+- **Proposed 4-week sequencing:** Week 1 parallel (P1.1 branding strip, P1.2 giraffe visuals, P1.5 minor edits, P3.10 widget fix) → Week 2 (P1.3 + P1.4 mobile hero + CTA copy, Zuper/SMS kickoff) → Week 3 (P2.6–P2.9 Instant Quote page, 10DLC filing in motion) → Week 4 (P3.14 ownership doc, pre-launch QA, domain cutover)
+- **Borrowing vs. copying** — will take Owl's page architecture and narrative arc (not copyrightable) but produce our own copy, our own SC-specific content, our own giraffe-led visuals, and our own design system. No image assets or verbatim copy will be lifted
+
+**Notes:**
+- The two PDFs dropped in `docs/` this session (`Restoration_Roofing_SC_Invoice_Site_A.pdf`, `tamko-stormfighter-flex-sell-sheet-(phillipsburg).pdf`) are intentionally untracked — client handoff docs, not app assets
+- Task list is tracked in the session task system (not in git); this file remains the canonical project log
+
+---
+
+## Previous Activity — April 18, 2026
 
 **Session summary:** Full mobile-first overhaul executed by a team of agents — Phase 1 deep perf audit followed by 4 parallel implementation agents on disjoint files, then a hotfix commit for a React 19 hydration regression caught on the preview deploy. Shipped via feature branch + PR review flow to production. Phone-tested and confirmed live.
 
