@@ -64,53 +64,53 @@ function QuoteButton({
 
 const SHINGLE_TIERS = [
   {
-    tier: "Storm-Rated",
-    label: "GOOD",
-    name: "TAMKO Storm Fighter",
-    tagline: "Built for hurricane season",
-    description:
-      "Engineered for the South Carolina coast. 160 mph system wind warranty, Hail Guard impact protection, and Class 4 rating — may qualify for insurance discounts.",
-    windRating: "160 mph system",
-    lifespan: "20–30 years",
-    priceRange: "$9,000 – $14,000",
-    priceNote: "typical 1,500–2,500 sq ft home",
-    highlights: ["160 mph wind warranty", "Hail Guard impact resistance", "Insurance discount eligible", "Built for coastal SC"],
-    houseImage: "/images/material-tamko-house.webp",
-    badgeColor: "bg-sage text-white",
-    borderColor: "border-sage/40",
-    accentColor: "text-sage",
-  },
-  {
     tier: "Architectural",
-    label: "BETTER",
+    label: "GOOD",
     name: "Owens Corning Oakridge",
     tagline: "Quality & curb appeal, balanced",
     description:
       "Dimensional wood-shake appearance with proven Owens Corning performance. StreakGuard algae resistance fights the Lowcountry humidity. 110 mph rated, Lifetime Limited warranty.",
     windRating: "110 mph",
     lifespan: "20–25 years",
-    priceRange: "$11,000 – $16,000",
+    priceRange: "$9,000 – $14,000",
     priceNote: "typical 1,500–2,500 sq ft home",
     highlights: ["Dimensional appearance", "StreakGuard algae resistance", "Owens Corning Lifetime warranty", "Wide color selection"],
     houseImage: "/images/material-oc-oakridge-house.webp",
-    badgeColor: "bg-amber text-black",
-    borderColor: "border-amber/40",
-    accentColor: "text-amber-dark",
-    popular: true,
+    badgeColor: "bg-sage text-white",
+    borderColor: "border-sage/40",
+    accentColor: "text-sage",
   },
   {
     tier: "Premium",
-    label: "BEST",
+    label: "BETTER",
     name: "Owens Corning Duration",
     tagline: "Top-tier protection & appearance",
     description:
       "Our flagship shingle. SureNail Technology for a reinforced nail zone, 130 mph wind warranty, bold TruDefinition color, and StreakGuard protection. The go-to for premium curb appeal on Lowcountry homes.",
     windRating: "130 mph",
     lifespan: "25–30 years",
-    priceRange: "$14,000 – $20,000",
+    priceRange: "$11,000 – $16,000",
     priceNote: "typical 1,500–2,500 sq ft home",
     highlights: ["SureNail Technology", "130 mph wind warranty", "Class 4 impact option", "TruDefinition color platform"],
     houseImage: "/images/material-oc-duration-house.webp",
+    badgeColor: "bg-amber text-black",
+    borderColor: "border-amber/40",
+    accentColor: "text-amber-dark",
+    popular: true,
+  },
+  {
+    tier: "Storm-Rated",
+    label: "BEST",
+    name: "TAMKO Storm Fighter",
+    tagline: "Built for hurricane season",
+    description:
+      "Engineered for the South Carolina coast. 160 mph system wind warranty, Hail Guard impact protection, and Class 4 rating — may qualify for insurance discounts.",
+    windRating: "160 mph system",
+    lifespan: "20–30 years",
+    priceRange: "$14,000 – $20,000",
+    priceNote: "typical 1,500–2,500 sq ft home",
+    highlights: ["160 mph wind warranty", "Hail Guard impact resistance", "Insurance discount eligible", "Built for coastal SC"],
+    houseImage: "/images/material-tamko-house.webp",
     badgeColor: "bg-navy text-white",
     borderColor: "border-navy/30",
     accentColor: "text-navy",
@@ -206,13 +206,13 @@ export default function RoofQuoteContent() {
       <section className="bg-navy relative overflow-hidden min-h-[60svh] flex items-center">
         <div className="absolute inset-0">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/112751785/QzW5An8GggbtcG7rNRpiT7/hero-homepage-jkwKvpQJahreMKq2qj8Y5j.webp"
-            alt="Charleston home with new roof"
+            src="/images/roofrecon-pair2-clean.webp"
+            alt="Aerial roof measurement and analysis"
             fill
-            className="object-cover opacity-20"
+            className="object-cover opacity-80"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
         </div>
         <div className="container relative z-10 py-20 md:py-28">
           <div className="max-w-2xl">
