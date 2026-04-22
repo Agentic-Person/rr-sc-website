@@ -252,6 +252,15 @@
     }
   }
 
+  .chat-widget-anchor {
+    left: 1rem;
+  }
+  @media (min-width: 768px) {
+    .chat-widget-anchor {
+      left: max(50px, calc(50px + (100vw - 1280px) / 2));
+    }
+  }
+
   /* Warm linen texture background */
   .bg-linen {
     background-color: var(--color-linen);

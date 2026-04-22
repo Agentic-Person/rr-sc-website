@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import ChatWidget from "@/components/ChatWidget";
 import { COMPANY, IMAGES, SERVICES, LOCATIONS, TESTIMONIALS, PROCESS_STEPS, BLOG_POSTS } from "@/lib/data";
 import { SectionHeader, StatsBar, TrustBadges, StarRating, JsonLdScript } from "@/components/shared";
 import { FadeIn } from "@/components/FadeIn";
@@ -470,6 +471,7 @@ export default function Home() {
   return (
     <>
       <JsonLdScript data={jsonLd} />
+      <ChatWidget />
 
       <HeroSection />
       <StatsBar />

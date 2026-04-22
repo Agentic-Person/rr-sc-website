@@ -5,7 +5,60 @@
 > **Previous Repo (Vite SPA):** github.com/SCROOF1/restorationroofing
 > **Live URL:** https://rr-sc-website.vercel.app
 > **Vercel Team:** sc-roofing
-> **Last updated:** April 20, 2026
+> **Last updated:** April 21, 2026
+
+---
+
+## Last Activity — April 22, 2026
+
+**Session summary:** Nav centering fixed (true CSS center via absolute positioning), "Price My Roof!" link added to header, all prior uncommitted work committed and pushed — QuoteGiraffeTab giraffe widget, ChatWidget repositioning, layout refactor.
+
+**Work completed:**
+
+### Nav — "Price My Roof!" + centering
+- **"Price My Roof!" added to desktop and mobile nav** — orange/bold, after Financing, links to `/roof-quote`. Uses `highlight: true` flag on the NAV_ITEMS entry; Header applies conditional amber styling when present.
+- **Nav spacing pass**: bumped all item padding `px-3 → px-4`, nav set to `flex-1 justify-center` for breathing room.
+- **True page-center fix**: `flex-1 justify-center` centers within the leftover space between logo and CTA — which is biased because logo width ≠ CTA width. Fixed by switching nav to `absolute left-1/2 -translate-x-1/2` (taken out of flex flow entirely), so the nav is anchored to the actual 50% point of the page regardless of sidebar asymmetry. Visual midpoint (between "Areas We Serve" and "About Us") now sits on the true page center line.
+
+### QuoteGiraffeTab — floating right-side giraffe widget
+- **New `src/components/QuoteGiraffeTab.tsx`**: Fixed right-edge floating tab with a giraffe image (`giraffe-quote-tab.webp`) that links to `/roof-quote`. Springs in from the right on load, slides left 10px on hover. Replaced ChatWidget in the root layout.
+- **ChatWidget moved to homepage only** (`src/app/page.tsx`) — so the AI chat giraffe appears on the homepage, and the QuoteGiraffeTab appears on all other pages.
+- **ChatWidget repositioned to left edge** — moved from `bottom-4 right-4` to a dynamically calculated left position that aligns with the container's left edge (50px at desktop, 1rem on mobile). Added `useEffect` + resize listener for the calculation. Added `.chat-widget-anchor` CSS utility in `globals.css`.
+- **Roofle widget disabled** in `layout.tsx` while testing the custom giraffe tab — commented out script + preconnect hints. Re-enable by uncommenting.
+
+**New assets committed:**
+- `public/images/giraffe-quote-tab.webp` — right-edge quote tab giraffe (used by QuoteGiraffeTab)
+- `public/images/giraffe-chat-mascot.webp` — chat giraffe image (used by ChatWidget)
+- `public/images/nova-city-centreville.webp` — Nova City / Centreville area photo
+
+**Notes:**
+- Roofle slideout is currently DISABLED — needs to be re-enabled once giraffe tab design is approved, or wired so both can coexist
+- Price ranges on `/roof-quote` shingle cards are Charleston market estimates — pending ABC Supply pricing confirmation from Tom
+- Raw PNG/JPG source files (giraffe_C_confident_pro.png, process .jpg files, logo outlines) left untracked intentionally — WebP versions are in git
+
+---
+
+## Last Activity — April 21, 2026
+
+**Session summary:** Built the dedicated `/roof-quote` landing page (P2.6) — a full 13-section conversion landing page modeled on the Owl Roofing architectural reference, fully adapted for South Carolina / Lowcountry market with our brand colors and copy.
+
+**Work completed:**
+- **`/roof-quote` landing page shipped** (`src/app/roof-quote/page.tsx` + `roof-quote-content.tsx`):
+  - **Hero**: Empathy-first headline ("Most roofing companies start with pressure. We start with transparency."), dual CTA (Roofle trigger + phone), four trust badges
+  - **Quote tool section**: Roofle RoofQuotePRO™ trigger button via `openRoofleWidget()` DOM helper — tries multiple selectors, scrolls to `#get-quote` as fallback
+  - **Shingle tier visual**: 3-card "What Would Your Roof Look Like?" section using actual house photos (`material-tamko-house.webp`, `material-oc-oakridge-house.webp`, `material-oc-duration-house.webp`) with realistic Charleston market price ranges, wind ratings, lifespan, and highlight bullets
+  - **"Why Getting a Roof Quote Feels Stressful"**: Left-right split with 6 SC-adapted frustration bullets + testimonial card overlay
+  - **Tool explainer**: 5-feature breakdown of RoofQuotePRO™
+  - **"What a Real Quote Should Include"**: 13-item buyer-education checklist (adapted to SC) with sticky dark promo card
+  - **Cost drivers**: 8 SC-specific factors (hurricane prep, salt air, ventilation, pitch, decking, etc.)
+  - **Confidence section**: "The #1 Thing Homeowners Want" with 6 desire cards
+  - **Good-quote checklist**: 9-item vetting guide + 6-item instant-quote advantage sub-section
+  - **Red flags**: 7 numbered warning signs in cheap quotes
+  - **Repair or Replace**: Two-column honest breakdown
+  - **Financing**: 4-scenario guide with link to /financing
+  - **"After the Quote"**: 5-step process using `sc-process-0*.webp` photos
+  - **Brand promise CTA**: Full-width dark close with dual CTA
+- **SEO**: Page-level metadata + JSON-LD `WebPage` + `BreadcrumbList` — static prerender (○ in build output)
 
 ---
 

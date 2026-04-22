@@ -32,6 +32,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<{ role: "user" | "bot"; text: string }[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [leftPos, setLeftPos] = useState("1rem");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -42,6 +43,20 @@ export default function ChatWidget() {
   useEffect(() => {
     if (chatOpen) inputRef.current?.focus();
   }, [chatOpen]);
+
+  useEffect(() => {
+    function update() {
+      if (window.innerWidth < 768) {
+        setLeftPos("1rem");
+      } else {
+        const px = Math.max(70, 70 + (window.innerWidth - 1280) / 2);
+        setLeftPos(`${Math.round(px)}px`);
+      }
+    }
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const sessionId = useRef(getSessionId());
 
@@ -94,7 +109,7 @@ export default function ChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-24 md:bottom-4 right-4 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-24 z-50" style={{ left: leftPos }}>
       {/* ───────── Chat Window ───────── */}
       <AnimatePresence>
         {chatOpen && (
@@ -252,125 +267,103 @@ export default function ChatWidget() {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
-            className="relative flex flex-col items-center"
+            className="relative"
           >
-            {/* Speech bubble — always visible on desktop, hidden on mobile */}
-            <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ type: "spring", damping: 20, stiffness: 300, delay: 0.3 }}
-              className="mb-2 relative hidden md:block"
-            >
-              <div className="bg-white rounded-xl px-4 py-2.5 shadow-lg border-2 border-amber max-w-[210px] text-center">
-                <p className="text-xs font-bold text-navy leading-snug">
-                  I can answer questions and schedule inspections.
-                </p>
-              </div>
-              {/* Speech bubble tail */}
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-white" />
-              <div className="absolute -bottom-[10px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[9px] border-l-transparent border-r-[9px] border-r-transparent border-t-[9px] border-t-amber -z-10" />
-            </motion.div>
+            <div className="flex items-start gap-3">
 
-            {/* Giraffe avatar — large and tappable */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setExpanded(!expanded)}
-              className="relative group cursor-pointer"
-              aria-label="Open contact options"
-            >
-              {/* Glowing ring behind giraffe */}
-              <div className="absolute inset-0 rounded-full bg-amber/25 animate-pulse" style={{ animationDuration: "2.5s" }} />
-              <div className="w-[90px] h-[90px] rounded-full bg-gradient-to-br from-amber via-amber to-amber-dark p-[3px] shadow-xl group-hover:shadow-2xl transition-shadow relative z-10">
-                <div className="relative w-full h-full rounded-full bg-white overflow-hidden flex items-center justify-center">
-                  <Image
-                    src={giraffeImgData}
-                    alt="Restoration Roofing Mascot"
-                    width={68}
-                    height={68}
-                    sizes="90px"
-                    className="w-[75%] h-[75%] object-contain object-center"
-                  />
+              {/* Speech bubble — left of mascot, desktop only */}
+              <motion.div
+                initial={{ opacity: 0, x: -10, scale: 0.9 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                transition={{ type: "spring", damping: 20, stiffness: 300, delay: 0.3 }}
+                className="relative hidden md:block mt-8"
+              >
+                <div className="bg-white rounded-xl px-4 py-3 shadow-lg border-2 border-amber w-[135px] text-center">
+                  <p className="text-xs font-bold text-navy leading-snug">
+                    I can answer<br />questions and<br />schedule inspections.
+                  </p>
                 </div>
+                {/* Right-pointing tail toward mascot */}
+                <div className="absolute top-1/2 -translate-y-1/2 -right-[11px] w-0 h-0 border-t-[9px] border-t-transparent border-b-[9px] border-b-transparent border-l-[11px] border-l-white z-10" />
+                <div className="absolute top-1/2 -translate-y-1/2 -right-[14px] w-0 h-0 border-t-[11px] border-t-transparent border-b-[11px] border-b-transparent border-l-[13px] border-l-amber -z-10" />
+              </motion.div>
+
+              {/* Mascot + action buttons column */}
+              <div className="flex flex-col items-center">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setExpanded(!expanded)}
+                  className="cursor-pointer drop-shadow-xl"
+                  aria-label="Open contact options"
+                >
+                  <Image
+                    src="/images/giraffe-chat-mascot.webp"
+                    alt="Restoration Roofing Mascot"
+                    width={130}
+                    height={233}
+                    className="w-auto h-auto"
+                  />
+                </motion.button>
+
+                {/* Action buttons */}
+                <AnimatePresence>
+                  {expanded && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ type: "spring", damping: 20, stiffness: 300, delay: 0.05 }}
+                      className="flex items-end gap-2 mt-2"
+                    >
+                      <motion.a
+                        href={`sms:${COMPANY.phoneRaw}`}
+                        initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
+                        transition={{ delay: 0.1 }} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.9 }}
+                        className="w-12 h-12 rounded-full bg-navy shadow-lg flex items-center justify-center text-white hover:bg-navy-light transition-colors group/btn"
+                        aria-label="Text us"
+                      >
+                        <Smartphone className="w-5 h-5 group-hover/btn:text-amber transition-colors" />
+                      </motion.a>
+                      <motion.button
+                        onClick={openChat}
+                        initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
+                        transition={{ delay: 0.05 }} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.9 }}
+                        className="w-14 h-14 rounded-full bg-gradient-to-br from-amber to-amber-dark shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-shadow"
+                        aria-label="Chat with us"
+                      >
+                        <MessageCircle className="w-6 h-6" />
+                      </motion.button>
+                      <motion.a
+                        href="/contact"
+                        initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
+                        transition={{ delay: 0.1 }} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.9 }}
+                        className="w-12 h-12 rounded-full bg-navy shadow-lg flex items-center justify-center text-white hover:bg-navy-light transition-colors group/btn"
+                        aria-label="Book a service"
+                      >
+                        <CalendarCheck className="w-5 h-5 group-hover/btn:text-amber transition-colors" />
+                      </motion.a>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Labels */}
+                <AnimatePresence>
+                  {expanded && (
+                    <motion.div
+                      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                      transition={{ delay: 0.15 }}
+                      className="flex items-center gap-2 mt-1"
+                    >
+                      <span className="w-12 text-center text-[10px] font-semibold text-navy/70">Text</span>
+                      <span className="w-14 text-center text-[10px] font-semibold text-amber-dark">Chat</span>
+                      <span className="w-12 text-center text-[10px] font-semibold text-navy/70">Book</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-              {/* Online indicator */}
-              <div className="absolute top-1 right-1 w-4 h-4 bg-green-500 rounded-full border-[2.5px] border-white z-20" />
-            </motion.button>
 
-            {/* Action buttons — arc of 3 under the giraffe */}
-            <AnimatePresence>
-              {expanded && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ type: "spring", damping: 20, stiffness: 300, delay: 0.05 }}
-                  className="flex items-end gap-2 mt-2"
-                >
-                  {/* Text button (left) */}
-                  <motion.a
-                    href={`sms:${COMPANY.phoneRaw}`}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    exit={{ scale: 0 }}
-                    transition={{ delay: 0.1 }}
-                    whileHover={{ scale: 1.12 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="w-12 h-12 rounded-full bg-navy shadow-lg flex items-center justify-center text-white hover:bg-navy-light transition-colors group/btn"
-                    aria-label="Text us"
-                  >
-                    <Smartphone className="w-5 h-5 group-hover/btn:text-amber transition-colors" />
-                  </motion.a>
-
-                  {/* Chat button (center — larger, primary) */}
-                  <motion.button
-                    onClick={openChat}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    exit={{ scale: 0 }}
-                    transition={{ delay: 0.05 }}
-                    whileHover={{ scale: 1.12 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="w-14 h-14 rounded-full bg-gradient-to-br from-amber to-amber-dark shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-shadow"
-                    aria-label="Chat with us"
-                  >
-                    <MessageCircle className="w-6 h-6" />
-                  </motion.button>
-
-                  {/* Book button (right) */}
-                  <motion.a
-                    href="/contact"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    exit={{ scale: 0 }}
-                    transition={{ delay: 0.1 }}
-                    whileHover={{ scale: 1.12 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="w-12 h-12 rounded-full bg-navy shadow-lg flex items-center justify-center text-white hover:bg-navy-light transition-colors group/btn"
-                    aria-label="Book a service"
-                  >
-                    <CalendarCheck className="w-5 h-5 group-hover/btn:text-amber transition-colors" />
-                  </motion.a>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Labels under buttons */}
-            <AnimatePresence>
-              {expanded && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ delay: 0.15 }}
-                  className="flex items-center gap-2 mt-1"
-                >
-                  <span className="w-12 text-center text-[10px] font-semibold text-navy/70">Text</span>
-                  <span className="w-14 text-center text-[10px] font-semibold text-amber-dark">Chat</span>
-                  <span className="w-12 text-center text-[10px] font-semibold text-navy/70">Book</span>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
