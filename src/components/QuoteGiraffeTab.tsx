@@ -10,7 +10,8 @@ export default function QuoteGiraffeTab() {
       initial={{ x: 80, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ type: "spring", damping: 28, stiffness: 180, delay: 1.2 }}
-      className="fixed right-5 top-1/2 -translate-y-1/2 z-40"
+      className="fixed right-5 z-40 -translate-y-1/2"
+      style={{ top: "calc(50% - 20px)" }}
     >
       <Link href="/roof-quote" aria-label="Get an instant roof quote">
         <motion.div
