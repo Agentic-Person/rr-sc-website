@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Bridge Status
-> Last updated: April 21, 2026
+> Last updated: April 22, 2026
 
 ## 🟡 Status: Phase 1.5 Pre-Launch Punch List In Motion
 
@@ -38,8 +38,8 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 ## 🔨 In Progress — Phase 1.5 Pre-Launch Punch List (April 20 client meeting)
 
 **Priority 1 — Immediate homepage + branding work (Week 1–2)**
-- [ ] **P1.1** Strip all Pink Panther / Owens Corning branding (estimator + chat) and replace with SC Roofing giraffe branding
-- [ ] **P1.2** Design custom giraffe tool visuals — chat/inspection giraffe (headset, laptop, tablet) + estimator giraffe (blueprint, clipboard, tape measure, hard hat); export SVG/PNG
+- [~] **P1.1** Strip all Pink Panther / Owens Corning branding — Roofle slideout widget disabled; in-chat bubble avatars still use old sporty giraffe B (needs swap to headset/tablet mascot)
+- [~] **P1.2** Custom giraffe tool visuals — chat mascot (headset + tablet + SC Roofing uniform, 98×175px WebP) + quote-tab peek-in giraffe (right-side, 216×289px WebP) both live; positions finalized: chat widget `left-4 md:left-[140px] bottom-[20px]`, quote tab `right-0 top-1/2`; sizing fix applied (inline style over `w-auto h-auto`)
 - [ ] **P1.3** Reorganize homepage above-the-fold (mobile-first) with 3 primary CTAs: Talk to a person now / Get instant online quote / Request callback
 - [ ] **P1.4** Rewrite CTA copy — kill generic "Free Estimate"; distinct copy for phone/text, instant quote, callback request
 - [ ] **P1.5** Apply all previously submitted minor edits in next deployment cycle
@@ -86,6 +86,14 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 
 ## ⏳ Phase 4 — New Features
 - [ ] Accessibility audit (WCAG 2.1 AA)
+
+## 🔄 Recently Updated (April 22, 2026)
+- **P1.2 giraffe mascots live** — custom SC Roofing giraffe widgets replace Pink Panther/Roofle branding: (1) chat mascot (headset + tablet, `giraffe-chat-mascot.webp`, 98×175px) positioned `left-4 md:left-[140px] bottom-[20px]` on homepage only; (2) quote-tab peek-in giraffe (`giraffe-quote-tab.webp`, 216px wide) slides in from right on every page linking to `/roof-quote`
+- **Roofle slideout widget disabled** — commented out of `layout.tsx`; replaced by custom QuoteGiraffeTab component; re-enable or replace with Roofle embed on dedicated landing page per P2.9
+- **ChatWidget scoped to homepage only** — removed from root `layout.tsx`, added to `src/app/page.tsx` (Server Component import); avoids widget appearing on every service/location page
+- **Positioning approach locked in** — Tailwind JIT arbitrary values (`md:left-[140px]`, `bottom-[20px]`) are the reliable pattern in this stack; Tailwind 4 `@layer components` with nested `@media` does NOT compile with Turbopack; JS `useEffect` positioning was also abandoned
+- **next/image sizing fix** — `w-auto h-auto` class overrides `width` prop and renders at file's intrinsic size; use `style={{ width: "Xpx", height: "auto" }}` when display size must differ from natural file size
+- **Committed:** `787740d` — pushed to both `origin` and `client`
 
 ## 🔄 Recently Updated (April 20, 2026)
 - **Phase 1.5 punch list captured** from client meeting with Tom — 15 tasks across 4 priority buckets (see "In Progress" above). Status shifted from "Site Live — Domain Connection Next" to "Pre-Launch Punch List In Motion"
