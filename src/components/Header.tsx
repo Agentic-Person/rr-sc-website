@@ -107,7 +107,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex flex-1 items-center justify-center gap-1">
             {NAV_ITEMS.map((item) =>
               item.children ? (
                 <div
@@ -118,7 +118,7 @@ export default function Header() {
                 >
                   <button
                     onClick={() => handleScrollNav("services")}
-                    className="flex items-center gap-1 px-3 py-2 text-base font-medium text-gray-800 hover:text-black transition-colors rounded-md hover:bg-gray-100"
+                    className="flex items-center gap-1 px-4 py-2 text-base font-medium text-gray-800 hover:text-black transition-colors rounded-md hover:bg-gray-100"
                   >
                     {item.label}
                     <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
@@ -150,7 +150,7 @@ export default function Header() {
                 <button
                   key={item.label}
                   onClick={() => handleScrollNav(item.scrollTo!)}
-                  className="px-3 py-2 text-base font-medium rounded-md transition-colors text-gray-800 hover:text-black hover:bg-gray-100"
+                  className="px-4 py-2 text-base font-medium rounded-md transition-colors text-gray-800 hover:text-black hover:bg-gray-100"
                 >
                   {item.label}
                 </button>
@@ -158,9 +158,9 @@ export default function Header() {
                 <Link
                   key={item.label}
                   href={item.href!}
-                  className={`px-3 py-2 text-base rounded-md transition-colors ${
+                  className={`px-4 py-2 text-base rounded-md transition-colors ${
                     item.highlight
-                      ? "font-bold text-amber hover:text-amber-dark hover:bg-amber/10"
+                      ? "font-bold text-amber hover:text-amber-dark hover:bg-amber/10 ml-8"
                       : `font-medium ${pathname === item.href ? "text-black bg-gray-100" : "text-gray-800 hover:text-black hover:bg-gray-100"}`
                   }`}
                 >
@@ -171,7 +171,7 @@ export default function Header() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex flex-shrink-0 items-center gap-3">
             <button
               onClick={toggleTheme}
               className="relative p-2.5 rounded-md text-gray-500 hover:text-black hover:bg-gray-100 transition-colors"
