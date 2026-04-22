@@ -10,7 +10,7 @@ export default function QuoteGiraffeTab() {
       initial={{ x: 80, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ type: "spring", damping: 28, stiffness: 180, delay: 1.2 }}
-      className="fixed right-0 top-1/2 -translate-y-1/2 z-40"
+      className="fixed right-5 top-1/2 -translate-y-1/2 z-40"
     >
       <Link href="/roof-quote" aria-label="Get an instant roof quote">
         <motion.div
@@ -19,7 +19,7 @@ export default function QuoteGiraffeTab() {
           className="cursor-pointer drop-shadow-2xl"
         >
           <Image
-            src="/images/giraffe-quote-tab.webp"
+            src="/images/giraffe-quote-tab-v4.webp"
             alt="Get Instant Roof Quote"
             width={216}
             height={289}

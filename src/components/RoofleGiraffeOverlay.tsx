@@ -90,7 +90,7 @@ export default function RoofleGiraffeOverlay() {
       aria-hidden="true"
       style={{
         position: "fixed",
-        right: 0,
+        right: 20,
         top: "50%",
         // Slide left with the Roofle panel when it opens
         transform: panelOpen
@@ -104,7 +104,7 @@ export default function RoofleGiraffeOverlay() {
       }}
     >
       <Image
-        src="/images/giraffe-quote-tab.webp"
+        src="/images/giraffe-quote-tab-v4.webp"
         alt=""
         width={160}
         height={213}

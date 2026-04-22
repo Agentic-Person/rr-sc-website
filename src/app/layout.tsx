@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import RoofleGiraffeOverlay from "@/components/RoofleGiraffeOverlay";
+import QuoteGiraffeTab from "@/components/QuoteGiraffeTab";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -71,7 +71,7 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
-          <RoofleGiraffeOverlay />
+          <QuoteGiraffeTab />
           <ScrollToTop />
         </ThemeProvider>
 

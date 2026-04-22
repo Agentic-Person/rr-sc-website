@@ -287,7 +287,7 @@ export default function ChatWidget() {
                   aria-label="Open contact options"
                 >
                   <Image
-                    src="/images/giraffe-chat-mascot.webp"
+                    src="/images/giraffe-chat-mascot-v4.webp"
                     alt="Restoration Roofing Mascot"
                     width={98}
                     height={175}
