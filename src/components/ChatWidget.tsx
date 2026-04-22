@@ -32,7 +32,6 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<{ role: "user" | "bot"; text: string }[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [leftPos, setLeftPos] = useState("1rem");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -44,19 +43,6 @@ export default function ChatWidget() {
     if (chatOpen) inputRef.current?.focus();
   }, [chatOpen]);
 
-  useEffect(() => {
-    function update() {
-      if (window.innerWidth < 768) {
-        setLeftPos("1rem");
-      } else {
-        const px = Math.max(70, 70 + (window.innerWidth - 1280) / 2);
-        setLeftPos(`${Math.round(px)}px`);
-      }
-    }
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
 
   const sessionId = useRef(getSessionId());
 
@@ -109,7 +95,7 @@ export default function ChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-24 z-50" style={{ left: leftPos }}>
+    <div className="fixed bottom-[20px] z-50 left-4 md:left-[140px]">
       {/* ───────── Chat Window ───────── */}
       <AnimatePresence>
         {chatOpen && (
@@ -300,8 +286,8 @@ export default function ChatWidget() {
                   <Image
                     src="/images/giraffe-chat-mascot.webp"
                     alt="Restoration Roofing Mascot"
-                    width={130}
-                    height={233}
+                    width={98}
+                    height={175}
                     className="w-auto h-auto"
                   />
                 </motion.button>

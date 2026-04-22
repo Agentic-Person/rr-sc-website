@@ -20,9 +20,9 @@ export default function QuoteGiraffeTab() {
           <Image
             src="/images/giraffe-quote-tab.webp"
             alt="Get Instant Roof Quote"
-            width={240}
-            height={321}
-            className="w-auto h-auto"
+            width={216}
+            height={289}
+            style={{ width: "216px", height: "auto" }}
           />
         </motion.div>
       </Link>
