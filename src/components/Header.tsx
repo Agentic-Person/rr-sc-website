@@ -92,7 +92,7 @@ export default function Header() {
             : "bg-white border-b border-gray-200"
         }`}
       >
-        <div className="container flex items-center justify-between py-0">
+        <div className="container relative flex items-center justify-between py-0">
           {/* Logo */}
           <Link href="/" className="relative z-10 flex-shrink-0 ml-4 lg:ml-8">
             <Image
@@ -106,8 +106,8 @@ export default function Header() {
             />
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex flex-1 items-center justify-center gap-1">
+          {/* Desktop nav — absolutely centered on the page so logo/CTA width asymmetry doesn't shift it */}
+          <nav className="hidden lg:flex lg:absolute lg:inset-y-0 lg:left-1/2 lg:-translate-x-1/2 items-center gap-1">
             {NAV_ITEMS.map((item) =>
               item.children ? (
                 <div
@@ -160,7 +160,7 @@ export default function Header() {
                   href={item.href!}
                   className={`px-4 py-2 text-base rounded-md transition-colors ${
                     item.highlight
-                      ? "font-bold text-amber hover:text-amber-dark hover:bg-amber/10 ml-8"
+                      ? "font-bold text-amber hover:text-amber-dark hover:bg-amber/10 ml-6"
                       : `font-medium ${pathname === item.href ? "text-black bg-gray-100" : "text-gray-800 hover:text-black hover:bg-gray-100"}`
                   }`}
                 >
