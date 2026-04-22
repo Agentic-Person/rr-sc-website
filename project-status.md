@@ -5,7 +5,30 @@
 > **Previous Repo (Vite SPA):** github.com/SCROOF1/restorationroofing
 > **Live URL:** https://rr-sc-website.vercel.app
 > **Vercel Team:** sc-roofing
-> **Last updated:** April 21, 2026
+> **Last updated:** April 22, 2026
+
+---
+
+## Last Activity — April 22, 2026 (session 2)
+
+**Session summary:** Replaced custom QuoteGiraffeTab with Roofle RoofQuote PRO widget + giraffe overlay that slides in sync with the Roofle panel. ChatWidget speech bubble improved for mobile.
+
+**Work completed:**
+
+### Roofle widget + RoofleGiraffeOverlay
+- **Roofle script re-enabled** in `layout.tsx` via `<Script strategy="afterInteractive">` — was commented out since April 21.
+- **New `src/components/RoofleGiraffeOverlay.tsx`**: Replaces `QuoteGiraffeTab` as the global right-edge widget. Positions the giraffe image fixed at `right: 0, top: 50%`, z-index 9998 (just below Roofle's tab). Uses `MutationObserver` to detect when Roofle's panel opens/closes (watches class/style/aria-expanded on `[class*="rfq-pro"]` / `[class*="roofle"]` / `[id*="rfq"]` / `[id*="roofle"]` selectors). Click-based fallback polls state 150ms after any click on a Roofle element. When open: giraffe `translateX(-420px)` in sync with Roofle's panel slide-out.
+- **`layout.tsx`**: Swapped `QuoteGiraffeTab` import/usage for `RoofleGiraffeOverlay`.
+- **`QuoteGiraffeTab.tsx`**: Wrapped in `hidden md:block` — kept in codebase but no longer used in layout.
+
+**Pending Roofle work (waiting on subscription upgrade):**
+- Set Roofle tab fill color to `#ED5A00` (brand orange) in Roofle dashboard
+- May need to tune `PANEL_WIDTH_PX` (currently 420) to match actual Roofle panel width
+- May need to tune z-index (currently 9998) once Roofle's actual z-index is known
+- Currently showing Pink Panther branding until subscription switches to customizable plan
+
+### ChatWidget mobile fix
+- **Speech bubble layout**: On mobile, bubble stacks above mascot (column layout) with a downward-pointing tail. On desktop, keeps existing side-by-side layout with right-pointing tail. Previously the bubble was `hidden md:block` (invisible on mobile).
 
 ---
 

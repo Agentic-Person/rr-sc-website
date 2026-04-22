@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 export default function QuoteGiraffeTab() {
   return (
+    <div className="hidden md:block">
     <motion.div
       initial={{ x: 80, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
@@ -27,5 +28,6 @@ export default function QuoteGiraffeTab() {
         </motion.div>
       </Link>
     </motion.div>
+    </div>
   );
 }

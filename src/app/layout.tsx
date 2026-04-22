@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import QuoteGiraffeTab from "@/components/QuoteGiraffeTab";
+import RoofleGiraffeOverlay from "@/components/RoofleGiraffeOverlay";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -71,17 +71,15 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
-          <QuoteGiraffeTab />
+          <RoofleGiraffeOverlay />
           <ScrollToTop />
         </ThemeProvider>
 
-        {/* Roofle RoofQuote PRO Slideout Widget — DISABLED while testing custom giraffe tab */}
-        {/* <link rel="preconnect" href="https://app.roofle.com" />
-        <link rel="dns-prefetch" href="https://app.roofle.com" />
-        <script
-          async
+        {/* Roofle RoofQuote PRO Slideout Widget */}
+        <Script
           src="https://app.roofle.com/roof-quote-pro-widget.js?id=zco42W_V9MeL04LBXPBx9"
-        /> */}
+          strategy="afterInteractive"
+        />
 
         {/* Google Analytics 4 */}
         <Script

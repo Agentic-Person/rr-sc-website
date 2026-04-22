@@ -255,23 +255,26 @@ export default function ChatWidget() {
             exit={{ scale: 0 }}
             className="relative"
           >
-            <div className="flex items-start gap-3">
+            <div className="flex flex-col items-center gap-2 md:flex-row md:items-start md:gap-3">
 
-              {/* Speech bubble — left of mascot, desktop only */}
+              {/* Speech bubble — above mascot on mobile, left on desktop */}
               <motion.div
                 initial={{ opacity: 0, x: -10, scale: 0.9 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 transition={{ type: "spring", damping: 20, stiffness: 300, delay: 0.3 }}
-                className="relative hidden md:block mt-8"
+                className="relative mb-1 md:mb-0 md:mt-8"
               >
                 <div className="bg-white rounded-xl px-4 py-3 shadow-lg border-2 border-amber w-[135px] text-center">
                   <p className="text-xs font-bold text-navy leading-snug">
                     I can answer<br />questions and<br />schedule inspections.
                   </p>
                 </div>
-                {/* Right-pointing tail toward mascot */}
-                <div className="absolute top-1/2 -translate-y-1/2 -right-[11px] w-0 h-0 border-t-[9px] border-t-transparent border-b-[9px] border-b-transparent border-l-[11px] border-l-white z-10" />
-                <div className="absolute top-1/2 -translate-y-1/2 -right-[14px] w-0 h-0 border-t-[11px] border-t-transparent border-b-[11px] border-b-transparent border-l-[13px] border-l-amber -z-10" />
+                {/* Mobile: downward-pointing tail toward mascot below */}
+                <div className="absolute -bottom-[11px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[9px] border-l-transparent border-r-[9px] border-r-transparent border-t-[11px] border-t-white z-10 md:hidden" />
+                <div className="absolute -bottom-[14px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[11px] border-l-transparent border-r-[11px] border-r-transparent border-t-[13px] border-t-amber -z-10 md:hidden" />
+                {/* Desktop: right-pointing tail toward mascot */}
+                <div className="absolute top-1/2 -translate-y-1/2 -right-[11px] w-0 h-0 border-t-[9px] border-t-transparent border-b-[9px] border-b-transparent border-l-[11px] border-l-white z-10 hidden md:block" />
+                <div className="absolute top-1/2 -translate-y-1/2 -right-[14px] w-0 h-0 border-t-[11px] border-t-transparent border-b-[11px] border-b-transparent border-l-[13px] border-l-amber -z-10 hidden md:block" />
               </motion.div>
 
               {/* Mascot + action buttons column */}
