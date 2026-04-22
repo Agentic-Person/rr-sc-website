@@ -158,10 +158,10 @@ export default function Header() {
                 <Link
                   key={item.label}
                   href={item.href!}
-                  className={`px-3 py-2 text-base font-medium rounded-md transition-colors ${
-                    pathname === item.href
-                      ? "text-black bg-gray-100"
-                      : "text-gray-800 hover:text-black hover:bg-gray-100"
+                  className={`px-3 py-2 text-base rounded-md transition-colors ${
+                    item.highlight
+                      ? "font-bold text-amber hover:text-amber-dark hover:bg-amber/10"
+                      : `font-medium ${pathname === item.href ? "text-black bg-gray-100" : "text-gray-800 hover:text-black hover:bg-gray-100"}`
                   }`}
                 >
                   {item.label}
@@ -279,7 +279,11 @@ export default function Header() {
                     <Link
                       key={item.label}
                       href={item.href!}
-                      className="block px-3 py-3 text-base font-medium text-gray-800 hover:text-black rounded-md hover:bg-gray-100"
+                      className={`block px-3 py-3 text-base rounded-md ${
+                        item.highlight
+                          ? "font-bold text-amber hover:bg-amber/10"
+                          : "font-medium text-gray-800 hover:text-black hover:bg-gray-100"
+                      }`}
                     >
                       {item.label}
                     </Link>

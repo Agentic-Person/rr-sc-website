@@ -1319,6 +1319,7 @@ export const NAV_ITEMS = [
   { label: "Areas We Serve", scrollTo: "areas-we-serve" },
   { label: "About Us", href: "/about" },
   { label: "Financing", href: "/financing" },
+  { label: "Price My Roof!", href: "/roof-quote", highlight: true },
 ];
 
 // Process steps (branded)
