@@ -11,7 +11,66 @@
 
 ---
 
-## 🔄 Last Activity (April 22, 2026 — Session 3)
+## 🔄 Last Activity (April 22, 2026 — Session 4)
+
+**Header CTA redesign: "Get Started — No Obligations" hover dropdown + SMS opt-in + legal pages**
+
+### Motivation
+Client wants a warmer, lower-commitment entry point for the target audience (35–45 year-old women arriving from social/referral). Static "Free Estimate" → /contact was too cold and forced a page jump. Replaced with a hover-activated dropdown offering three explicit paths, each with its own consent/legal treatment.
+
+### Header refactor (`src/components/Header.tsx`)
+- Desktop nav left-aligned adjacent to logo (removed `lg:absolute lg:left-1/2 -translate-x-1/2` centering) with `lg:ml-8` gap
+- Header-row phone number removed on both desktop and mobile (top utility bar phone is the single source)
+- CTA moved right after the nav via a left-cluster div, theme toggle (sun/moon) split into its own element with `ml-auto` pushing it to the far right corner
+- "Free Estimate" / "Get Your Free Estimate" → `<GetStartedDropdownDesktop />` + `<GetStartedDropdownMobile onNavigate={() => setMobileOpen(false)} />`
+
+### New component: `src/components/GetStartedDropdown.tsx`
+Two exports. Desktop uses shadcn HoverCard (`openDelay={80}`, `closeDelay={150}`). Mobile uses AnimatePresence height-accordion. Explicit dark card styling (`bg-gray-900 border-gray-800 text-white shadow-2xl`) + amber-tinted hover overlay (`hover:bg-amber/20`) so rows are visible regardless of the current theme state.
+
+Three options:
+1. **Text us** — inline click-to-expand panel with consent checkbox (red verbiage until checked, gray after); "Copy (843) 306-2939" button gated behind opt-in, uses `navigator.clipboard.writeText` with "Copied!" feedback. Falls back to SMS handler only if clipboard API is unavailable. Mobile variant keeps the native `sms:` link.
+2. **Have our friendly non-commissioned team contact you** — desktop expands an inline form (name, phone, email, preferred time) posting to existing `/api/contact` route; consent checkbox gates the submit button ("Send Friend Request"), which stays dim (`bg-amber/25 text-gray-900/50`) until opted in, then flips to full `btn-amber`. Mobile links to `/contact` instead (inline form in collapsed menu = bad UX).
+3. **Get a quick estimate** — calls `openRoofleWidget()` from the new `QuoteWidgetContext` (Jerry handoff).
+
+### Opt-in persistence
+`usePersistedOptIn(storageKey)` custom hook reads/writes `localStorage`. Two independent keys to keep consent scopes legally distinct:
+- `rr-sms-opted-in` — SMS-only (Text us row)
+- `rr-contact-opted-in` — calls + text + email (callback form)
+Gracefully falls back to in-memory state if `localStorage` is blocked.
+
+### New context: `src/contexts/QuoteWidgetContext.tsx`
+Extracted the imperative Roofle-opener from `QuoteGiraffeTab.tsx` into a shared provider (`QuoteWidgetProvider` wraps tree inside `<ThemeProvider>` in `src/app/layout.tsx`). `useQuoteWidget()` returns `{ openRoofleWidget }`. `QuoteGiraffeTab` now consumes the context; the DOM-observer logic that watches the Roofle panel state stays local to the tab.
+
+### Legal pages
+- **`src/app/privacy/page.tsx`** — Full Privacy Policy at `/privacy` with prominent SMS data notice banner, 10 sections (data collected, use, SMS compliance, sharing, security, cookies, user rights, third-party links, policy changes, contact). Explicitly excludes SMS originator opt-in data from third-party sharing.
+- **`src/app/terms/page.tsx`** — Full Terms of Service at `/terms` with TCPA & CTIA compliance language, SMS program description, STOP/HELP opt-out, SC governing law, disclaimers.
+- **`src/components/Footer.tsx`** — Added "Privacy Policy" and "Terms of Service" to Quick Links.
+
+### Files modified/created
+- `src/components/Header.tsx` — nav + CTA + theme-toggle layout (-22 lines net)
+- `src/components/GetStartedDropdown.tsx` — new (~510 lines, dual desktop/mobile export)
+- `src/contexts/QuoteWidgetContext.tsx` — new (shared Roofle opener)
+- `src/components/QuoteGiraffeTab.tsx` — refactored to consume context
+- `src/app/layout.tsx` — wrapped tree in `QuoteWidgetProvider`
+- `src/app/privacy/page.tsx` — new
+- `src/app/terms/page.tsx` — new
+- `src/components/Footer.tsx` — added legal links
+
+### Commits (both pushed to `origin` and `client`)
+- **`d0cbd09`** — GetStartedDropdown, QuoteGiraffeTab Roofle wiring, Header refactor, QuoteWidgetProvider (includes subsequent polish: dark card styling, amber hover overlay, inline opt-in with red-until-checked verbiage, "Send Friend Request" button, "Have our friendly non-commissioned team contact you" copy, localStorage persistence)
+- **`7390092`** — Privacy Policy + Terms of Service pages, footer legal links
+
+### Verification
+- `npx tsc --noEmit` — clean
+- `npm run build` — 76 pages generated (up from 74; `/privacy` + `/terms` added), zero errors
+
+### Follow-ups flagged (not yet wired)
+- Point `NOTIFICATION_WEBHOOK_URL` env var at Zuper's inbound webhook so "Have our friendly non-commissioned team contact you" submissions land in the CRM automatically (currently fan-out via existing `/api/contact` → Supabase + generic webhook)
+- Optional: analytics events (`get_started_hover`, `cta_text_us_opt_in`, `cta_callback_submit`, `cta_quick_estimate_click`) to measure which of the three paths converts best for the social/referral audience
+
+---
+
+## 🔄 Previous Activity (April 22, 2026 — Session 3)
 
 **ChatWidget cross-screen positioning fix — client review session**
 
