@@ -95,7 +95,8 @@ export default function ChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-[20px] z-50 left-4 md:left-[140px]">
+    // Pinned to bottom-left corner — never overlaps hero content regardless of screen size
+    <div className="fixed bottom-6 left-4 z-50">
       {/* ───────── Chat Window ───────── */}
       <AnimatePresence>
         {chatOpen && (
@@ -104,8 +105,8 @@ export default function ChatWidget() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-[600px] max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl border border-border/50 overflow-hidden flex flex-col"
-            style={{ height: "min(720px, calc(100vh - 100px))" }}
+            className="w-[600px] max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl border border-border/50 overflow-hidden flex flex-col mb-3"
+            style={{ height: "min(720px, calc(100vh - 120px))" }}
           >
             {/* Header */}
             <div className="bg-navy px-4 py-3 flex items-center justify-between shrink-0">
@@ -255,27 +256,8 @@ export default function ChatWidget() {
             exit={{ scale: 0 }}
             className="relative"
           >
-            <div className="flex flex-col items-center gap-2 md:flex-row md:items-start md:gap-3">
-
-              {/* Speech bubble — above mascot on mobile, left on desktop */}
-              <motion.div
-                initial={{ opacity: 0, x: -10, scale: 0.9 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                transition={{ type: "spring", damping: 20, stiffness: 300, delay: 0.3 }}
-                className="relative mb-1 md:mb-0 md:mt-8"
-              >
-                <div className="bg-white rounded-xl px-4 py-3 shadow-lg border-2 border-amber w-[135px] text-center">
-                  <p className="text-xs font-bold text-navy leading-snug">
-                    I can answer<br />questions and<br />schedule inspections.
-                  </p>
-                </div>
-                {/* Mobile: downward-pointing tail toward mascot below */}
-                <div className="absolute -bottom-[11px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[9px] border-l-transparent border-r-[9px] border-r-transparent border-t-[11px] border-t-white z-10 md:hidden" />
-                <div className="absolute -bottom-[14px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[11px] border-l-transparent border-r-[11px] border-r-transparent border-t-[13px] border-t-amber -z-10 md:hidden" />
-                {/* Desktop: right-pointing tail toward mascot */}
-                <div className="absolute top-1/2 -translate-y-1/2 -right-[11px] w-0 h-0 border-t-[9px] border-t-transparent border-b-[9px] border-b-transparent border-l-[11px] border-l-white z-10 hidden md:block" />
-                <div className="absolute top-1/2 -translate-y-1/2 -right-[14px] w-0 h-0 border-t-[11px] border-t-transparent border-b-[11px] border-b-transparent border-l-[13px] border-l-amber -z-10 hidden md:block" />
-              </motion.div>
+            {/* Always flex-row: giraffe left, bubble right — height is always just the giraffe, no vertical stacking */}
+            <div className="flex flex-row items-center gap-3">
 
               {/* Mascot + action buttons column */}
               <div className="flex flex-col items-center">
@@ -291,7 +273,7 @@ export default function ChatWidget() {
                     alt="Restoration Roofing Mascot"
                     width={98}
                     height={175}
-                    className="w-auto h-auto"
+                    style={{ width: "98px", height: "auto" }}
                   />
                 </motion.button>
 
@@ -351,6 +333,23 @@ export default function ChatWidget() {
                   )}
                 </AnimatePresence>
               </div>
+
+              {/* Speech bubble — always to the right of the giraffe, tail points left toward mascot */}
+              <motion.div
+                initial={{ opacity: 0, x: 10, scale: 0.9 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                transition={{ type: "spring", damping: 20, stiffness: 300, delay: 0.3 }}
+                className="relative"
+              >
+                <div className="bg-white rounded-xl px-4 py-3 shadow-lg border-2 border-amber w-[135px] text-center">
+                  <p className="text-xs font-bold text-navy leading-snug">
+                    I can answer<br />questions and<br />schedule inspections.
+                  </p>
+                </div>
+                {/* Left-pointing tail toward the giraffe */}
+                <div className="absolute top-1/2 -translate-y-1/2 -left-[11px] w-0 h-0 border-t-[9px] border-t-transparent border-b-[9px] border-b-transparent border-r-[11px] border-r-white z-10" />
+                <div className="absolute top-1/2 -translate-y-1/2 -left-[14px] w-0 h-0 border-t-[11px] border-t-transparent border-b-[11px] border-b-transparent border-r-[13px] border-r-amber -z-10" />
+              </motion.div>
 
             </div>
           </motion.div>
