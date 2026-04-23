@@ -95,8 +95,8 @@ export default function ChatWidget() {
   };
 
   return (
-    // Pinned to bottom-left corner — never overlaps hero content regardless of screen size
-    <div className="fixed bottom-6 left-4 z-50">
+    // clamp() scales left offset with viewport width — consistent inset on every screen size
+    <div className="fixed bottom-6 z-50" style={{ left: 'clamp(1rem, 8vw, 10rem)' }}>
       {/* ───────── Chat Window ───────── */}
       <AnimatePresence>
         {chatOpen && (
