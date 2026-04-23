@@ -11,7 +11,44 @@
 
 ---
 
-## 🔄 Last Activity (April 22, 2026 — Session 4)
+## 🔄 Last Activity (April 22, 2026 — Session 5)
+
+**New mascot assets (v5) + QuoteGiraffeTab simplification**
+
+### Mascot image upgrade
+Two new giraffe mascot images provided by client, optimized and converted to WebP via Sharp:
+
+| Asset | Source | Output | Reduction |
+|---|---|---|---|
+| `giraffe-quote-tab-v5.webp` | `peek_FINAL_transparent.png` (1.7 MB, 1176×1534) | 57 KB, 432×564px, 2× retina | 97% |
+| `giraffe-chat-mascot-v5.webp` | `Screenshot_2026-04-22…removebg-preview.png` | 26 KB, 196×430px, 2× retina | 31% vs v4 WebP |
+
+Both retain full RGBA transparency. Converted with `quality: 90, effort: 6, alphaQuality: 100`.
+
+- **Quote tab giraffe (v5):** Blue hard hat, "peek" pose, holding tablet with "GET ESTIMATE" — replaces the orange-hat v4 in `QuoteGiraffeTab.tsx` and `RoofleGiraffeOverlay.tsx`
+- **Chat mascot (v5):** Blue hard hat + headset, full-body standing with tablet — replaces v4 in `ChatWidget.tsx`; `height` prop updated from 175 → 215 to match taller aspect ratio
+
+### QuoteGiraffeTab — custom drawer scrapped, reverted to direct Roofle trigger
+A custom 2/3-width slide-in drawer was built and tested during the session but the client preferred simplicity: click giraffe → Roofle panel opens → giraffe disappears → Roofle closes → giraffe reappears. Final implementation:
+- `onClick` → `openRoofleWidget()` (from `QuoteWidgetContext`)
+- `MutationObserver` watches Roofle DOM attrs (`class`, `style`, `aria-expanded`) to detect open/close state
+- `AnimatePresence` spring-exits the giraffe when `panelOpen === true`, spring-enters on close
+- `firstEntry` ref ensures the 1.2s entrance delay only fires on initial page load, not on every Roofle-close reappearance
+- Click-based polling fallback (150ms) handles cases where Roofle's DOM mutation doesn't fire reliably
+
+### Files changed (bundled into commit `d0cbd09`)
+- `public/images/giraffe-quote-tab-v5.webp` — new
+- `public/images/giraffe-chat-mascot-v5.webp` — new
+- `src/components/QuoteGiraffeTab.tsx` — simplified to Roofle trigger + panel-state observer
+- `src/components/ChatWidget.tsx` — v5 mascot, height 215px
+
+### Verification
+- `npx tsc --noEmit` — clean
+- `npx next build` — zero errors
+
+---
+
+## 🔄 Previous Activity (April 22, 2026 — Session 4)
 
 **Header CTA redesign: "Get Started — No Obligations" hover dropdown + SMS opt-in + legal pages**
 
