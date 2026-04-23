@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { COMPANY, NAV_ITEMS } from "@/lib/data";
 import { Phone, Menu, X, ChevronDown, ChevronRight, Sun, Moon } from "lucide-react";
+import { GetStartedDropdownDesktop, GetStartedDropdownMobile } from "./GetStartedDropdown";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
 import Image from "next/image";
@@ -92,7 +93,7 @@ export default function Header() {
             : "bg-white border-b border-gray-200"
         }`}
       >
-        <div className="container relative flex items-center justify-between py-0">
+        <div className="container relative flex items-center py-0">
           {/* Logo */}
           <Link href="/" className="relative z-10 flex-shrink-0 ml-4 lg:ml-8">
             <Image
@@ -106,8 +107,8 @@ export default function Header() {
             />
           </Link>
 
-          {/* Desktop nav — absolutely centered on the page so logo/CTA width asymmetry doesn't shift it */}
-          <nav className="hidden lg:flex lg:absolute lg:inset-y-0 lg:left-1/2 lg:-translate-x-1/2 items-center gap-1">
+          {/* Desktop nav — left-aligned, adjacent to logo */}
+          <nav className="hidden lg:flex lg:ml-8 items-center gap-1">
             {NAV_ITEMS.map((item) =>
               item.children ? (
                 <div
@@ -170,30 +171,20 @@ export default function Header() {
             )}
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden lg:flex flex-shrink-0 items-center gap-3">
-            <button
-              onClick={toggleTheme}
-              className="relative p-2.5 rounded-md text-gray-500 hover:text-black hover:bg-gray-100 transition-colors"
-              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              <Sun className={`w-4 h-4 transition-all duration-300 ${theme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"} absolute`} />
-              <Moon className={`w-4 h-4 transition-all duration-300 ${theme === "dark" ? "-rotate-90 scale-0" : "rotate-0 scale-100"}`} />
-            </button>
-            <a
-              href={`tel:${COMPANY.phoneRaw}`}
-              className="flex items-center gap-2 text-black font-semibold text-base hover:text-amber transition-colors"
-            >
-              <Phone className="w-4 h-4" />
-              {COMPANY.phone}
-            </a>
-            <Link
-              href="/contact"
-              className="btn-amber px-5 py-2.5 rounded-md text-base inline-flex items-center gap-2"
-            >
-              Free Estimate
-            </Link>
+          {/* Desktop CTA — sits right after the nav */}
+          <div className="hidden lg:flex flex-shrink-0 items-center lg:ml-6">
+            <GetStartedDropdownDesktop />
           </div>
+
+          {/* Theme toggle — pushed to far right */}
+          <button
+            onClick={toggleTheme}
+            className="hidden lg:inline-flex relative p-2.5 ml-auto rounded-md text-gray-500 hover:text-black hover:bg-gray-100 transition-colors"
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            <Sun className={`w-4 h-4 transition-all duration-300 ${theme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"} absolute`} />
+            <Moon className={`w-4 h-4 transition-all duration-300 ${theme === "dark" ? "-rotate-90 scale-0" : "rotate-0 scale-100"}`} />
+          </button>
 
           {/* Mobile menu button */}
           <div className="flex items-center gap-3 lg:hidden">
@@ -205,12 +196,6 @@ export default function Header() {
               <Sun className={`w-4 h-4 transition-all duration-300 ${theme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"} absolute`} />
               <Moon className={`w-4 h-4 transition-all duration-300 ${theme === "dark" ? "-rotate-90 scale-0" : "rotate-0 scale-100"}`} />
             </button>
-            <a
-              href={`tel:${COMPANY.phoneRaw}`}
-              className="btn-amber p-3 rounded-md min-h-[44px] min-w-[44px]"
-            >
-              <Phone className="w-4 h-4" />
-            </a>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="p-2.5 min-h-[44px] min-w-[44px] text-black"
@@ -290,12 +275,7 @@ export default function Header() {
                   )
                 )}
                 <div className="pt-3 border-t border-gray-200 mt-3">
-                  <Link
-                    href="/contact"
-                    className="btn-amber w-full py-3 rounded-md text-sm text-center block font-semibold"
-                  >
-                    Get Your Free Estimate
-                  </Link>
+                  <GetStartedDropdownMobile onNavigate={() => setMobileOpen(false)} />
                   <div className="flex items-center justify-center gap-2 mt-3 text-sm text-gray-500">
                     <Phone className="w-3.5 h-3.5" />
                     <span>24/7 Emergency: {COMPANY.phone}</span>
