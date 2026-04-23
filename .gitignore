@@ -50,3 +50,4 @@ public/Screenshot*
 # large local-only assets (reference material — store elsewhere, not in git)
 *.zip
 docs/tamko-stormfighter-flex-sell-sheet-*.pdf
+docs/Restoration_Roofing_SC_Invoice_Site_A.pdf
