@@ -34,6 +34,8 @@ export default function ChatWidget() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [smsOpen, setSmsOpen] = useState(false);
+  const [smsOptedIn, setSmsOptedIn] = useState(false);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -43,6 +45,23 @@ export default function ChatWidget() {
     if (chatOpen) inputRef.current?.focus();
   }, [chatOpen]);
 
+  useEffect(() => {
+    try {
+      if (localStorage.getItem("rr-sms-opted-in") === "1") setSmsOptedIn(true);
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    if (!expanded) setSmsOpen(false);
+  }, [expanded]);
+
+  const handleSmsOptIn = (v: boolean) => {
+    setSmsOptedIn(v);
+    try {
+      if (v) localStorage.setItem("rr-sms-opted-in", "1");
+      else localStorage.removeItem("rr-sms-opted-in");
+    } catch {}
+  };
 
   const sessionId = useRef(getSessionId());
 
@@ -278,45 +297,86 @@ export default function ChatWidget() {
                 </motion.button>
 
                 {/* Action buttons */}
-                <AnimatePresence>
-                  {expanded && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ type: "spring", damping: 20, stiffness: 300, delay: 0.05 }}
-                      className="flex items-end gap-2 mt-2"
-                    >
-                      <motion.a
-                        href={`sms:${COMPANY.phoneRaw}`}
-                        initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
-                        transition={{ delay: 0.1 }} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.9 }}
-                        className="w-12 h-12 rounded-full bg-navy shadow-lg flex items-center justify-center text-white hover:bg-navy-light transition-colors group/btn"
-                        aria-label="Text us"
+                <div className="relative">
+                  {/* SMS opt-in panel */}
+                  <AnimatePresence>
+                    {expanded && smsOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                        transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                        className="absolute bottom-full mb-2 left-0 w-72 bg-gray-900 rounded-xl p-4 shadow-2xl border border-gray-800 z-20"
                       >
-                        <Smartphone className="w-5 h-5 group-hover/btn:text-amber transition-colors" />
-                      </motion.a>
-                      <motion.button
-                        onClick={openChat}
-                        initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
-                        transition={{ delay: 0.05 }} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.9 }}
-                        className="w-14 h-14 rounded-full bg-gradient-to-br from-amber to-amber-dark shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-shadow"
-                        aria-label="Chat with us"
+                        <p className="text-xs font-semibold text-white mb-2">Text us at {COMPANY.phone}</p>
+                        <label className="flex items-start gap-2 cursor-pointer mb-3">
+                          <input
+                            type="checkbox"
+                            checked={smsOptedIn}
+                            onChange={(e) => handleSmsOptIn(e.target.checked)}
+                            className="mt-0.5 h-4 w-4 accent-amber shrink-0"
+                          />
+                          <span className={`text-[11px] leading-snug transition-colors duration-200 ${smsOptedIn ? "text-gray-300" : "text-red-400 font-medium"}`}>
+                            By checking this box, I consent to receive non-marketing text messages from Restoration Roofing SC regarding appointment reminders, service updates, project notifications, and account-related information. Message frequency may vary. Message and data rates may apply. Text HELP for assistance, reply STOP to opt out.
+                          </span>
+                        </label>
+                        <a
+                          href={`sms:+1${COMPANY.phoneRaw}?body=${encodeURIComponent("Hi Restoration Roofing, I'd like to talk about my roof.")}`}
+                          onClick={(e) => { if (!smsOptedIn) e.preventDefault(); }}
+                          className={`block w-full py-2 rounded text-sm font-semibold text-center transition-all duration-200 ${
+                            smsOptedIn
+                              ? "bg-amber text-gray-900 hover:bg-amber-dark"
+                              : "bg-amber/25 text-gray-900/50 cursor-not-allowed"
+                          }`}
+                          aria-disabled={!smsOptedIn}
+                        >
+                          Open in Messages — {COMPANY.phone}
+                        </a>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <AnimatePresence>
+                    {expanded && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ type: "spring", damping: 20, stiffness: 300, delay: 0.05 }}
+                        className="flex items-end gap-2 mt-2"
                       >
-                        <MessageCircle className="w-6 h-6" />
-                      </motion.button>
-                      <motion.a
-                        href="/contact"
-                        initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
-                        transition={{ delay: 0.1 }} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.9 }}
-                        className="w-12 h-12 rounded-full bg-navy shadow-lg flex items-center justify-center text-white hover:bg-navy-light transition-colors group/btn"
-                        aria-label="Book a service"
-                      >
-                        <CalendarCheck className="w-5 h-5 group-hover/btn:text-amber transition-colors" />
-                      </motion.a>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                        <motion.button
+                          onClick={() => setSmsOpen((v) => !v)}
+                          initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
+                          transition={{ delay: 0.1 }} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.9 }}
+                          className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-white transition-colors group/btn ${smsOpen ? "bg-amber" : "bg-navy hover:bg-navy-light"}`}
+                          aria-label="Text us"
+                          aria-expanded={smsOpen}
+                        >
+                          <Smartphone className={`w-5 h-5 transition-colors ${smsOpen ? "text-gray-900" : "group-hover/btn:text-amber"}`} />
+                        </motion.button>
+                        <motion.button
+                          onClick={openChat}
+                          initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
+                          transition={{ delay: 0.05 }} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.9 }}
+                          className="w-14 h-14 rounded-full bg-gradient-to-br from-amber to-amber-dark shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-shadow"
+                          aria-label="Chat with us"
+                        >
+                          <MessageCircle className="w-6 h-6" />
+                        </motion.button>
+                        <motion.a
+                          href="/contact"
+                          initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
+                          transition={{ delay: 0.1 }} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.9 }}
+                          className="w-12 h-12 rounded-full bg-navy shadow-lg flex items-center justify-center text-white hover:bg-navy-light transition-colors group/btn"
+                          aria-label="Book a service"
+                        >
+                          <CalendarCheck className="w-5 h-5 group-hover/btn:text-amber transition-colors" />
+                        </motion.a>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
 
                 {/* Labels */}
                 <AnimatePresence>
