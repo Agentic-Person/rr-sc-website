@@ -38,6 +38,7 @@ export default function ChatWidget() {
   const [smsOptedIn, setSmsOptedIn] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [smsCopied, setSmsCopied] = useState(false);
+  const [zuperOpen, setZuperOpen] = useState(false);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -55,7 +56,7 @@ export default function ChatWidget() {
   }, []);
 
   useEffect(() => {
-    if (!expanded) setSmsOpen(false);
+    if (!expanded) { setSmsOpen(false); setZuperOpen(false); }
   }, [expanded]);
 
   const handleSmsOptIn = (v: boolean) => {
@@ -362,6 +363,30 @@ export default function ChatWidget() {
                     )}
                   </AnimatePresence>
 
+                  {/* Zuper scheduling placeholder panel */}
+                  <AnimatePresence>
+                    {expanded && zuperOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                        transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                        className="absolute bottom-full mb-2 left-0 w-72 bg-gray-900 rounded-xl p-4 shadow-2xl border border-gray-800 z-20"
+                      >
+                        <p className="text-xs font-semibold text-white mb-1">Connecting to Zuper</p>
+                        <p className="text-[11px] text-gray-400 leading-snug">
+                          Our scheduling integration is on the way. In the meantime, text or call us to book your inspection.
+                        </p>
+                        <a
+                          href={`tel:+1${COMPANY.phoneRaw}`}
+                          className="block w-full mt-3 py-2 rounded text-sm font-semibold text-center bg-amber/15 hover:bg-amber/30 border border-amber/50 text-amber transition-all duration-200"
+                        >
+                          Call {COMPANY.phone}
+                        </a>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
                   <AnimatePresence>
                     {expanded && (
                       <motion.div
@@ -372,7 +397,7 @@ export default function ChatWidget() {
                         className="flex items-end gap-2 mt-2"
                       >
                         <motion.button
-                          onClick={() => setSmsOpen((v) => !v)}
+                          onClick={() => { setSmsOpen((v) => !v); setZuperOpen(false); }}
                           initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
                           transition={{ delay: 0.1 }} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.9 }}
                           className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-white transition-colors group/btn ${smsOpen ? "bg-amber" : "bg-navy hover:bg-navy-light"}`}
@@ -390,15 +415,16 @@ export default function ChatWidget() {
                         >
                           <MessageCircle className="w-6 h-6" />
                         </motion.button>
-                        <motion.a
-                          href="/contact"
+                        <motion.button
+                          onClick={() => { setZuperOpen((v) => !v); setSmsOpen(false); }}
                           initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
                           transition={{ delay: 0.1 }} whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.9 }}
-                          className="w-12 h-12 rounded-full bg-navy shadow-lg flex items-center justify-center text-white hover:bg-navy-light transition-colors group/btn"
+                          className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-white transition-colors group/btn ${zuperOpen ? "bg-amber" : "bg-navy hover:bg-navy-light"}`}
                           aria-label="Book a service"
+                          aria-expanded={zuperOpen}
                         >
-                          <CalendarCheck className="w-5 h-5 group-hover/btn:text-amber transition-colors" />
-                        </motion.a>
+                          <CalendarCheck className={`w-5 h-5 transition-colors ${zuperOpen ? "text-gray-900" : "group-hover/btn:text-amber"}`} />
+                        </motion.button>
                       </motion.div>
                     )}
                   </AnimatePresence>
