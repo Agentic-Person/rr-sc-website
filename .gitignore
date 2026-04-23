@@ -42,3 +42,11 @@ next-env.d.ts
 
 # screenshots in public (use docs/ for README images)
 public/Screenshot*
+
+# agent/editor scratch directories
+.claude/
+.snips/
+
+# large local-only assets (reference material — store elsewhere, not in git)
+*.zip
+docs/tamko-stormfighter-flex-sell-sheet-*.pdf
