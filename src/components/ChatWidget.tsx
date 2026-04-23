@@ -36,6 +36,8 @@ export default function ChatWidget() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [smsOpen, setSmsOpen] = useState(false);
   const [smsOptedIn, setSmsOptedIn] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [smsCopied, setSmsCopied] = useState(false);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -46,6 +48,7 @@ export default function ChatWidget() {
   }, [chatOpen]);
 
   useEffect(() => {
+    setIsMobile(/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
     try {
       if (localStorage.getItem("rr-sms-opted-in") === "1") setSmsOptedIn(true);
     } catch {}
@@ -60,6 +63,14 @@ export default function ChatWidget() {
     try {
       if (v) localStorage.setItem("rr-sms-opted-in", "1");
       else localStorage.removeItem("rr-sms-opted-in");
+    } catch {}
+  };
+
+  const handleSmsCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(COMPANY.phone);
+      setSmsCopied(true);
+      setTimeout(() => setSmsCopied(false), 2000);
     } catch {}
   };
 
@@ -320,18 +331,33 @@ export default function ChatWidget() {
                             By checking this box, I consent to receive non-marketing text messages from Restoration Roofing SC regarding appointment reminders, service updates, project notifications, and account-related information. Message frequency may vary. Message and data rates may apply. Text HELP for assistance, reply STOP to opt out.
                           </span>
                         </label>
-                        <a
-                          href={`sms:+1${COMPANY.phoneRaw}?body=${encodeURIComponent("Hi Restoration Roofing, I'd like to talk about my roof.")}`}
-                          onClick={(e) => { if (!smsOptedIn) e.preventDefault(); }}
-                          className={`block w-full py-2 rounded text-sm font-semibold text-center transition-all duration-200 ${
-                            smsOptedIn
-                              ? "bg-amber text-gray-900 hover:bg-amber-dark"
-                              : "bg-amber/25 text-gray-900/50 cursor-not-allowed"
-                          }`}
-                          aria-disabled={!smsOptedIn}
-                        >
-                          Open in Messages — {COMPANY.phone}
-                        </a>
+                        {isMobile ? (
+                          <a
+                            href={`sms:+1${COMPANY.phoneRaw}?body=${encodeURIComponent("Hi Restoration Roofing, I'd like to talk about my roof.")}`}
+                            onClick={(e) => { if (!smsOptedIn) e.preventDefault(); }}
+                            className={`block w-full py-2 rounded text-sm font-semibold text-center transition-all duration-200 ${
+                              smsOptedIn
+                                ? "bg-amber text-gray-900 hover:bg-amber-dark"
+                                : "bg-amber/25 text-gray-900/50 cursor-not-allowed"
+                            }`}
+                            aria-disabled={!smsOptedIn}
+                          >
+                            Open in Messages — {COMPANY.phone}
+                          </a>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={smsOptedIn ? handleSmsCopy : undefined}
+                            disabled={!smsOptedIn}
+                            className={`w-full py-2 rounded text-sm font-semibold text-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber/60 ${
+                              smsOptedIn
+                                ? "bg-amber/15 hover:bg-amber/30 border border-amber/50 text-amber"
+                                : "bg-white/5 border border-white/10 text-gray-500 cursor-not-allowed"
+                            }`}
+                          >
+                            {smsCopied ? "Copied!" : `Copy ${COMPANY.phone}`}
+                          </button>
+                        )}
                       </motion.div>
                     )}
                   </AnimatePresence>
