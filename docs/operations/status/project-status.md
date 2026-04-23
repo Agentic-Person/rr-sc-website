@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: April 22, 2026
+> Last updated: April 23, 2026
 
 ## 🟡 Status: Phase 1.5 Pre-Launch Punch List In Motion
 
@@ -11,7 +11,48 @@
 
 ---
 
-## 🔄 Last Activity (April 22, 2026 — Session 5)
+## 🔄 Last Activity (April 23, 2026 — Session 6)
+
+**Chat widget phone + schedule button upgrades — SMS opt-in panel, device-aware copy, Zuper placeholder**
+
+### Motivation
+The giraffe mascot's phone button was a bare `sms:` link with zero consent capture. The CTA header dropdown already had a proper opt-in panel (from Session 4); this session brought the chat widget up to the same standard. The schedule button was pointing at `/contact` as a placeholder — replaced with an explicit "Connecting to Zuper" popup so users understand the integration is in progress.
+
+### SMS opt-in panel (`src/components/ChatWidget.tsx`)
+
+The phone/text button now toggles a dark card (same visual language as the CTA dropdown's `TextUsRowDesktop`):
+- **Consent checkbox** — red italic legal copy until checked, turns gray on check. Same verbiage as the CTA: "By checking this box, I consent to receive non-marketing text messages…"
+- **Persistence** — uses the shared localStorage key `rr-sms-opted-in`; if a visitor already opted in from the header CTA, the box arrives pre-checked (and vice versa)
+- **Action gated behind opt-in** — button is visually disabled (`bg-amber/25`, cursor-not-allowed) until checkbox is checked
+- **Device-aware action:**
+  - **Mobile (iOS/Android)** — "Open in Messages" — native `sms:+1{phoneRaw}?body=Hi Restoration Roofing…` link; user hits send
+  - **Desktop (Windows/Mac)** — "Copy (843) 306-2939" — `navigator.clipboard.writeText` with "Copied!" toast for 2 s; matches the CTA dropdown's desktop behavior exactly
+  - Device detected once on mount via `navigator.userAgent`; no re-render flash
+- **Active state** — phone button turns amber while panel is open; closes automatically when the widget collapses
+
+### Zuper scheduling placeholder (`src/components/ChatWidget.tsx`)
+
+The calendar/schedule button no longer links to `/contact`:
+- Clicking it opens a dark card reading **"Connecting to Zuper"** with a brief "scheduling integration coming soon — text or call us to book" note
+- Tap-to-call fallback: `tel:+1{phoneRaw}` amber button so users have a real action
+- Same active-state treatment (button turns amber), mutually exclusive with the SMS panel (opening one closes the other)
+- Swap-ready: when Zuper is wired, replace this panel with the real scheduler link/embed
+
+### Commits (all pushed to `origin` and `client`)
+- **`16edad3`** — feat: add SMS opt-in panel to chat widget phone button
+- **`54490b2`** — feat: device-aware SMS action in chat widget opt-in panel
+- **`067bdbb`** — feat: Zuper placeholder popup on chat widget schedule button
+
+### Verification
+- `npx tsc --noEmit` — clean (all three iterations)
+
+### Follow-ups
+- Wire the Zuper real scheduler URL into the placeholder panel once P3.11 is complete
+- P3.13 SMS compliance: 10DLC carrier registration should now be in scope — opt-in language is live on all CTAs (header dropdown + chat widget); Privacy Policy and Terms pages already deployed from Session 4
+
+---
+
+## 🔄 Previous Activity (April 22, 2026 — Session 5)
 
 **New mascot assets (v5) + QuoteGiraffeTab simplification**
 
@@ -202,7 +243,7 @@ Corrected tier order to match actual product tier hierarchy:
 - [ ] **P3.10** Finish lead routing widget integration (not urgent — site not live, so no leads being dropped)
 - [ ] **P3.11** Configure Zuper CRM intake — source tagging, handoff spec
 - [ ] **P3.12** Confirm "Text My Roofer" SMS workflow — Zuper native vs. external provider
-- [ ] **P3.13** SMS compliance — Privacy Policy page, Terms & Conditions page, opt-in language on all CTAs, 10DLC carrier registration (triggered if P3.12 green-lights SMS; 10DLC lead time is 1–3 weeks)
+- [~] **P3.13** SMS compliance — Privacy Policy ✅, Terms of Service ✅, opt-in language on all CTAs ✅ (header dropdown + chat widget phone button both gated behind consent checkbox, shared `rr-sms-opted-in` localStorage key). **Remaining:** 10DLC carrier registration (1–3 week lead time — trigger once P3.12 confirms SMS provider)
 - [ ] **P3.14** Document tech-stack ownership — confirm Next.js 16 + React 19 + Vercel + Roofle + Zuper stays through launch; define dev vs. marketing/SEO team responsibilities
 
 **Priority 4 — Deferred backlog (post-launch)**
