@@ -11,7 +11,30 @@
 
 ---
 
-## 🔄 Last Activity (April 22, 2026 — Session 2)
+## 🔄 Last Activity (April 22, 2026 — Session 3)
+
+**ChatWidget cross-screen positioning fix — client review session**
+
+### Root cause
+During a client review session, the giraffe chat widget was overlapping the hero headline, description, and CTA buttons on the client's screen. Two bugs caused this:
+
+1. **Fixed pixel left offset (`md:left-[140px]`)** — On the dev's wide monitor (1920px), the hero container margin pushed content right ~350px, so 140px landed safely in the margin. On the client's narrower screen (~1280–1366px), the container has no centering margin and content starts at ~75px — so 140px landed right inside the hero text column.
+
+2. **Vertical stacking on mobile/tablet (`flex-col` layout)** — The speech bubble stacked **above** the giraffe on smaller breakpoints, making the widget ~265px tall. Pinned 20px from the viewport bottom, the top of the stack reached into the hero CTA area on shorter viewports (laptops with browser toolbar, zoomed-in browsers).
+
+### Fix (3 commits, all pushed)
+- **`75b1f88`** — Layout: `flex-col md:flex-row` → always `flex-row items-center`. Widget height is now always exactly the giraffe height (175px), never taller from vertical stacking. Speech bubble moved to the RIGHT of the giraffe with a left-pointing tail. Anchor changed to `bottom-6 left-4`.
+- **`25eaecc`** — Left offset: `left-4` (hardcoded 16px) → `style={{ left: 'clamp(1rem, 8vw, 10rem)' }}`. Scales proportionally with viewport: 30px at 375px / 102px at 1280px / 109px at 1366px / 154px at 1920px. No breakpoint logic needed.
+
+### Files modified
+- `src/components/ChatWidget.tsx` — positioning, layout direction, speech bubble side + tail, clamp offset
+
+### Status
+- **Pushed to `origin` and `client`** — Vercel auto-deploy triggered (`875ba2f..25eaecc`)
+
+---
+
+## 🔄 Previous Activity (April 22, 2026 — Session 2)
 
 **Roof Quote page (`/roof-quote`) — hero image + shingle tier reorder**
 
@@ -38,8 +61,8 @@ Corrected tier order to match actual product tier hierarchy:
 - `src/app/roof-quote/roof-quote-content.tsx` — hero image + opacity + gradient + full SHINGLE_TIERS reorder
 - `public/images/roofrecon-pair2-clean.webp` — new asset (converted from JPG)
 
-### Status
-- Changes committed locally — **push to origin/client pending (user hold)**
+### Commits
+- **`591d0e4`** — pushed to `origin` and `client`
 
 ---
 
@@ -48,7 +71,7 @@ Corrected tier order to match actual product tier hierarchy:
 - **P1.2 giraffe mascots live** — custom SC Roofing giraffe widgets replace Pink Panther/Roofle branding: (1) chat mascot (headset + tablet, `giraffe-chat-mascot.webp`, 98×175px) positioned `left-4 md:left-[140px] bottom-[20px]` on homepage only; (2) quote-tab peek-in giraffe (`giraffe-quote-tab.webp`, 216px wide) slides in from right on every page linking to `/roof-quote`
 - **Roofle slideout widget disabled** — commented out of `layout.tsx`; replaced by custom QuoteGiraffeTab component; re-enable or replace with Roofle embed on dedicated landing page per P2.9
 - **ChatWidget scoped to homepage only** — removed from root `layout.tsx`, added to `src/app/page.tsx` (Server Component import); avoids widget appearing on every service/location page
-- **Positioning approach locked in** — Tailwind JIT arbitrary values (`md:left-[140px]`, `bottom-[20px]`) are the reliable pattern in this stack; Tailwind 4 `@layer components` with nested `@media` does NOT compile with Turbopack; JS `useEffect` positioning was also abandoned
+- **Positioning approach (superseded in Session 3)** — `md:left-[140px]` and `bottom-[20px]` were used but caused cross-screen overlap on the client's narrower monitor; replaced in Session 3 with `clamp()` + always-`flex-row` layout
 - **next/image sizing fix** — `w-auto h-auto` class overrides `width` prop and renders at file's intrinsic size; use `style={{ width: "Xpx", height: "auto" }}` when display size must differ from natural file size
 - **Committed:** `aae2700` — pushed to both `origin` and `client`
 
