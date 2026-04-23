@@ -9,6 +9,21 @@
 
 ---
 
+## Last Activity — April 22, 2026 (session 4)
+
+**Session summary:** Added Terms of Service (`/terms`) and Privacy Policy (`/privacy`) pages. Both linked in the footer Quick Links section.
+
+**Work completed:**
+
+### Terms of Service & Privacy Policy
+- **New `src/app/terms/page.tsx`**: Full Terms of Service with SMS compliance section (TCPA/CTIA), general website terms, IP rights, disclaimers, governing law (South Carolina), and contact info.
+- **New `src/app/privacy/page.tsx`**: Full Privacy Policy with prominent SMS data notice, 10-section structure (data collected, use, SMS compliance, sharing, security, cookies, rights, third-party links, changes, contact).
+- Both pages use `info@restorationroofing.com` (not the `.sc` variant) and `(843) 306-2939` — phone sourced from `data.ts`.
+- **`src/components/Footer.tsx`**: Added "Privacy Policy" (`/privacy`) and "Terms of Service" (`/terms`) to the Quick Links section. Bottom bar already had these links.
+- Both pages styled with navy hero + white content section, matching site design system.
+
+---
+
 ## Last Activity — April 22, 2026 (session 2)
 
 **Session summary:** Replaced custom QuoteGiraffeTab with Roofle RoofQuote PRO widget + giraffe overlay that slides in sync with the Roofle panel. ChatWidget speech bubble improved for mobile.

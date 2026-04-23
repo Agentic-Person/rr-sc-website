@@ -122,6 +122,8 @@ export default function Footer() {
                   { label: "Blog", href: "/blog" },
                   { label: "Contact Us", href: "/contact" },
                   { label: "AI Assistant", href: "/contact" },
+                  { label: "Privacy Policy", href: "/privacy" },
+                  { label: "Terms of Service", href: "/terms" },
                 ].map((link) => (
                   <li key={link.label}>
                     <Link href={link.href} className="text-sm text-white/60 hover:text-amber transition-colors">
