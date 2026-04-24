@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: April 23, 2026
+> Last updated: April 24, 2026
 
 ## 🟡 Status: Phase 1.5 Pre-Launch Punch List In Motion
 
@@ -11,7 +11,47 @@
 
 ---
 
-## 🔄 Last Activity (April 23, 2026 — Session 6)
+## 🔄 Last Activity (April 24, 2026 — Session 7)
+
+**Client progress update document — Phase 1.5 website update report**
+
+### Motivation
+Tom needed a shareable progress update covering all recent work, the SEO already in place, and the AEO/GEO/AIO strategy pending his green light. Required both an editable MD version and a branded PDF for client delivery.
+
+### Documents produced
+
+**`docs/client-progress-update-2026-04-23.md`** — Full markdown source, structured as:
+- Recent session summaries (Sessions 1–6: mascot, CTA, SMS, Zuper, roof quote, mobile overhaul, Next.js rationale)
+- SEO already in place (16-item table)
+- AEO/GEO/AIO strategy explanation in plain English
+- What needs a green light (13 items across AEO, GEO, AIO sections)
+- Recommended sequence split into 3 tiers: Do First / Schedule Within 30 Days / Can Wait
+- Current blockers table
+
+**`docs/client-progress-update-2026-04-23.pdf`** — 8-page branded PDF generated via reportlab:
+- Orange header banner (matching section headers — client preferred over black)
+- Orange H2 section banners, dark table headers with orange accent lines
+- `CondPageBreak` before each H2/H3 so orange headers never orphan at page bottom
+- `KeepTogether` groups headings with first paragraph
+- Black footer with orange accent line, page numbers, company name on every page
+
+### Key editorial decisions
+- No mention of old Vite SPA (internal context, not relevant to client)
+- No "migration" framing — reframed as "Why We Built on Next.js"
+- Mobile-first overhaul expanded to 7 itemized callouts with "what + why" for each, justifying the 3-hour build charge
+- Process page time estimate corrected from "half-day" to "2 hours"
+- Recommended sequence tiered so client can see urgency without feeling overwhelmed
+- Roof quote page verbiage review added to blockers (Tom's sign-off needed)
+- Product photos removed from blockers (not relevant to share); headshots note softened to "we know you're working on this"
+
+### Commits
+- **`docs/client-progress-update-2026-04-23.md`** — new
+- **`docs/client-progress-update-2026-04-23.pdf`** — new
+- **`docs/operations/status/project-status.md`** — updated
+
+---
+
+## 🔄 Previous Activity (April 23, 2026 — Session 6)
 
 **Chat widget phone + schedule button upgrades — SMS opt-in panel, device-aware copy, Zuper placeholder**
 
