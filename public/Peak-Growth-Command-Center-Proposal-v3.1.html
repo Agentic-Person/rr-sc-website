@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peak Growth Command Center — Restoration Roofing SC × APS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF6EF;
+    --bg-warm: #F2EADD;
+    --fg: #141210;
+    --fg-muted: #5B5650;
+    --fg-subtle: #8A8378;
+    --border: #D9D1C2;
+    --orange: #E85D1F;
+    --orange-deep: #B34612;
+    --orange-bright: #FF7A3D;
+    --dark: #141210;
+    --dark-warm: #1F1B17;
+    --cream: #FAF6EF;
+    --accent-line: #E85D1F;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .serif { font-family: 'Playfair Display', Georgia, serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ---------- Layout ---------- */
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .wide-container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  section { padding: 96px 0; border-top: 1px solid var(--border); }
+  section:first-of-type { border-top: none; }
+
+  .dark-section {
+    background: var(--dark);
+    color: var(--cream);
+    border-top: none;
+  }
+  .dark-section .fg-muted { color: #A8A098; }
+  .dark-section hr { border-color: #2E2924; }
+  .dark-section .rule { background: #2E2924; }
+  .dark-section .orange { color: var(--orange-bright); }
+
+  /* ---------- Nav ---------- */
+  nav.topnav {
+    position: sticky;
+    top: 0;
+    background: rgba(250, 246, 239, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    padding: 14px 0;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  nav.topnav .wide-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav.topnav .mark {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+  }
+  nav.topnav .mark .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--orange);
+    border-radius: 50%;
+    margin: 0 8px 1px 0;
+    vertical-align: middle;
+  }
+  nav.topnav .meta {
+    color: var(--fg-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 120px 0 88px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero .container { position: relative; z-index: 2; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange-deep);
+    margin-bottom: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: var(--orange);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(38px, 6.2vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    color: var(--fg);
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--orange);
+  }
+
+  .hero .sub {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--fg-muted);
+    max-width: 580px;
+    margin-bottom: 48px;
+    font-weight: 400;
+  }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 28px;
+    padding-top: 36px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .hero-meta .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-subtle);
+    margin-bottom: 6px;
+  }
+  .hero-meta .value {
+    font-weight: 500;
+    color: var(--fg);
+  }
+
+  /* Subtle hero decoration */
+  .hero-deco {
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 400px;
+    height: 400px;
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 1;
+  }
+  @media (max-width: 760px) {
+    .hero-deco { display: none; }
+  }
+
+  /* ---------- Typography: section ---------- */
+  .chapter-mark {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--orange);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .chapter-mark .num {
+    display: inline-block;
+    padding: 3px 8px;
+    background: var(--orange);
+    color: var(--cream);
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  h2.section-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(30px, 4.4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+    max-width: 640px;
+  }
+  h2.section-title em { font-style: italic; color: var(--orange); font-weight: 500; }
+
+  h3.sub-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    margin: 40px 0 14px;
+  }
+
+  .intro-para {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--fg);
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+  .intro-para .orange { color: var(--orange-deep); font-weight: 500; }
+
+  p { margin-bottom: 20px; }
+  p.narrow { max-width: 620px; }
+  .fg-muted { color: var(--fg-muted); }
+
+  .rule {
+    height: 1px;
+    background: var(--border);
+    border: 0;
+    margin: 48px 0;
+  }
+  .rule.short { width: 60px; background: var(--orange); height: 2px; margin: 24px 0; }
+
+  strong { font-weight: 600; color: var(--fg); }
+  em { font-style: italic; }
+  .orange { color: var(--orange-deep); }
+
+  /* ---------- Pull / highlight ---------- */
+  .pull {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(22px, 3.2vw, 28px);
+    line-height: 1.35;
+    color: var(--fg);
+    padding: 28px 0 28px 32px;
+    border-left: 3px solid var(--orange);
+    margin: 36px 0;
+    max-width: 640px;
+  }
+
+  .big-stat {
+    display: flex;
+    gap: 20px;
+    align-items: baseline;
+    margin: 16px 0;
+  }
+  .big-stat .num {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: clamp(48px, 6vw, 68px);
+    line-height: 1;
+    color: var(--orange);
+    letter-spacing: -0.02em;
+  }
+  .big-stat .txt {
+    color: var(--fg-muted);
+    font-size: 15px;
+    line-height: 1.4;
+    max-width: 320px;
+  }
+
+  /* ---------- Channel grid ---------- */
+  .channel-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 40px;
+  }
+  .channel-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 32px;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    align-items: start;
+  }
+  .channel-row:last-child { border-bottom: 1px solid var(--border); }
+  .channel-row .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .channel-row .name .tag {
+    display: block;
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--orange);
+    font-weight: 500;
+  }
+  .channel-row .body p { margin-bottom: 10px; }
+  .channel-row .body .stat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--fg-muted);
+    line-height: 1.6;
+    border-left: 2px solid var(--orange);
+    padding-left: 14px;
+    margin-top: 14px;
+  }
+
+  @media (max-width: 640px) {
+    .channel-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+
+  /* ---------- Agent cards ---------- */
+  .agent-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    background: var(--border);
+    margin-top: 32px;
+    border: 1px solid var(--border);
+  }
+  .agent {
+    background: var(--bg);
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .agent .role {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .agent .role .k {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--orange);
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  .agent .job { color: var(--fg-muted); font-size: 15px; }
+
+  @media (max-width: 640px) {
+    .agent { grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  /* ---------- Ownership grid ---------- */
+  .ownership-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 32px;
+    border: 1px solid #2E2924;
+  }
+  .own-row {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr 1fr;
+    padding: 20px 24px;
+    border-top: 1px solid #2E2924;
+    align-items: center;
+    font-size: 14px;
+  }
+  .own-row:first-child {
+    border-top: 0;
+    background: #1F1B17;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #A8A098;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .own-row .asset { color: var(--cream); font-weight: 500; }
+  .own-row .owner { color: var(--orange-bright); font-weight: 500; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.02em; }
+  .own-row .note { color: #A8A098; font-size: 13px; }
+
+  @media (max-width: 640px) {
+    .own-row { grid-template-columns: 1fr; gap: 4px; padding: 18px 20px; }
+    .own-row .owner::before { content: "Owned by: "; color: #A8A098; font-family: 'DM Sans', sans-serif; text-transform: none; letter-spacing: 0; }
+    .own-row .note { font-size: 12px; }
+    .own-row:first-child { display: none; }
+  }
+
+  /* ---------- Scope table ---------- */
+  .scope {
+    margin-top: 36px;
+    border-top: 2px solid var(--fg);
+  }
+  .scope-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 36px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .scope-row .cat {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .scope-row .cat .n {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--orange);
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.1em;
+  }
+  .scope-row ul {
+    list-style: none;
+    padding: 0;
+  }
+  .scope-row ul li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 10px;
+    color: var(--fg);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .scope-row ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 12px;
+    height: 1px;
+    background: var(--orange);
+  }
+
+  @media (max-width: 640px) {
+    .scope-row { grid-template-columns: 1fr; gap: 10px; }
+  }
+
+  /* ---------- Timeline ---------- */
+  .timeline {
+    margin-top: 36px;
+    position: relative;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 12px;
+    bottom: 12px;
+    width: 1px;
+    background: var(--border);
+  }
+  .phase {
+    position: relative;
+    padding: 0 0 40px 60px;
+  }
+  .phase::before {
+    content: "";
+    position: absolute;
+    left: 11px;
+    top: 6px;
+    width: 15px;
+    height: 15px;
+    background: var(--bg);
+    border: 2px solid var(--orange);
+    border-radius: 50%;
+  }
+  .phase .phase-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+  .phase .phase-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--fg);
+  }
+  .phase .phase-body { color: var(--fg-muted); font-size: 15px; line-height: 1.6; }
+
+  /* ---------- Investment ---------- */
+  .invest-hero {
+    background: var(--bg-warm);
+    border: 1px solid var(--border);
+    padding: 44px 40px;
+    margin: 40px 0 32px;
+  }
+  .invest-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    padding: 20px 0;
+    border-bottom: 1px dashed var(--border);
+    align-items: baseline;
+  }
+  .invest-row:last-of-type { border-bottom: 0; }
+  .invest-row:first-of-type { padding-top: 0; }
+  .invest-row .line .what {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .invest-row .line .detail { font-size: 13px; color: var(--fg-muted); margin-top: 2px; line-height: 1.5; }
+  .invest-row .amount {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 28px;
+    color: var(--orange-deep);
+    text-align: right;
+    letter-spacing: -0.01em;
+  }
+  .invest-row .amount .per { font-size: 14px; color: var(--fg-muted); font-weight: 400; display: block; margin-top: 2px; }
+
+  .passthrough {
+    margin-top: 40px;
+    padding: 28px;
+    background: var(--cream);
+    border: 1px dashed var(--border);
+  }
+  .passthrough .head {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--fg-subtle);
+    margin-bottom: 16px;
+  }
+  .passthrough .item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--fg-muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .passthrough .item:last-child { border-bottom: 0; }
+  .passthrough .item .amt { font-family: 'JetBrains Mono', monospace; color: var(--fg); font-size: 13px; }
+
+  @media (max-width: 640px) {
+    .invest-row { grid-template-columns: 1fr; gap: 8px; }
+    .invest-row .amount { text-align: left; font-size: 24px; }
+  }
+
+  /* ---------- CTA ---------- */
+  .cta-section {
+    padding: 120px 0 120px;
+  }
+  .cta-card {
+    background: var(--fg);
+    color: var(--cream);
+    padding: 64px 48px;
+    border: 1px solid var(--fg);
+  }
+  .cta-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.8vw, 40px);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .cta-card h3 em { color: var(--orange-bright); font-style: italic; font-weight: 500; }
+  .cta-card p { color: #BFB8AC; max-width: 560px; }
+  .cta-steps {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+  }
+  .cta-step {
+    border-left: 2px solid var(--orange-bright);
+    padding-left: 18px;
+  }
+  .cta-step .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--orange-bright);
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+  }
+  .cta-step .txt { color: var(--cream); font-size: 15px; line-height: 1.45; }
+
+  @media (max-width: 640px) {
+    .cta-card { padding: 40px 28px; }
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 56px 0 80px;
+    border-top: 1px solid var(--border);
+    color: var(--fg-muted);
+    font-size: 14px;
+  }
+  footer .wide-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 40px;
+  }
+  footer .signoff {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  footer .contact {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--fg-muted);
+    text-align: right;
+  }
+  footer .contact .name { color: var(--fg); font-weight: 500; }
+  @media (max-width: 640px) {
+    footer .wide-container { grid-template-columns: 1fr; }
+    footer .contact { text-align: left; }
+  }
+
+  /* ---------- Fade-in ---------- */
+  .fade-target {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  .fade-target.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fade-target { opacity: 1; transform: none; transition: none; }
+  }
+
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wide-container">
+    <div class="mark"><span class="dot"></span>Peak Growth Command Center · Restoration Roofing SC</div>
+    <div class="meta">Proposal · v2 · April 2026</div>
+  </div>
+</nav>
+
+<!-- ====================== HERO ====================== -->
+<section class="hero">
+  <svg class="hero-deco" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <circle cx="200" cy="200" r="180" stroke="#E85D1F" stroke-width="1"/>
+    <circle cx="200" cy="200" r="140" stroke="#E85D1F" stroke-width="1"/>
+    <circle cx="200" cy="200" r="100" stroke="#E85D1F" stroke-width="1"/>
+    <circle cx="200" cy="200" r="60" stroke="#E85D1F" stroke-width="1"/>
+    <circle cx="200" cy="200" r="6" fill="#E85D1F"/>
+  </svg>
+  <div class="container">
+    <div class="eyebrow">Peak Growth Command Center · For Tom Davis</div>
+    <h1>A growth operation<br>built the way <em>you'd build a roof.</em></h1>
+    <p class="sub">The brand authority layer your SEO team can't build. Structural. Professional. Owned by you. Designed to keep Restoration Roofing SC visible, credible, and top-of-mind with Charleston homeowners before the storm hits — not after.</p>
+
+    <div class="hero-meta">
+      <div>
+        <div class="label">Prepared for</div>
+        <div class="value">Tom Davis<br>Restoration Roofing SC<br>Mount Pleasant, SC</div>
+      </div>
+      <div>
+        <div class="label">Prepared by</div>
+        <div class="value">Jimmy Davidson<br>Agentic Personnel Solutions<br>Solutions Developer</div>
+      </div>
+      <div>
+        <div class="label">Scope</div>
+        <div class="value">Brand authority · social<br>search-adjacent · AI-discovery<br>Organic + paid, all channels</div>
+      </div>
+      <div>
+        <div class="label">At a glance</div>
+        <div class="value"><span class="orange">$8,400</span> Executive Build<br><span class="orange">$3,200</span>/mo all included<br>Ad spend separate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== PRODUCT INTRO BAND ====================== -->
+<section style="padding: 56px 0; background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px;">— The product</div>
+    <div style="font-family: 'Playfair Display', serif; font-size: clamp(26px, 3.4vw, 34px); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; color: var(--fg); margin-bottom: 18px;">Peak Growth Command Center</div>
+    <p style="font-size: 18px; line-height: 1.55; color: var(--fg); max-width: 640px; margin-bottom: 22px;">An AI-powered marketing command center for roofing companies, built to strengthen <strong>brand authority, local visibility, and customer discovery</strong> across social, search-adjacent, and AI-driven channels.</p>
+    <p style="font-size: 15px; line-height: 1.6; color: var(--fg-muted); max-width: 620px;">Your SEO and Google Ads team handles technical search and paid traffic. <span style="color: var(--orange-deep); font-weight: 500;">Peak Growth Command Center handles the brand authority layer</span> — social presence, content research, campaign planning, AI-discovery readiness, and multi-platform visibility. Two disciplines, one service area, zero overlap.</p>
+  </div>
+</section>
+
+<!-- ====================== PORTFOLIO TEASER ====================== -->
+<div style="background: var(--bg-warm); padding: 20px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container" style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); padding: 5px 11px; border: 1px solid var(--orange); border-radius: 2px; white-space: nowrap;">Portfolio Program</div>
+    <div style="font-size: 14px; color: var(--fg-muted); flex: 1; min-width: 240px;">Planning more than one location? Restoration Roofing SC is the foundation — every subsequent company deploys at <strong style="color: var(--fg);">25–36% off the build fee</strong>. Full scale-out math in Section IX.</div>
+  </div>
+</div>
+
+<!-- ====================== OPENING ====================== -->
+<section>
+  <div class="container fade-target">
+    <div class="chapter-mark"><span class="num">I</span> The short version</div>
+    <h2 class="section-title">One system. Four channels. <em>Real research behind every post.</em></h2>
+
+    <p class="intro-para">Peak Growth Command Center is a dedicated, AI-assisted content operation deployed on infrastructure you own. It publishes every weekday to Facebook, Instagram, and Pinterest, and twice a week to Nextdoor. It runs your paid campaigns across Meta, Pinterest, and Nextdoor from the same playbook. And every post it produces traces back to a real source — a manufacturer announcement, a weather alert, a state grant update, a rising homeowner question — <span class="orange">not a generic prompt</span>.</p>
+
+    <p class="intro-para">Every high-risk post passes through a human approval queue before it touches a public channel. During the first two weeks after launch, <em>every</em> post is manually reviewed — by us, not by you — while we dial in your voice and style. And when you want to push something yourself — a photo from a convention, a win from a finished job, a quick special for the week — you message the <strong>Custom Content Agent</strong> on Telegram and it drafts a post for you in your voice, then publishes it now or schedules it for later. Your logins, your data, your server, your credentials. If our relationship ever ends, you keep the platform and every post that went out under your name, without skipping a beat.</p>
+
+    <div class="pull">"We're not selling social media posting. We're building a multi-agent growth operation with governance, handoff guarantees, and real industry research."</div>
+  </div>
+</section>
+
+<!-- ====================== WHY NOW ====================== -->
+<section>
+  <div class="container fade-target">
+    <div class="chapter-mark"><span class="num">II</span> Why now</div>
+    <h2 class="section-title">Your buyer is on her phone <em>right now</em>, and she's already making up her mind about you.</h2>
+
+    <p class="intro-para narrow">Before we get into the architecture, the research: women make <strong>65% of home remodeling decisions</strong> (Kleber & Associates) and influence <strong>91% of home-related purchases</strong> (Nielsen / Federal Reserve). The roofing buyer who matters most in the Charleston metro is a woman aged 35–55, researching on her phone, heavily influenced by neighbors and reviews. She is not calling three roofers cold. She is <em>already judging</em> your presence online before the phone ever rings.</p>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 32px; margin: 48px 0 32px;">
+      <div class="big-stat">
+        <div class="num">80%</div>
+        <div class="txt">of adults 30–49 use Facebook; 60% of women use it daily<br><em style="font-size:11px; color: var(--fg-subtle);">Pew Research 2025</em></div>
+      </div>
+      <div class="big-stat">
+        <div class="num">83%</div>
+        <div class="txt">of US women 25–54 use Pinterest — more than Instagram, Snap, or Twitter<br><em style="font-size:11px; color: var(--fg-subtle);">comScore via Pinterest</em></div>
+      </div>
+      <div class="big-stat">
+        <div class="num">77%</div>
+        <div class="txt">of Nextdoor users are homeowners; 67% share recommendations on the platform<br><em style="font-size:11px; color: var(--fg-subtle);">Taradel / Nextdoor 2026</em></div>
+      </div>
+      <div class="big-stat">
+        <div class="num">11%</div>
+        <div class="txt">of roofing homeowner discovery is now AI search — doubled from 2025 and still climbing<br><em style="font-size:11px; color: var(--fg-subtle);">Roofing Contractor 2026 Homeowner Survey</em></div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <h3 class="sub-title">Charleston gives you a structural advantage most markets don't.</h3>
+    <p>Hurricane exposure. The SC Safe Home Mitigation Grant Program ($7,500 per eligible homeowner for resilient roof upgrades). IBHS FORTIFIED Roof standards. Coastal weathering. Insurance-claim education. Your market has a built-in, year-round conversation about roof resilience that most contractors in the country cannot touch. This content practically writes itself — but only if someone is actually producing it consistently. That's the opening.</p>
+
+    <p class="narrow">The strategic doc we already delivered (April 2026) laid out the full buyer picture and the search-layer foundation. This document is the next layer up: how we operate the social and content channels that sit between the website and the phone call.</p>
+  </div>
+</section>
+
+<!-- ====================== CHANNELS ====================== -->
+<section>
+  <div class="container fade-target">
+    <div class="chapter-mark"><span class="num">III</span> The channel mix</div>
+    <h2 class="section-title">Four publishing channels. <em>One intelligence channel.</em> Everything else earns its place later.</h2>
+
+    <p class="narrow">Too many contractors are told they need to be "everywhere." That's the advice that produces thin, generic content across eight platforms instead of professional content across four. Here's what we actually run — and why.</p>
+
+    <div class="channel-grid">
+      <div class="channel-row">
+        <div class="name">Facebook<span class="tag">Core · Organic + Paid</span></div>
+        <div class="body">
+          <p>The trust-check channel. Before a Charleston homeowner calls you, she's scrolling your Facebook Page to see recent jobs, team photos, and how you respond to reviews. Community groups (neighborhood pages, local moms groups, HOA discussions) are where roofing recommendations actually get made.</p>
+          <p class="stat">1 post per weekday · Meta Ads: always-on lead gen + retargeting · Comment triage with 5-min SLA on real leads</p>
+        </div>
+      </div>
+
+      <div class="channel-row">
+        <div class="name">Instagram<span class="tag">Core · Organic + Paid</span></div>
+        <div class="body">
+          <p>Your visual portfolio. Before-and-afters, drone shots, crew on steep pitches, time-lapse tear-offs. Roofing is a visual category, and Instagram is where the quality of your work does its own selling. Same account structure as Facebook through your Meta Business Portfolio.</p>
+          <p class="stat">1 post per weekday · Stories for jobsite-day content · Reels when short video is captured</p>
+        </div>
+      </div>
+
+      <div class="channel-row">
+        <div class="name">Pinterest<span class="tag">Core · Organic + Paid · Often overlooked</span></div>
+        <div class="body">
+          <p>The channel most roofers skip — and the one built for your buyer. <strong>85% of women use Pinterest to plan big or small life moments</strong>, vs. 53% on Facebook and 44% on Instagram. When she's deciding between architectural shingles and a standing-seam metal roof, Pinterest is where she saves the inspiration. We publish the same before-and-after content to 3–5 intent-themed boards: "Charleston Metal Roof Inspiration," "Hurricane-Ready Homes," "Roof Color Ideas for Brick Homes."</p>
+          <p class="stat">2–3 pins per week × 3–5 boards · Pinterest Ads seasonal campaigns · Low CPM vs. Meta for home-improvement audiences</p>
+        </div>
+      </div>
+
+      <div class="channel-row">
+        <div class="name">Nextdoor<span class="tag">Core · Human-published · Paid via API</span></div>
+        <div class="body">
+          <p>The highest-trust local channel on the internet. 77% of users are homeowners, and the average Nextdoor user is 161% more likely to be interested in remodeling than the general public. One published case study — Joe Hall Roofing in Texas — saw a <strong>300% increase in leads</strong> in six months from Business Posts alone.</p>
+          <p>Nextdoor organic does not offer a stable automation API. We draft every post here; <strong>we publish it manually on your behalf</strong> as part of our weekly operations (about 30 minutes of our time per week, zero minutes of yours). Nextdoor's trust ecosystem rewards genuine human voice, so we treat this as a feature, not a limitation.</p>
+          <p class="stat">2 posts per week · Nextdoor Ads on hurricane triggers & inspection offers · Human-published, fully governed</p>
+        </div>
+      </div>
+
+      <div class="channel-row">
+        <div class="name">Reddit<span class="tag">Intelligence + Authority Building</span></div>
+        <div class="body">
+          <p>Not a publishing channel. A <em>future-visibility</em> channel. Roughly 43% of citations in ChatGPT responses come from Reddit. Authentic, helpful presence in r/Charleston, r/HomeImprovement, r/Roofing, and r/Insurance — typically 2–3 thoughtful comments a week, done by a human — compounds into your company being recommended by AI assistants six to twelve months from now.</p>
+          <p class="stat">Light touch · Human-led · Explicit affiliation, no sockpuppets</p>
+        </div>
+      </div>
+
+      <div class="channel-row">
+        <div class="name">Twitter / X<span class="tag">Intelligence only</span></div>
+        <div class="body">
+          <p>For residential roofing, the homeowner volume on X is too low to justify posting. But the <em>scraping</em> value is gold: real-time manufacturer updates (Owens Corning, GAF, IKO, Atlas), NWS Charleston weather alerts, NOAA hurricane tracking, and local news. Feeds our content intelligence engine.</p>
+          <p class="stat">Read-only · 0 posts · Input to the system, not output</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <h3 class="sub-title">TikTok and YouTube Shorts are Phase 2 — on purpose.</h3>
+    <p>The moment your crew starts consistently capturing 60-second vertical clips on every job — drone footage, tear-offs in progress, finished walkarounds, homeowner reactions — we extend the existing pipeline to short-form video channels without additional infrastructure cost. We do not fake video with AI generation. Roofing is a visual industry and real footage is the most persuasive thing you can publish. When the raw material exists, the channels get added. Until then, we stay focused on the four channels above where we can ship professional, trust-building content every day.</p>
+  </div>
+</section>
+
+<!-- ====================== THE SYSTEM ====================== -->
+<section class="dark-section">
+  <div class="container fade-target">
+    <div class="chapter-mark"><span class="num">IV</span> What we actually build you</div>
+    <h2 class="section-title" style="color: var(--cream);">A dedicated AI-assisted team <em>living on your own infrastructure.</em></h2>
+
+    <p class="intro-para" style="color: #D4CDC1;">Peak Growth Command Center, in plain English — because this is the part that actually separates the offering from the market.</p>
+
+    <h3 class="sub-title" style="color: var(--cream);">The infrastructure</h3>
+    <p style="color: #D4CDC1;">We provision a dedicated high-end server — a Virtual Private Server, or VPS — in your name, through your business email. Specifically a Hostinger KVM 8 tier: 8 CPU cores, 32 GB of RAM, 400 GB of fast storage. Think of it as a small digital office building rented under Restoration Roofing SC, where a team of AI specialists live and work on your growth operation. The building (the server) is yours. The workers (the agents) operate on your behalf. You can see what's happening, change the locks, or replace the agency at any time without losing the office.</p>
+
+    <p style="color: #D4CDC1;">The control plane that sits above the agent team — the dashboard, the approval queue, the activity log, the org chart, the budget tracker — is built on <strong style="color: var(--cream);">Paperclip</strong>, an open-source, MIT-licensed orchestration platform used by operators running AI agent teams across business functions. The agent runtime itself uses <strong style="color: var(--cream);">Hermes</strong>, Nous Research's open-source self-improving agent with a closed learning loop. Both are industry-standard tools under active development. Both are self-hosted. If we ever walk away, you're not holding a pile of custom code with no maintainers — you're holding a well-documented deployment of tools that have real open-source communities behind them.</p>
+
+    <!-- ARCHITECTURE DIAGRAM -->
+    <div style="margin: 48px 0 24px; padding: 32px; background: #1F1B17; border: 1px solid #2E2924; border-radius: 4px; overflow-x: auto;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8A8378; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px;">Architecture at a glance</div>
+      <svg viewBox="0 0 720 500" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; display: block;">
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#A8A098"/>
+          </marker>
+          <marker id="arr-o" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#FF7A3D"/>
+          </marker>
+        </defs>
+
+        <!-- VPS dashed boundary -->
+        <rect x="30" y="40" width="660" height="370" fill="none" stroke="#FF7A3D" stroke-width="1.5" stroke-dasharray="5,4" rx="6"/>
+        <text x="46" y="28" font-family="JetBrains Mono, monospace" font-size="11" fill="#FF7A3D" font-weight="600" letter-spacing="0.14em">YOUR CLIENT-OWNED VPS · KVM 8</text>
+
+        <!-- INPUTS box -->
+        <rect x="55" y="80" width="130" height="200" fill="#2E2924" stroke="#3D3630" rx="3"/>
+        <text x="65" y="102" font-family="JetBrains Mono, monospace" font-size="9" fill="#8A8378" letter-spacing="0.12em">INPUTS</text>
+        <text x="65" y="128" font-family="Playfair Display, serif" font-size="14" font-weight="600" fill="#FAF6EF">Intelligence</text>
+        <text x="65" y="152" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">Trade news</text>
+        <text x="65" y="168" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">Manufacturers</text>
+        <text x="65" y="184" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">NOAA · Hurricane</text>
+        <text x="65" y="200" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">SC Safe Home</text>
+        <text x="65" y="216" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">Reddit · Trends</text>
+        <text x="65" y="232" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">Competitor feeds</text>
+        <text x="65" y="256" font-family="DM Sans, sans-serif" font-size="10" fill="#8A8378" font-style="italic">20+ daily sources</text>
+
+        <!-- Arrow in -->
+        <line x1="190" y1="180" x2="218" y2="180" stroke="#A8A098" stroke-width="1.5" marker-end="url(#arr)"/>
+
+        <!-- Control plane container with Paperclip branding -->
+        <rect x="225" y="75" width="315" height="215" fill="#FAF6EF" stroke="#E85D1F" stroke-width="1.5" rx="3"/>
+        <text x="382" y="93" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#B34612" letter-spacing="0.14em" font-weight="600">PEAK GROWTH COMMAND CENTER · ON PAPERCLIP</text>
+
+        <!-- 7 agent pills · Row 1 (4 pills) -->
+        <rect x="238" y="106" width="68" height="26" fill="#FFFFFF" stroke="#D9D1C2" rx="2"/>
+        <text x="272" y="123" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#141210" font-weight="500">01 Research</text>
+
+        <rect x="312" y="106" width="68" height="26" fill="#FFFFFF" stroke="#D9D1C2" rx="2"/>
+        <text x="346" y="123" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#141210" font-weight="500">02 Writer</text>
+
+        <rect x="386" y="106" width="68" height="26" fill="#FFFFFF" stroke="#D9D1C2" rx="2"/>
+        <text x="420" y="123" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#141210" font-weight="500">03 Imagery</text>
+
+        <rect x="460" y="106" width="70" height="26" fill="#FFFFFF" stroke="#D9D1C2" rx="2"/>
+        <text x="495" y="123" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#141210" font-weight="500">04 Publisher</text>
+
+        <!-- Row 2 (3 regular + COO highlighted + Custom Content highlighted) -->
+        <rect x="238" y="138" width="68" height="26" fill="#FFFFFF" stroke="#D9D1C2" rx="2"/>
+        <text x="272" y="155" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#141210" font-weight="500">05 Engage</text>
+
+        <rect x="312" y="138" width="68" height="26" fill="#FFFFFF" stroke="#D9D1C2" rx="2"/>
+        <text x="346" y="155" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#141210" font-weight="500">06 Analytics</text>
+
+        <!-- COO — highlighted, internal orchestrator -->
+        <rect x="386" y="138" width="68" height="26" fill="#FFE8D4" stroke="#E85D1F" stroke-width="1.5" rx="2"/>
+        <text x="420" y="155" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#B34612" font-weight="700">07 COO</text>
+
+        <!-- Custom Content Agent — highlighted, client-facing Telegram -->
+        <rect x="460" y="138" width="70" height="26" fill="#FFE8D4" stroke="#E85D1F" stroke-width="1.5" rx="2"/>
+        <text x="495" y="155" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#B34612" font-weight="700">08 Custom</text>
+
+        <!-- Obsidian KB inside control plane -->
+        <rect x="238" y="180" width="292" height="38" fill="#141210" rx="3"/>
+        <text x="384" y="198" text-anchor="middle" font-family="Playfair Display, serif" font-size="12" font-weight="600" fill="#FAF6EF">Obsidian Knowledge Base</text>
+        <text x="384" y="212" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#A8A098">shared memory · every post · every decision</text>
+
+        <!-- Double-headed arrow agents ↔ KB -->
+        <line x1="384" y1="167" x2="384" y2="178" stroke="#E85D1F" stroke-width="1.5"/>
+        <polygon points="380,178 384,182 388,178" fill="#E85D1F"/>
+        <polygon points="380,169 384,165 388,169" fill="#E85D1F"/>
+
+        <!-- Governance bar inside control plane -->
+        <rect x="238" y="232" width="292" height="46" fill="#2E2924" rx="3"/>
+        <text x="384" y="250" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#FF7A3D" letter-spacing="0.12em">GOVERNANCE LAYER</text>
+        <text x="384" y="266" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#FAF6EF">Board approval gates · risk tiers · audit log</text>
+
+        <!-- Arrow out -->
+        <line x1="542" y1="190" x2="570" y2="190" stroke="#A8A098" stroke-width="1.5" marker-end="url(#arr)"/>
+
+        <!-- OUTPUTS box -->
+        <rect x="575" y="80" width="100" height="210" fill="#2E2924" stroke="#3D3630" rx="3"/>
+        <text x="585" y="102" font-family="JetBrains Mono, monospace" font-size="9" fill="#8A8378" letter-spacing="0.12em">OUTPUTS</text>
+        <text x="585" y="128" font-family="Playfair Display, serif" font-size="14" font-weight="600" fill="#FAF6EF">Channels</text>
+        <text x="585" y="152" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">Facebook</text>
+        <text x="585" y="168" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">Instagram</text>
+        <text x="585" y="184" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">Pinterest</text>
+        <text x="585" y="200" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">Nextdoor*</text>
+        <text x="585" y="220" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">Meta Ads</text>
+        <text x="585" y="236" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">Pinterest Ads</text>
+        <text x="585" y="252" font-family="DM Sans, sans-serif" font-size="11" fill="#BFB8AC">Nextdoor Ads</text>
+        <text x="585" y="272" font-family="DM Sans, sans-serif" font-size="9" fill="#8A8378" font-style="italic">* human-published</text>
+
+        <!-- Tom's phone section below VPS -->
+        <text x="360" y="448" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#8A8378" letter-spacing="0.14em">TOM'S PHONE · ANY DEVICE</text>
+
+        <!-- Telegram callout -->
+        <rect x="150" y="458" width="200" height="34" fill="#FAF6EF" stroke="#E85D1F" stroke-width="1.5" rx="3"/>
+        <text x="250" y="474" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-weight="600" fill="#141210">Telegram · Custom Content</text>
+        <text x="250" y="486" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#5B5650">your direct line · anytime</text>
+
+        <!-- Peak Growth dashboard callout -->
+        <rect x="370" y="458" width="200" height="34" fill="#FAF6EF" stroke="#A8A098" rx="3"/>
+        <text x="470" y="474" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-weight="600" fill="#141210">Your Dashboard</text>
+        <text x="470" y="486" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#5B5650">overview · approvals · kill switch</text>
+
+        <!-- Lines from Tom's phone up to the agent cluster -->
+        <line x1="250" y1="458" x2="495" y2="164" stroke="#E85D1F" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="470" y1="458" x2="458" y2="255" stroke="#A8A098" stroke-width="1" stroke-dasharray="3,3"/>
+      </svg>
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 12px; color: #8A8378; font-style: italic; margin-top: 16px; text-align: center;">Content flows in from the intelligence layer (left), through an 8-specialist team coordinating above a shared Obsidian knowledge base, with governance (approvals, budgets, audit) enforced at the control-plane level. Your Custom Content Agent lives in Telegram and is available to you and any administrator, anytime.</div>
+    </div>
+
+    <h3 class="sub-title" style="color: var(--cream); margin-top: 48px;">The knowledge base</h3>
+    <p style="color: #D4CDC1;">Every specialist reads from and writes to a shared memory layer built on top of Obsidian — the professional second-brain platform. Running on your VPS, it holds every post we've ever drafted, every source we've pulled from, every decision we've made, every piece of research the system has touched. It's all plain Markdown files you own outright. If you ask the Custom Content Agent "have we posted anything about Hurricane Helene yet?" the answer comes from here. If the Writer needs to know what voice we used last month, it reads from here. The system gets smarter every week because its memory never resets — and it can never be taken from you.</p>
+
+    <h3 class="sub-title" style="color: var(--cream);">The team</h3>
+    <p style="color: #D4CDC1;">Eight specialized AI agents, each with one job, working together the way a professional agency has a research department, a copywriter, a designer, a production manager, and an analytics person — plus an internal COO agent that orchestrates the team, and a dedicated Telegram-based agent that gives <em>you</em> direct control whenever you want it. Jimmy (the human-in-the-loop) is the CEO. You are the board. The team hands work to each other in a chain. Every handoff is logged. Every decision is traceable. Approvals are not a separate agent — they're a structural layer enforced by the control plane itself.</p>
+
+    <div class="agent-list" style="background: #2E2924;">
+      <div class="agent" style="background: var(--dark-warm); color: var(--cream);">
+        <div class="role" style="color: var(--cream);"><span class="k" style="color: var(--orange-bright);">01 · Research Specialist</span>Morning intelligence</div>
+        <div class="job" style="color: #A8A098;">Every morning, scans roofing trade news (NRCA, Roofing Contractor), manufacturer announcements (Owens Corning, GAF, CertainTeed, IKO), NOAA weather alerts, SC Department of Insurance updates on Safe Home grants, homeowner discussions on Reddit, and rising Google searches. Scores each item and writes 20–30 topic opportunities to the knowledge base.</div>
+      </div>
+      <div class="agent" style="background: var(--dark-warm); color: var(--cream);">
+        <div class="role" style="color: var(--cream);"><span class="k" style="color: var(--orange-bright);">02 · Writer</span>Drafts the posts</div>
+        <div class="job" style="color: #A8A098;">Pulls the top 3–5 opportunities and drafts 2–3 structural variants per post — storyteller, educator, spotlight, urgent — tagged for channel fit and risk level. Enforces your brand voice by reading back through prior posts in the knowledge base. Never fabricates a statistic.</div>
+      </div>
+      <div class="agent" style="background: var(--dark-warm); color: var(--cream);">
+        <div class="role" style="color: var(--cream);"><span class="k" style="color: var(--orange-bright);">03 · Imagery Specialist</span>Generates visuals</div>
+        <div class="job" style="color: #A8A098;">Roofing lives and dies on imagery, and this specialist is built to dominate that field. Powered by three deeply-tuned roofing image skills — detailed in the <em>Custom-built skills</em> section below — it produces a high volume of on-brand visuals every week: educational scenes, infographics, conceptual angles, branded content, styled renders, seasonal variants. The one line this specialist does not cross: <strong style="color: var(--cream);">real portfolio work always uses real photos</strong>. A post claiming "here's the roof we built on Creekside Drive" uses your actual Creekside Drive photo — never an AI render. That rule is structurally enforced. We don't fake work. Everything else is fair game.</div>
+      </div>
+      <div class="agent" style="background: var(--dark-warm); color: var(--cream);">
+        <div class="role" style="color: var(--cream);"><span class="k" style="color: var(--orange-bright);">04 · Publisher</span>Hits the go button</div>
+        <div class="job" style="color: #A8A098;">Handles the actual API calls to Meta, Pinterest, and the ad platforms. Manages rate limits, token refresh, retry logic, and scheduling. Staggers posts across the day rather than firing them all at 9 AM. Only acts after the governance layer clears a post for publishing.</div>
+      </div>
+      <div class="agent" style="background: var(--dark-warm); color: var(--cream);">
+        <div class="role" style="color: var(--cream);"><span class="k" style="color: var(--orange-bright);">05 · Engagement Specialist</span>Watches the comments</div>
+        <div class="job" style="color: #A8A098;">Monitors comments, DMs, tags, and mentions across Facebook and Instagram. Answers FAQ-level questions with a required bot disclosure. Flags real leads for human response within 5 minutes. Escalates complaints immediately.</div>
+      </div>
+      <div class="agent" style="background: var(--dark-warm); color: var(--cream);">
+        <div class="role" style="color: var(--cream);"><span class="k" style="color: var(--orange-bright);">06 · Analytics Specialist</span>Tracks what's working</div>
+        <div class="job" style="color: #A8A098;">Daily engagement pull, weekly dashboard, monthly strategic report, quarterly review. Tracks review velocity across Google, Facebook, and BBB. Runs AI-citation tests against ChatGPT, Perplexity, and Google AI Overviews — measuring whether your company is being recommended when homeowners ask AI "who's the best roofer in Charleston?"</div>
+      </div>
+      <div class="agent" style="background: #241E17; color: var(--cream); border-left: 3px solid var(--orange-bright);">
+        <div class="role" style="color: var(--cream);"><span class="k" style="color: var(--orange-bright);">07 · COO</span>Team orchestration</div>
+        <div class="job" style="color: #A8A098;">The senior internal agent. Reports to Jimmy (the human-in-the-loop CEO) and oversees the six specialists above. Watches daily throughput, coordinates hand-offs, holds the team to budget, escalates blockers, and keeps the overall goal in view: be the roofer Charleston homeowners already trust by the time the storm hits. You don't talk to the COO directly — that's Jimmy's job. You manage your business; the COO manages the team.</div>
+      </div>
+      <div class="agent" style="background: #241E17; color: var(--cream); border-left: 3px solid var(--orange-bright);">
+        <div class="role" style="color: var(--cream);"><span class="k" style="color: var(--orange-bright);">08 · Custom Content Agent</span>Your direct line · Telegram</div>
+        <div class="job" style="color: #A8A098;">Runs 100% over Telegram — the easiest interface there is. Available to you, to Jimmy, and to any administrator you authorize (each gets their own link and their own access). Send it a photo from a roofing convention or a finished job, describe what you want to say, and it drafts a post in your voice, lets you edit it, and publishes it now or schedules it for later — whatever you choose. Ask it <em>"pull down the post about the Beaufort job"</em> and it's gone in under ten seconds. Ask it <em>"what have we posted about Hurricane Helene?"</em> and it pulls from the knowledge base. Ask it to <em>"run a veterans' special this week"</em> and it hands the task to the team. This is how you stay in charge of your own social presence without ever logging into Facebook or opening a dashboard.</div>
+      </div>
+    </div>
+
+    <h3 class="sub-title" style="color: var(--cream); margin-top: 48px;">The governance layer</h3>
+
+    <p style="color: #D4CDC1;">Approvals are not one of the eight specialists. They're a structural governance layer enforced by the control plane itself — which is a stronger design than making approvals an agent's job. Every post the team produces carries a risk tier. Here's how it actually runs:</p>
+
+    <div style="margin: 24px 0 28px; padding: 28px 32px; background: #1F1B17; border-left: 3px solid var(--orange-bright); border-radius: 0 3px 3px 0;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--orange-bright); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;">Calibration period · first two weeks</div>
+      <p style="color: #D4CDC1; margin-bottom: 0;">Every single post across every single platform is manually reviewed and approved — <strong style="color: var(--cream);">by us, not by you</strong>. This is the DNA-setting phase: Jimmy sits with every draft, flags anything that sounds off-brand or off-tone, and locks in the voice before anything scales. You can watch everything happen in real time through your dashboard if you want to, but you are not the gatekeeper. Your job is business. Our job is to dial in the system so that when it hits steady state, you can trust it.</p>
+    </div>
+
+    <div style="margin: 24px 0 28px; padding: 28px 32px; background: #1F1B17; border-left: 3px solid var(--orange-bright); border-radius: 0 3px 3px 0;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--orange-bright); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;">Steady state · month 3 onwards</div>
+      <p style="color: #D4CDC1; margin-bottom: 12px;"><strong style="color: var(--cream);">Low-risk content</strong> — educational explainers, seasonal reminders, community posts, product-category content — auto-publishes on schedule. Logged. 24-hour reversibility window.</p>
+      <p style="color: #D4CDC1; margin-bottom: 12px;"><strong style="color: var(--cream);">Medium-risk content</strong> — pricing mentions, before/afters, branded promotions, seasonal offers — auto-publishes too, and is flagged to Jimmy for same-day review. We keep watch on what goes out; you don't have to.</p>
+      <p style="color: #D4CDC1; margin-bottom: 0;"><strong style="color: var(--cream);">High-risk content</strong> — anything touching insurance claims, named customers, legal or liability topics — is the <strong style="color: var(--orange-bright);">only tier that requires your explicit approval</strong> before publishing. You get a notification, a one-tap approve/reject/edit on your phone, no keyboard required. These should be rare.</p>
+    </div>
+
+    <p style="color: #D4CDC1;">The default experience is hands-off. You are not expected to spend time approving routine posts. You're expected to run your roofing business. But you keep the keys — at any time, from Telegram, you can tell the Custom Content Agent to stop a scheduled post, pull down one that's already live, pause any platform, or hit the master kill switch. Say <em>"pull the post about the Beaufort job"</em> and it's gone in under ten seconds, logged, reversible. It's not a personality; it's a rule enforced by the platform.</p>
+
+    <h3 class="sub-title" style="color: var(--cream); margin-top: 48px;">Your dashboard</h3>
+    <p style="color: #D4CDC1;">At any time, from your phone or computer, you log into a professional-grade dashboard that shows what the system is doing — no technical detail, just the picture that matters to you. We build this on top of Paperclip, an open-source control plane for AI agent operations whose UI design has been compared to Linear. You get a polished, production-grade interface out of the box — not a hand-rolled dashboard someone has to babysit.</p>
+
+    <div style="margin: 24px 0 32px; padding: 28px 32px; background: #1F1B17; border-left: 3px solid var(--orange-bright); border-radius: 0 3px 3px 0;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--orange-bright); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;">What you see</div>
+      <p style="color: #D4CDC1; margin-bottom: 20px;">The full org chart of your eight specialists and what each one is doing right now · active campaign performance across all four channels · monthly token spend and budget status per agent · recent activity feed of everything published in the last 24 hours · every approval pending, completed, or escalated · review velocity tracker across Google, Facebook, and BBB · AI-citation standing across ChatGPT, Perplexity, and Google AI Overviews · an immutable, append-only audit log of every decision and every tool call your team has made.</p>
+
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--orange-bright); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;">What you can do with one tap</div>
+      <p style="color: #D4CDC1; margin-bottom: 0;">Approve or reject any draft from the queue · edit-and-approve (change the copy before it goes live) · pause any specialist · pause any channel or any active ad campaign · <strong style="color: var(--orange-bright);">master kill switch</strong> that stops all publishing and all paid campaigns within 30 seconds. The master kill requires a confirmation tap so it's never fired by accident, but when you need it, it's right there on your home screen.</p>
+    </div>
+
+    <p style="color: #D4CDC1;">This is the peace-of-mind layer. A story breaks and you need everything paused? Kill it from your phone in under ten seconds. A competitor starts running ads and you want to see your position? One glance. Want to know what's been going out under your name this week? It's all right there — no emails to Jimmy, no waiting for a report.</p>
+    <p style="color: #D4CDC1;">The dashboard lives at a secure subdomain on your own infrastructure, protected by magic-link authentication tied to your business email. No passwords to lose. Mobile-first, so it reads just as well on your phone at a jobsite as it does on a laptop in the office.</p>
+
+    <h3 class="sub-title" style="color: var(--cream); margin-top: 48px;">"Custom-built skills" — what that actually means</h3>
+    <p style="color: #D4CDC1;">Each specialist has skills: small, specific, documented instructions that tell it how to do its job well. Think of a skill the way a contractor thinks about a jig — a purpose-built tool that makes a specific task consistent and repeatable. The Writer has jigs for Facebook captions, Pinterest titles, and Nextdoor community tone. The COO has jigs for daily throughput reviews and goal alignment.</p>
+
+    <p style="color: #D4CDC1;">The Imagery Specialist has three roofing-specific image-generation skills that deserve their own call-out, because they are the single sharpest edge of what separates this system from what your competitors are publishing.</p>
+
+    <div style="margin: 28px 0 28px; padding: 28px 32px; background: #1F1B17; border: 1px solid #2E2924; border-radius: 3px;">
+      <div style="margin-bottom: 24px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--orange-bright); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;">Skill 01</div>
+        <div style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--cream); margin-bottom: 6px;">Premium Roof Showcase</div>
+        <p style="color: #D4CDC1; margin-bottom: 0; font-size: 15px;">Hero-shot quality. Renders finished roofs from the camera angles and lighting scenarios that <em>sell</em> — magazine-cover architectural shingle work, twilight-lit metal roofing, drone-height angles for steep pitches, storybook-lit eaves. Used for conceptual and brand content, never for specific completed jobs.</p>
+      </div>
+      <div style="margin-bottom: 24px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--orange-bright); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;">Skill 02</div>
+        <div style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--cream); margin-bottom: 6px;">Roofing Image Generator</div>
+        <p style="color: #D4CDC1; margin-bottom: 0; font-size: 15px;">Knows roofs the way a crew knows roofs. Plywood sheeting and proper spacing, underlayment weight and layup, architectural shingle placement, pro-panel and standing-seam metal installation, ridge caps, valleys, eaves, gables, flashing — and the way each of them looks during each phase of a job. Generates images that stand up to scrutiny from people who actually install roofs for a living, instead of the hallucinated nonsense most AI image tools produce the moment you ask for a roof.</p>
+      </div>
+      <div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--orange-bright); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;">Skill 03</div>
+        <div style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--cream); margin-bottom: 6px;">Roofing Branding Image Generator</div>
+        <p style="color: #D4CDC1; margin-bottom: 0; font-size: 15px;">Layers Restoration Roofing SC's visual identity on top of the Roofing Image Generator. Your color system, your mascot, your typography, your photo style. Output is brand-consistent enough to drop into a seasonal ad campaign without a reshoot.</p>
+      </div>
+    </div>
+
+    <p style="color: #D4CDC1;">These three skills were built from scratch and tuned specifically for roofing. They're not off-the-shelf Midjourney prompts. They're the reason the system produces image-driven content at a quality level most local contractors can't touch — and they're yours. Every skill is version-controlled, open-standard (compatible with the industry <em>agentskills.io</em> specification), and — where we've explicitly allowed it — self-refining. The imagery skills are deliberately pinned: image quality and brand consistency matter too much to let drift without a human in the loop.</p>
+
+    <h3 class="sub-title" style="color: var(--cream);">The monthly sweep</h3>
+    <p style="color: #D4CDC1;">Every month we run a full systems technical sweep: auditing the entire stack against the current state of the art. Newer, smarter Claude models. Cheaper inference routes. Paperclip and Hermes updates with integration tests. Skill-evolution review and rollback where needed. New platform APIs. Better scraping techniques. Anything that makes the system faster, cheaper, or more effective gets deployed. Your runbook is updated within 48 hours of any change. <strong style="color: var(--cream);">The system you launch with is not the system you'll have in six months. It will be measurably better.</strong></p>
+  </div>
+</section>
+
+<!-- ====================== SCOPE ====================== -->
+<section>
+  <div class="container fade-target">
+    <div class="chapter-mark"><span class="num">V</span> What's in scope</div>
+    <h2 class="section-title">Everything below is one engagement, <em>one bill,</em> one throat to choke.</h2>
+
+    <p class="narrow">Organic content and paid advertising are operationally inseparable in a system like this — the same research, the same creative, the same approval workflow, and the same reporting layer serve both. Splitting them across two vendors would force you to pay for duplicate strategy work and break the single source of truth for performance. So everything below is bundled.</p>
+
+    <div class="scope">
+      <div class="scope-row">
+        <div class="cat"><span class="n">A</span>Organic publishing</div>
+        <ul>
+          <li>1 post per weekday to Facebook (~22/month)</li>
+          <li>1 post per weekday to Instagram (~22/month)</li>
+          <li>2–3 pins per week to Pinterest, each distributed to 3–5 relevant boards</li>
+          <li>2 posts per week to Nextdoor — drafted by the system, published manually by us</li>
+          <li>2–3 thoughtful Reddit comments per week (human-led, authority building)</li>
+          <li>Brand voice guide and content style enforcement across every channel</li>
+        </ul>
+      </div>
+
+      <div class="scope-row">
+        <div class="cat"><span class="n">B</span>Paid advertising management</div>
+        <ul>
+          <li><strong>Meta Ads (Facebook + Instagram):</strong> always-on lead gen campaign, always-on website retargeting, seasonal overlays (hurricane season ramp, post-storm response, insurance education), creative refresh every 2 weeks, A/B testing cadence</li>
+          <li><strong>Pinterest Ads:</strong> one always-on consideration campaign, seasonal boosts fall and spring</li>
+          <li><strong>Nextdoor Ads:</strong> storm-season activation, inspection-offer campaigns, local awareness presence</li>
+          <li>Meta Pixel + Conversions API installed server-side on rr-sc production site</li>
+          <li>Custom conversion events: form submits, phone clicks, Roofle quote completions, high-intent AI chat leads</li>
+          <li>Audience library: website visitors, engagement audiences, customer list, lookalikes</li>
+          <li>Weekly bid & budget optimization</li>
+        </ul>
+      </div>
+
+      <div class="scope-row">
+        <div class="cat"><span class="n">C</span>Content intelligence</div>
+        <ul>
+          <li>Daily scraping of NRCA, Roofing Contractor, Building Enclosure, Roofers Coffee Shop, Ask A Roofer, FRSA, and IBHS</li>
+          <li>Manufacturer news feeds: Owens Corning, GAF, CertainTeed, Malarkey, IKO, Atlas, Velux, Carlisle</li>
+          <li>NOAA weather API for Charleston + National Hurricane Center tropical tracking</li>
+          <li>SC Department of Insurance (SC Safe Home grant program monitoring)</li>
+          <li>Reddit, Google Trends, People-Also-Ask, Quora — homeowner-question surface</li>
+          <li>Competitor monitoring in Charleston, Mount Pleasant, Summerville, and the rest of your 21-city service area</li>
+          <li>Review velocity tracking across Google, Facebook, and Better Business Bureau</li>
+        </ul>
+      </div>
+
+      <div class="scope-row">
+        <div class="cat"><span class="n">D</span>Governance & approval</div>
+        <ul>
+          <li><strong>Peak Growth dashboard</strong> — your real-time system overview at a secure subdomain, accessible on any phone or computer with magic-link auth · built on Paperclip for production-grade UX</li>
+          <li>Approval queue integrated into the dashboard — swipe-through review from your phone</li>
+          <li>Three-tier risk classification with defined SLAs (low auto-publishes · medium 24-hour · high dual written-approval)</li>
+          <li>Governance enforced structurally by the control plane — no agent can bypass it, no draft ships without passing through it</li>
+          <li>Per-channel pause controls · per-campaign emergency stop · <strong>master kill switch</strong> stops everything within 30 seconds (confirmation tap required)</li>
+          <li>Append-only, immutable audit log of every agent action, every tool call, every approval decision — full read access for you</li>
+        </ul>
+      </div>
+
+      <div class="scope-row">
+        <div class="cat"><span class="n">E</span>Engagement & triage</div>
+        <ul>
+          <li>Real-time comment, DM, tag, and mention monitoring across FB and IG</li>
+          <li>FAQ auto-response with required bot disclosure (per Meta developer policy)</li>
+          <li>5-minute SLA alert for real leads</li>
+          <li>Sentiment triage — complaints escalated immediately</li>
+        </ul>
+      </div>
+
+      <div class="scope-row">
+        <div class="cat"><span class="n">F</span>Reporting & strategy</div>
+        <ul>
+          <li>Daily digest email (what published, engagement snapshot, flagged items, errors)</li>
+          <li>Weekly dashboard update (engagement by channel, top posts, lead attribution, review velocity)</li>
+          <li>Monthly strategic report with content-mix review and next-month recommendations</li>
+          <li>Quarterly strategy review call</li>
+          <li>Monthly AI-citation tracking against ChatGPT, Perplexity, Google AI Overviews, Claude, and Bing Copilot</li>
+        </ul>
+      </div>
+
+      <div class="scope-row">
+        <div class="cat"><span class="n">G</span>Systems optimization</div>
+        <ul>
+          <li><strong>Monthly technical sweep</strong> — full audit of the stack against the state of the art: newest Claude models, cheaper inference routes, Paperclip + Hermes updates with integration tests, new platform APIs, better scraping methods</li>
+          <li>Skill-evolution review every month — self-improving skills reviewed, rolled back if drifted</li>
+          <li>Obsidian knowledge base kept current — every new post, source, decision, and learning indexed automatically</li>
+          <li>Rolling documentation updates — every change to the system reflected in your runbook within 48 hours</li>
+          <li>Quarterly security audit and automated credential rotation</li>
+        </ul>
+      </div>
+
+      <div class="scope-row">
+        <div class="cat"><span class="n">H</span>Coordination with your SEO team</div>
+        <ul>
+          <li>Google Ads / LSA / traditional SEO stays with your SEO and paid-search partner — we don't step on that</li>
+          <li>Shared data: social performance, paid-social attribution, and review velocity feed into their reporting</li>
+          <li>Shared calendar on seasonal campaigns to avoid budget and messaging conflicts</li>
+          <li>Clear division of labor: they own technical search and paid traffic; Peak Growth Command Center owns brand authority, local visibility, and AI-discovery readiness</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== OWNERSHIP ====================== -->
+<section class="dark-section">
+  <div class="container fade-target">
+    <div class="chapter-mark"><span class="num">VI</span> What you own</div>
+    <h2 class="section-title" style="color: var(--cream);">Every credential. Every byte. <em>Every post.</em></h2>
+
+    <p class="intro-para" style="color: #D4CDC1;">This is the piece no other agency offers. If our relationship ends tomorrow — client-initiated, agency-initiated, for any reason — you keep <em>everything</em>. The server. The email. The social accounts. The credentials. The content archive. The audit log. You can hire any competent developer and keep running without a missed post.</p>
+
+    <div class="ownership-grid">
+      <div class="own-row">
+        <div>Asset</div>
+        <div>Owner</div>
+        <div>Notes</div>
+      </div>
+      <div class="own-row">
+        <div class="asset">VPS server (Hostinger KVM 8)</div>
+        <div class="owner">Tom Davis</div>
+        <div class="note">8 cores · 32 GB RAM · 400 GB storage · provisioned under your account, admin access day one</div>
+      </div>
+      <div class="own-row">
+        <div class="asset">Business email (e.g. socialops@restorationroofingsc.com)</div>
+        <div class="owner">Tom Davis</div>
+        <div class="note">Anchors every API and login in the system</div>
+      </div>
+      <div class="own-row">
+        <div class="asset">Facebook Business Portfolio</div>
+        <div class="owner">Tom Davis</div>
+        <div class="note">You're admin; we're added as an authorized admin (removable in one click)</div>
+      </div>
+      <div class="own-row">
+        <div class="asset">Instagram Business account</div>
+        <div class="owner">Tom Davis</div>
+        <div class="note">Linked to your Facebook Page under your Portfolio</div>
+      </div>
+      <div class="own-row">
+        <div class="asset">Pinterest Business account</div>
+        <div class="owner">Tom Davis</div>
+        <div class="note">Verified with rr-sc domain ownership</div>
+      </div>
+      <div class="own-row">
+        <div class="asset">Nextdoor Business page</div>
+        <div class="owner">Tom Davis</div>
+        <div class="note">Claimed under your email; we're authorized editor</div>
+      </div>
+      <div class="own-row">
+        <div class="asset">All API keys (Meta, Pinterest, Anthropic, etc.)</div>
+        <div class="owner">Tom Davis</div>
+        <div class="note">Encrypted on VPS; decryption key in your password vault</div>
+      </div>
+      <div class="own-row">
+        <div class="asset">Content archive + Obsidian knowledge base</div>
+        <div class="owner">Tom Davis</div>
+        <div class="note">Every post, source, decision, and agent memory — plain Markdown files on your VPS; nightly encrypted backup to your Backblaze B2 account</div>
+      </div>
+      <div class="own-row">
+        <div class="asset">Image library + brand assets</div>
+        <div class="owner">Tom Davis</div>
+        <div class="note">Your Google Drive; mirrored to VPS for publishing speed</div>
+      </div>
+      <div class="own-row">
+        <div class="asset">Peak Growth dashboard + approval queue + audit log</div>
+        <div class="owner">Tom Davis</div>
+        <div class="note">Self-hosted under your subdomain; magic-link auth tied to your business email; full read access to the audit log</div>
+      </div>
+    </div>
+
+    <h3 class="sub-title" style="color: var(--cream); margin-top: 48px;">The handoff clause</h3>
+    <p style="color: #D4CDC1;">Written into the agreement explicitly: if we ever stop servicing your account for any reason, we deliver (1) a complete written runbook covering every component, every credential, every schedule; (2) full access transfer of every credential to your business email; (3) 30 days of on-call handoff support at no additional charge, so you have time to onboard a replacement or bring the work in-house. That's the "if Jimmy gets hit by a bus" safety net made contractually explicit. Almost no social media agency in the country offers this.</p>
+  </div>
+</section>
+
+<!-- ====================== TIMELINE ====================== -->
+<section>
+  <div class="container fade-target">
+    <div class="chapter-mark"><span class="num">VII</span> How this rolls out</div>
+    <h2 class="section-title">From signed to publishing in <em>six weeks or less.</em></h2>
+    <p class="narrow">The limiting factor is usually Meta's app review for publishing permissions — typically 2–4 weeks. Everything else runs in parallel.</p>
+
+    <div class="timeline">
+      <div class="phase">
+        <div class="phase-label">Week 1</div>
+        <div class="phase-title">Infrastructure stands up</div>
+        <div class="phase-body">Hostinger KVM 8 VPS provisioned under your account. Docker stack deployed. Postgres, Redis, Caddy, approval dashboard, Obsidian knowledge base, and webhook listener all running. Business email configured. Password vault seeded. 2FA enforced everywhere. SSH keys installed for both you and me.</div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">Week 1–2</div>
+        <div class="phase-title">Platform accounts + Meta app review</div>
+        <div class="phase-body">Facebook Business Portfolio audit and setup. Instagram Business account verification. Pinterest Business account with domain verification. Nextdoor Business page claimed. Telegram bot registered for the Custom Content Agent. Meta Developer app submitted for review (this takes Meta 2–4 weeks — it's why we start here).</div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">Week 2–3</div>
+        <div class="phase-title">Content intelligence engine goes live</div>
+        <div class="phase-body">All RSS feeds, manufacturer sources, NOAA, SC DOI, Reddit, and Google Trends wired in. Research agent begins daily runs. First 50–100 content opportunities populated in the knowledge base. Brand voice guide locked in. First image skill variants tested on your mascot and brand system.</div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">Week 3–4</div>
+        <div class="phase-title">First content batch + your Peak Growth dashboard goes live</div>
+        <div class="phase-body">First 10–15 drafts produced for review. Your Peak Growth dashboard deployed at your subdomain — you log in from your phone and computer to tour the system overview, the approval queue, the per-campaign pause, and the master kill switch. Custom Content Agent goes live in Telegram — you test sending it a photo and watching it draft a post for you to publish or schedule. Meta Pixel + Conversions API installed on rr-sc production site. Paid campaign structure built.</div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">Week 5–6</div>
+        <div class="phase-title">Public launch — calibration period begins</div>
+        <div class="phase-body"><strong style="color: var(--orange);">Every single post across every single platform is manually reviewed and approved before publishing — by us, not by you.</strong> No auto-publish, regardless of risk tier. Meta and Pinterest ad campaigns activated. Engagement monitoring live. First weekly dashboard delivered end of week 6. This is the trust-building phase — <em>we</em> verify the voice is right, the imagery is on-brand, and nothing misfires in public, so that when the system scales you can stay hands-off by design.</div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">Week 7–8</div>
+        <div class="phase-title">Graduated trust-building · Phase 2</div>
+        <div class="phase-body">Manual review cadence relaxes from every post to every-other-day batch review. Low-risk educational content begins auto-publishing (still logged, still reversible). You continue to see every post in the daily digest before anything touches your Facebook page.</div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">Week 9–10</div>
+        <div class="phase-title">Graduated trust-building · Phase 3</div>
+        <div class="phase-body">Review cadence relaxes further to every-third-day batch review. System settles into the tiered approval model from Section IV: low-risk auto-publishes, medium-risk queues with a 24-hour SLA, high-risk requires written approval.</div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">Month 3+</div>
+        <div class="phase-title">Steady state + monthly optimization</div>
+        <div class="phase-body">Weekly creative refresh. Monthly strategic report. Quarterly strategy review. Monthly technical sweep begins — every month the entire stack is audited against the state of the art and upgraded automatically. System gets measurably smarter every month as skills are refined in the knowledge base.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== INVESTMENT ====================== -->
+<section>
+  <div class="container fade-target">
+    <div class="chapter-mark"><span class="num">VIII</span> Investment</div>
+    <h2 class="section-title">One executive build. One monthly retainer. <em>Everything else is transparent.</em></h2>
+
+    <div class="invest-hero">
+      <div class="invest-row">
+        <div class="line">
+          <div class="what">
+            <span style="display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; background: var(--orange); color: var(--cream); padding: 3px 9px; border-radius: 2px; margin-right: 10px; vertical-align: 3px;">Executive Build</span>Complete system deployment
+          </div>
+          <div class="detail" style="margin-top: 8px;">One-time · Turnkey build and hardening of Peak Growth Command Center. Hostinger <strong>KVM 8</strong> VPS provisioned under your account (8 cores, 32 GB RAM, 400 GB storage). <strong>8-specialist team</strong> built on Hermes, configured with skill bundles and brand voice — including the three custom roofing imagery skills (Premium Roof Showcase, Roofing Image Generator, Roofing Branding Image Generator). <strong>Paperclip control plane</strong> deployed, company + org chart + budgets + governance policies configured. <strong>Obsidian knowledge base</strong> wired into every specialist. <strong>Custom Content Agent on Telegram</strong> — your easy-to-use direct line, with administrator access for you, Jimmy, and any authorized teammate. <strong>Your Peak Growth dashboard</strong> — production-grade UX for system overview, approval queue, per-campaign pause, and master kill switch. Meta Developer app submission and review. First-pass content library. Full security hardening: 2FA, key-only SSH, firewall, fail2ban, encrypted backups to Backblaze, immutable audit logging. Complete written runbook and documentation for handoff.</div>
+        </div>
+        <div class="amount">$8,400<span class="per">one-time</span></div>
+      </div>
+      <div class="invest-row">
+        <div class="line">
+          <div class="what">Monthly retainer · all included</div>
+          <div class="detail">Organic publishing across Facebook, Instagram, Pinterest, and Nextdoor · Paid ads management across Meta, Pinterest, and Nextdoor · Content intelligence · Engagement triage · Governance · Weekly and monthly reporting · Quarterly strategy · AI citation tracking · <strong>Monthly technical sweep</strong> · <strong>Anthropic, OpenAI, and OpenRouter API usage + Backblaze encrypted backups all included</strong> — none of this is passed through to you.</div>
+        </div>
+        <div class="amount">$3,200<span class="per">per month</span></div>
+      </div>
+    </div>
+
+    <div style="margin: 36px 0 24px; padding: 28px 32px; background: var(--cream); border-left: 3px solid var(--orange); border-radius: 0 3px 3px 0;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 14px;">Transparent on what you're paying for</div>
+      <p style="color: var(--fg); margin-bottom: 14px; font-size: 15px; line-height: 1.6;">We estimate this build at <strong>65–100 engineering hours</strong> using agentic coding tools (Claude Code and multi-agent development) on top of two mature open-source platforms (Paperclip control plane, Hermes agent runtime). The range reflects uncertainty in Meta's app review turnaround, brand voice calibration with your team, and content library generation.</p>
+      <p style="color: var(--fg); margin-bottom: 0; font-size: 15px; line-height: 1.6;">At the midpoint, that works out to roughly <strong>$102 per engineering hour</strong> — still meaningfully below typical US AI development rates of $150–250/hour. What you're buying is not time, though. It's a working multi-agent system, built on proven open-source infrastructure by someone who's done it before, deployed on hardware you own, with governance you can see and a handoff clause that protects you forever.</p>
+    </div>
+
+    <hr class="rule">
+
+    <h3 class="sub-title">Recommended starting ad budget: $2,000/mo</h3>
+    <p>Split roughly 65% Meta ($1,300), 25% Pinterest ($500), 10% Nextdoor ($200) in steady state — with the Nextdoor slice surging during named-storm events and the Pinterest slice rising in fall and spring. This is a <em>starting recommendation</em>, not a requirement. We manage whatever you fund, and we'll adjust the mix monthly based on which channel is delivering the cheapest cost per lead in your market. <strong>Ad spend is billed directly by the platforms to your card.</strong> We never touch it. No markup. No margin.</p>
+
+    <h3 class="sub-title">What the total looks like</h3>
+    <p><strong>Month 1:</strong> $8,400 executive build + $3,200 retainer + $2,000 ad spend = <span class="orange"><strong>$13,600 total</strong></span></p>
+    <p><strong>Month 2 and ongoing:</strong> $3,200 retainer + $2,000 ad spend = <span class="orange"><strong>$5,200/mo total</strong></span></p>
+
+    <p class="narrow"><strong>For context:</strong> a full-time in-house social media director for a single local company typically costs <strong>$70,000–$100,000/year</strong> fully loaded — and that's before you build any system at all. One person, no infrastructure, no content intelligence engine, no paid ads expertise across three platforms, and nothing you own if they leave. What you're getting here is a full-year operation <em>plus</em> a complete multi-agent platform for roughly <strong>60% of what you'd pay one person</strong>, with every credential, every byte, and every post owned by you. <em>You're not buying posts. You're buying confidence — and saving a headcount.</em></p>
+
+    <hr class="rule">
+
+    <h3 class="sub-title">Terms</h3>
+    <ul style="list-style: none; padding: 0;">
+      <li style="padding-left: 24px; position: relative; margin-bottom: 12px;"><span style="position: absolute; left: 0; top: 10px; width: 12px; height: 1px; background: var(--orange);"></span><strong>Initial commitment:</strong> 90 days from launch (month 1 = executive build + launch; months 2–4 operating). Gives the system time to prove out and creative to iterate. Portfolio Program pricing for subsequent locations honored within 12 months of the prior deployment.</li>
+      <li style="padding-left: 24px; position: relative; margin-bottom: 12px;"><span style="position: absolute; left: 0; top: 10px; width: 12px; height: 1px; background: var(--orange);"></span><strong>After month 4:</strong> month-to-month. 30-day written notice either direction.</li>
+      <li style="padding-left: 24px; position: relative; margin-bottom: 12px;"><span style="position: absolute; left: 0; top: 10px; width: 12px; height: 1px; background: var(--orange);"></span><strong>Handoff clause:</strong> 30 days of on-call support at no additional charge if the engagement ends, plus full credential transfer and written runbook. Contractually guaranteed.</li>
+      <li style="padding-left: 24px; position: relative; margin-bottom: 12px;"><span style="position: absolute; left: 0; top: 10px; width: 12px; height: 1px; background: var(--orange);"></span><strong>Infrastructure:</strong> API usage (Anthropic, OpenAI, OpenRouter) and encrypted backup costs are <em>included</em> in the monthly retainer. The VPS is provisioned in your name on your card of choice (roughly $12–25/month depending on the tier you pick). Ad spend also goes directly to Meta, Pinterest, and Nextdoor on your card. Those two lines — VPS and ad spend — are the only third-party costs outside this agreement.</li>
+      <li style="padding-left: 24px; position: relative; margin-bottom: 12px;"><span style="position: absolute; left: 0; top: 10px; width: 12px; height: 1px; background: var(--orange);"></span><strong>Scope changes:</strong> Quoted in writing before any work begins. No scope creep billing.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ====================== PORTFOLIO PROGRAM ====================== -->
+<section>
+  <div class="container fade-target">
+    <div class="chapter-mark"><span class="num">IX</span> The Portfolio Program</div>
+    <h2 class="section-title">Built for one roofer. <em>Designed to scale.</em></h2>
+
+    <p class="intro-para">Restoration Roofing SC is the foundation. Nova Roofing & Restoration VA is the next deployment in line. Any additional roofing companies that join the portfolio deploy on the same architecture, the same agent team, and the same playbook — less engineering time per company, meaningfully lower build cost, same quality.</p>
+
+    <h3 class="sub-title">What reuses, and what doesn't</h3>
+    <p>This isn't copy-and-paste. It's also not a full rebuild. Here's the honest breakdown of where the discount actually comes from.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 44px; margin: 32px 0 36px;">
+      <div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--orange); margin-bottom: 16px; font-weight: 600;">Reusable · the real savings</div>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--orange);"></span>Entire 8-specialist team with skill bundles and prompts</li>
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--orange);"></span>Paperclip company template + governance policies + approval rules</li>
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--orange);"></span>Obsidian knowledge base structure and schema</li>
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--orange);"></span>Peak Growth dashboard UI extensions (campaigns, Nextdoor queue, kill switch)</li>
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--orange);"></span>All deployment + security hardening scripts</li>
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--orange);"></span>Runbook template and documentation patterns</li>
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--orange);"></span>Image generation skill library</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--fg-subtle); margin-bottom: 16px; font-weight: 600;">Per company · scripted but real work</div>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--fg-subtle);"></span>Fresh VPS provisioned under the new company's account</li>
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--fg-subtle);"></span>New business email + credential vault</li>
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--fg-subtle);"></span>New Meta Business Portfolio + 2–4 week app review (Meta requires one per legal entity — can't be shared)</li>
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--fg-subtle);"></span>New FB, IG, Pinterest, Nextdoor accounts + Telegram bot</li>
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--fg-subtle);"></span>Research feeds tuned for the local market (state grant programs, NWS office, local news, regional Reddit)</li>
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--fg-subtle);"></span>Competitor mapping for the new service area</li>
+          <li style="padding-left: 20px; position: relative; margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--fg);"><span style="position: absolute; left: 0; top: 10px; width: 10px; height: 1px; background: var(--fg-subtle);"></span>Brand voice calibration + fresh 2-week calibration period</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>Here's the compounding benefit: because we run a <strong>monthly technical sweep</strong> on the system — upgrading to newer Claude models, smarter agent skills, better scraping techniques, faster infrastructure — every new deployment inherits the <em>latest</em> version, not the version we built today. Your second company launches on a measurably better system than your first did. Your fourth launches on an even better one. The architecture stays consistent; the tooling underneath it gets sharper every month.</p>
+
+    <p class="narrow">Nova Roofing & Restoration VA is a particularly clean case because it shares the parent company (SC Roofing) and the giraffe mascot with Restoration Roofing SC — so much of the brand work transfers. The Northern Virginia deployment reduces to: new Meta entity, Virginia-specific research feeds (Strengthen Virginia Homes grant program instead of SC Safe Home, Sterling NWS office, NoVA competitor set), Nova-specific content library, and light voice recalibration. Everything else rides on the system you already own.</p>
+
+    <h3 class="sub-title">Portfolio pricing</h3>
+
+    <div style="margin: 32px 0 24px; border-top: 2px solid var(--fg);">
+      <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fg-subtle);">
+        <div>Location</div>
+        <div style="text-align: right;">Build</div>
+        <div style="text-align: right;">Savings</div>
+        <div style="text-align: right;">Monthly retainer</div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); align-items: baseline;">
+        <div><span style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--fg);">#1</span> <span style="color: var(--fg-muted); font-size: 14px;">Restoration Roofing SC</span></div>
+        <div style="text-align: right; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--orange-deep);">$8,400</div>
+        <div style="text-align: right; color: var(--fg-muted); font-size: 13px; font-style: italic;">Foundation</div>
+        <div style="text-align: right; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--fg);">$3,200<span style="font-size: 12px; color: var(--fg-muted); font-weight: 400;">/mo</span></div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); align-items: baseline;">
+        <div><span style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--fg);">#2</span> <span style="color: var(--fg-muted); font-size: 14px;">Nova Roofing & Restoration VA</span></div>
+        <div style="text-align: right; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--orange-deep);">$6,300</div>
+        <div style="text-align: right; color: var(--fg-muted); font-size: 13px;">25% off</div>
+        <div style="text-align: right; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--fg);">$2,400<span style="font-size: 12px; color: var(--fg-muted); font-weight: 400;">/mo</span></div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); align-items: baseline;">
+        <div><span style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--fg);">#3</span> <span style="color: var(--fg-muted); font-size: 14px;">Future acquisition</span></div>
+        <div style="text-align: right; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--orange-deep);">$5,400</div>
+        <div style="text-align: right; color: var(--fg-muted); font-size: 13px;">36% off</div>
+        <div style="text-align: right; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--fg);">$2,400<span style="font-size: 12px; color: var(--fg-muted); font-weight: 400;">/mo</span></div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 20px; padding: 22px 0 12px; border-top: 2px solid var(--fg); align-items: baseline;">
+        <div style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--fg);">Full portfolio totals</div>
+        <div style="text-align: right; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--orange-deep);">$20,100</div>
+        <div></div>
+        <div style="text-align: right; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--fg);">$8,000<span style="font-size: 12px; color: var(--fg-muted); font-weight: 400;">/mo</span></div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <h3 class="sub-title">What this looks like at full scale</h3>
+    <p>If all three companies are deployed and running on the system simultaneously, the steady-state math works out like this:</p>
+
+    <div class="big-stat" style="margin: 24px 0;">
+      <div class="num">$116,100</div>
+      <div class="txt">Year-1 total, if all three locations were built and running in the same year (builds + 12 months of operations)</div>
+    </div>
+
+    <div class="big-stat" style="margin: 24px 0;">
+      <div class="num">$255,000</div>
+      <div class="txt">What three full-time social media directors would cost you at $85K each, fully loaded — and that's before any infrastructure, paid ads expertise, or anything you'd own</div>
+    </div>
+
+    <div class="big-stat" style="margin: 24px 0;">
+      <div class="num">~$139K</div>
+      <div class="txt">Year-1 savings vs. hiring in-house. Year 2 and beyond: ~$159,000/year saved, every year, because there's no more build cost</div>
+    </div>
+
+    <p class="narrow">These are one-to-one swaps — comparing our cost to hiring human equivalents. They ignore harder-to-price benefits: content intelligence that improves every month, AI-citation visibility across ChatGPT and Google AI Overviews, a shared knowledge base that gets smarter across all three companies, and infrastructure you actually own at the end.</p>
+
+    <hr class="rule">
+
+    <h3 class="sub-title">How the Portfolio Program locks in</h3>
+    <ul style="list-style: none; padding: 0;">
+      <li style="padding-left: 24px; position: relative; margin-bottom: 14px;"><span style="position: absolute; left: 0; top: 10px; width: 12px; height: 1px; background: var(--orange);"></span><strong>Portfolio pricing is honored for 12 months</strong> from the date of the most recent deployment. If you acquire company #2 within that window, you pay the $6,300 rate. If you wait longer between locations, we reprice to whatever the market looks like at that point.</li>
+      <li style="padding-left: 24px; position: relative; margin-bottom: 14px;"><span style="position: absolute; left: 0; top: 10px; width: 12px; height: 1px; background: var(--orange);"></span><strong>Monthly retainer at $2,400 for locations 2 and 3</strong> is held as long as you're running at least two locations on the system. Annual cost reviews are capped at 5%/year to protect you from AI pricing volatility.</li>
+      <li style="padding-left: 24px; position: relative; margin-bottom: 14px;"><span style="position: absolute; left: 0; top: 10px; width: 12px; height: 1px; background: var(--orange);"></span><strong>Each company is fully independent.</strong> Separate VPS, separate Meta Business Portfolio, separate accounts, separate credentials. If you sell one location, we disentangle cleanly with the same 30-day handoff clause that protects Restoration Roofing SC.</li>
+      <li style="padding-left: 24px; position: relative; margin-bottom: 14px;"><span style="position: absolute; left: 0; top: 10px; width: 12px; height: 1px; background: var(--orange);"></span><strong>No commitment to buy more.</strong> You're not locked into deploying all three. The Portfolio Program is an offer that stays open if and when you want to use it. Buy one, use it for a year, decide later.</li>
+    </ul>
+
+    <div class="pull" style="margin-top: 40px;">"Every additional location makes the whole system smarter, because they all share the same knowledge base. By the third location, your agents know more about the roofing industry than most full-time marketing directors do."</div>
+  </div>
+</section>
+
+<!-- ====================== CTA ====================== -->
+<section class="cta-section">
+  <div class="container fade-target">
+    <div class="cta-card">
+      <div class="chapter-mark" style="color: var(--orange-bright);"><span class="num" style="background: var(--orange-bright); color: var(--dark);">X</span>Next steps</div>
+      <h3>Ready to move? <em>Here's how we get started this week.</em></h3>
+      <p>No prolonged sales cycle. If this is a yes, we can have the infrastructure up within 48 hours of signing, and we're posting to your channels by mid-June.</p>
+
+      <div class="cta-steps">
+        <div class="cta-step">
+          <div class="num">STEP 01</div>
+          <div class="txt">Sign the agreement and pay the setup fee. Takes one conversation.</div>
+        </div>
+        <div class="cta-step">
+          <div class="num">STEP 02</div>
+          <div class="txt">30-minute kickoff call: brand voice, photo library access, JD Plumbing coordination.</div>
+        </div>
+        <div class="cta-step">
+          <div class="num">STEP 03</div>
+          <div class="txt">Infrastructure goes up. Meta app review submitted. Content intelligence engine activates.</div>
+        </div>
+        <div class="cta-step">
+          <div class="num">STEP 04</div>
+          <div class="txt">First approval queue hits your phone in week 3. First public posts live in week 5–6.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FOOTER ====================== -->
+<footer>
+  <div class="wide-container">
+    <div>
+      <div class="signoff">— Jimmy</div>
+      <div style="max-width: 420px; color: var(--fg-muted); font-size: 14px; line-height: 1.55;">Happy to walk through any of this on a call, rework any section, or sit down with JD Plumbing to align on scope. Whatever makes this easier to say yes to.</div>
+    </div>
+    <div class="contact">
+      <div class="name">Jimmy Davidson</div>
+      <div>Solutions Developer</div>
+      <div>Agentic Personnel Solutions</div>
+      <div style="margin-top: 12px;">jimmy@agenticpersonnel.com</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-target').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
