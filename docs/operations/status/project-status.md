@@ -11,7 +11,44 @@
 
 ---
 
-## 🔄 Last Activity (April 24, 2026 — Session 7)
+## 🔄 Last Activity (April 24, 2026 — Session 8)
+
+**Bilingual Spanish toggle + roof quote page overhaul**
+
+### Motivation
+Spanish-speaking homeowners in Charleston need to read the site in Spanish. Roof quote page hero was too dark, missing ChatWidget, and had heavy navy backgrounds throughout that needed lightening.
+
+### What shipped
+
+**i18n system (site-wide):**
+- New `src/contexts/LanguageContext.tsx` — React context with `lang`/`toggleLang`, persists to `localStorage`, sets `document.documentElement.lang`
+- New `src/lib/translations.ts` — global EN/ES strings for Header, nav, GetStartedDropdown (all form + consent copy), Footer
+- Header: plain amber "¿Habla Español?" / "Speak English?" toggle (no icon, no border)
+- Footer, GetStartedDropdown, Header top bar all fully bilingual
+
+**Page translations (5 pages):**
+- Homepage (`HomeContent.tsx` extracted as client component, `HOME_EN`/`HOME_ES` with 28 keys)
+- Roof Quote page (`RQ_ES` ~120 keys, shingle tiers, cost drivers, process steps bilingual)
+- About Us (`ABOUT_ES`, 30 switch points, bilingual arrays for values/milestones/insurance)
+- Financing (`FIN_ES`, 42 swaps, full calculator bilingual)
+- Areas We Serve + location detail pages (committed separately in prior session)
+
+**Roof quote page improvements:**
+- Hero image brightness: overlay reduced from black/60 → black/20; image opacity 80→100
+- Google rating corrected to 5.0★
+- All `bg-navy` sections replaced with bg-white/bg-linen/bg-amber/10
+- `<ChatWidget />` added
+- Roofle tool preview: WebP screenshot (1052×846, 64KB) with satellite measurement cards (Main roof 3,240 sq ft / Second roof 260 sq ft)
+
+**Docs cleanup:** HTML proposals moved from `public/` → `docs/` (not web-served)
+
+### Commits
+- `a34535b` — feat(i18n): bilingual Spanish toggle + roof quote page overhaul (14 files, +2159/-950)
+- `59e5ee9` — feat(i18n): add Spanish translations to Areas We Serve pages
+
+---
+
+## 🔄 Previous Activity (April 24, 2026 — Session 7)
 
 **Client progress update document — Phase 1.5 website update report**
 
