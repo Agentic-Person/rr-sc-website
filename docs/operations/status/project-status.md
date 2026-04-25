@@ -11,7 +11,36 @@
 
 ---
 
-## 🔄 Last Activity (April 24, 2026 — Session 8)
+## 🔄 Last Activity (April 24, 2026 — Session 9)
+
+**Roof quote page: branded infographics, hero gradient, Roofle CTA wiring**
+
+### What shipped
+
+**3 branded infographics added:**
+- `why-quotes-vary-infographic.png` → replaces Unsplash stock house photo in "Why Getting a Roof Quote Feels Stressful" section; paired with Emy Phillips' authentic 5-star review
+- `what-real-quote-includes-infographic.webp` (1448×1086, 170KB) → added below compact "Our Quote Includes All 13" card in the real-quote section; card padding reduced (p-8→p-5) to make room
+- `what-drives-roof-cost-infographic.webp` (1448×1086, 181KB) → replaces 8-card cost drivers grid under "What Really Affects the Cost of a Roof in South Carolina"; title/description/footer note preserved
+
+**Hero header gradient:**
+- Overlay strengthened from `from-black/20 via-black/5 to-transparent` → `from-black/80 via-black/20 to-transparent`
+- Left side now 80% opaque (image barely visible), fades to 20% at midpoint, fully transparent on right
+
+**Roofle CTA buttons wired correctly (6 buttons):**
+- Removed standalone `openRoofleWidget` function duplicated inside `roof-quote-content.tsx`
+- `QuoteButton` now uses `useQuoteWidget()` hook from `QuoteWidgetContext` — same path as the giraffe tab
+- `QuoteWidgetContext` trigger hardened: tries `window.RoofQuotePro.open()` / `rfqPro.open()` / `roofle.open()` before falling back to DOM selectors
+
+**String fixes:**
+- Smart/curly quotes introduced by edit tool converted to straight quotes + template literals throughout `roof-quote-content.tsx`
+- Authentic testimonial: Emy Phillips' real Google review replaces placeholder text
+
+### Commits
+- (this session)
+
+---
+
+## 🔄 Previous Activity (April 24, 2026 — Session 8)
 
 **Bilingual Spanish toggle + roof quote page overhaul**
 

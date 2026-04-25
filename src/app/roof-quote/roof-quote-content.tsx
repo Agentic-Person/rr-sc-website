@@ -21,27 +21,7 @@ import {
 import { COMPANY } from "@/lib/data";
 import ChatWidget from "@/components/ChatWidget";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function openRoofleWidget() {
-  const selectors = [
-    '[class*="rfq-pro"]',
-    '[class*="roofle"]',
-    '[id*="rfq"]',
-    '[id*="roofle"]',
-    'button[class*="quote"]',
-  ];
-  for (const sel of selectors) {
-    const el = document.querySelector(sel) as HTMLElement | null;
-    if (el) {
-      el.click();
-      return;
-    }
-  }
-  // Fallback: scroll to the CTA anchor on this page
-  document.getElementById("get-quote")?.scrollIntoView({ behavior: "smooth" });
-}
+import { useQuoteWidget } from "@/contexts/QuoteWidgetContext";
 
 function QuoteButton({
   label = "Get Your Instant Quote Now",
@@ -50,6 +30,7 @@ function QuoteButton({
   label?: string;
   size?: "lg" | "md";
 }) {
+  const { openRoofleWidget } = useQuoteWidget();
   const cls =
     size === "lg"
       ? "btn-amber px-8 py-4 rounded-md text-base font-semibold inline-flex items-center gap-2 shadow-lg"
@@ -61,6 +42,7 @@ function QuoteButton({
     </button>
   );
 }
+
 
 // ─── Shingle tier data ────────────────────────────────────────────────────────
 
@@ -388,8 +370,8 @@ const RQ_ES = {
     "Contratistas lentos o que no se presentan y no dan respuestas directas",
     "Sin fotos, sin documentación, solo un número en una servilleta",
   ],
-  stressQuote: "“La esperanza no es una estrategia. Cuando gasta este tipo de dinero en su hogar, merece un número en el que pueda confiar — y un contratista que explique el porqué.”",
-  stressTestimonial: "“Finalmente un contratista que explicó cada línea del presupuesto. Sin sorpresas. Exactamente lo que necesitábamos.”",
+  stressQuote: `"La esperanza no es una estrategia. Cuando gasta este tipo de dinero en su hogar, merece un número en el que pueda confiar — y un contratista que explique el porqué."`,
+  stressTestimonial: `"Finalmente un contratista que explicó cada línea del presupuesto. Sin sorpresas. Exactamente lo que necesitábamos."`,
   stressTestimonialAuthor: "— Propietario de Mount Pleasant",
 
   // What our tool changes
@@ -664,7 +646,7 @@ export default function RoofQuoteContent() {
             className="object-cover opacity-100"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/5 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
         </div>
         <div className="container relative z-10 py-20 md:py-28">
           <div className="max-w-2xl">
@@ -765,7 +747,7 @@ export default function RoofQuoteContent() {
               <p className="text-gray-600 text-base leading-relaxed">
                 {es
                   ? RQ_ES.toolP2
-                  : "No salesperson showing up unannounced. No high-pressure tactics. No vague “it depends” non-answers. Just a transparent number you can actually use to plan."}
+                  : `No salesperson showing up unannounced. No high-pressure tactics. No vague "it depends" non-answers. Just a transparent number you can actually use to plan.`}
               </p>
             </div>
 
@@ -996,8 +978,8 @@ export default function RoofQuoteContent() {
                 {(es ? RQ_ES.stressItems : [
                   "Quotes that vary by $5,000–$8,000 with no explanation why",
                   "Roofing jargon designed to confuse, not inform",
-                  "High-pressure tactics and time-limited “deals”",
-                  "“That’s just what it costs” when you ask for a breakdown",
+                  `High-pressure tactics and time-limited "deals"`,
+                  `"That’s just what it costs" when you ask for a breakdown`,
                   "Slow or no-show contractors who won’t give straight answers",
                   "No photos, no documentation, just a number on a napkin",
                 ]).map((item) => (
@@ -1011,7 +993,7 @@ export default function RoofQuoteContent() {
               <p className="text-gray-600 text-sm italic leading-relaxed border-l-2 border-amber/40 pl-4">
                 {es
                   ? RQ_ES.stressQuote
-                  : "“Hope isn’t a strategy. When you’re spending this kind of money on your home, you deserve a number you can actually trust — and a contractor who explains the why behind it.”"}
+                  : `"Hope isn’t a strategy. When you’re spending this kind of money on your home, you deserve a number you can actually trust — and a contractor who explains the why behind it."`}
               </p>
             </motion.div>
 
@@ -1019,34 +1001,32 @@ export default function RoofQuoteContent() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative"
+              className="relative flex flex-col gap-4"
             >
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
+              <div className="relative rounded-2xl overflow-hidden shadow-lg">
                 <Image
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
-                  alt="Charleston home with shingle roof"
-                  fill
-                  className="object-cover"
+                  src="/images/why-quotes-vary-infographic.png"
+                  alt="Why roof quotes can vary by thousands — infographic showing what's included in low, complete, and high quotes"
+                  width={960}
+                  height={960}
+                  className="w-full h-auto"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-amber fill-amber" />
-                      ))}
-                    </div>
-                    <p className="text-white text-sm leading-relaxed">
-                      {es
-                        ? RQ_ES.stressTestimonial
-                        : "“Finally a contractor who explained every single line of the quote. No surprises. Exactly what we needed.”"}
-                    </p>
-                    <p className="text-white/60 text-xs mt-2">
-                      {es ? RQ_ES.stressTestimonialAuthor : "— Mount Pleasant homeowner"}
-                    </p>
-                  </div>
+              </div>
+              <div className="bg-linen border border-amber/20 rounded-xl p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-amber fill-amber" />
+                  ))}
                 </div>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  {es
+                    ? RQ_ES.stressTestimonial
+                    : `"Restoration Roofing is an amazing roofing company. From the start to the end of the process, by far, customer service is excellent."`}
+                </p>
+                <p className="text-gray-500 text-xs mt-2">
+                  {es ? RQ_ES.stressTestimonialAuthor : "— Emy Phillips"}
+                </p>
               </div>
             </motion.div>
           </div>
@@ -1183,18 +1163,18 @@ export default function RoofQuoteContent() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="lg:sticky lg:top-24"
+              className="lg:sticky lg:top-24 flex flex-col gap-5"
             >
-              <div className="bg-amber/10 border border-amber/20 rounded-2xl p-8">
-                <h3 className="font-display text-2xl font-bold text-navy mb-4">
+              <div className="bg-amber/10 border border-amber/20 rounded-2xl p-5">
+                <h3 className="font-display text-xl font-bold text-navy mb-2">
                   {es ? RQ_ES.ourQuoteH3 : "Our Quote Includes All 13"}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">
                   {es
                     ? RQ_ES.ourQuoteP
                     : "When we hand you a proposal, every line above is covered. Photos from the inspection. Material specs. Clear warranty terms. No guessing."}
                 </p>
-                <div className="space-y-3 mb-8">
+                <div className="space-y-2 mb-5">
                   {(es ? RQ_ES.ourQuoteItems : [
                     "Written, line-item proposal",
                     "Photos from your actual roof",
@@ -1209,9 +1189,20 @@ export default function RoofQuoteContent() {
                   ))}
                 </div>
                 <QuoteButton size="md" label={es ? RQ_ES.ourQuoteBtn : "Start Here — It’s Free"} />
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-gray-400 text-xs mt-2">
                   {es ? RQ_ES.ourQuoteDisclaimer : "No commitment. No pressure."}
                 </p>
+              </div>
+
+              <div className="rounded-2xl overflow-hidden shadow-md">
+                <Image
+                  src="/images/what-real-quote-includes-infographic.webp"
+                  alt="What a real roof quote includes — diagram showing 7 components: shingles, underlayment, ice & water shield, ventilation, decking, flashing, and ridge & valleys"
+                  width={1448}
+                  height={1086}
+                  className="w-full h-auto"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
             </motion.div>
           </div>
@@ -1235,30 +1226,23 @@ export default function RoofQuoteContent() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {activeCostDrivers.map((driver, i) => (
-              <motion.div
-                key={driver.number}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="bg-white border border-gray-100 rounded-xl p-6 hover:bg-gray-50 transition-colors"
-              >
-                <div className="flex items-start gap-4">
-                  <span className="font-display text-3xl font-bold text-amber/50 flex-shrink-0 leading-none">
-                    {driver.number}
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-navy mb-2">{driver.title}</h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">{driver.body}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-md"
+          >
+            <Image
+              src="/images/what-drives-roof-cost-infographic.webp"
+              alt="What drives roof cost in coastal South Carolina — 8 factors: roof size, pitch, complexity, tear-off vs overlay, shingle tier, hurricane prep, decking condition, and ventilation"
+              width={1448}
+              height={1086}
+              className="w-full h-auto"
+              sizes="(max-width: 768px) 100vw, 896px"
+            />
+          </motion.div>
 
-          <p className="text-center text-gray-400 text-sm mt-10 max-w-lg mx-auto">
+          <p className="text-center text-gray-400 text-sm mt-8 max-w-lg mx-auto">
             {es
               ? RQ_ES.costFooter
               : "Phone quotes are never real quotes. Any number given without seeing your specific roof is a guess — and guesses lead to surprises."}
@@ -1459,12 +1443,12 @@ export default function RoofQuoteContent() {
                 {
                   n: "5",
                   title: "Verbal-only quotes with no written breakdown",
-                  body: "“We’ll do it for $11,500” is not a proposal. A legitimate contractor provides a written, line-item proposal you can review, compare, and refer back to.",
+                  body: `"We’ll do it for $11,500" is not a proposal. A legitimate contractor provides a written, line-item proposal you can review, compare, and refer back to.`,
                 },
                 {
                   n: "6",
                   title: "Pressure tactics and time-limited pricing",
-                  body: "“This price is only good until Friday” is a sales manipulation tactic, not a business reality. A quality contractor’s pricing doesn’t expire on a deadline.",
+                  body: `"This price is only good until Friday" is a sales manipulation tactic, not a business reality. A quality contractor’s pricing doesn’t expire on a deadline.`,
                 },
                 {
                   n: "7",
