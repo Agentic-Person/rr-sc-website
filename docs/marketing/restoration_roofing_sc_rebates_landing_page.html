@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>South Carolina Roofing Rebates | Restoration Roofing SC</title>
+  <style>
+    :root {
+      --navy: #10263f;
+      --blue: #2f6f9f;
+      --gold: #c69245;
+      --cream: #f7f2e9;
+      --white: #ffffff;
+      --gray: #5c6570;
+      --dark: #111827;
+      --green: #2f6b57;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--dark);
+      background: var(--cream);
+      line-height: 1.55;
+    }
+    .topbar {
+      background: var(--navy);
+      color: white;
+      padding: 14px 7vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      letter-spacing: .02em;
+    }
+    .brand { font-weight: 800; font-size: 18px; letter-spacing: .05em; }
+    .hero {
+      min-height: 720px;
+      background:
+        linear-gradient(90deg, rgba(16,38,63,.94) 0%, rgba(16,38,63,.78) 43%, rgba(16,38,63,.20) 100%),
+        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=85');
+      background-size: cover;
+      background-position: center 35%;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 80px 7vw;
+    }
+    .hero-content { max-width: 760px; }
+    .eyebrow {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      color: #f9dfb0;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: .12em;
+      margin-bottom: 22px;
+    }
+    h1 { font-size: clamp(44px, 6vw, 76px); line-height: .98; margin: 0 0 24px; letter-spacing: -.05em; }
+    .hero p { font-size: 21px; max-width: 690px; color: rgba(255,255,255,.90); margin-bottom: 32px; }
+    .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--gold); color: #1d1306; box-shadow: 0 20px 40px rgba(198,146,69,.26); }
+    .btn-secondary { background: rgba(255,255,255,.12); color: white; border: 1px solid rgba(255,255,255,.3); }
+    .trustbar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(16,38,63,.12);
+      margin: -42px 7vw 70px;
+      position: relative;
+      z-index: 5;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 24px 70px rgba(16,38,63,.18);
+    }
+    .trustbar div { background: white; padding: 24px; font-weight: 800; color: var(--navy); text-align: center; }
+    section { padding: 70px 7vw; }
+    .section-white { background: white; }
+    .section-navy { background: var(--navy); color: white; }
+    .grid-2 { display: grid; grid-template-columns: 1.1fr .9fr; gap: 54px; align-items: center; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    h2 { font-size: clamp(32px, 4vw, 52px); line-height: 1.05; margin: 0 0 18px; letter-spacing: -.04em; color: var(--navy); }
+    .section-navy h2 { color: white; }
+    h3 { color: var(--navy); font-size: 24px; margin-bottom: 8px; }
+    .section-navy h3 { color: #f7d9a4; }
+    .lead { font-size: 20px; color: var(--gray); }
+    .section-navy .lead, .section-navy p { color: rgba(255,255,255,.82); }
+    .image-card {
+      min-height: 470px;
+      border-radius: 26px;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center 30%;
+      box-shadow: 0 30px 80px rgba(16,38,63,.22);
+    }
+    .card {
+      background: white;
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(16,38,63,.09);
+      border: 1px solid rgba(16,38,63,.08);
+    }
+    .section-navy .card { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.16); color: white; box-shadow: none; }
+    .highlight {
+      background: #f1e6d4;
+      border-left: 5px solid var(--gold);
+      padding: 24px;
+      border-radius: 16px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .table-wrap { overflow-x: auto; border-radius: 18px; box-shadow: 0 20px 60px rgba(16,38,63,.08); }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { padding: 18px 20px; text-align: left; border-bottom: 1px solid #e9edf2; }
+    th { background: var(--navy); color: white; }
+    td:nth-child(2), td:nth-child(3) { font-weight: 800; color: var(--green); }
+    .steps { counter-reset: step; }
+    .step { position: relative; padding-left: 64px; margin-bottom: 30px; }
+    .step:before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #1d1306;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+    .cta-band {
+      background:
+        linear-gradient(90deg, rgba(16,38,63,.92), rgba(47,111,159,.78)),
+        url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=2200&q=85');
+      background-size: cover;
+      background-position: center 45%;
+      color: white;
+      text-align: center;
+      padding: 90px 7vw;
+    }
+    .cta-band h2 { color: white; max-width: 850px; margin: 0 auto 20px; }
+    .cta-band p { max-width: 760px; margin: 0 auto 28px; color: rgba(255,255,255,.88); font-size: 20px; }
+    .faq details { background: white; margin-bottom: 14px; padding: 22px 24px; border-radius: 16px; box-shadow: 0 10px 30px rgba(16,38,63,.06); }
+    .faq summary { font-weight: 900; color: var(--navy); cursor: pointer; font-size: 18px; }
+    .ad-section { background: #eef2f5; }
+    .ad-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+    .ad-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 70px rgba(16,38,63,.12); }
+    .ad-img { height: 300px; background-size: cover; background-position: center 32%; position: relative; }
+    .ad-img:after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(16,38,63,.82)); }
+    .ad-overlay { position: absolute; left: 22px; right: 22px; bottom: 22px; color: white; z-index: 2; font-weight: 900; font-size: 28px; line-height: 1.05; }
+    .ad-body { padding: 24px; }
+    .platform { color: var(--blue); font-size: 13px; text-transform: uppercase; font-weight: 900; letter-spacing: .1em; }
+    .ad-headline { font-size: 22px; font-weight: 900; color: var(--navy); margin: 8px 0; }
+    .ad-cta { display: inline-block; margin-top: 14px; background: #1877f2; color: white; padding: 12px 18px; border-radius: 8px; font-weight: 800; }
+    .source-note { font-size: 13px; color: #6b7280; padding: 28px 7vw; background: white; }
+    @media (max-width: 900px) {
+      .trustbar, .grid-2, .grid-3, .ad-grid { grid-template-columns: 1fr; }
+      .hero { min-height: 640px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">RESTORATION ROOFING SC</div>
+    <div>Charleston, South Carolina</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Storm-Ready Roofing • Charleston SC</div>
+      <h1>Charleston Homeowners May Qualify for Roofing Upgrade Assistance</h1>
+      <p>If your roof is aging, storm-damaged, or due for replacement, Restoration Roofing SC can help you understand whether your home may qualify for South Carolina storm-hardening incentives, including approved roof retrofit improvements through SC Safe Home.</p>
+      <div class="cta-row">
+        <a href="#cta" class="btn btn-primary">Check My Roof Upgrade Options</a>
+        <a href="#program" class="btn btn-secondary">Learn About SC Safe Home</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="trustbar">
+    <div>Local Charleston Roofing Expertise</div>
+    <div>Storm-Ready Roof Systems</div>
+    <div>Incentive-Aware Guidance</div>
+    <div>Honest Roof Evaluations</div>
+  </div>
+
+  <section class="section-white">
+    <div class="grid-2">
+      <div>
+        <h2>Your Roof May Do More Than Protect Your Home</h2>
+        <p class="lead">In coastal South Carolina, your roof is a major part of your storm preparation plan. Programs like SC Safe Home are designed to help eligible homeowners strengthen their homes against hurricanes, wind-driven rain, and water intrusion.</p>
+        <div class="highlight">This is not a basic roof replacement rebate. It is a storm-hardening and mitigation pathway for approved improvements.</div>
+      </div>
+      <div class="image-card" style="background-image:url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1600&q=85')"></div>
+    </div>
+  </section>
+
+  <section id="program">
+    <div class="grid-2">
+      <div class="image-card" style="background-image:url('https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=1600&q=85')"></div>
+      <div>
+        <h2>What Is the SC Safe Home Program?</h2>
+        <p class="lead">The SC Safe Home Mitigation Grant Program is administered by the South Carolina Department of Insurance. It helps eligible coastal homeowners make approved safety upgrades such as stronger roofs, storm shutters, and other improvements that reduce wind and water intrusion.</p>
+        <div class="grid-3" style="margin-top:28px;">
+          <div class="card"><h3>Roof Deck Attachment</h3><p>Helps roof panels stay secure during high wind events.</p></div>
+          <div class="card"><h3>Secondary Water Barrier</h3><p>Adds protection against water intrusion if shingles are compromised.</p></div>
+          <div class="card"><h3>High Wind-Rated Covering</h3><p>Upgrades the outer roof surface for stronger storm performance.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-white">
+    <h2>Potential Grant Amounts</h2>
+    <p class="lead">Award amounts vary by project type, project cost, household income, family size, and current program rules. Published SC Safe Home categories include:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Project Type</th><th>Non-Matching Grant</th><th>Matching Grant</th></tr></thead>
+        <tbody>
+          <tr><td>Resilient Mitigation</td><td>Up to $7,500</td><td>Up to $6,000</td></tr>
+          <tr><td>Sustainable Mitigation</td><td>Up to $5,000</td><td>Up to $4,000</td></tr>
+          <tr><td>Hurricane Shutters / Protective Barriers</td><td>Up to $3,000</td><td>Up to $3,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section-navy">
+    <div class="grid-2">
+      <div>
+        <h2>Who May Qualify?</h2>
+        <p class="lead">Eligibility depends on active SC Safe Home rules and funding windows. Generally, the program is intended for designated coastal county homeowners who own and occupy a single-family, freestanding primary residence and maintain active homeowner’s insurance.</p>
+      </div>
+      <div class="card">
+        <h3>Important Homeowner Note</h3>
+        <p>Restoration Roofing SC is not the grant administrator and cannot guarantee approval, eligibility, or award amount. Homeowners must apply through the official SC Safe Home process.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-white">
+    <div class="grid-2">
+      <div>
+        <h2>How Restoration Roofing SC Helps</h2>
+        <div class="steps">
+          <div class="step"><h3>Roof Condition Review</h3><p>We inspect the roof system and document visible concerns.</p></div>
+          <div class="step"><h3>Storm-Readiness Conversation</h3><p>We explain upgrades commonly associated with stronger wind and water protection.</p></div>
+          <div class="step"><h3>Incentive-Aware Guidance</h3><p>We help you understand the difference between repairs, claims, incentives, and grant-aligned mitigation work.</p></div>
+          <div class="step"><h3>Clear Next Steps</h3><p>You leave with a practical path forward and a professional roofing estimate if you decide to move ahead.</p></div>
+        </div>
+      </div>
+      <div class="image-card" style="background-image:url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1600&q=85')"></div>
+    </div>
+  </section>
+
+  <section id="cta" class="cta-band">
+    <h2>Start With a Free Roof Upgrade & Storm-Readiness Review</h2>
+    <p>No pressure. No promises of guaranteed funding. Just a professional review of your roof, your upgrade options, and the programs that may be available to qualifying South Carolina homeowners.</p>
+    <a href="#" class="btn btn-primary">Check My Eligibility Options</a>
+  </section>
+
+  <section class="faq">
+    <h2>Common Questions</h2>
+    <details open><summary>Is this a free roof program?</summary><p>No. SC Safe Home is a mitigation grant program for approved storm-hardening improvements. Some qualified homeowners may receive financial assistance, but approval and award amounts vary.</p></details>
+    <details><summary>Can I use it for a normal roof replacement?</summary><p>Not by itself. The program is not designed to pay for ordinary repairs, remodeling, or basic roof replacement. It is focused on approved safety and storm-resilience upgrades.</p></details>
+    <details><summary>Does Charleston County qualify?</summary><p>Charleston is a coastal South Carolina market, and the program is designed for designated coastal counties. Homeowners should verify eligibility through the official SC Safe Home portal.</p></details>
+    <details><summary>Can Restoration Roofing SC apply for me?</summary><p>The homeowner is responsible for applying through the official process. Restoration Roofing SC can explain roofing options and provide estimates or documentation where appropriate.</p></details>
+  </section>
+
+  <section class="ad-section">
+    <h2>Facebook & Instagram Advertisement Mockups</h2>
+    <p class="lead">These are built into the landing page so the client can review the full funnel from ad hook to page conversion.</p>
+    <div class="ad-grid">
+      <div class="ad-card">
+        <div class="ad-img" style="background-image:url('https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1600&q=85')"><div class="ad-overlay">Roof Upgrade Assistance May Be Available</div></div>
+        <div class="ad-body"><div class="platform">Facebook / Instagram</div><div class="ad-headline">Roof Upgrade Assistance May Be Available</div><p>Charleston homeowners: your roof may qualify for storm-resilience upgrade assistance through South Carolina programs like SC Safe Home. Restoration Roofing SC can help you understand your roof condition, your upgrade options, and what questions to ask before applying.</p><span class="ad-cta">Learn More</span></div>
+      </div>
+      <div class="ad-card">
+        <div class="ad-img" style="background-image:url('https://images.unsplash.com/photo-1605146769289-440113cc3d00?auto=format&fit=crop&w=1600&q=85')"><div class="ad-overlay">Is Your Roof Storm-Ready?</div></div>
+        <div class="ad-body"><div class="platform">Facebook / Instagram</div><div class="ad-headline">Is Your Roof Storm-Ready?</div><p>Before the next major storm season, make sure your roof is ready. Some South Carolina homeowners may qualify for assistance when upgrading to approved wind and water protection improvements.</p><span class="ad-cta">Book Now</span></div>
+      </div>
+      <div class="ad-card">
+        <div class="ad-img" style="background-image:url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=85')"><div class="ad-overlay">Know Your Roofing Upgrade Options</div></div>
+        <div class="ad-body"><div class="platform">Facebook / Instagram</div><div class="ad-headline">Know Your Roofing Upgrade Options</div><p>There is a big difference between a basic roof replacement and a storm-resilience roof upgrade. If you live in coastal South Carolina, there may be programs designed to help qualified homeowners strengthen their homes against wind and water damage.</p><span class="ad-cta">Get Quote</span></div>
+      </div>
+      <div class="ad-card">
+        <div class="ad-img" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=85')"><div class="ad-overlay">Stronger Roof. Smarter Upgrade.</div></div>
+        <div class="ad-body"><div class="platform">Facebook / Instagram</div><div class="ad-headline">Stronger Roof. Smarter Upgrade.</div><p>Your roof is your home’s first line of defense against Lowcountry storms. Restoration Roofing SC helps Charleston homeowners understand roof condition, upgrade options, and available incentive pathways for approved storm-hardening improvements.</p><span class="ad-cta">Learn More</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Ready to Review Your Roof Upgrade Options?</h2>
+    <p>Restoration Roofing SC can inspect your roof, explain your options, and help you understand what incentive pathways may be worth exploring.</p>
+    <a href="#" class="btn btn-primary">Schedule My Roof Review</a>
+  </section>
+
+  <div class="source-note">
+    Source basis: South Carolina Department of Insurance SC Safe Home Mitigation Grant Program, ABC News 4 / WCIV coverage of SC Safe Home reopening, and Charleston County Community Development public documents. Verify active grant windows and eligibility directly with the official SC Safe Home portal before publishing final consumer-facing claims.
+  </div>
+</body>
+</html>
