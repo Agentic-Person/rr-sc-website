@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { LOCATIONS, SERVICES, COMPANY, IMAGES, TESTIMONIALS, SITE_URL } from "@/lib/data";
-import { PageHero, SectionHeader, CTABanner, StarRating, JsonLdScript } from "@/components/shared";
+import { JsonLdScript } from "@/components/shared";
 import { LocationDetailContent } from "./location-detail-content";
 import { getNearbyLocations, getFeaturedServicesForLocation } from "@/lib/linking";
-import {
-  Phone, ArrowRight, MapPin,
-} from "lucide-react";
 
 export function generateStaticParams() {
   return LOCATIONS.map((l) => ({ slug: l.slug }));
@@ -52,18 +48,13 @@ export default async function LocationDetailPage({
   const nearbyLocations = getNearbyLocations(location, LOCATIONS, 6);
   const featuredServices = getFeaturedServicesForLocation(location, SERVICES, 6);
 
-  const breadcrumbs = [
-    { label: "Areas We Serve", href: "/areas-we-serve" },
-    { label: location.name },
-  ];
-
   const locationUrl = `${SITE_URL}/areas-we-serve/${location.slug}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": ["RoofingContractor", "LocalBusiness"],
     "@id": `${locationUrl}#business`,
-    name: `${COMPANY.fullName} \u2013 ${location.name}, SC`,
+    name: `${COMPANY.fullName} – ${location.name}, SC`,
     description: `Expert roofing contractor serving ${location.name}, South Carolina. ${location.description.slice(0, 150)}`,
     url: locationUrl,
     telephone: COMPANY.phone,
@@ -144,23 +135,17 @@ export default async function LocationDetailPage({
       <JsonLdScript data={jsonLd} />
       <JsonLdScript data={breadcrumbJsonLd} />
 
-      <PageHero
-        title={`Roofing Services in ${location.name}, SC`}
-        subtitle={`Expert roofing solutions tailored for ${location.name}'s unique architecture and coastal climate challenges.`}
-        image={heroImage}
-        breadcrumbs={breadcrumbs}
-      />
-
+      {/*
+        PageHero and CTABanner are rendered inside LocationDetailContent
+        so they have access to LanguageContext for bilingual switching.
+        We pass heroImage so the server component can resolve the image path.
+      */}
       <LocationDetailContent
         location={location}
+        heroImage={heroImage}
         localTestimonials={localTestimonials}
         nearbyLocations={nearbyLocations}
         featuredServices={featuredServices}
-      />
-
-      <CTABanner
-        title={`Protect Your ${location.name} Home`}
-        subtitle={`Get expert roofing services tailored for ${location.name}'s unique climate and architecture. Free estimates, 24/7 emergency service.`}
       />
     </>
   );

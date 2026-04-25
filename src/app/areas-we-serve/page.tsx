@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { LOCATIONS, IMAGES, COMPANY } from "@/lib/data";
-import { PageHero, SectionHeader, CTABanner, JsonLdScript } from "@/components/shared";
+import { LOCATIONS, COMPANY } from "@/lib/data";
+import { JsonLdScript } from "@/components/shared";
 import { AreasWeServeContent } from "./areas-we-serve-content";
 
 export const metadata: Metadata = {
@@ -40,23 +39,14 @@ export default function AreasWeServePage() {
     <>
       <JsonLdScript data={jsonLd} />
 
-      <PageHero
-        title="Areas We Serve"
-        subtitle="Proudly serving 21 communities across the Charleston metropolitan area and the South Carolina Lowcountry."
-        body="From the historic streets of downtown Charleston to the barrier islands of the Atlantic coast, Restoration Roofing provides expert roofing services tailored to each community's unique architecture, climate challenges, and building requirements. Based in Mount Pleasant, we understand the Lowcountry like no one else."
-        image={IMAGES.heroAbout}
-        breadcrumbs={[{ label: "Areas We Serve" }]}
-      />
-
+      {/*
+        PageHero and CTABanner are rendered inside AreasWeServeContent
+        so they have access to the LanguageContext for bilingual switching.
+      */}
       <AreasWeServeContent
         barrierIslands={barrierIslands}
         historicCities={historicCities}
         otherCities={otherCities}
-      />
-
-      <CTABanner
-        title="Don't See Your Area?"
-        subtitle="We may still serve your community. Call us to discuss your roofing needs — we're happy to help."
       />
     </>
   );

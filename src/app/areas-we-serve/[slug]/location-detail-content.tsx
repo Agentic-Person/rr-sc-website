@@ -5,13 +5,104 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Location, Service, Testimonial } from "@/lib/data";
 import { COMPANY } from "@/lib/data";
-import { SectionHeader, StarRating } from "@/components/shared";
+import { SectionHeader, StarRating, PageHero, CTABanner } from "@/components/shared";
 import {
   CheckCircle2, Phone, ArrowRight, MapPin, Home, AlertTriangle,
   Landmark, CloudRain, Users, Building2, Shield,
   History, TreePine, Waves, Sun, Wind, Droplets,
 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
+// ── Spanish UI chrome ─────────────────────────────────────────────────────────
+const ES = {
+  // Page Hero
+  heroTitle: (city: string) => `Servicios de Techado en ${city}, SC`,
+  heroSubtitle: (city: string) =>
+    `Soluciones expertas de techado adaptadas a la arquitectura única y los desafíos del clima costero de ${city}.`,
+  // Breadcrumbs
+  breadcrumbAreas: "Áreas que Atendemos",
+
+  // CTA Banner
+  ctaTitle: (city: string) => `Proteja su Hogar en ${city}`,
+  ctaSubtitle: (city: string) =>
+    `Obtenga servicios expertos de techado adaptados al clima y la arquitectura únicos de ${city}. Presupuestos gratuitos, servicio de emergencia 24/7.`,
+  // Quick-facts sidebar
+  quickFacts: "Datos Rápidos",
+  county: "Condado",
+  population: "Población",
+  medianHome: "Valor Medio",
+  type: "Tipo",
+  typeBarrier: "Isla Barrera",
+  typeHistoric: "Distrito Histórico",
+  typeCommunity: "Comunidad",
+  freeEstimateBtn: (city: string) => `Presupuesto Gratuito en ${city}`,
+
+  // About section
+  aboutEyebrow: (city: string) => `Acerca de ${city}`,
+  aboutHeading: (city: string) =>
+    `Su Empresa de Techado de Confianza en ${city}, Carolina del Sur`,
+
+  // Section headings (data from location object stays in English)
+  historyTitle: "Historia e Identidad",
+  communityTitle: "Carácter Comunitario",
+  landmarksTitle: "Lugares de Interés y Atracciones",
+
+  // Housing & Architecture
+  archEyebrow: "Arquitectura Local",
+  archTitle: (city: string) => `Vivienda y Arquitectura en ${city}`,
+  archSubtitle: (city: string) =>
+    `Conocer el parque habitacional único de ${city} nos permite ofrecer soluciones de techado que protegen y complementan el carácter arquitectónico de su hogar.`,
+  archOverviewTitle: "Descripción Arquitectónica",
+  archOverviewFallback: (city: string) =>
+    `${city} cuenta con una variada combinación de estilos de vivienda típicos del Lowcountry de Carolina del Sur, cada uno requiriendo enfoques especializados de techado.`,
+  housingStylesTitle: "Estilos de Vivienda Comunes",
+  neighborhoodTitle: "Destaque del Vecindario",
+
+  // Weather & Storms
+  weatherEyebrow: "Clima y Tormentas",
+  weatherTitle: (city: string) => `Desafíos Climáticos en ${city}`,
+  weatherSubtitle: (city: string) =>
+    `Comprender los patrones climáticos de ${city} es esencial para elegir los materiales de techado adecuados y el plan de mantenimiento correcto.`,
+  stormHistoryTitle: "Historial de Tormentas",
+  stormFallback: (city: string) =>
+    `${city} es susceptible a huracanes y tormentas tropicales, incluido el devastador huracán Hugo en 1989 y tormentas más recientes como Matthew (2016) e Ian (2022).`,
+  statHurricane: "Huracán",
+  statWinds: "Vientos 74+ mph",
+  statStormSurge: "Marejada Ciclónica",
+  statHighRisk: "Alto Riesgo",
+  statModRisk: "Riesgo Moderado",
+  statHumidity: "Humedad",
+  statHumidityVal: "75-85% Prom.",
+  statUV: "Índice UV",
+  statUVVal: "Alto (8-10)",
+  roofingChallengesTitle: "Desafíos de Techado",
+  challengesFallback: (city: string) =>
+    `El techado en ${city} enfrenta desafíos del clima costero, la humedad y la exposición a tormentas que requieren materiales y técnicas de instalación especializados.`,
+
+  // Services
+  servicesEyebrow: "Nuestros Servicios",
+  servicesTitle: (city: string) => `Servicios de Techado en ${city}`,
+  servicesSubtitle: (city: string, county: string) =>
+    `Desde reparaciones urgentes por tormenta hasta reemplazos completos de techo, ofrecemos servicios integrales de techado en todo ${city} y ${county}.`,
+  learnMore: "Saber Más",
+
+  // Testimonials
+  testimonialsEyebrow: "Opiniones de Clientes",
+  testimonialsTitle: (city: string) =>
+    `Lo que Dicen los Propietarios de ${city}`,
+  testimonialsSubtitle:
+    "Opiniones reales de sus vecinos que confían en Restoration Roofing.",
+  homeowner: "Propietario/a",
+
+  // Nearby areas
+  nearbyEyebrow: "Áreas Cercanas",
+  nearbyTitle: (city: string) => `También Atendemos Cerca de ${city}`,
+  nearbySubtitle: (county: string) =>
+    `Ofrecemos los mismos servicios expertos de techado a comunidades en todo ${county} y más allá.`,
+  viewAll: "Ver las 21 Áreas de Servicio",
+} as const;
+
+// ── Animation preset ──────────────────────────────────────────────────────────
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
@@ -19,19 +110,49 @@ const fadeUp = {
   transition: { duration: 0.5 },
 };
 
+// ── Main component ────────────────────────────────────────────────────────────
 export function LocationDetailContent({
   location,
+  heroImage,
   localTestimonials,
   nearbyLocations,
   featuredServices,
 }: {
   location: Location;
+  heroImage: string;
   localTestimonials: Testimonial[];
   nearbyLocations: Location[];
   featuredServices: Service[];
 }) {
+  const { lang } = useLanguage();
+  const es = lang === "es";
+
+  const breadcrumbs = [
+    {
+      label: es ? ES.breadcrumbAreas : "Areas We Serve",
+      href: "/areas-we-serve",
+    },
+    { label: location.name },
+  ];
+
   return (
     <>
+      {/* Page Hero */}
+      <PageHero
+        title={
+          es
+            ? ES.heroTitle(location.name)
+            : `Roofing Services in ${location.name}, SC`
+        }
+        subtitle={
+          es
+            ? ES.heroSubtitle(location.name)
+            : `Expert roofing solutions tailored for ${location.name}'s unique architecture and coastal climate challenges.`
+        }
+        image={heroImage}
+        breadcrumbs={breadcrumbs}
+      />
+
       {/* Community Overview with Hero Image */}
       <section className="section-padding bg-white">
         <div className="container">
@@ -51,18 +172,18 @@ export function LocationDetailContent({
                 </div>
                 <div className="bg-navy p-5 text-white">
                   <h3 className="font-display text-lg font-semibold mb-3">
-                    Quick Facts
+                    {es ? ES.quickFacts : "Quick Facts"}
                   </h3>
                   <dl className="grid grid-cols-2 gap-3 text-sm">
                     <div>
                       <dt className="text-white/60 text-xs uppercase tracking-wider">
-                        County
+                        {es ? ES.county : "County"}
                       </dt>
                       <dd className="font-medium mt-0.5">{location.county}</dd>
                     </div>
                     <div>
                       <dt className="text-white/60 text-xs uppercase tracking-wider">
-                        Population
+                        {es ? ES.population : "Population"}
                       </dt>
                       <dd className="font-medium mt-0.5">
                         {location.population}
@@ -70,7 +191,7 @@ export function LocationDetailContent({
                     </div>
                     <div>
                       <dt className="text-white/60 text-xs uppercase tracking-wider">
-                        Median Home
+                        {es ? ES.medianHome : "Median Home"}
                       </dt>
                       <dd className="font-medium mt-0.5">
                         {location.medianHomePrice}
@@ -78,14 +199,14 @@ export function LocationDetailContent({
                     </div>
                     <div>
                       <dt className="text-white/60 text-xs uppercase tracking-wider">
-                        Type
+                        {es ? ES.type : "Type"}
                       </dt>
                       <dd className="font-medium mt-0.5">
                         {location.isBarrierIsland
-                          ? "Barrier Island"
+                          ? es ? ES.typeBarrier : "Barrier Island"
                           : location.isHistoric
-                            ? "Historic District"
-                            : "Community"}
+                            ? es ? ES.typeHistoric : "Historic District"
+                            : es ? ES.typeCommunity : "Community"}
                       </dd>
                     </div>
                   </dl>
@@ -95,7 +216,9 @@ export function LocationDetailContent({
                       href="/contact"
                       className="btn-amber w-full py-3 rounded-md text-sm text-center block"
                     >
-                      Free Estimate in {location.name}
+                      {es
+                        ? ES.freeEstimateBtn(location.name)
+                        : `Free Estimate in ${location.name}`}
                     </Link>
                     <a
                       href={`tel:${COMPANY.phoneRaw}`}
@@ -116,12 +239,17 @@ export function LocationDetailContent({
                 <div className="flex items-center gap-2 mb-3">
                   <MapPin className="w-5 h-5 text-amber" />
                   <span className="text-xs uppercase tracking-widest text-amber font-semibold">
-                    About {location.name}
+                    {es
+                      ? ES.aboutEyebrow(location.name)
+                      : `About ${location.name}`}
                   </span>
                 </div>
                 <h2 className="font-display text-3xl font-bold text-navy mb-4">
-                  Your Trusted Roofer in {location.name}, South Carolina
+                  {es
+                    ? ES.aboutHeading(location.name)
+                    : `Your Trusted Roofer in ${location.name}, South Carolina`}
                 </h2>
+                {/* location.description comes from data.ts — not translated */}
                 <p className="text-gray-800 leading-relaxed text-[15px] mb-4">
                   {location.description}
                 </p>
@@ -138,10 +266,11 @@ export function LocationDetailContent({
                   <div className="flex items-center gap-2 mb-3">
                     <History className="w-5 h-5 text-amber" />
                     <h3 className="font-display text-xl font-semibold text-navy">
-                      History &amp; Identity
+                      {es ? ES.historyTitle : "History & Identity"}
                     </h3>
                   </div>
                   <div className="bg-linen rounded-xl p-6 border-l-4 border-amber">
+                    {/* location.historyIdentity from data.ts — not translated */}
                     <p className="text-gray-800 leading-relaxed text-[15px]">
                       {location.historyIdentity}
                     </p>
@@ -155,9 +284,10 @@ export function LocationDetailContent({
                   <div className="flex items-center gap-2 mb-3">
                     <Users className="w-5 h-5 text-amber" />
                     <h3 className="font-display text-xl font-semibold text-navy">
-                      Community Character
+                      {es ? ES.communityTitle : "Community Character"}
                     </h3>
                   </div>
+                  {/* location.communityCharacter from data.ts — not translated */}
                   <p className="text-gray-800 leading-relaxed text-[15px]">
                     {location.communityCharacter}
                   </p>
@@ -170,10 +300,13 @@ export function LocationDetailContent({
                   <div className="flex items-center gap-2 mb-4">
                     <Landmark className="w-5 h-5 text-amber" />
                     <h3 className="font-display text-xl font-semibold text-navy">
-                      Notable Landmarks &amp; Attractions
+                      {es
+                        ? ES.landmarksTitle
+                        : "Notable Landmarks & Attractions"}
                     </h3>
                   </div>
                   <div className="flex flex-wrap gap-2">
+                    {/* landmark names are proper nouns — not translated */}
                     {location.landmarks.map((landmark) => (
                       <span
                         key={landmark}
@@ -194,9 +327,17 @@ export function LocationDetailContent({
       <section className="section-padding bg-linen">
         <div className="container">
           <SectionHeader
-            eyebrow="Local Architecture"
-            title={`Housing & Architecture in ${location.name}`}
-            subtitle={`Understanding ${location.name}'s unique housing stock helps us deliver roofing solutions that protect and complement your home's architectural character.`}
+            eyebrow={es ? ES.archEyebrow : "Local Architecture"}
+            title={
+              es
+                ? ES.archTitle(location.name)
+                : `Housing & Architecture in ${location.name}`
+            }
+            subtitle={
+              es
+                ? ES.archSubtitle(location.name)
+                : `Understanding ${location.name}'s unique housing stock helps us deliver roofing solutions that protect and complement your home's architectural character.`
+            }
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10">
@@ -206,18 +347,19 @@ export function LocationDetailContent({
                 <div className="flex items-center gap-2 mb-4">
                   <Building2 className="w-5 h-5 text-amber" />
                   <h3 className="font-display text-lg font-semibold text-navy">
-                    Architectural Overview
+                    {es ? ES.archOverviewTitle : "Architectural Overview"}
                   </h3>
                 </div>
                 {location.housingArchitecture ? (
+                  /* location.housingArchitecture from data.ts — not translated */
                   <p className="text-gray-800 leading-relaxed text-[15px]">
                     {location.housingArchitecture}
                   </p>
                 ) : (
                   <p className="text-gray-800 leading-relaxed text-[15px]">
-                    {location.name} features a diverse mix of housing styles
-                    typical of the South Carolina Lowcountry, each requiring
-                    specialized roofing approaches.
+                    {es
+                      ? ES.archOverviewFallback(location.name)
+                      : `${location.name} features a diverse mix of housing styles typical of the South Carolina Lowcountry, each requiring specialized roofing approaches.`}
                   </p>
                 )}
               </div>
@@ -229,10 +371,11 @@ export function LocationDetailContent({
                 <div className="flex items-center gap-2 mb-4">
                   <Home className="w-5 h-5 text-amber" />
                   <h3 className="font-display text-lg font-semibold text-navy">
-                    Common Housing Styles
+                    {es ? ES.housingStylesTitle : "Common Housing Styles"}
                   </h3>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
+                  {/* housingStyles are architectural terms — not translated */}
                   {location.housingStyles.map((style) => (
                     <div
                       key={style}
@@ -253,9 +396,10 @@ export function LocationDetailContent({
               <div className="flex items-center gap-2 mb-3">
                 <TreePine className="w-5 h-5 text-amber" />
                 <h3 className="font-display text-lg font-semibold">
-                  Neighborhood Spotlight
+                  {es ? ES.neighborhoodTitle : "Neighborhood Spotlight"}
                 </h3>
               </div>
+              {/* location.neighborhoodHighlight from data.ts — not translated */}
               <p className="text-white/80 leading-relaxed text-[15px]">
                 {location.neighborhoodHighlight}
               </p>
@@ -268,9 +412,17 @@ export function LocationDetailContent({
       <section className="section-padding bg-white">
         <div className="container">
           <SectionHeader
-            eyebrow="Weather & Storms"
-            title={`Weather Challenges in ${location.name}`}
-            subtitle={`Understanding ${location.name}'s weather patterns is essential for choosing the right roofing materials and maintenance schedule.`}
+            eyebrow={es ? ES.weatherEyebrow : "Weather & Storms"}
+            title={
+              es
+                ? ES.weatherTitle(location.name)
+                : `Weather Challenges in ${location.name}`
+            }
+            subtitle={
+              es
+                ? ES.weatherSubtitle(location.name)
+                : `Understanding ${location.name}'s weather patterns is essential for choosing the right roofing materials and maintenance schedule.`
+            }
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10">
@@ -280,52 +432,59 @@ export function LocationDetailContent({
                 <div className="flex items-center gap-2 mb-4">
                   <CloudRain className="w-5 h-5 text-amber" />
                   <h3 className="font-display text-lg font-semibold">
-                    Storm History
+                    {es ? ES.stormHistoryTitle : "Storm History"}
                   </h3>
                 </div>
                 {location.weatherStorms ? (
+                  /* location.weatherStorms from data.ts — not translated */
                   <p className="text-white/80 leading-relaxed text-[15px]">
                     {location.weatherStorms}
                   </p>
                 ) : (
                   <p className="text-white/80 leading-relaxed text-[15px]">
-                    {location.name} is susceptible to hurricanes and tropical
-                    storms, including the devastating Hurricane Hugo in 1989 and
-                    more recent storms like Matthew (2016) and Ian (2022).
+                    {es
+                      ? ES.stormFallback(location.name)
+                      : `${location.name} is susceptible to hurricanes and tropical storms, including the devastating Hurricane Hugo in 1989 and more recent storms like Matthew (2016) and Ian (2022).`}
                   </p>
                 )}
                 <div className="mt-5 grid grid-cols-2 gap-3">
                   <div className="bg-white/10 rounded-lg p-3 text-center">
                     <Wind className="w-5 h-5 text-amber mx-auto mb-1" />
                     <span className="text-xs text-white/60 block">
-                      Hurricane
+                      {es ? ES.statHurricane : "Hurricane"}
                     </span>
                     <span className="text-sm font-semibold">
-                      Winds 74+ mph
+                      {es ? ES.statWinds : "Winds 74+ mph"}
                     </span>
                   </div>
                   <div className="bg-white/10 rounded-lg p-3 text-center">
                     <Waves className="w-5 h-5 text-amber mx-auto mb-1" />
                     <span className="text-xs text-white/60 block">
-                      Storm Surge
+                      {es ? ES.statStormSurge : "Storm Surge"}
                     </span>
                     <span className="text-sm font-semibold">
-                      {location.isBarrierIsland ? "High Risk" : "Moderate Risk"}
+                      {location.isBarrierIsland
+                        ? es ? ES.statHighRisk : "High Risk"
+                        : es ? ES.statModRisk : "Moderate Risk"}
                     </span>
                   </div>
                   <div className="bg-white/10 rounded-lg p-3 text-center">
                     <Droplets className="w-5 h-5 text-amber mx-auto mb-1" />
                     <span className="text-xs text-white/60 block">
-                      Humidity
+                      {es ? ES.statHumidity : "Humidity"}
                     </span>
-                    <span className="text-sm font-semibold">75-85% Avg</span>
+                    <span className="text-sm font-semibold">
+                      {es ? ES.statHumidityVal : "75-85% Avg"}
+                    </span>
                   </div>
                   <div className="bg-white/10 rounded-lg p-3 text-center">
                     <Sun className="w-5 h-5 text-amber mx-auto mb-1" />
                     <span className="text-xs text-white/60 block">
-                      UV Index
+                      {es ? ES.statUV : "UV Index"}
                     </span>
-                    <span className="text-sm font-semibold">High (8-10)</span>
+                    <span className="text-sm font-semibold">
+                      {es ? ES.statUVVal : "High (8-10)"}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -337,21 +496,23 @@ export function LocationDetailContent({
                 <div className="flex items-center gap-2 mb-4">
                   <AlertTriangle className="w-5 h-5 text-amber" />
                   <h3 className="font-display text-lg font-semibold text-navy">
-                    Roofing Challenges
+                    {es ? ES.roofingChallengesTitle : "Roofing Challenges"}
                   </h3>
                 </div>
                 {location.roofingChallengesDetail ? (
+                  /* location.roofingChallengesDetail from data.ts — not translated */
                   <p className="text-gray-800 leading-relaxed text-[15px] mb-5">
                     {location.roofingChallengesDetail}
                   </p>
                 ) : (
                   <p className="text-gray-800 leading-relaxed text-[15px] mb-5">
-                    Roofing in {location.name} faces challenges from coastal
-                    weather, humidity, and storm exposure that require specialized
-                    materials and installation techniques.
+                    {es
+                      ? ES.challengesFallback(location.name)
+                      : `Roofing in ${location.name} faces challenges from coastal weather, humidity, and storm exposure that require specialized materials and installation techniques.`}
                   </p>
                 )}
                 <ul className="space-y-3">
+                  {/* roofingChallenges items from data.ts — not translated */}
                   {location.roofingChallenges.map((challenge) => (
                     <li key={challenge} className="flex items-start gap-3">
                       <Shield className="w-4 h-4 text-amber mt-0.5 shrink-0" />
@@ -371,9 +532,17 @@ export function LocationDetailContent({
       <section className="section-padding bg-linen">
         <div className="container">
           <SectionHeader
-            eyebrow="Our Services"
-            title={`Roofing Services in ${location.name}`}
-            subtitle={`From emergency storm repairs to complete roof replacements, we provide comprehensive roofing services throughout ${location.name} and ${location.county}.`}
+            eyebrow={es ? ES.servicesEyebrow : "Our Services"}
+            title={
+              es
+                ? ES.servicesTitle(location.name)
+                : `Roofing Services in ${location.name}`
+            }
+            subtitle={
+              es
+                ? ES.servicesSubtitle(location.name, location.county)
+                : `From emergency storm repairs to complete roof replacements, we provide comprehensive roofing services throughout ${location.name} and ${location.county}.`
+            }
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
@@ -407,7 +576,8 @@ export function LocationDetailContent({
                         {service.description.slice(0, 100)}...
                       </p>
                       <span className="flex items-center gap-1 text-xs text-amber font-medium mt-2 group-hover:gap-2 transition-all">
-                        Learn More <ArrowRight className="w-3 h-3" />
+                        {es ? ES.learnMore : "Learn More"}{" "}
+                        <ArrowRight className="w-3 h-3" />
                       </span>
                     </div>
                   </div>
@@ -423,15 +593,24 @@ export function LocationDetailContent({
         <section className="section-padding bg-white">
           <div className="container">
             <SectionHeader
-              eyebrow="Customer Reviews"
-              title={`What ${location.name} Homeowners Say`}
-              subtitle="Real reviews from your neighbors who trust Restoration Roofing."
+              eyebrow={es ? ES.testimonialsEyebrow : "Customer Reviews"}
+              title={
+                es
+                  ? ES.testimonialsTitle(location.name)
+                  : `What ${location.name} Homeowners Say`
+              }
+              subtitle={
+                es
+                  ? ES.testimonialsSubtitle
+                  : "Real reviews from your neighbors who trust Restoration Roofing."
+              }
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
               {localTestimonials.map((t) => (
                 <motion.div key={t.name} {...fadeUp}>
                   <div className="bg-linen rounded-xl p-6">
                     <StarRating rating={t.rating} size="sm" />
+                    {/* testimonial text from data.ts — not translated */}
                     <p className="text-gray-800 leading-relaxed mt-3 italic text-[15px]">
                       &ldquo;{t.text}&rdquo;
                     </p>
@@ -444,7 +623,8 @@ export function LocationDetailContent({
                           {t.name}
                         </div>
                         <div className="text-xs text-gray-600">
-                          {t.location || location.name} Homeowner
+                          {t.location || location.name}{" "}
+                          {es ? ES.homeowner : "Homeowner"}
                         </div>
                       </div>
                     </div>
@@ -461,9 +641,17 @@ export function LocationDetailContent({
         <section className="section-padding bg-linen">
           <div className="container">
             <SectionHeader
-              eyebrow="Nearby Areas"
-              title={`Also Serving Near ${location.name}`}
-              subtitle={`We provide the same expert roofing services to communities throughout ${location.county} and beyond.`}
+              eyebrow={es ? ES.nearbyEyebrow : "Nearby Areas"}
+              title={
+                es
+                  ? ES.nearbyTitle(location.name)
+                  : `Also Serving Near ${location.name}`
+              }
+              subtitle={
+                es
+                  ? ES.nearbySubtitle(location.county)
+                  : `We provide the same expert roofing services to communities throughout ${location.county} and beyond.`
+              }
             />
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-10">
               {nearbyLocations.map((loc) => (
@@ -485,6 +673,7 @@ export function LocationDetailContent({
                       </div>
                     )}
                     <div className="p-3 text-center">
+                      {/* city names are proper nouns — not translated */}
                       <span className="text-sm font-semibold text-navy group-hover:text-amber transition-colors">
                         {loc.name}
                       </span>
@@ -498,13 +687,27 @@ export function LocationDetailContent({
                 href="/areas-we-serve"
                 className="inline-flex items-center gap-2 text-amber font-semibold hover:gap-3 transition-all"
               >
-                View All 21 Service Areas{" "}
+                {es ? ES.viewAll : "View All 21 Service Areas"}{" "}
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
         </section>
       )}
+
+      {/* CTA Banner */}
+      <CTABanner
+        title={
+          es
+            ? ES.ctaTitle(location.name)
+            : `Protect Your ${location.name} Home`
+        }
+        subtitle={
+          es
+            ? ES.ctaSubtitle(location.name)
+            : `Get expert roofing services tailored for ${location.name}'s unique climate and architecture. Free estimates, 24/7 emergency service.`
+        }
+      />
     </>
   );
 }

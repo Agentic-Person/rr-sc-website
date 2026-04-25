@@ -3,9 +3,49 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Location } from "@/lib/data";
-import { SectionHeader } from "@/components/shared";
+import { SectionHeader, PageHero, CTABanner } from "@/components/shared";
+import { IMAGES } from "@/lib/data";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
+// ── Spanish UI strings ────────────────────────────────────────────────────────
+const ES = {
+  // Page Hero
+  heroTitle: "Áreas que Atendemos",
+  heroSubtitle:
+    "Atendemos con orgullo a 21 comunidades en el área metropolitana de Charleston y el Lowcountry de Carolina del Sur.",
+  heroBody:
+    "Desde las históricas calles del centro de Charleston hasta las islas barrera de la costa atlántica, Restoration Roofing ofrece servicios expertos de techado adaptados a la arquitectura única, los desafíos climáticos y los requisitos de construcción de cada comunidad. Con base en Mount Pleasant, conocemos el Lowcountry como nadie más.",
+
+  // CTA Banner
+  ctaTitle: "¿No Encuentra su Área?",
+  ctaSubtitle:
+    "Es posible que aún atendamos su comunidad. Llámenos para hablar sobre sus necesidades de techado — con gusto le ayudaremos.",
+
+  // Barrier Islands section
+  islandsEyebrow: "Islas Barrera",
+  islandsTitle: "Comunidades Costeras e Islas Barrera",
+  islandsSubtitle:
+    "Estas comunidades frente al océano enfrentan las condiciones de techado más extremas en nuestra área de servicio: exposición directa a huracanes, intensa salinidad en el aire y abrasión por arena.",
+
+  // Historic Cities section
+  historicEyebrow: "Comunidades Históricas",
+  historicTitle: "Ciudades y Pueblos Históricos",
+  historicSubtitle:
+    "Estas comunidades cuentan con arquitectura histórica significativa que requiere conocimientos especializados de techado y experiencia en preservación.",
+
+  // Growing Communities section
+  growingEyebrow: "Comunidades en Crecimiento",
+  growingTitle: "Comunidades Suburbanas y en Crecimiento",
+  growingSubtitle:
+    "Estas prósperas comunidades representan la expansión del área metropolitana de Charleston, con una combinación de vecindarios establecidos y nuevas construcciones.",
+
+  // Card labels
+  barrierIsland: "Isla Barrera",
+  more: "más",
+} as const;
+
+// ── Location Card ─────────────────────────────────────────────────────────────
 function LocationCard({
   location,
   index,
@@ -15,6 +55,9 @@ function LocationCard({
   index: number;
   featured?: boolean;
 }) {
+  const { lang } = useLanguage();
+  const es = lang === "es";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -61,7 +104,9 @@ function LocationCard({
               {location.isBarrierIsland && (
                 <>
                   <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
-                  <span className="text-amber font-medium">Barrier Island</span>
+                  <span className="text-amber font-medium">
+                    {es ? ES.barrierIsland : "Barrier Island"}
+                  </span>
                 </>
               )}
             </div>
@@ -79,7 +124,8 @@ function LocationCard({
               ))}
               {location.housingStyles.length > 3 && (
                 <span className="text-xs text-gray-600 px-1 py-1">
-                  +{location.housingStyles.length - 3} more
+                  +{location.housingStyles.length - 3}{" "}
+                  {es ? ES.more : "more"}
                 </span>
               )}
             </div>
@@ -90,6 +136,7 @@ function LocationCard({
   );
 }
 
+// ── Main export ───────────────────────────────────────────────────────────────
 export function AreasWeServeContent({
   barrierIslands,
   historicCities,
@@ -99,15 +146,41 @@ export function AreasWeServeContent({
   historicCities: Location[];
   otherCities: Location[];
 }) {
+  const { lang } = useLanguage();
+  const es = lang === "es";
+
   return (
     <>
+      {/* Page Hero — rendered inside the client component so we can swap language */}
+      <PageHero
+        title={es ? ES.heroTitle : "Areas We Serve"}
+        subtitle={
+          es
+            ? ES.heroSubtitle
+            : "Proudly serving 21 communities across the Charleston metropolitan area and the South Carolina Lowcountry."
+        }
+        body={
+          es
+            ? ES.heroBody
+            : "From the historic streets of downtown Charleston to the barrier islands of the Atlantic coast, Restoration Roofing provides expert roofing services tailored to each community's unique architecture, climate challenges, and building requirements. Based in Mount Pleasant, we understand the Lowcountry like no one else."
+        }
+        image={IMAGES.heroAbout}
+        breadcrumbs={[{ label: es ? ES.heroTitle : "Areas We Serve" }]}
+      />
+
       {/* Barrier Islands */}
       <section className="section-padding bg-linen">
         <div className="container">
           <SectionHeader
-            eyebrow="Barrier Islands"
-            title="Coastal & Barrier Island Communities"
-            subtitle="These oceanfront communities face the most extreme roofing conditions in our service area — direct hurricane exposure, intense salt air, and sand abrasion."
+            eyebrow={es ? ES.islandsEyebrow : "Barrier Islands"}
+            title={
+              es ? ES.islandsTitle : "Coastal & Barrier Island Communities"
+            }
+            subtitle={
+              es
+                ? ES.islandsSubtitle
+                : "These oceanfront communities face the most extreme roofing conditions in our service area — direct hurricane exposure, intense salt air, and sand abrasion."
+            }
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
             {barrierIslands.map((loc, i) => (
@@ -121,9 +194,13 @@ export function AreasWeServeContent({
       <section className="section-padding bg-white">
         <div className="container">
           <SectionHeader
-            eyebrow="Historic Communities"
-            title="Historic Cities & Towns"
-            subtitle="These communities feature significant historic architecture that requires specialized roofing knowledge and preservation expertise."
+            eyebrow={es ? ES.historicEyebrow : "Historic Communities"}
+            title={es ? ES.historicTitle : "Historic Cities & Towns"}
+            subtitle={
+              es
+                ? ES.historicSubtitle
+                : "These communities feature significant historic architecture that requires specialized roofing knowledge and preservation expertise."
+            }
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
             {historicCities.map((loc, i) => (
@@ -137,9 +214,15 @@ export function AreasWeServeContent({
       <section className="section-padding bg-linen">
         <div className="container">
           <SectionHeader
-            eyebrow="Growing Communities"
-            title="Suburban & Growing Communities"
-            subtitle="These thriving communities represent the expanding Charleston metro area, with a mix of established neighborhoods and new construction."
+            eyebrow={es ? ES.growingEyebrow : "Growing Communities"}
+            title={
+              es ? ES.growingTitle : "Suburban & Growing Communities"
+            }
+            subtitle={
+              es
+                ? ES.growingSubtitle
+                : "These thriving communities represent the expanding Charleston metro area, with a mix of established neighborhoods and new construction."
+            }
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
             {otherCities.map((loc, i) => (
@@ -148,6 +231,16 @@ export function AreasWeServeContent({
           </div>
         </div>
       </section>
+
+      {/* CTA Banner — rendered here so language context is available */}
+      <CTABanner
+        title={es ? ES.ctaTitle : "Don't See Your Area?"}
+        subtitle={
+          es
+            ? ES.ctaSubtitle
+            : "We may still serve your community. Call us to discuss your roofing needs — we're happy to help."
+        }
+      />
     </>
   );
 }
