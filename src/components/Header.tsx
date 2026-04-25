@@ -8,6 +8,8 @@ import { Phone, Menu, X, ChevronDown, ChevronRight, Sun, Moon } from "lucide-rea
 import { GetStartedDropdownDesktop, GetStartedDropdownMobile } from "./GetStartedDropdown";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/lib/translations";
 import Image from "next/image";
 import logoImg from "@assets/rr_logo_ol.jpg";
 
@@ -18,6 +20,8 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
+  const { lang, toggleLang } = useLanguage();
+  const tr = translations[lang];
 
   const fadeScrollTo = (element: HTMLElement) => {
     const headerOffset = 80;
@@ -61,6 +65,8 @@ export default function Header() {
     setServicesOpen(false);
   }, [pathname]);
 
+  const navLabel = (label: string) => tr.nav[label] ?? label;
+
   return (
     <>
       {/* Top bar */}
@@ -76,16 +82,16 @@ export default function Header() {
             <span className="text-white/50">|</span>
             <span className="text-white/70">SC License {COMPANY.license}</span>
             <span className="text-white/50">|</span>
-            <span className="text-amber font-medium">24/7 Emergency Service</span>
+            <span className="text-amber font-medium">{tr.header.emergency}</span>
             <span className="text-white/50">|</span>
-            <span className="text-white/70">Serving Charleston &amp; the Lowcountry</span>
+            <span className="text-white/70">{tr.header.serving}</span>
             <span className="text-white/50">|</span>
-            <span className="text-white/70">Family Owned &amp; Operated</span>
+            <span className="text-white/70">{tr.header.family}</span>
           </div>
         </div>
       </div>
 
-      {/* Main nav — white background with black text */}
+      {/* Main nav */}
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled
@@ -107,7 +113,7 @@ export default function Header() {
             />
           </Link>
 
-          {/* Desktop nav — left-aligned, adjacent to logo */}
+          {/* Desktop nav */}
           <nav className="hidden lg:flex lg:ml-8 items-center gap-1">
             {NAV_ITEMS.map((item) =>
               item.children ? (
@@ -121,7 +127,7 @@ export default function Header() {
                     onClick={() => handleScrollNav("services")}
                     className="flex items-center gap-1 px-4 py-2 text-base font-medium text-gray-800 hover:text-black transition-colors rounded-md hover:bg-gray-100"
                   >
-                    {item.label}
+                    {navLabel(item.label)}
                     <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
                   </button>
                   <AnimatePresence>
@@ -140,7 +146,7 @@ export default function Header() {
                             className="flex items-center gap-2 px-4 py-2.5 text-[15px] text-gray-700 hover:text-black hover:bg-gray-50 transition-colors"
                           >
                             <ChevronRight className="w-3 h-3 text-amber" />
-                            {child.label}
+                            {navLabel(child.label)}
                           </Link>
                         ))}
                       </motion.div>
@@ -153,7 +159,7 @@ export default function Header() {
                   onClick={() => handleScrollNav(item.scrollTo!)}
                   className="px-4 py-2 text-base font-medium rounded-md transition-colors text-gray-800 hover:text-black hover:bg-gray-100"
                 >
-                  {item.label}
+                  {navLabel(item.label)}
                 </button>
               ) : (
                 <Link
@@ -165,18 +171,27 @@ export default function Header() {
                       : `font-medium ${pathname === item.href ? "text-black bg-gray-100" : "text-gray-800 hover:text-black hover:bg-gray-100"}`
                   }`}
                 >
-                  {item.label}
+                  {navLabel(item.label)}
                 </Link>
               )
             )}
           </nav>
 
-          {/* Desktop CTA — sits right after the nav */}
-          <div className="hidden lg:flex flex-shrink-0 items-center lg:ml-6">
+          {/* Desktop CTA */}
+          <div className="hidden lg:flex flex-shrink-0 items-center lg:ml-6 gap-3">
             <GetStartedDropdownDesktop />
+
+            {/* Language toggle */}
+            <button
+              onClick={toggleLang}
+              className="text-sm font-semibold text-amber hover:text-amber-dark transition-colors whitespace-nowrap"
+              aria-label={tr.lang.switchTo}
+            >
+              {tr.lang.toggle}
+            </button>
           </div>
 
-          {/* Theme toggle — pushed to far right */}
+          {/* Theme toggle — far right (desktop) */}
           <button
             onClick={toggleTheme}
             className="hidden lg:inline-flex relative p-2.5 ml-auto rounded-md text-gray-500 hover:text-black hover:bg-gray-100 transition-colors"
@@ -186,8 +201,16 @@ export default function Header() {
             <Moon className={`w-4 h-4 transition-all duration-300 ${theme === "dark" ? "-rotate-90 scale-0" : "rotate-0 scale-100"}`} />
           </button>
 
-          {/* Mobile menu button */}
-          <div className="flex items-center gap-3 lg:hidden">
+          {/* Mobile right controls */}
+          <div className="flex items-center gap-2 lg:hidden ml-auto">
+            {/* Language toggle — mobile */}
+            <button
+              onClick={toggleLang}
+              className="px-2 py-1 text-xs font-semibold text-amber hover:text-amber-dark transition-colors"
+              aria-label={tr.lang.switchTo}
+            >
+              {tr.lang.toggle}
+            </button>
             <button
               onClick={toggleTheme}
               className="relative p-2.5 rounded-md min-h-[44px] min-w-[44px] text-gray-500 hover:text-black hover:bg-gray-100 transition-colors"
@@ -227,7 +250,7 @@ export default function Header() {
                         onClick={() => setServicesOpen(!servicesOpen)}
                         className="flex items-center justify-between w-full px-3 py-3 text-base font-medium text-gray-800 hover:text-black rounded-md hover:bg-gray-100"
                       >
-                        {item.label}
+                        {navLabel(item.label)}
                         <ChevronDown className={`w-4 h-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
                       </button>
                       <AnimatePresence>
@@ -245,7 +268,7 @@ export default function Header() {
                                 className="flex items-center gap-2 px-3 py-3 text-[15px] text-gray-700 hover:text-black"
                               >
                                 <ChevronRight className="w-3 h-3 text-amber" />
-                                {child.label}
+                                {navLabel(child.label)}
                               </Link>
                             ))}
                           </motion.div>
@@ -258,7 +281,7 @@ export default function Header() {
                       onClick={() => handleScrollNav(item.scrollTo!)}
                       className="block w-full text-left px-3 py-3 text-base font-medium text-gray-800 hover:text-black rounded-md hover:bg-gray-100"
                     >
-                      {item.label}
+                      {navLabel(item.label)}
                     </button>
                   ) : (
                     <Link
@@ -270,7 +293,7 @@ export default function Header() {
                           : "font-medium text-gray-800 hover:text-black hover:bg-gray-100"
                       }`}
                     >
-                      {item.label}
+                      {navLabel(item.label)}
                     </Link>
                   )
                 )}
@@ -278,8 +301,15 @@ export default function Header() {
                   <GetStartedDropdownMobile onNavigate={() => setMobileOpen(false)} />
                   <div className="flex items-center justify-center gap-2 mt-3 text-sm text-gray-500">
                     <Phone className="w-3.5 h-3.5" />
-                    <span>24/7 Emergency: {COMPANY.phone}</span>
+                    <span>{tr.header.mobileEmergency} {COMPANY.phone}</span>
                   </div>
+                  {/* Language toggle — mobile menu footer */}
+                  <button
+                    onClick={() => { toggleLang(); setMobileOpen(false); }}
+                    className="w-full mt-3 py-2.5 text-sm font-semibold text-amber hover:text-amber-dark transition-colors"
+                  >
+                    {tr.lang.toggle}
+                  </button>
                 </div>
               </div>
             </motion.div>

@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { COMPANY, LOCATIONS } from "@/lib/data";
 import { Phone, Mail, MapPin, Clock, Shield } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/lib/translations";
 import logoImg from "@assets/rr_logo_ol-removebg-preview.png";
 
 function WaveDivider() {
@@ -18,9 +22,35 @@ function WaveDivider() {
 }
 
 export default function Footer() {
+  const { lang } = useLanguage();
+  const tr = translations[lang].footer;
+
   const primaryLocations = LOCATIONS.filter(l =>
     ["charleston", "mount-pleasant", "summerville", "north-charleston", "daniel-island", "isle-of-palms", "sullivans-island", "folly-beach", "james-island", "johns-island"].includes(l.slug)
   );
+
+  const serviceLinks = [
+    { key: "roofInstallation" as const, href: "/services/roof-installation" },
+    { key: "roofRepair" as const, href: "/services/roof-repairs" },
+    { key: "metalRoofing" as const, href: "/services/metal-roofing" },
+    { key: "shingleRoofing" as const, href: "/services/shingle-roofing" },
+    { key: "stormDamage" as const, href: "/services/storm-damage" },
+    { key: "gutterInstallation" as const, href: "/services/gutter-installation" },
+    { key: "roofInspections" as const, href: "/services/roof-inspections" },
+    { key: "flatRoofing" as const, href: "/services/flat-roofing" },
+  ];
+
+  const quickLinks = [
+    { key: "aboutUs" as const, href: "/about" },
+    { key: "portfolio" as const, href: "/portfolio" },
+    { key: "reviews" as const, href: "/reviews" },
+    { key: "financing" as const, href: "/financing" },
+    { key: "blog" as const, href: "/blog" },
+    { key: "contactUs" as const, href: "/contact" },
+    { key: "aiAssistant" as const, href: "/contact" },
+    { key: "privacy" as const, href: "/privacy" },
+    { key: "terms" as const, href: "/terms" },
+  ];
 
   return (
     <>
@@ -42,7 +72,7 @@ export default function Footer() {
               </Link>
               <p className="font-display text-xl font-bold !text-white mb-4">Restoration Roofing SC</p>
               <p className="text-sm text-white/60 leading-relaxed mb-5">
-                Family-owned roofing contractor serving Charleston and the Lowcountry. Licensed, insured, and committed to protecting your home with expert craftsmanship.
+                {tr.description}
               </p>
               <div className="space-y-3">
                 <a href={`tel:${COMPANY.phoneRaw}`} className="flex items-center gap-2.5 text-sm hover:text-amber transition-colors">
@@ -59,32 +89,23 @@ export default function Footer() {
                 </div>
                 <div className="flex items-center gap-2.5 text-sm">
                   <Clock className="w-4 h-4 text-amber" />
-                  24/7 Emergency Service
+                  {tr.emergency}
                 </div>
                 <div className="flex items-center gap-2.5 text-sm">
                   <Shield className="w-4 h-4 text-amber" />
-                  SC License {COMPANY.license}
+                  {tr.license} {COMPANY.license}
                 </div>
               </div>
             </div>
 
             {/* Services */}
             <div>
-              <h3 className="font-display text-white text-base font-semibold mb-4 tracking-wide">Our Services</h3>
+              <h3 className="font-display text-white text-base font-semibold mb-4 tracking-wide">{tr.services}</h3>
               <ul className="space-y-2.5">
-                {[
-                  { label: "Roof Installation", href: "/services/roof-installation" },
-                  { label: "Roof Repair", href: "/services/roof-repairs" },
-                  { label: "Metal Roofing", href: "/services/metal-roofing" },
-                  { label: "Shingle Roofing", href: "/services/shingle-roofing" },
-                  { label: "Storm Damage", href: "/services/storm-damage" },
-                  { label: "Gutter Installation", href: "/services/gutter-installation" },
-                  { label: "Roof Inspections", href: "/services/roof-inspections" },
-                  { label: "Flat Roofing", href: "/services/flat-roofing" },
-                ].map((link) => (
+                {serviceLinks.map((link) => (
                   <li key={link.href}>
                     <Link href={link.href} className="text-sm text-white/60 hover:text-amber transition-colors">
-                      {link.label}
+                      {tr[link.key]}
                     </Link>
                   </li>
                 ))}
@@ -93,7 +114,7 @@ export default function Footer() {
 
             {/* Areas We Serve */}
             <div>
-              <h3 className="font-display text-white text-base font-semibold mb-4 tracking-wide">Areas We Serve</h3>
+              <h3 className="font-display text-white text-base font-semibold mb-4 tracking-wide">{tr.areas}</h3>
               <ul className="space-y-2.5">
                 {primaryLocations.map((loc) => (
                   <li key={loc.slug}>
@@ -104,7 +125,7 @@ export default function Footer() {
                 ))}
                 <li>
                   <Link href="/areas-we-serve" className="text-sm text-amber hover:text-amber-light transition-colors font-medium">
-                    View All 21 Locations →
+                    {tr.viewAll}
                   </Link>
                 </li>
               </ul>
@@ -112,35 +133,25 @@ export default function Footer() {
 
             {/* Quick Links & CTA */}
             <div>
-              <h3 className="font-display text-white text-base font-semibold mb-4 tracking-wide">Quick Links</h3>
+              <h3 className="font-display text-white text-base font-semibold mb-4 tracking-wide">{tr.quickLinks}</h3>
               <ul className="space-y-2.5 mb-6">
-                {[
-                  { label: "About Us", href: "/about" },
-                  { label: "Portfolio", href: "/portfolio" },
-                  { label: "Reviews", href: "/reviews" },
-                  { label: "Financing", href: "/financing" },
-                  { label: "Blog", href: "/blog" },
-                  { label: "Contact Us", href: "/contact" },
-                  { label: "AI Assistant", href: "/contact" },
-                  { label: "Privacy Policy", href: "/privacy" },
-                  { label: "Terms of Service", href: "/terms" },
-                ].map((link) => (
-                  <li key={link.label}>
+                {quickLinks.map((link) => (
+                  <li key={link.key}>
                     <Link href={link.href} className="text-sm text-white/60 hover:text-amber transition-colors">
-                      {link.label}
+                      {tr[link.key as keyof typeof tr]}
                     </Link>
                   </li>
                 ))}
               </ul>
 
               <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-                <p className="text-sm text-white font-semibold mb-2">Need Emergency Service?</p>
-                <p className="text-xs text-white/50 mb-3">We respond 24/7 to roofing emergencies throughout the Charleston area.</p>
+                <p className="text-sm text-white font-semibold mb-2">{tr.emergencyCard}</p>
+                <p className="text-xs text-white/50 mb-3">{tr.emergencyCardDesc}</p>
                 <a
                   href={`tel:${COMPANY.phoneRaw}`}
                   className="btn-amber w-full py-2.5 rounded-md text-sm text-center block"
                 >
-                  Call Now: {COMPANY.phone}
+                  {tr.callNow} {COMPANY.phone}
                 </a>
               </div>
 
@@ -165,12 +176,12 @@ export default function Footer() {
         <div className="border-t border-white/10">
           <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-3">
             <p className="text-xs text-white/40">
-              © {new Date().getFullYear()} Restoration Roofing SC. All rights reserved. SC License RBC 694.
+              © {new Date().getFullYear()} Restoration Roofing SC. {tr.copyright} SC License RBC 694.
             </p>
             <div className="flex items-center gap-4 text-xs text-white/40">
-              <Link href="/privacy" className="hover:text-white/60 transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="hover:text-white/60 transition-colors">Terms of Service</Link>
-              <Link href="/sitemap.xml" className="hover:text-white/60 transition-colors">Sitemap</Link>
+              <Link href="/privacy" className="hover:text-white/60 transition-colors">{tr.privacy}</Link>
+              <Link href="/terms" className="hover:text-white/60 transition-colors">{tr.terms}</Link>
+              <Link href="/sitemap.xml" className="hover:text-white/60 transition-colors">{tr.sitemap}</Link>
             </div>
           </div>
         </div>

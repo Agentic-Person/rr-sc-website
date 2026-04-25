@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/hover-card";
 import { COMPANY } from "@/lib/data";
 import { useQuoteWidget } from "@/contexts/QuoteWidgetContext";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/lib/translations";
 
 // ─────────────────────────────────────────────────────────────
 // Shared types
@@ -67,6 +69,8 @@ function CallbackForm({ onClose }: { onClose?: () => void }) {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { lang } = useLanguage();
+  const tr = translations[lang].getStarted;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -113,7 +117,7 @@ function CallbackForm({ onClose }: { onClose?: () => void }) {
         role="status"
         className="py-3 px-1 text-sm text-green-400 font-medium text-center"
       >
-        Got it — we&apos;ll reach out shortly.
+        {tr.success}
       </div>
     );
   }
@@ -125,7 +129,7 @@ function CallbackForm({ onClose }: { onClose?: () => void }) {
           htmlFor="gs-name"
           className="block text-xs font-medium text-gray-200 mb-0.5"
         >
-          Name <span aria-hidden="true">*</span>
+          {tr.name} <span aria-hidden="true">*</span>
         </label>
         <input
           id="gs-name"
@@ -134,7 +138,7 @@ function CallbackForm({ onClose }: { onClose?: () => void }) {
           required
           value={form.name}
           onChange={handleChange}
-          placeholder="Your name"
+          placeholder={tr.name}
           className="w-full px-2.5 py-1.5 rounded border border-border bg-linen/30 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber/50 focus:border-amber transition-colors"
         />
       </div>
@@ -144,7 +148,7 @@ function CallbackForm({ onClose }: { onClose?: () => void }) {
           htmlFor="gs-phone"
           className="block text-xs font-medium text-gray-200 mb-0.5"
         >
-          Phone <span aria-hidden="true">*</span>
+          {tr.phone} <span aria-hidden="true">*</span>
         </label>
         <input
           id="gs-phone"
@@ -163,8 +167,7 @@ function CallbackForm({ onClose }: { onClose?: () => void }) {
           htmlFor="gs-email"
           className="block text-xs font-medium text-gray-200 mb-0.5"
         >
-          Email <span className="text-gray-400 font-normal">(optional)</span>
-
+          {tr.email} <span className="text-gray-400 font-normal">({tr.emailOptional})</span>
         </label>
         <input
           id="gs-email"
@@ -182,7 +185,7 @@ function CallbackForm({ onClose }: { onClose?: () => void }) {
           htmlFor="gs-time"
           className="block text-xs font-medium text-gray-200 mb-0.5"
         >
-          Preferred time
+          {tr.preferredTime}
         </label>
         <select
           id="gs-time"
@@ -191,10 +194,10 @@ function CallbackForm({ onClose }: { onClose?: () => void }) {
           onChange={handleChange}
           className="w-full px-2.5 py-1.5 rounded border border-border bg-linen/30 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber/50 focus:border-amber transition-colors"
         >
-          <option value="morning">Morning</option>
-          <option value="afternoon">Afternoon</option>
-          <option value="evening">Evening</option>
-          <option value="anytime">Anytime</option>
+          <option value="morning">{tr.morning}</option>
+          <option value="afternoon">{tr.afternoon}</option>
+          <option value="evening">{tr.evening}</option>
+          <option value="anytime">{tr.anytime}</option>
         </select>
       </div>
 
@@ -216,12 +219,7 @@ function CallbackForm({ onClose }: { onClose?: () => void }) {
             optedIn ? "text-gray-300" : "text-red-400 font-medium"
           }`}
         >
-          By checking this box, I consent to receive non-marketing calls and
-          text messages from Restoration Roofing SC regarding appointment
-          reminders, service updates, project notifications, and
-          account-related information. Message frequency may vary. Message
-          and data rates may apply. Text HELP for assistance, reply STOP to
-          opt out.
+          {tr.consentContact}
         </span>
       </label>
 
@@ -234,7 +232,7 @@ function CallbackForm({ onClose }: { onClose?: () => void }) {
             : "bg-amber/25 text-gray-900/50 cursor-not-allowed"
         } disabled:opacity-60`}
       >
-        {submitting ? "Sending…" : "Send Friend Request"}
+        {submitting ? tr.submitting : tr.submit}
       </button>
     </form>
   );
@@ -249,6 +247,8 @@ function TextUsRowDesktop() {
   const [expanded, setExpanded] = useState(false);
   const [optedIn, setOptedIn] = usePersistedOptIn(SMS_OPT_IN_KEY);
   const [copied, setCopied] = useState(false);
+  const { lang } = useLanguage();
+  const tr = translations[lang].getStarted;
 
   const handleCopy = async () => {
     try {
@@ -270,7 +270,7 @@ function TextUsRowDesktop() {
       >
         <MessageSquare className="w-5 h-5 text-amber shrink-0" />
         <span className="text-sm font-semibold text-white group-hover:text-amber transition-colors">
-          Text us
+          {tr.textUs}
         </span>
       </button>
 
@@ -296,12 +296,7 @@ function TextUsRowDesktop() {
                   optedIn ? "text-gray-300" : "text-red-400 font-medium"
                 }`}
               >
-                By checking this box, I consent to receive non-marketing text
-                messages from Restoration Roofing SC regarding appointment
-                reminders, service updates, project notifications, and
-                account-related information. Message frequency may vary.
-                Message and data rates may apply. Text HELP for assistance,
-                reply STOP to opt out.
+                {tr.consentSms}
               </span>
             </label>
 
@@ -315,7 +310,7 @@ function TextUsRowDesktop() {
                   : "bg-white/5 border-white/10 text-gray-500 cursor-not-allowed"
               }`}
             >
-              {copied ? "Copied!" : `Copy ${COMPANY.phone}`}
+              {copied ? tr.copied : `${tr.copy} ${COMPANY.phone}`}
             </button>
           </motion.div>
         )}
@@ -327,6 +322,8 @@ function TextUsRowDesktop() {
 /** Row 2 — Have our friendly non-commissioned team contact you (desktop variant with inline form) */
 function ContactRowDesktop() {
   const [callbackOpen, setCallbackOpen] = useState(false);
+  const { lang } = useLanguage();
+  const tr = translations[lang].getStarted;
 
   return (
     <div>
@@ -337,7 +334,7 @@ function ContactRowDesktop() {
       >
         <Users className="w-5 h-5 text-amber shrink-0 mt-0.5" />
         <span className="text-sm font-semibold text-white group-hover:text-amber transition-colors">
-          Have our friendly non-commissioned team contact you
+          {tr.contactTeam}
         </span>
       </button>
 
@@ -362,6 +359,8 @@ function ContactRowDesktop() {
 /** Row 3 — Get a quick estimate (shared logic, different wrapper per variant) */
 function EstimateRowDesktop() {
   const { openRoofleWidget } = useQuoteWidget();
+  const { lang } = useLanguage();
+  const tr = translations[lang].getStarted;
 
   return (
     <button
@@ -372,10 +371,10 @@ function EstimateRowDesktop() {
       <Zap className="w-5 h-5 text-amber shrink-0 mt-0.5" />
       <div>
         <span className="block text-sm font-semibold text-white group-hover:text-amber transition-colors">
-          Get a quick estimate
+          {tr.estimate}
         </span>
         <span className="block text-xs text-gray-300">
-          Talk to Jerry — our instant roof estimator.
+          {tr.estimateSub}
         </span>
       </div>
     </button>
@@ -386,6 +385,9 @@ function EstimateRowDesktop() {
 // Export 1 — Desktop HoverCard dropdown
 // ─────────────────────────────────────────────────────────────
 export function GetStartedDropdownDesktop() {
+  const { lang } = useLanguage();
+  const tr = translations[lang].getStarted;
+
   return (
     <HoverCard openDelay={80} closeDelay={150}>
       <HoverCardTrigger asChild>
@@ -393,7 +395,7 @@ export function GetStartedDropdownDesktop() {
           type="button"
           className="btn-amber px-5 py-2.5 rounded-md text-base inline-flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-amber/60"
         >
-          Get Started — No Obligations
+          {tr.cta}
           <ChevronDown className="w-4 h-4" />
         </button>
       </HoverCardTrigger>
@@ -423,6 +425,8 @@ export function GetStartedDropdownMobile({
 }) {
   const [open, setOpen] = useState(false);
   const { openRoofleWidget } = useQuoteWidget();
+  const { lang } = useLanguage();
+  const tr = translations[lang].getStarted;
 
   return (
     <div>
@@ -433,7 +437,7 @@ export function GetStartedDropdownMobile({
         className="btn-amber w-full px-5 py-3 rounded-md text-base font-semibold flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-amber/60"
         aria-expanded={open}
       >
-        Get Started — No Obligations
+        {tr.cta}
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.2 }}
@@ -457,16 +461,14 @@ export function GetStartedDropdownMobile({
             <div className="mt-1 space-y-1 px-1">
               {/* Row 1 — Text us */}
               <a
-                href={`sms:+1${COMPANY.phoneRaw}?body=${encodeURIComponent(
-                  "Hi Restoration Roofing, I'd like to talk about my roof."
-                )}`}
+                href={`sms:+1${COMPANY.phoneRaw}?body=${encodeURIComponent(tr.mobileSmsText)}`}
                 aria-label={`Text us at ${COMPANY.phone}`}
                 className="flex items-center gap-3 px-4 min-h-[56px] rounded-md hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-amber/60"
               >
                 <MessageSquare className="w-5 h-5 text-amber shrink-0" />
                 <div>
                   <span className="block text-sm font-semibold text-gray-900">
-                    Text us
+                    {tr.textUs}
                   </span>
                   <span className="block text-xs text-gray-500">
                     {COMPANY.phone}
@@ -481,7 +483,7 @@ export function GetStartedDropdownMobile({
               >
                 <Users className="w-5 h-5 text-amber shrink-0" />
                 <span className="block text-sm font-semibold text-gray-900">
-                  Have our friendly non-commissioned team contact you
+                  {tr.contactTeam}
                 </span>
               </a>
 
@@ -497,20 +499,18 @@ export function GetStartedDropdownMobile({
                 <Zap className="w-5 h-5 text-amber shrink-0 mt-0.5" />
                 <div>
                   <span className="block text-sm font-semibold text-gray-900">
-                    Get a quick estimate
+                    {tr.estimate}
                   </span>
                   <span className="block text-xs text-gray-500">
-                    Talk to Jerry — our instant roof estimator.
+                    {tr.estimateSub}
                   </span>
                 </div>
               </button>
 
               <p className="px-4 pt-2 pb-1 text-[10px] leading-snug text-gray-500">
-                By texting or contacting us, you agree to receive
-                communications from Restoration Roofing. Msg &amp; data rates
-                may apply. Reply STOP to opt out. See our{" "}
+                {tr.privacyNotice}{" "}
                 <a href="/privacy" className="underline hover:text-amber">
-                  Privacy Policy
+                  {tr.privacyPolicy}
                 </a>
                 .
               </p>

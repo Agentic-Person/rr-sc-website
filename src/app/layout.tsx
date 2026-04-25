@@ -3,6 +3,7 @@ import { DM_Sans, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { QuoteWidgetProvider } from "@/contexts/QuoteWidgetContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -68,15 +69,17 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
     >
       <body className="font-sans antialiased" suppressHydrationWarning>
-        <ThemeProvider>
-          <QuoteWidgetProvider>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-            <QuoteGiraffeTab />
-            <ScrollToTop />
-          </QuoteWidgetProvider>
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>
+            <QuoteWidgetProvider>
+              <Header />
+              <main>{children}</main>
+              <Footer />
+              <QuoteGiraffeTab />
+              <ScrollToTop />
+            </QuoteWidgetProvider>
+          </ThemeProvider>
+        </LanguageProvider>
 
         {/* Roofle RoofQuote PRO Slideout Widget */}
         <Script
