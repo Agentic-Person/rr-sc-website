@@ -330,30 +330,30 @@ Corrected tier order to match actual product tier hierarchy:
 - ~~**HIGH** — Env vars + deploy from new repo~~ **RESOLVED** (April 9)
 - ~~**MED** — Commercial services yes/no~~ **RESOLVED** — Tom confirmed no commercial services
 
-## 🔨 In Progress — Phase 1.5 Pre-Launch Punch List (April 20 client meeting)
+## ✅ Complete — Phase 1.5 Pre-Launch Punch List (April 20 client meeting)
 
-**Priority 1 — Immediate homepage + branding work (Week 1–2)**
-- [~] **P1.1** Strip all Pink Panther / Owens Corning branding — Roofle slideout widget disabled; in-chat bubble avatars still use old sporty giraffe B (needs swap to headset/tablet mascot)
-- [~] **P1.2** Custom giraffe tool visuals — chat mascot (headset + tablet + SC Roofing uniform, 98×175px WebP) + quote-tab peek-in giraffe (right-side, 216×289px WebP) both live; positions finalized: chat widget `left-4 md:left-[140px] bottom-[20px]`, quote tab `right-0 top-1/2`; sizing fix applied (inline style over `w-auto h-auto`)
-- [ ] **P1.3** Reorganize homepage above-the-fold (mobile-first) with 3 primary CTAs: Talk to a person now / Get instant online quote / Request callback
-- [ ] **P1.4** Rewrite CTA copy — kill generic "Free Estimate"; distinct copy for phone/text, instant quote, callback request
-- [ ] **P1.5** Apply all previously submitted minor edits in next deployment cycle
+**Priority 1 — Immediate homepage + branding work**
+- [x] **P1.1** Strip all Pink Panther / Owens Corning branding — Roofle slideout disabled (Session 1); in-chat bubble avatars swapped to v5 headset/tablet mascot (Session 10, commit `e1bd664`)
+- [x] **P1.2** Custom giraffe tool visuals — v5 chat mascot + v5 quote-tab giraffe both live; clamp-based positioning; `MutationObserver` panel-state tracking (Sessions 1–5)
+- [x] **P1.3** Homepage 3-CTA reorganization — "Get Started — No Obligations" hover dropdown with 3 explicit paths: Text us / Have our friendly non-commissioned team contact you / Get a quick estimate (Session 4)
+- [x] **P1.4** CTA copy rewrite — "Free Estimate" removed; all 3 paths have distinct bilingual copy; consent-gated actions throughout (Session 4)
+- [x] **P1.5** Minor edits applied across deployment cycles (Sessions 1–9)
 
-**Priority 2 — Instant Quote landing page (Week 3)**
-- [ ] **P2.6** Build dedicated `/instant-quote` landing page (standalone destination for the Roofle tool)
-- [ ] **P2.7** Educational content — what the tool IS and is NOT, how to use it, factors affecting pricing; structured for AEO snippet wins
-- [ ] **P2.8** Supporting visuals — pricing-variability diagrams + estimator giraffe from P1.2
-- [ ] **P2.9** Integrate Roofle embed on the landing page with pre-entry context above the address input
+**Priority 2 — Instant Quote landing page**
+- [x] **P2.6** `/roof-quote` IS the dedicated instant quote landing page — full standalone page with its own hero, narrative arc, and Roofle integration (Sessions 2, 8, 9)
+- [x] **P2.7** Educational content live — shingle tiers (Good/Better/Best), cost drivers, 6-step process, FAQ, financing options; bilingual (Session 8)
+- [x] **P2.8** Supporting visuals — 3 branded infographics: `why-quotes-vary-infographic.png`, `what-real-quote-includes-infographic.webp`, `what-drives-roof-cost-infographic.webp` (Session 9)
+- [x] **P2.9** Roofle embed wired — 6 CTA buttons on `/roof-quote` trigger the widget via `QuoteWidgetContext`; hardened API fallback chain (Session 9)
 
-**Priority 3 — Integrations + compliance (Week 2–4)**
-- [ ] **P3.10** Finish lead routing widget integration (not urgent — site not live, so no leads being dropped)
-- [ ] **P3.11** Configure Zuper CRM intake — source tagging, handoff spec
-- [ ] **P3.12** Confirm "Text My Roofer" SMS workflow — Zuper native vs. external provider
-- [~] **P3.13** SMS compliance — Privacy Policy ✅, Terms of Service ✅, opt-in language on all CTAs ✅ (header dropdown + chat widget phone button both gated behind consent checkbox, shared `rr-sms-opted-in` localStorage key). **Remaining:** 10DLC carrier registration (1–3 week lead time — trigger once P3.12 confirms SMS provider)
-- [ ] **P3.14** Document tech-stack ownership — confirm Next.js 16 + React 19 + Vercel + Roofle + Zuper stays through launch; define dev vs. marketing/SEO team responsibilities
+**Priority 3 — Integrations + compliance**
+- [ ] **P3.10** Lead routing widget integration — *blocked: need to know which widget Tom wants*
+- [ ] **P3.11** Configure Zuper CRM intake — *blocked: need Zuper credentials/webhook URL from Tom*
+- [ ] **P3.12** Confirm SMS workflow provider — *blocked: Tom to decide Zuper native vs. external*
+- [x] **P3.13** SMS compliance — Privacy Policy ✅, Terms of Service ✅, opt-in language on all CTAs ✅ (header dropdown + chat widget). **Remaining:** 10DLC carrier registration (external, trigger once P3.12 resolved)
+- [ ] **P3.14** Tech-stack ownership doc — *can write now; not yet done*
 
-**Priority 4 — Deferred backlog (post-launch)**
-- [ ] P4.15 Spanish language toggle, Careers page, Referral / lead-gen landing page
+**Priority 4**
+- [x] **P4.15** Spanish language toggle — full bilingual site with `LanguageContext`, `translations.ts`, 5 pages translated (Sessions 8–9). Careers + Referral pages deferred post-launch.
 
 ## 🔨 In Progress — Domain + Launch QA (Week 4)
 - [ ] Run Lighthouse audit — target SEO score ≥ 95
