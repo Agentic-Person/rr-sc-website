@@ -6,7 +6,7 @@ import Image from "next/image";
 import { COMPANY } from "@/lib/data";
 import { Send, X, Bot, Minus, MessageCircle, CalendarCheck, Smartphone } from "lucide-react";
 import { nanoid } from "nanoid";
-import giraffeImgData from "@assets/giraffe_style_B_sporty (1).png";
+
 
 function getSessionId(): string {
   const key = "rr_chat_session_id";
@@ -144,7 +144,7 @@ export default function ChatWidget() {
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <div className="relative w-9 h-9 rounded-full overflow-hidden border-2 border-amber bg-white">
-                    <Image src={giraffeImgData} alt="Roofing Assistant" fill sizes="36px" className="object-cover object-top" />
+                    <Image src="/images/giraffe-chat-mascot-v5.webp" alt="Roofing Assistant" fill sizes="36px" className="object-cover object-top" />
                   </div>
                   <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-navy" />
                 </div>
@@ -176,7 +176,7 @@ export default function ChatWidget() {
               {/* Welcome message */}
               <div className="flex gap-2.5">
                 <div className="relative w-7 h-7 rounded-full overflow-hidden bg-white border border-amber/30 shrink-0 mt-0.5">
-                  <Image src={giraffeImgData} alt="" fill sizes="28px" className="object-cover object-top" />
+                  <Image src="/images/giraffe-chat-mascot-v5.webp" alt="" fill sizes="28px" className="object-cover object-top" />
                 </div>
                 <div className="space-y-2 max-w-[460px]">
                   <div className="bg-white rounded-lg rounded-tl-none p-3 shadow-sm border border-border/30">
@@ -208,7 +208,7 @@ export default function ChatWidget() {
                 >
                   {msg.role === "bot" && (
                     <div className="relative w-7 h-7 rounded-full overflow-hidden bg-white border border-amber/30 shrink-0 mt-0.5">
-                      <Image src={giraffeImgData} alt="" fill sizes="28px" className="object-cover object-top" />
+                      <Image src="/images/giraffe-chat-mascot-v5.webp" alt="" fill sizes="28px" className="object-cover object-top" />
                     </div>
                   )}
                   <div className={`rounded-lg p-3 max-w-[460px] shadow-sm ${
@@ -233,7 +233,7 @@ export default function ChatWidget() {
                   className="flex gap-2.5"
                 >
                   <div className="relative w-7 h-7 rounded-full overflow-hidden bg-white border border-amber/30 shrink-0 mt-0.5">
-                    <Image src={giraffeImgData} alt="" fill sizes="28px" className="object-cover object-top" />
+                    <Image src="/images/giraffe-chat-mascot-v5.webp" alt="" fill sizes="28px" className="object-cover object-top" />
                   </div>
                   <div className="bg-white rounded-lg rounded-tl-none p-3 shadow-sm border border-border/30">
                     <div className="flex gap-1">
