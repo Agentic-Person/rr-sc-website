@@ -1,9 +1,9 @@
 # Restoration Roofing SC — Project Status
 > Last updated: April 24, 2026
 
-## 🟡 Status: Phase 1.5 Pre-Launch Punch List In Motion
+## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
-**Phase:** Client-driven pre-launch sprint — branding (OC → SC giraffe), mobile-first homepage, dedicated Instant Quote landing page, Zuper CRM + SMS integration, then domain cutover
+**Phase:** All website development done; remaining items are integrations (Zuper, SMS) and launch steps (domain, GA4, QA). See `docs/operations/phase-1.5-remaining.md` for the full remaining task list.
 **Live:** https://rr-sc-website.vercel.app
 **Repo:** github.com/Agentic-Person/rr-sc-website
 **Client Repo:** github.com/SCROOF1/restorationroofing

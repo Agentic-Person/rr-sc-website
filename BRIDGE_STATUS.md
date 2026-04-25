@@ -1,9 +1,9 @@
 # Restoration Roofing SC — Bridge Status
-> Last updated: April 22, 2026
+> Last updated: April 24, 2026
 
-## 🟡 Status: Phase 1.5 Pre-Launch Punch List In Motion
+## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
-**Phase:** Client-driven pre-launch sprint — branding (OC → SC giraffe), mobile-first homepage, dedicated Instant Quote landing page, Zuper CRM + SMS integration, then domain cutover
+**Phase:** Client-driven pre-launch sprint — all website work done; remaining items are integrations (Zuper, SMS) and launch steps (domain, GA4, QA)
 **Live:** https://rr-sc-website.vercel.app
 **Repo:** github.com/Agentic-Person/rr-sc-website
 **Client Repo:** github.com/SCROOF1/restorationroofing
@@ -25,49 +25,44 @@ Migrated the entire website from React+Vite (client-side SPA) to **Next.js 15 (A
 
 ---
 
-## 🚫 Blockers / Pending from Client
-- **HIGH** — ABC Supply pricing for shingle tiers — Jimmy submitted a request through ABC Supply portal but has not received a response. **Will need to get prices directly from Dave** instead. Unblocked once Dave responds.
-- **HIGH** — TAMKO Storm Fighter specs (not on ABC Supply yet — need from Tom)
-- **MED** — Product images for 3 shingle tiers
-- **MED** — Real project photos + team headshots
-- **MED** — Real project photos + team headshots for remaining sections
-- **MED** — "What Our Customers Say" reviews section — awaiting feedback from David or Tom
-- ~~**HIGH** — Env vars + deploy from new repo~~ **RESOLVED** (April 9)
-- ~~**MED** — Commercial services yes/no~~ **RESOLVED** — Tom confirmed no commercial services
+## ✅ Phase 1.5 Website Work — COMPLETE
 
-## 🔨 In Progress — Phase 1.5 Pre-Launch Punch List (April 20 client meeting)
+All development tasks from the April 20 client meeting are done:
 
-**Priority 1 — Immediate homepage + branding work (Week 1–2)**
-- [~] **P1.1** Strip all Pink Panther / Owens Corning branding — Roofle slideout widget disabled; in-chat bubble avatars still use old sporty giraffe B (needs swap to headset/tablet mascot)
-- [~] **P1.2** Custom giraffe tool visuals — chat mascot (headset + tablet + SC Roofing uniform, 98×175px WebP) + quote-tab peek-in giraffe (right-side, 216×289px WebP) both live; positions finalized: chat widget `left-4 md:left-[140px] bottom-[20px]`, quote tab `right-0 top-1/2`; sizing fix applied (inline style over `w-auto h-auto`)
-- [ ] **P1.3** Reorganize homepage above-the-fold (mobile-first) with 3 primary CTAs: Talk to a person now / Get instant online quote / Request callback
-- [ ] **P1.4** Rewrite CTA copy — kill generic "Free Estimate"; distinct copy for phone/text, instant quote, callback request
-- [ ] **P1.5** Apply all previously submitted minor edits in next deployment cycle
+- **P1.1** ✅ All old branding removed; v5 giraffe mascot in chat window + tab
+- **P1.2** ✅ Custom giraffe visuals live (chat mascot + quote-tab giraffe, v5)
+- **P1.3** ✅ 3-path CTA live — "Get Started — No Obligations" dropdown (Text / Callback / Instant Quote)
+- **P1.4** ✅ CTA copy rewritten; all 3 paths have distinct bilingual copy; consent-gated
+- **P1.5** ✅ Minor edits applied across all sessions
+- **P2.6–P2.9** ✅ `/roof-quote` is the dedicated instant quote page — educational content, 3 branded infographics, 6 wired Roofle CTAs, bilingual
+- **P3.13** ✅ Privacy Policy + Terms of Service live; opt-in on all CTAs
+- **P4.15** ✅ Full Spanish toggle live (5 pages, Header, Footer, GetStartedDropdown)
 
-**Priority 2 — Instant Quote landing page (Week 3)**
-- [ ] **P2.6** Build dedicated `/instant-quote` landing page (standalone destination for the Roofle tool)
-- [ ] **P2.7** Educational content — what the tool IS and is NOT, how to use it, factors affecting pricing; structured for AEO snippet wins
-- [ ] **P2.8** Supporting visuals — pricing-variability diagrams + estimator giraffe from P1.2
-- [ ] **P2.9** Integrate Roofle embed on the landing page with pre-entry context above the address input
+## 🚫 Remaining — Blocked on Client / External
 
-**Priority 3 — Integrations + compliance (Week 2–4)**
-- [ ] **P3.10** Finish lead routing widget integration (not urgent — site not live, so no leads being dropped)
-- [ ] **P3.11** Configure Zuper CRM intake — source tagging, handoff spec
-- [ ] **P3.12** Confirm "Text My Roofer" SMS workflow — Zuper native vs. external provider
-- [ ] **P3.13** SMS compliance — Privacy Policy page, Terms & Conditions page, opt-in language on all CTAs, 10DLC carrier registration (triggered if P3.12 green-lights SMS; 10DLC lead time is 1–3 weeks)
-- [ ] **P3.14** Document tech-stack ownership — confirm Next.js 16 + React 19 + Vercel + Roofle + Zuper stays through launch; define dev vs. marketing/SEO team responsibilities
+See `docs/operations/phase-1.5-remaining.md` for the full task list.
 
-**Priority 4 — Deferred backlog (post-launch)**
-- [ ] P4.15 Spanish language toggle, Careers page, Referral / lead-gen landing page
+**Blocked on Tom (integrations):**
+- P3.10 — Lead routing widget (need to know which widget)
+- P3.11 — Zuper CRM intake (need credentials/webhook URL)
+- P3.12 — SMS provider decision (Zuper native vs. external)
+- P3.13 — 10DLC carrier registration (external, trigger after P3.12)
 
-## 🔨 In Progress — Domain + Launch QA (Week 4)
-- [ ] Run Lighthouse audit — target SEO score ≥ 95
-- [ ] Run Google Rich Results Test on key pages
-- [ ] Connect production domain in Vercel (restorationroofingsc.com)
-- [ ] Update sitemap.xml URLs to production domain
-- [ ] GA4 + Search Console setup — Jimmy has Tom's GoDaddy account, can handle DNS verification
-- [ ] Submit sitemap to Google Search Console
-- [ ] Final QA + go-live
+**Blocked on Tom (content/assets):**
+- Shingle tier pricing from Dave (ABC Supply portal hasn't responded)
+- TAMKO Storm Fighter specs
+- Product images for 3 shingle tiers
+- Real project photos + team headshots
+- Reviews section sign-off
+
+**Launch QA (ready to run when domain is connected):**
+- Lighthouse audit (target SEO ≥ 95)
+- Google Rich Results Test
+- Connect restorationroofingsc.com in Vercel
+- Update sitemap.xml to production domain
+- GA4 + Search Console setup
+- Submit sitemap
+- Final QA + go-live
 
 ## ⏳ Up Next — Phase 2 (Integrations continued)
 - [x] **Instant roof estimator** — Roofle RoofQuote PRO slideout integrated site-wide (April 16, 2026); loads in `<head>` per Roofle install spec
