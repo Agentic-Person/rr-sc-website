@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: April 24, 2026
+> Last updated: April 28, 2026
 
 ## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
@@ -8,6 +8,26 @@
 **Repo:** github.com/Agentic-Person/rr-sc-website
 **Client Repo:** github.com/SCROOF1/restorationroofing
 **Previous Repo (Vite SPA):** github.com/Agentic-Person/restorationroofing-sc (archive only)
+
+---
+
+## 🔄 Last Activity (April 28, 2026 — Session 10)
+
+**Sitewide: all 'Get Free Estimate' CTAs wired to Roofle instant quote widget**
+
+### What shipped
+- All CTA buttons/links labelled "Get Your Free Estimate", "Request Free Estimate", "Free Estimate in {city}", "Schedule Free Estimate", "Get Your Instant Estimate", "Schedule a free inspection", and "request an estimate online" now trigger the Roofle RoofQuote PRO slideout widget instead of navigating to /contact
+- New `FreeEstimateButton` client component exported from `shared.tsx` — lets server component pages (blog, services) use the Roofle hook without becoming client components themselves
+- `CTABanner` (used on About, Portfolio, Reviews, Financing, Location, and other pages) now fires Roofle widget from its primary CTA
+
+### Files changed (commit 597e4ce)
+- `src/components/shared.tsx` — new FreeEstimateButton export; CTABanner CTA → widget
+- `src/app/HomeContent.tsx` — hero primary CTA → widget
+- `src/app/blog/[slug]/page.tsx` — sidebar estimate CTA → widget
+- `src/app/services/[slug]/page.tsx` — sidebar estimate CTA → widget
+- `src/app/services/[slug]/service-detail-content.tsx` — inline inspection link → widget
+- `src/app/areas-we-serve/[slug]/location-detail-content.tsx` — city estimate CTA → widget
+- `src/app/materials-comparison/materials-compare-content.tsx` — 4 CTAs → widget
 
 ---
 
