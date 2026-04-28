@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { SERVICES, IMAGES, COMPANY, LOCATIONS, SITE_URL } from "@/lib/data";
-import { PageHero, SectionHeader, CTABanner, JsonLdScript } from "@/components/shared";
+import { PageHero, SectionHeader, CTABanner, JsonLdScript, FreeEstimateButton } from "@/components/shared";
 import { ServiceHubContent } from "./service-hub-content";
 import { ServiceDetailContent } from "./service-detail-content";
 import { getRelatedServices, getServiceAreaLinks } from "@/lib/linking";
@@ -315,12 +315,9 @@ export default async function ServicePage({
                     Schedule your free, no-obligation inspection today. We
                     respond same-day.
                   </p>
-                  <Link
-                    href="/contact"
-                    className="btn-amber w-full py-3 rounded-md text-sm text-center block mb-3"
-                  >
+                  <FreeEstimateButton className="btn-amber w-full py-3 rounded-md text-sm text-center block mb-3">
                     Request Free Estimate
-                  </Link>
+                  </FreeEstimateButton>
                   <a
                     href={`tel:${COMPANY.phoneRaw}`}
                     className="flex items-center justify-center gap-2 w-full py-3 rounded-md border border-white/30 text-sm font-semibold hover:bg-white/10 transition-colors"

@@ -12,6 +12,7 @@ import {
   History, TreePine, Waves, Sun, Wind, Droplets,
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useQuoteWidget } from "@/contexts/QuoteWidgetContext";
 
 // ── Spanish UI chrome ─────────────────────────────────────────────────────────
 const ES = {
@@ -126,6 +127,7 @@ export function LocationDetailContent({
 }) {
   const { lang } = useLanguage();
   const es = lang === "es";
+  const { openRoofleWidget } = useQuoteWidget();
 
   const breadcrumbs = [
     {
@@ -212,14 +214,14 @@ export function LocationDetailContent({
                   </dl>
                   {/* CTA */}
                   <div className="mt-5 space-y-2">
-                    <Link
-                      href="/contact"
+                    <button
+                      onClick={openRoofleWidget}
                       className="btn-amber w-full py-3 rounded-md text-sm text-center block"
                     >
                       {es
                         ? ES.freeEstimateBtn(location.name)
                         : `Free Estimate in ${location.name}`}
-                    </Link>
+                    </button>
                     <a
                       href={`tel:${COMPANY.phoneRaw}`}
                       className="flex items-center justify-center gap-2 w-full py-2.5 rounded-md border border-white/30 text-sm font-semibold hover:bg-white/10 transition-colors"

@@ -12,6 +12,7 @@ import {
   CloudLightning, ArrowDownToLine, PanelLeft, Star, CheckCircle2
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useQuoteWidget } from "@/contexts/QuoteWidgetContext";
 
 // ---------------------------------------------------------------------------
 // Translation type + strings
@@ -165,6 +166,7 @@ const processImages = [
 // ---------------------------------------------------------------------------
 
 function HeroSection({ s }: { s: HomeStrings }) {
+  const { openRoofleWidget } = useQuoteWidget();
   return (
     <section className="relative min-h-[85svh] md:min-h-[90svh] flex items-center overflow-hidden">
       <div className="absolute inset-0">
@@ -205,13 +207,13 @@ function HeroSection({ s }: { s: HomeStrings }) {
           <FadeIn delay={0.4} y={30} inView={false}
             className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
           >
-            <Link
-              href="/contact"
+            <button
+              onClick={openRoofleWidget}
               className="btn-amber px-8 py-4 rounded-md text-base inline-flex items-center gap-2"
             >
               {s.heroCtaEstimate}
               <ArrowRight className="w-5 h-5" />
-            </Link>
+            </button>
             <a
               href={`tel:${COMPANY.phoneRaw}`}
               className="inline-flex items-center gap-2 px-6 py-4 rounded-md border border-white/30 text-white text-base font-semibold hover:bg-white/10 transition-colors"

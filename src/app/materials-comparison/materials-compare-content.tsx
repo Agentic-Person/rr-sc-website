@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -13,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { ROOFING_MATERIALS, getRatingBgColor, formatPriceRange, getCategoryLabel, type RoofingMaterial } from '@/lib/materials';
 import { COMPANY } from '@/lib/data';
 import { JsonLdScript } from '@/components/shared';
+import { useQuoteWidget } from '@/contexts/QuoteWidgetContext';
 
 const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/112751785/QzW5An8GggbtcG7rNRpiT7/materials-comparison-hero-if6wAVxL5RX4ZgvkcwQt7z.webp';
 
@@ -260,6 +260,7 @@ function MaterialCard({ material, isSelected, onToggle }: {
 }
 
 function ComparisonTable({ materials }: { materials: RoofingMaterial[] }) {
+  const { openRoofleWidget } = useQuoteWidget();
   if (materials.length === 0) return null;
 
   return (
@@ -372,11 +373,9 @@ function ComparisonTable({ materials }: { materials: RoofingMaterial[] }) {
               Get a personalized estimate based on your roof's exact measurements — no obligation, no pressure.
             </p>
           </div>
-          <Link href="/contact">
-            <Button className="bg-[#ED5A00] hover:bg-[#C44B00] text-white px-6 py-3 text-base font-semibold rounded-lg whitespace-nowrap">
-              Get Your Instant Estimate <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </Link>
+          <Button onClick={openRoofleWidget} className="bg-[#ED5A00] hover:bg-[#C44B00] text-white px-6 py-3 text-base font-semibold rounded-lg whitespace-nowrap">
+            Get Your Instant Estimate <ArrowRight className="w-4 h-4 ml-2" />
+          </Button>
         </div>
       </div>
     </div>
@@ -384,6 +383,7 @@ function ComparisonTable({ materials }: { materials: RoofingMaterial[] }) {
 }
 
 export default function MaterialsCompareContent() {
+  const { openRoofleWidget } = useQuoteWidget();
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [sortField, setSortField] = useState<SortField>('popularity');
@@ -501,11 +501,9 @@ export default function MaterialsCompareContent() {
                   <Phone className="w-4 h-4 mr-2" /> Call for Free Estimate
                 </Button>
               </a>
-              <Link href="/contact">
-                <Button variant="outline" className="border-white text-white hover:bg-white/10 px-6 py-3 text-base font-semibold rounded-lg">
-                  Get Your Instant Estimate <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
+              <Button onClick={openRoofleWidget} variant="outline" className="border-white text-white hover:bg-white/10 px-6 py-3 text-base font-semibold rounded-lg">
+                Get Your Instant Estimate <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
             </motion.div>
           </div>
         </div>
@@ -662,7 +660,7 @@ export default function MaterialsCompareContent() {
                   <p>
                     We provide free, no-obligation in-home estimates with exact pricing for your specific roof. 
                     Call us at <a href={`tel:${COMPANY.phone}`} className="text-[#ED5A00] font-semibold hover:underline">{COMPANY.phone}</a> or 
-                    {' '}<Link href="/contact" className="text-[#ED5A00] font-semibold hover:underline">request an estimate online</Link>.
+                    {' '}<button onClick={openRoofleWidget} className="text-[#ED5A00] font-semibold hover:underline">request an estimate online</button>.
                   </p>
                 </div>
               </div>
@@ -687,11 +685,9 @@ export default function MaterialsCompareContent() {
                 <Phone className="w-5 h-5 mr-2" /> {COMPANY.phone}
               </Button>
             </a>
-            <Link href="/contact">
-              <Button variant="outline" className="border-white text-white hover:bg-white/10 px-8 py-4 text-lg font-semibold rounded-lg">
-                Schedule Free Estimate <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
+            <Button onClick={openRoofleWidget} variant="outline" className="border-white text-white hover:bg-white/10 px-8 py-4 text-lg font-semibold rounded-lg">
+              Schedule Free Estimate <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
           </div>
         </div>
       </section>

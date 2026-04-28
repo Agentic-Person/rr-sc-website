@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BLOG_POSTS, COMPANY, IMAGES } from "@/lib/data";
 import type { BlogPost as BlogPostType } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
-import { PageHero, CTABanner, JsonLdScript } from "@/components/shared";
+import { PageHero, CTABanner, JsonLdScript, FreeEstimateButton } from "@/components/shared";
 import { Calendar, ArrowLeft, ArrowRight, Phone, Tag } from "lucide-react";
 
 // --- Fetch all posts (with Supabase fallback to hardcoded) ---
@@ -276,12 +276,9 @@ export default async function BlogPostPage({
                     Our team is ready to help with any roofing question or
                     concern. Free estimates available.
                   </p>
-                  <Link
-                    href="/contact"
-                    className="btn-amber w-full py-3 rounded-md text-sm text-center block mb-3"
-                  >
+                  <FreeEstimateButton className="btn-amber w-full py-3 rounded-md text-sm text-center block mb-3">
                     Get a Free Estimate
-                  </Link>
+                  </FreeEstimateButton>
                   <a
                     href={`tel:${COMPANY.phoneRaw}`}
                     className="flex items-center justify-center gap-2 w-full py-3 rounded-md border border-white/30 text-sm font-semibold hover:bg-white/10 transition-colors"

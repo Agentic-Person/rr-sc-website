@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Service } from "@/lib/data";
 import { COMPANY } from "@/lib/data";
+import { useQuoteWidget } from "@/contexts/QuoteWidgetContext";
 import {
   CheckCircle2, AlertTriangle, Wrench, Package, ClipboardList, Calendar,
 } from "lucide-react";
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/accordion";
 
 export function ServiceDetailContent({ service }: { service: Service }) {
+  const { openRoofleWidget } = useQuoteWidget();
   return (
     <>
       {/* Long Description */}
@@ -158,12 +159,12 @@ export function ServiceDetailContent({ service }: { service: Service }) {
           <div className="mt-5 pt-4 border-t border-red-200">
             <p className="text-sm text-gray-700">
               Noticing any of these signs?{" "}
-              <Link
-                href="/contact"
+              <button
+                onClick={openRoofleWidget}
                 className="text-amber font-semibold hover:underline"
               >
                 Schedule a free inspection
-              </Link>{" "}
+              </button>{" "}
               or call us at{" "}
               <a
                 href={`tel:${COMPANY.phoneRaw}`}

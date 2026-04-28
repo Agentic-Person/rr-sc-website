@@ -5,6 +5,7 @@ import Image from "next/image";
 import { COMPANY, STATS, TRUST_BADGES } from "@/lib/data";
 import { Phone, Shield, Clock, Zap, DollarSign, Star, ChevronRight, ArrowRight, MapPin, Hammer, FileCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import { useQuoteWidget } from "@/contexts/QuoteWidgetContext";
 
 const iconMap: Record<string, React.ElementType> = {
   Shield, Clock, Zap, DollarSign, Phone, MapPin, Hammer, FileCheck,
@@ -95,6 +96,15 @@ export function TrustBadges() {
 }
 
 // ---- CTA Banner ----
+export function FreeEstimateButton({ className, children = "Get a Free Estimate" }: { className?: string; children?: React.ReactNode }) {
+  const { openRoofleWidget } = useQuoteWidget();
+  return (
+    <button onClick={openRoofleWidget} className={className}>
+      {children}
+    </button>
+  );
+}
+
 export function CTABanner({
   title = "Ready to Protect Your Home?",
   subtitle = "Get a free, no-obligation roof inspection and estimate from Charleston's most trusted roofing team.",
@@ -106,6 +116,7 @@ export function CTABanner({
 }) {
   const isNavy = variant === "navy";
   const isWhite = variant === "white";
+  const { openRoofleWidget } = useQuoteWidget();
   return (
     <section className={`${isWhite ? "bg-white" : isNavy ? "bg-navy" : "bg-amber"} relative overflow-hidden`}>
       {!isWhite && (
@@ -125,13 +136,13 @@ export function CTABanner({
             {subtitle}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/contact"
+            <button
+              onClick={openRoofleWidget}
               className="btn-amber px-8 py-3.5 rounded-md text-sm inline-flex items-center gap-2"
             >
               Get Your Free Estimate
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </button>
             <a
               href={`tel:${COMPANY.phoneRaw}`}
               className={`inline-flex items-center gap-2 px-6 py-3.5 rounded-md border text-sm font-semibold transition-colors ${
