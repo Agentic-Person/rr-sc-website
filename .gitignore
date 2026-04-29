@@ -40,8 +40,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# screenshots in public (use docs/ for README images)
+# screenshots and AI-generated source images (convert to WebP before committing)
 public/Screenshot*
+public/images/Screenshot*
+public/images/ChatGPT Image*
 
 # agent/editor scratch directories
 .claude/
