@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: April 30, 2026
+> Last updated: May 1, 2026
 
 ## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
@@ -8,6 +8,38 @@
 **Repo:** github.com/Agentic-Person/rr-sc-website
 **Client Repo:** github.com/SCROOF1/restorationroofing
 **Previous Repo (Vite SPA):** github.com/Agentic-Person/restorationroofing-sc (archive only)
+
+---
+
+## 🔄 Last Activity (May 1, 2026 — Session 12)
+
+**About page: Our Team section + family photo flanks for Our Values**
+
+### What shipped (commit f3e29c8)
+- New "Our Team" section on `/about`, placed between StatsBar and Our Values
+  - 4-up responsive card grid (1 col mobile / 2 col tablet / 4 col desktop) for Josh McElroy (Project Manager), Matt Vannort (Roofing Specialist), Chase Garrett (Project Specialist, Coast Guard veteran), and Devin "D" Ringle (Project Specialist)
+  - Cards reuse the existing Values-card visual language (white bg, rounded, amber hover border, card-halo) and add `aspect-[4/5]` portrait headshots with `object-cover object-top` so all four faces frame consistently regardless of source crop
+  - Each card has a navy/amber value-tag pill (Craftsmanship / Family / Integrity / Community) tying the team member to the Values pillar they embody
+  - Bilingual EN/ES copy added to `ABOUT_ES` for role, value tag, bio, and the section header
+- Restructured "Our Values" section into a 4-column flank layout
+  - Left col: Chase family photo (310×467 webp)
+  - Center 2 cols: existing 4 value cards in a 2×2 sub-grid (styling untouched — what the user said to preserve)
+  - Right col: Matt family photo, cropped from 941×1672 to 941×1418 so its aspect (0.6636) matches Chase's (0.6638) and both photos render at identical sizes side-by-side
+  - Mobile: cards first as `col-span-2`, then both photos side-by-side below
+- Section reorder on `/about`: Story → StatsBar → **Team → Values** → Insurance → Bilingual → Timeline → CTA (Team now precedes Values per client request)
+- Image optimization
+  - `MattFamily.png` 2.86 MB → `team-matt-family-v2.webp` 365 KB (88% reduction) at 941×1418
+  - `Screenshot 2026-05-01 132029.png` 298 KB → `team-family.webp` 37 KB (87% reduction) at native 310×467
+- Source bios extracted from `Head Shots- Bio's.docx` and rewritten in tighter card-length form (~2 sentences each, EN + ES)
+
+### Files changed
+- `src/app/about/AboutContent.tsx` — Team section JSX, Values-section flank restructure, team data + ES translations, localizedTeam mapping
+- `public/images/team/josh-mcelroy.jpeg`, `matt-vannort.jpeg`, `chase-garrett.png`, `devin-ringle.jpeg` — team headshots (extracted from source docx, plus a re-shot tan-bg replacement for Chase)
+- `public/images/team/team-family.webp`, `team-matt-family-v2.webp` — optimized family photos for the Values flank
+
+### Notes
+- Both flank images use explicit `width`/`height` attrs + `w-full h-auto` instead of `aspect-[…]` classes — Tailwind v4's JIT was inconsistently generating the arbitrary aspect-ratio utility for new values mid-session, leaving containers with zero height
+- The Matt webp filename is intentionally `-v2` to bust browser/Next image-optimizer cache after the re-crop; can be renamed back during a future cleanup
 
 ---
 
