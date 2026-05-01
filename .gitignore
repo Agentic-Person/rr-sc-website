@@ -45,6 +45,11 @@ public/Screenshot*
 public/images/Screenshot*
 public/images/ChatGPT Image*
 
+# logo source PNGs (kept locally — generate WebPs with scripts/convert-logos.mjs and commit those instead)
+public/images/RestorationRoofing_Logo_*.png
+public/images/JerryLogo.png
+public/images/MattFamily.png
+
 # agent/editor scratch directories
 .claude/
 .snips/
