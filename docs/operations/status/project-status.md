@@ -11,6 +11,34 @@
 
 ---
 
+## 🔄 Last Activity (May 1, 2026 — Session 14)
+
+**License number + descriptor refresh, GeoCoordinates fix, logo WebP set committed**
+
+### What shipped
+- **License number** (commit `e3dd36a`): `RBC 694` → `RBS 67027` site-wide (15 occurrences across 6 files)
+  - `src/lib/data.ts` — `COMPANY.license` (single source — feeds Header + Footer body via `{COMPANY.license}` and `{tr.license}`), FAQ storm-chaser answer, emergency-roof blog post body, TRUST_BADGES "Licensed & Insured" description
+  - `src/components/Footer.tsx` — bottom-bar copyright (was hardcoded)
+  - `src/app/roof-quote/roof-quote-content.tsx` — hero trust badges + promise-footer trust copy (EN + ES, 4 spots)
+  - `src/app/api/blog/generate/route.ts` — blog generation AI prompt
+  - `lib/knowledgebase/restoration-roofing-content.md` — chatbot knowledge base (4 spots: licensing intro, Licensing & Insurance section, FAQ answer, footer block)
+  - `scripts/seed-blog-posts.ts` — emergency-services blog seed
+- **License descriptor** (commit `ff25086`): `Residential Builders License` → `Residential Specialty Contractor License` (3 occurrences in chatbot knowledge base) — matches SC LLR's actual category for an RBS license (vs. RBC = Residential Builder Contractor)
+- **GeoCoordinates** (commit `d97ec25`): `32.8468, -79.8203` → `32.8009, -79.9048` to match the new Port City Landing office. Updated in homepage RoofingContractor schema, all 21 location-page schemas, site-wide `geo.position` + `ICBM` meta tags in `src/app/layout.tsx`, and the three SEO strategy docs. Completes the NAP refresh started in `eaae6a6` — no stale coords remain.
+- **Logo WebP set + conversion script** (commit `b1d36ca`): committed 12 responsive WebP variants (`v1`, `v2`, `v2-white` × 400/800/1500/full) plus `scripts/convert-logos.mjs` (sharp-based generator). `.gitignore` extended to exclude source PNGs (`RestorationRoofing_Logo_*.png`, `JerryLogo.png`, `MattFamily.png`) per the existing convention.
+  - **Note:** the new logo WebPs are NOT yet referenced anywhere in `src/` — staged in repo for upcoming logo placement work. Currently-active site logo is still `rr-sc-ridge-logo-v3.webp`.
+
+### Why
+Tom delivered the official SC license number (`RBS 67027`), the new office GPS coords, and the logo source PNGs in this session. NAP/Map Pack consistency requires every schema, footer, FAQ, and chatbot context to match — leaving any stale references would split the local-SEO signal. Descriptor was a follow-up after confirming with the client that RBS = Residential Specialty Contractor (not the prior "Residential Builders License" copy carried over from RBC days).
+
+### Files changed
+- License #: `src/lib/data.ts`, `src/components/Footer.tsx`, `src/app/roof-quote/roof-quote-content.tsx`, `src/app/api/blog/generate/route.ts`, `lib/knowledgebase/restoration-roofing-content.md`, `scripts/seed-blog-posts.ts`
+- License descriptor: `lib/knowledgebase/restoration-roofing-content.md`
+- GeoCoordinates: `src/app/page.tsx`, `src/app/areas-we-serve/[slug]/page.tsx`, `src/app/layout.tsx`, plus 3 SEO strategy docs
+- Assets: `public/images/restoration-roofing-logo-v{1,2,2-white}{,-400,-800,-1500}.webp` (12 files), `scripts/convert-logos.mjs`, `.gitignore`
+
+---
+
 ## 🔄 Last Activity (May 1, 2026 — Session 13)
 
 **Site-wide business info refresh: new office address + Google rating bump**
