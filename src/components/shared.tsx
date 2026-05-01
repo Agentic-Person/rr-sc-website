@@ -284,16 +284,22 @@ export function PageHero({
   body,
   image,
   breadcrumbs,
+  compact = false,
 }: {
   title: string;
   subtitle?: string;
   body?: string;
   image: string;
   breadcrumbs?: { label: string; href?: string }[];
-  compact?: boolean; // kept for backward compat, no longer used
+  /** ~20% shorter hero — pulls below-fold content up. */
+  compact?: boolean;
 }) {
   return (
-    <section className="relative overflow-hidden min-h-[45svh] md:min-h-[50svh]">
+    <section
+      className={`relative overflow-hidden ${
+        compact ? "min-h-[36svh] md:min-h-[40svh]" : "min-h-[45svh] md:min-h-[50svh]"
+      }`}
+    >
       <div className="absolute inset-0">
         <Image
           src={image}

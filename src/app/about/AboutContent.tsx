@@ -253,6 +253,7 @@ export default function AboutContent() {
         subtitle={lang === "es" ? ABOUT_ES.heroSubtitle : "Family-owned, community-focused, and committed to protecting Lowcountry homes with expert craftsmanship."}
         image={IMAGES.heroAbout}
         breadcrumbs={[{ label: lang === "es" ? ABOUT_ES.heroBreadcrumb : "About Us" }]}
+        compact
       />
 
       {/* Our Team */}
