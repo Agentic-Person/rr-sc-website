@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: April 28, 2026
+> Last updated: April 30, 2026
 
 ## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
@@ -8,6 +8,30 @@
 **Repo:** github.com/Agentic-Person/rr-sc-website
 **Client Repo:** github.com/SCROOF1/restorationroofing
 **Previous Repo (Vite SPA):** github.com/Agentic-Person/restorationroofing-sc (archive only)
+
+---
+
+## 🔄 Last Activity (April 30, 2026 — Session 11)
+
+**AI Chat Wizard: shingle pricing refresh + tier reassignment**
+
+### What shipped
+- Updated the instant-estimate engine in the AI Chat Wizard with current ABC supplier pricing
+- Swapped the Good/Better/Best tier order to match the actual price hierarchy:
+  - **Best:** TAMKO Storm Fighter (Hail Guard) — **$249/sq** (was Good)
+  - **Better:** Owens Corning TruDefinition Duration — **$116/sq** (was Best)
+  - **Good:** Owens Corning Oakridge — **$102/sq** (was Better)
+- Recalculated the worked example (2,200 sqft @ Custom complexity) with new totals
+- Rewrote tier-explanation guideline so the AI presents Storm Fighter as the premium storm-rated option, not a budget pick
+- Populated previously-zero `materialCost` and `installedCost` fields in the marketing site's materials data so the materials-comparison page and chat now quote consistent numbers
+- Updated the lead-in description phrases for each shingle to reflect their new tier positioning
+
+### Files changed (commit 57c77b0)
+- `src/app/api/chat/route.ts` — `MATERIAL_PRICING` swapped/repriced; example + guideline rewritten
+- `src/lib/materials.ts` — `estimateTier` swapped on three asphalt shingles; per-sq-ft pricing populated; descriptions updated
+
+### Open follow-up
+- Install labor tier names (Basic/Custom/Complex at $100/$110/$120 per sq) — client wants these renamed to Good/Better/Best. Awaiting clarification on whether to drop the install tier entirely (single all-in price per package) or rename in place.
 
 ---
 
