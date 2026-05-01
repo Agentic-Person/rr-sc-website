@@ -51,6 +51,32 @@ const ABOUT_ES = {
   valuesEyebrow: "Nuestros Valores",
   valuesTitle: "Lo Que Defendemos",
   valuesSubtitle: "Estas no son solo palabras en una pared — son los principios que guían cada decisión que tomamos y cada proyecto que completamos.",
+  // Team section
+  teamEyebrow: "Nuestro Equipo",
+  teamTitle: "Las Personas Detrás del Trabajo",
+  teamSubtitle: "Un equipo arraigado en Carolina del Sur con experiencia en gestión de construcción, formación militar y trabajo de campo — aportando décadas de experiencia combinada a cada techo del Lowcountry.",
+  team: [
+    {
+      role: "Gerente de Proyectos",
+      valueTag: "Artesanía",
+      bio: "Gerente de proyectos orientado a resultados con experiencia en gestión de construcción. Conocido por resolver problemas, mantener los estándares de seguridad y entregar techos duraderos a tiempo y dentro del presupuesto.",
+    },
+    {
+      role: "Especialista en Techado",
+      valueTag: "Familia",
+      bio: "Nativo de Carolina del Sur con 8 años de experiencia práctica en techos. Un dedicado hombre de familia cuyo cuidado por su propia familia da forma a cómo trata cada hogar en el que trabaja.",
+    },
+    {
+      role: "Especialista en Proyectos",
+      valueTag: "Integridad",
+      bio: "Seis años en la Guardia Costera de EE. UU. forjaron una base de disciplina y precisión. Aporta ese mismo nivel a cada proyecto: comunicación clara, ejecución profesional y satisfacción total del cliente.",
+    },
+    {
+      role: "Especialista en Proyectos",
+      valueTag: "Comunidad",
+      bio: "Casi cuatro años en techos combinando experiencia práctica de instalación con conocimiento de gestión de proyectos. Su estilo accesible mantiene la comunicación clara y sus reseñas de Google hablan por sí solas.",
+    },
+  ],
   // Insurance section
   insuranceEyebrow: "Reclamaciones de Seguros",
   insuranceH2: "Nos Encargamos de Su Reclamación",
@@ -120,6 +146,37 @@ const milestones = [
   { year: "2025", title: "Expanded Coverage", description: "Extended our service area to 21 communities across the Lowcountry and Midlands." },
 ];
 
+const team = [
+  {
+    name: "Josh McElroy",
+    role: "Project Manager",
+    valueTag: "Craftsmanship",
+    image: "/images/team/josh-mcelroy.jpeg",
+    bio: "Results-driven project manager with a construction management background. Known for problem-solving, safety standards, and delivering durable roofs on schedule and on budget.",
+  },
+  {
+    name: "Matt Vannort",
+    role: "Roofing Specialist",
+    valueTag: "Family",
+    image: "/images/team/matt-vannort.jpeg",
+    bio: "South Carolina native with 8 years of hands-on roofing experience. A dedicated family man whose care for his own family shapes how he treats every home he works on.",
+  },
+  {
+    name: "Chase Garrett",
+    role: "Project Specialist",
+    valueTag: "Integrity",
+    image: "/images/team/chase-garrett.png",
+    bio: "Six years in the U.S. Coast Guard built a foundation of discipline and precision. Brings that same standard to every project — clear communication, professional execution, total customer satisfaction.",
+  },
+  {
+    name: "Devin \"D\" Ringle",
+    role: "Project Specialist",
+    valueTag: "Community",
+    image: "/images/team/devin-ringle.jpeg",
+    bio: "Nearly four years in roofing combining hands-on installation expertise with project management know-how. His easy-going style keeps communication clear and his Google reviews speak for themselves.",
+  },
+];
+
 const insuranceBulletsEN = [
   "Complete damage documentation with photos and reports",
   "Direct communication with your insurance adjuster",
@@ -151,6 +208,13 @@ export default function AboutContent() {
     ...m,
     title: lang === "es" ? ABOUT_ES.milestones[i].title : m.title,
     description: lang === "es" ? ABOUT_ES.milestones[i].description : m.description,
+  }));
+
+  const localizedTeam = team.map((t, i) => ({
+    ...t,
+    role: lang === "es" ? ABOUT_ES.team[i].role : t.role,
+    valueTag: lang === "es" ? ABOUT_ES.team[i].valueTag : t.valueTag,
+    bio: lang === "es" ? ABOUT_ES.team[i].bio : t.bio,
   }));
 
   const localizedInsuranceBullets = lang === "es" ? ABOUT_ES.insuranceBullets : insuranceBulletsEN;
@@ -242,6 +306,53 @@ export default function AboutContent() {
 
       <StatsBar />
 
+      {/* Our Team */}
+      <section className="section-padding bg-white">
+        <div className="container">
+          <SectionHeader
+            eyebrow={lang === "es" ? ABOUT_ES.teamEyebrow : "Our Team"}
+            title={lang === "es" ? ABOUT_ES.teamTitle : "The People Behind the Work"}
+            subtitle={lang === "es" ? ABOUT_ES.teamSubtitle : "A South Carolina–rooted crew with construction management, military, and field-built expertise — bringing decades of combined experience to every Lowcountry roof."}
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {localizedTeam.map((member, i) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-white rounded-lg border border-border/50 overflow-hidden hover:shadow-lg hover:border-amber/30 card-halo transition-all duration-300 group flex flex-col"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden bg-linen">
+                  <Image
+                    src={member.image}
+                    alt={`${member.name}, ${member.role} at Restoration Roofing`}
+                    fill
+                    sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute top-3 left-3 bg-navy/90 backdrop-blur-sm text-amber text-[10px] font-semibold tracking-[0.15em] uppercase px-2.5 py-1 rounded">
+                    {member.valueTag}
+                  </div>
+                </div>
+                <div className="p-5 flex flex-col flex-1">
+                  <span className="text-[11px] font-semibold tracking-[0.18em] uppercase text-amber mb-1 block">
+                    {member.role}
+                  </span>
+                  <h3 className="font-display text-lg font-bold text-navy mb-2 leading-tight">
+                    {member.name}
+                  </h3>
+                  <div className="w-8 h-px bg-amber/60 mb-3" />
+                  <p className="text-sm text-gray-600 leading-relaxed">{member.bio}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Our Values */}
       <section className="section-padding bg-linen">
         <div className="container">
@@ -251,21 +362,64 @@ export default function AboutContent() {
             subtitle={lang === "es" ? ABOUT_ES.valuesSubtitle : "These aren’t just words on a wall — they’re the principles that guide every decision we make and every project we complete."}
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {localizedValues.map((value, i) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-white rounded-lg border border-border/50 p-6 hover:shadow-lg hover:border-amber/30 card-halo transition-all duration-300"
-              >
-                <value.icon className="w-8 h-8 text-amber mb-4" />
-                <h3 className="font-display text-lg font-semibold text-navy mb-2">{value.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{value.description}</p>
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-6xl mx-auto lg:items-center">
+            {/* Left flank — Chase family photo */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="order-2 lg:order-1 lg:col-span-1"
+            >
+              <div className="relative w-full max-w-sm mx-auto rounded-lg overflow-hidden shadow-xl ring-1 ring-navy/5">
+                <Image
+                  src="/images/team/team-family.webp"
+                  alt="A Restoration Roofing team member with his wife and two boys"
+                  width={310}
+                  height={467}
+                  sizes="(min-width: 1024px) 25vw, 45vw"
+                  className="w-full h-auto block"
+                />
+              </div>
+            </motion.div>
+
+            {/* Center — value cards */}
+            <div className="order-1 lg:order-2 col-span-2 lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {localizedValues.map((value, i) => (
+                <motion.div
+                  key={value.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-white rounded-lg border border-border/50 p-6 hover:shadow-lg hover:border-amber/30 card-halo transition-all duration-300"
+                >
+                  <value.icon className="w-8 h-8 text-amber mb-4" />
+                  <h3 className="font-display text-lg font-semibold text-navy mb-2">{value.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{value.description}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Right flank — Matt family photo */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="order-3 lg:order-3 lg:col-span-1"
+            >
+              <div className="relative w-full max-w-sm mx-auto rounded-lg overflow-hidden shadow-xl ring-1 ring-navy/5">
+                <Image
+                  src="/images/team/team-matt-family-v2.webp"
+                  alt="Matt Vannort with his two sons in the park"
+                  width={941}
+                  height={1418}
+                  sizes="(min-width: 1024px) 25vw, 45vw"
+                  className="w-full h-auto block"
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
