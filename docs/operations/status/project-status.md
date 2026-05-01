@@ -11,6 +11,36 @@
 
 ---
 
+## 🔄 Last Activity (May 1, 2026 — Session 13)
+
+**Site-wide business info refresh: new office address + Google rating bump**
+
+### What shipped (commit eaae6a6)
+- **Address change:** `1261 Pearwood Ct` → `75 Port City Landing, Suite 110, Mount Pleasant, SC 29464`
+  - `COMPANY.address` in `src/lib/data.ts` (single source of truth — propagates to Footer + Contact display)
+  - `streetAddress` in all 5 RoofingContractor JSON-LD schemas: `src/app/page.tsx`, `contact/ContactContent.tsx`, `services/[slug]/page.tsx`, `areas-we-serve/[slug]/page.tsx`, `roof-quote/page.tsx`
+  - Hardcoded blocks on `privacy/page.tsx` and `terms/page.tsx`
+  - Chatbot knowledge base (`lib/knowledgebase/restoration-roofing-content.md`) — 5 instances (about, contact, Mount Pleasant section, FAQ, footer)
+  - Strategic / SEO reference docs — AEO-GEO-AIO Strategy, Tech Stack Optimization, Strategic Recommendations
+- **Google rating bump:** `4.9★ / 47 reviews` → `5★ / 186 reviews`
+  - `COMPANY.googleRating`, `COMPANY.googleReviewCount`, and `STATS` Google rating value in `src/lib/data.ts`
+  - `/reviews` page metadata title + description + OG ("4.9-Star" → "5-Star", "100+" → "186+")
+  - Hero rating pill in `HomeContent.tsx` now renders 5 stroked-and-filled amber stars with yellow-200 stroke and a 2px amber drop-shadow glow (replaces the prior single-star icon)
+
+### Why
+NAP (Name/Address/Phone) consistency is a primary local-SEO ranking factor — every schema, footer, and contact surface has to match. Tom relayed the new address (Port City Landing) and the updated Google rating numbers; both needed to ship in lockstep so structured-data validators and AI tools see one consistent story. The 5-star visual treatment in the hero reinforces the rating at a glance rather than burying it as a prefix number.
+
+### Files changed
+- `src/lib/data.ts` — COMPANY address + rating, STATS rating
+- `src/app/page.tsx`, `contact/ContactContent.tsx`, `services/[slug]/page.tsx`, `areas-we-serve/[slug]/page.tsx`, `roof-quote/page.tsx` — JSON-LD streetAddress
+- `src/app/privacy/page.tsx`, `terms/page.tsx` — visible address block
+- `src/app/reviews/page.tsx` — rating-related metadata
+- `src/app/HomeContent.tsx` — hero star row (1 star → 5 stars with halo)
+- `lib/knowledgebase/restoration-roofing-content.md` — 5 address mentions
+- `docs/AEO-GEO-AIO-STRATEGY-restoration-roofing-SC.md`, `RR-SC-Website-Tech Stack Optimization.md`, `Strategic_Recommendations_Restoration_Roofing_SC (1).md` — address callouts
+
+---
+
 ## 🔄 Last Activity (May 1, 2026 — Session 12)
 
 **About page: Our Team section + family photo flanks for Our Values**
