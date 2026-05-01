@@ -67,31 +67,31 @@ async function chatCompletion(messages: { role: string; content: string }[]): Pr
 // --- INSTANT ESTIMATE PRICING ENGINE ---
 const MATERIAL_PRICING = {
   best: {
+    name: 'TAMKO Storm Fighter (Hail Guard)',
+    shortName: 'Storm Fighter',
+    tier: 'Best',
+    perSquare: 249,
+    windRating: '160 mph (system warranty)',
+    warranty: 'Limited Lifetime',
+    features: 'Hail Guard impact resistance, highest wind rating in our lineup',
+  },
+  better: {
     name: 'Owens Corning TruDefinition Duration',
     shortName: 'OC Duration',
-    tier: 'Best',
-    perSquare: 113,
+    tier: 'Better',
+    perSquare: 116,
     windRating: '130 mph',
     warranty: 'Lifetime Limited',
     features: 'SureNail Technology, Class 3 impact resistance, StreakGuard algae resistance',
   },
-  better: {
+  good: {
     name: 'Owens Corning Oakridge',
     shortName: 'OC Oakridge',
-    tier: 'Better',
-    perSquare: 107,
+    tier: 'Good',
+    perSquare: 102,
     windRating: '110 mph (4-nail) / 130 mph (6-nail)',
     warranty: 'Lifetime Limited',
     features: 'Double-layer nailing zone, StreakGuard algae resistance',
-  },
-  good: {
-    name: 'TAMKO Storm Fighter (Hail Guard)',
-    shortName: 'Storm Fighter',
-    tier: 'Good',
-    perSquare: 125,
-    windRating: '160 mph (system warranty)',
-    warranty: 'Limited Lifetime',
-    features: 'Hail Guard impact resistance, highest wind rating in our lineup',
   },
 };
 
@@ -141,15 +141,15 @@ ESTIMATE FLOW:
 
 EXAMPLE — 2,200 sq ft roof, Custom complexity:
 Squares: 2,200 / 100 = 22 squares
-Best (OC Duration):  22 x ($113 + $110) = 22 x $223 = $4,906
-Better (OC Oakridge): 22 x ($107 + $110) = 22 x $217 = $4,774
-Good (Storm Fighter): 22 x ($125 + $110) = 22 x $235 = $5,170
+Best (Storm Fighter):  22 x ($249 + $110) = 22 x $359 = $7,898
+Better (OC Duration):  22 x ($116 + $110) = 22 x $226 = $4,972
+Good (OC Oakridge):    22 x ($102 + $110) = 22 x $212 = $4,664
 
 IMPORTANT GUIDELINES:
 - Always show the math clearly so the homeowner can follow along.
 - Note that these are ballpark estimates — final pricing depends on on-site inspection.
 - Material pricing is based on current market rates and may vary.
-- The Storm Fighter (Good tier) has the highest wind rating at 160 mph despite being the "Good" tier — it's called "Good" because of its price point, not quality. Make sure homeowners understand all three are quality products.
+- The Storm Fighter (Best tier) carries the highest price because of its 160 mph wind system warranty and Hail Guard impact resistance — it's our top-tier storm-rated shingle, ideal for coastal South Carolina homes. All three options are quality products; the tier reflects price and protection level.
 - Always end with: "For an exact quote tailored to your home, give us a call at (843) 306-2939 or schedule a free roof inspection."
 --- END ESTIMATE SYSTEM ---`;
 }
