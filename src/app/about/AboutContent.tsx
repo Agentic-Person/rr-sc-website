@@ -245,67 +245,6 @@ export default function AboutContent() {
         breadcrumbs={[{ label: lang === "es" ? ABOUT_ES.heroBreadcrumb : "About Us" }]}
       />
 
-      {/* Our Story */}
-      <section className="section-padding bg-white">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-amber mb-3 block">
-                {lang === "es" ? ABOUT_ES.storyEyebrow : "Our Story"}
-              </span>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-navy mb-6 leading-tight">
-                {lang === "es" ? ABOUT_ES.storyH2 : "Built on Trust, Rooted in the Lowcountry"}
-              </h2>
-              <div className="space-y-4 text-gray-800 leading-relaxed">
-                <p>
-                  {lang === "es"
-                    ? ABOUT_ES.storyP1
-                    : "Restoration Roofing was founded with a simple mission: to provide Charleston-area homeowners with honest, high-quality roofing services they can trust. Based in Mount Pleasant, we understand the unique challenges that coastal South Carolina weather presents to your home’s most important protective system."}
-                </p>
-                <p>
-                  {lang === "es"
-                    ? ABOUT_ES.storyP2
-                    : "What sets us apart is our approach to the complete roofing experience. We don’t just install and repair roofs — we guide homeowners through every step of the process, including the often-overwhelming insurance claims process. Our team has managed hundreds of insurance claims, and we know how to document damage thoroughly and advocate for fair settlements."}
-                </p>
-                <p>
-                  {lang === "es"
-                    ? ABOUT_ES.storyP3
-                    : "As a family-owned business, our reputation is everything. Every project we complete is a reflection of our values — integrity, craftsmanship, and genuine care for our customers and community. We’re not a national chain or a storm-chasing outfit. We’re your neighbors, and we take that responsibility seriously."}
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <Image
-                src={IMAGES.heroResidential}
-                alt="Charleston neighborhood with beautiful homes"
-                width={1200}
-                height={800}
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="rounded-lg shadow-xl w-full h-auto"
-              />
-              <div className="absolute -bottom-6 -left-6 bg-navy text-white rounded-lg p-5 shadow-xl max-w-xs hidden md:block">
-                <div className="font-display text-2xl font-bold text-amber mb-1">{COMPANY.projectsCompleted}+</div>
-                <div className="text-sm text-white/80">
-                  {lang === "es" ? ABOUT_ES.projectsLabel : "Projects completed across the Lowcountry"}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <StatsBar />
-
       {/* Our Team */}
       <section className="section-padding bg-white">
         <div className="container">
@@ -423,6 +362,66 @@ export default function AboutContent() {
           </div>
         </div>
       </section>
+
+      {/* Our Story */}
+      <section className="section-padding bg-white">
+        <div className="container">
+          <SectionHeader
+            eyebrow={lang === "es" ? ABOUT_ES.storyEyebrow : "Our Story"}
+            title={lang === "es" ? ABOUT_ES.storyH2 : "Built on Trust, Rooted in the Lowcountry"}
+          />
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="space-y-4 text-gray-800 leading-relaxed">
+                <p>
+                  {lang === "es"
+                    ? ABOUT_ES.storyP1
+                    : "Restoration Roofing was founded with a simple mission: to provide Charleston-area homeowners with honest, high-quality roofing services they can trust. Based in Mount Pleasant, we understand the unique challenges that coastal South Carolina weather presents to your home’s most important protective system."}
+                </p>
+                <p>
+                  {lang === "es"
+                    ? ABOUT_ES.storyP2
+                    : "What sets us apart is our approach to the complete roofing experience. We don’t just install and repair roofs — we guide homeowners through every step of the process, including the often-overwhelming insurance claims process. Our team has managed hundreds of insurance claims, and we know how to document damage thoroughly and advocate for fair settlements."}
+                </p>
+                <p>
+                  {lang === "es"
+                    ? ABOUT_ES.storyP3
+                    : "As a family-owned business, our reputation is everything. Every project we complete is a reflection of our values — integrity, craftsmanship, and genuine care for our customers and community. We’re not a national chain or a storm-chasing outfit. We’re your neighbors, and we take that responsibility seriously."}
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <Image
+                src={IMAGES.heroResidential}
+                alt="Charleston neighborhood with beautiful homes"
+                width={1200}
+                height={800}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="rounded-lg shadow-xl w-full h-auto"
+              />
+              <div className="absolute -bottom-6 -left-6 bg-navy text-white rounded-lg p-5 shadow-xl max-w-xs hidden md:block">
+                <div className="font-display text-2xl font-bold text-amber mb-1">{COMPANY.projectsCompleted}+</div>
+                <div className="text-sm text-white/80">
+                  {lang === "es" ? ABOUT_ES.projectsLabel : "Projects completed across the Lowcountry"}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <StatsBar />
 
       {/* Insurance Expertise */}
       <section className="section-padding bg-navy text-white relative overflow-hidden">
