@@ -13,7 +13,7 @@ Restoration Roofing SC is a family-owned and locally operated roofing and gutter
 - **Phone:** (843) 306-2939
 - **Email:** info@restorationroofingsc.com
 - **Address:** 75 Port City Landing, Suite 110, Mount Pleasant, SC 29464
-- **License Number:** RBS 67027 (South Carolina Residential Builders License)
+- **License Number:** RBS 67027 (South Carolina Residential Specialty Contractor License)
 - **Google Rating:** 4.9 stars (47 reviews)
 - **Founded:** 2020
 
@@ -23,7 +23,7 @@ Restoration Roofing SC was founded on the principle that every homeowner in the 
 
 ### Licensing and Insurance
 
-Restoration Roofing SC holds South Carolina Residential Builders License RBS 67027, which authorizes the company to perform residential roofing, gutter installation, and related exterior construction work throughout the state of South Carolina. The company carries full general liability insurance and workers' compensation coverage, protecting homeowners from any liability during the course of a roofing project. Customers can request proof of insurance and licensing at any time before work begins. All work performed by Restoration Roofing SC meets or exceeds South Carolina building codes, including the state's wind resistance requirements for coastal construction.
+Restoration Roofing SC holds South Carolina Residential Specialty Contractor License RBS 67027, which authorizes the company to perform residential roofing, gutter installation, and related exterior construction work throughout the state of South Carolina. The company carries full general liability insurance and workers' compensation coverage, protecting homeowners from any liability during the course of a roofing project. Customers can request proof of insurance and licensing at any time before work begins. All work performed by Restoration Roofing SC meets or exceeds South Carolina building codes, including the state's wind resistance requirements for coastal construction.
 
 ### Why Choose Restoration Roofing SC
 
@@ -539,7 +539,7 @@ A: You can reach Restoration Roofing SC by calling (843) 306-2939, emailing info
 A: Restoration Roofing SC serves the entire Charleston metropolitan area and surrounding Lowcountry communities, including Charleston, Mount Pleasant, Summerville, North Charleston, Goose Creek, James Island, Johns Island, Folly Beach, Isle of Palms, Sullivans Island, Daniel Island, and all surrounding areas.
 
 **Q: Is Restoration Roofing SC licensed and insured?**
-A: Yes. Restoration Roofing SC holds South Carolina Residential Builders License RBS 67027 and carries full general liability insurance and workers' compensation coverage. Proof of licensing and insurance is available upon request.
+A: Yes. Restoration Roofing SC holds South Carolina Residential Specialty Contractor License RBS 67027 and carries full general liability insurance and workers' compensation coverage. Proof of licensing and insurance is available upon request.
 
 **Q: How long has Restoration Roofing SC been in business?**
 A: Restoration Roofing SC was founded in 2020 and has been serving the Charleston area for over five years.
