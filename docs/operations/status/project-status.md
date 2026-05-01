@@ -11,6 +11,23 @@
 
 ---
 
+## 🔄 Last Activity (May 1, 2026 — Session 15)
+
+**About page reorder + Our Story header refresh**
+
+### What shipped (commit `6b38e48`)
+- Reordered the About page so visitors meet the people first. New flow: `PageHero → Our Team → Our Values → Our Story → StatsBar → Insurance → Bilingual → Timeline → CTA`. Previous flow led with Story, then StatsBar, then Team, then Values.
+- Replaced Our Story's small inline `<span>` eyebrow + bare `<h2>` with the shared `SectionHeader` component (animated eyebrow, large display title, amber + ridge-logo divider) — same treatment Our Team and Our Values already use, so the page now has a consistent header rhythm.
+- Story body unchanged: 2-column grid with EN/ES paragraphs on the left and the Charleston neighborhood photo + "500+ projects completed" navy badge on the right.
+
+### Why
+Tom asked to put the team up top right under the hero, then values, then the story — and called out that Our Story's title was undersized vs. the rest of the page. Hoisting the SectionHeader above the existing 2-col grid fixed both without touching copy.
+
+### Files changed
+- `src/app/about/AboutContent.tsx` (single-file refactor: 60 insertions / 61 deletions, no copy or string changes)
+
+---
+
 ## 🔄 Last Activity (May 1, 2026 — Session 14)
 
 **License number + descriptor refresh, GeoCoordinates fix, logo WebP set committed**
