@@ -101,6 +101,8 @@ const INSTALL_PRICING = {
   complex: { label: 'Complex', perSquare: 120, description: 'High complexity — steep pitch, many gables/valleys/dormers, difficult access' },
 };
 
+const WASTE_FACTOR = 0.15; // 15% material waste — covers cuts, valleys, ridge caps, hip starters, accidental damage
+
 function buildEstimatePricingContext(): string {
   const m = MATERIAL_PRICING;
   const i = INSTALL_PRICING;
@@ -112,7 +114,13 @@ You can calculate instant roof estimates. When a homeowner provides their roof s
 
 IMPORTANT: Roofing is priced in "squares" — 1 square = 100 sq ft. Convert the homeowner's sq ft to squares first (divide by 100).
 
-Formula: (roof_sqft / 100) x (material_per_square + install_per_square) = estimated total
+Every estimate has THREE line items plus a total:
+  1. Material  = squares × material_per_square
+  2. Install   = squares × install_per_square
+  3. Waste     = Material × ${WASTE_FACTOR * 100}%   (covers cuts, valleys, ridge caps, accidental damage — applied to material only, NEVER to labor)
+  Total      = Material + Install + Waste
+
+Equivalent shorthand: squares × ((material × ${1 + WASTE_FACTOR}) + install)
 
 SHINGLE TIERS (material cost per square):
 Best: ${m.best.name} — $${m.best.perSquare}/sq
@@ -134,19 +142,35 @@ ${i.complex.label}: $${i.complex.perSquare}/sq — ${i.complex.description}
 
 ESTIMATE FLOW:
 1. Ask the homeowner for their roof square footage. If they don't know, tell them the average Charleston-area home is 1,500-2,500 sq ft of roof area.
-2. Ask about their roof complexity (basic, custom, or complex). Give them the descriptions to help them choose. If unsure, default to Custom.
-3. Calculate estimates for all three shingle tiers using their sq ft and complexity level.
-4. Present a neat comparison showing all three options with the total cost.
+2. Ask about their roof complexity (basic, custom, or complex). Give them the descriptions to help them choose. If they don't know or don't mention complexity, default to Custom ($${i.custom.perSquare}/sq) and note that you've assumed Custom — they can clarify if their roof is simpler or more complex.
+3. Calculate estimates for all three shingle tiers using their sq ft and the chosen install tier.
+4. Present a neat comparison showing all three options with the four-line breakdown (Material / Install / Waste / Total).
 5. After presenting, encourage them to schedule a free inspection for an exact quote: (843) 306-2939.
 
-EXAMPLE — 2,200 sq ft roof, Custom complexity:
-Squares: 2,200 / 100 = 22 squares
-Best (Storm Fighter):  22 x ($249 + $110) = 22 x $359 = $7,898
-Better (OC Duration):  22 x ($116 + $110) = 22 x $226 = $4,972
-Good (OC Oakridge):    22 x ($102 + $110) = 22 x $212 = $4,664
+EXAMPLE — 2,000 sq ft roof, Custom complexity (default):
+Squares: 2,000 / 100 = 20 squares
+
+Best (Storm Fighter):
+  Material:  20 × $249 = $4,980
+  Install:   20 × $110 = $2,200
+  Waste:     $4,980 × 0.15 = $747
+  Total:     $7,927
+
+Better (OC Duration):
+  Material:  20 × $116 = $2,320
+  Install:   20 × $110 = $2,200
+  Waste:     $2,320 × 0.15 = $348
+  Total:     $4,868
+
+Good (OC Oakridge):
+  Material:  20 × $102 = $2,040
+  Install:   20 × $110 = $2,200
+  Waste:     $2,040 × 0.15 = $306
+  Total:     $4,546
 
 IMPORTANT GUIDELINES:
-- Always show the math clearly so the homeowner can follow along.
+- ALWAYS show the four-line breakdown (Material / Install / Waste / Total) for each tier — never just the total.
+- Apply the 15% waste factor to MATERIAL ONLY. Do NOT apply waste to install/labor.
 - Note that these are ballpark estimates — final pricing depends on on-site inspection.
 - Material pricing is based on current market rates and may vary.
 - The Storm Fighter (Best tier) carries the highest price because of its 160 mph wind system warranty and Hail Guard impact resistance — it's our top-tier storm-rated shingle, ideal for coastal South Carolina homes. All three options are quality products; the tier reflects price and protection level.

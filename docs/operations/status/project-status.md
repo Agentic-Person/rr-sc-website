@@ -13,25 +13,37 @@
 
 ## 🔄 Last Activity (April 30, 2026 — Session 11)
 
-**AI Chat Wizard: shingle pricing refresh + tier reassignment**
+**AI Chat Wizard: shingle pricing refresh, tier reassignment, and 15% waste factor**
 
-### What shipped
+### What shipped (part 1 — pricing & tier reassignment, commit 57c77b0)
 - Updated the instant-estimate engine in the AI Chat Wizard with current ABC supplier pricing
 - Swapped the Good/Better/Best tier order to match the actual price hierarchy:
-  - **Best:** TAMKO Storm Fighter (Hail Guard) — **$249/sq** (was Good)
-  - **Better:** Owens Corning TruDefinition Duration — **$116/sq** (was Best)
-  - **Good:** Owens Corning Oakridge — **$102/sq** (was Better)
-- Recalculated the worked example (2,200 sqft @ Custom complexity) with new totals
+  - **Best:** TAMKO Storm Fighter (Hail Guard) — **$249/sq material** (was Good)
+  - **Better:** Owens Corning TruDefinition Duration — **$116/sq material** (was Best)
+  - **Good:** Owens Corning Oakridge — **$102/sq material** (was Better)
 - Rewrote tier-explanation guideline so the AI presents Storm Fighter as the premium storm-rated option, not a budget pick
 - Populated previously-zero `materialCost` and `installedCost` fields in the marketing site's materials data so the materials-comparison page and chat now quote consistent numbers
 - Updated the lead-in description phrases for each shingle to reflect their new tier positioning
 
-### Files changed (commit 57c77b0)
-- `src/app/api/chat/route.ts` — `MATERIAL_PRICING` swapped/repriced; example + guideline rewritten
-- `src/lib/materials.ts` — `estimateTier` swapped on three asphalt shingles; per-sq-ft pricing populated; descriptions updated
+### What shipped (part 2 — 15% material waste factor)
+- Added a `WASTE_FACTOR` constant (0.15) to the estimate engine
+- Estimates now show a four-line breakdown for every tier: **Material / Install / Waste / Total**
+- Waste is applied to material only, NEVER to install labor (industry-standard practice — labor is bid for actual roof area, not over-ordered material)
+- Replaced the worked example with a 2,000 sqft / Custom-complexity walkthrough:
+  - Best (Storm Fighter): Material $4,980 + Install $2,200 + Waste $747 = **$7,927**
+  - Better (OC Duration): Material $2,320 + Install $2,200 + Waste $348 = **$4,868**
+  - Good (OC Oakridge): Material $2,040 + Install $2,200 + Waste $306 = **$4,546**
+- Updated the AI's instructions: when a homeowner doesn't know or doesn't mention roof complexity, default to **Custom** ($110/sq labor) and tell them you've assumed Custom so they can correct if needed
+- Added explicit guideline that the AI must always show the four-line breakdown — never just the total
 
-### Open follow-up
-- Install labor tier names (Basic/Custom/Complex at $100/$110/$120 per sq) — client wants these renamed to Good/Better/Best. Awaiting clarification on whether to drop the install tier entirely (single all-in price per package) or rename in place.
+### Install labor tiers (unchanged — kept the descriptive complexity names)
+- Basic: $100/sq — simple layout, walkable pitch
+- Custom: $110/sq — moderate complexity (the default if homeowner doesn't specify)
+- Complex: $120/sq — steep pitch, many gables/valleys/dormers
+
+### Files changed
+- `src/app/api/chat/route.ts` — `MATERIAL_PRICING` swapped/repriced; `WASTE_FACTOR` added; estimate flow + worked example rewritten with four-line breakdown; default-to-Custom guidance hardened
+- `src/lib/materials.ts` — `estimateTier` swapped on three asphalt shingles; per-sq-ft pricing populated; descriptions updated
 
 ---
 
