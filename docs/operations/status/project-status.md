@@ -11,6 +11,36 @@
 
 ---
 
+## 🔄 Last Activity (May 1, 2026 — Session 16)
+
+**About page visual polish — sheen on cards, dark Values panel, editorial accents**
+
+### What shipped (commit `2e6e628`)
+- **New utilities in `globals.css`:**
+  - `.card-sheen` — amber-iridescent overlay with a radial highlight that follows the cursor (via `--mx`/`--my` CSS variables) plus a diagonal sweep on hover. `screen` blend-mode keeps it bronze, not neon.
+  - `.bg-team-bloom` — warm-white field with a soft amber sunrise + sage corner glow.
+  - `.bg-blueprint-grid` — flat medium-gray (`#4a4a4a`) panel for the Values section.
+  - `.editorial-dropcap` — Playfair amber initial via `::first-letter`.
+  - `.ridge-rule` — decorative amber-fade horizontal rule (kept for future use).
+- **Team section** (`bg-team-bloom`): each card got the sheen, a framer `whileHover` lift (-6px), an italic Playfair `Nº 01–04` stamp in the top-left of the photo, and an editorial caption strip at the bottom of the photo (amber rule + tracked-out value tag over a navy gradient). The amber underline beneath each name now grows from `w-8` to `w-20` on hover.
+- **Values section** (`bg-blueprint-grid`): dark medium-gray panel, `light` SectionHeader (white title, `white/70` subtitle). All six elements in the row — both family flank photos plus the four value cards — share a 1px black border so the row reads as a unified set. Cards have the sheen + an amber halo ring around the icon that scales 1.1× and grows a 6px outer amber glow on hover.
+- **Our Story:** editorial Playfair amber dropcap on the opening paragraph + an amber drafting frame in the upper-left of the photo and a soft navy counter-frame in the lower-right (architectural drafting feel).
+- Inline `trackSheen` helper in `AboutContent.tsx` updates `--mx`/`--my` on `onMouseMove` so the sheen radial follows the cursor on Team cards, Values cards, and both family-flank photos.
+
+### Why
+Cards on the About page felt flat — generic white-on-white with only a faint shadow on hover. User asked for a "holographic" feel and more design density without changing layout. Settled on an amber-iridescent sheen (in-brand bronze, not rainbow chrome) and a darker Values panel so the white cards pop. Iterated on the Values background a few times — initial blueprint-grid pattern muddied the white cards, so the final treatment is a flat `#4a4a4a`. Section order and copy unchanged; this is purely a surface-quality pass.
+
+### Technical Details
+- All hover transforms run through framer-motion `whileHover` so CSS pseudo-elements never fight the JS-driven entry transforms (avoids the transform-jitter footgun).
+- Decorative pseudo-elements use `pointer-events: none`; decorative DOM elements are `aria-hidden="true"`.
+- Existing `prefers-reduced-motion` reset in `globals.css` (lines 30-43) auto-disables the sheen transitions for users who request it.
+
+### Files changed
+- `src/app/globals.css` — five new utility classes (+88 lines)
+- `src/app/about/AboutContent.tsx` — Team / Values / Story upgrades + `trackSheen` helper
+
+---
+
 ## 🔄 Last Activity (May 1, 2026 — Session 15)
 
 **About page reorder + Our Story header refresh**
