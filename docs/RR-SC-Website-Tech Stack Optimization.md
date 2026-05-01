@@ -149,8 +149,8 @@ Geographic / Local SEO. Winning Google Maps, the local 3-pack, and "near me" que
 - **Site-wide geo meta tags** in root layout (`src/app/layout.tsx:39-44`):
   - `geo.region = US-SC`
   - `geo.placename = Mount Pleasant`
-  - `geo.position = 32.8468;-79.8203`
-  - `ICBM = 32.8468, -79.8203`
+  - `geo.position = 32.8009;-79.9048`
+  - `ICBM = 32.8009, -79.9048`
 - **21 dedicated location pages**, each with:
   - Unique server-rendered metadata
   - Full `LocalBusiness` / `RoofingContractor` JSON-LD including `GeoCoordinates`, `areaServed`, `openingHoursSpecification` (24/7), `priceRange`, physical address, and `OfferCatalog`

@@ -72,8 +72,8 @@ export default async function LocationDetailPage({
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 32.8468,
-      longitude: -79.8203,
+      latitude: 32.8009,
+      longitude: -79.9048,
     },
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",

@@ -41,8 +41,8 @@ export const metadata: Metadata = {
   other: {
     "geo.region": "US-SC",
     "geo.placename": "Mount Pleasant",
-    "geo.position": "32.8468;-79.8203",
-    ICBM: "32.8468, -79.8203",
+    "geo.position": "32.8009;-79.9048",
+    ICBM: "32.8009, -79.9048",
   },
 };
 
