@@ -68,7 +68,7 @@ export default function ContactContent() {
     email: COMPANY.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "1261 Pearwood Ct",
+      streetAddress: "75 Port City Landing, Suite 110",
       addressLocality: "Mount Pleasant",
       addressRegion: "SC",
       postalCode: "29464",

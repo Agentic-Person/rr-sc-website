@@ -159,7 +159,7 @@ export default function TermsPage() {
             </p>
             <address className="not-italic text-slate-600 leading-relaxed mt-3 space-y-1">
               <div><strong className="text-navy">Restoration Roofing SC</strong></div>
-              <div>1261 Pearwood Ct, Mount Pleasant, SC 29464</div>
+              <div>75 Port City Landing, Suite 110, Mount Pleasant, SC 29464</div>
               <div>
                 Phone:{" "}
                 <a href="tel:8433062939" className="text-amber hover:underline">(843) 306-2939</a>

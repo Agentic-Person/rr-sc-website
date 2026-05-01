@@ -6,13 +6,13 @@
 
 ### About Restoration Roofing SC
 
-Restoration Roofing SC is a family-owned and locally operated roofing and gutter company serving the Charleston, South Carolina metropolitan area and the broader Lowcountry region. Founded in 2020, the company has quickly established itself as one of the most trusted roofing contractors in the area, earning a 4.9-star Google rating based on 47 verified customer reviews. Restoration Roofing SC is headquartered at 1261 Pearwood Ct, Mount Pleasant, SC 29464.
+Restoration Roofing SC is a family-owned and locally operated roofing and gutter company serving the Charleston, South Carolina metropolitan area and the broader Lowcountry region. Founded in 2020, the company has quickly established itself as one of the most trusted roofing contractors in the area, earning a 4.9-star Google rating based on 47 verified customer reviews. Restoration Roofing SC is headquartered at 75 Port City Landing, Suite 110, Mount Pleasant, SC 29464.
 
 ### Contact Information
 
 - **Phone:** (843) 306-2939
 - **Email:** info@restorationroofingsc.com
-- **Address:** 1261 Pearwood Ct, Mount Pleasant, SC 29464
+- **Address:** 75 Port City Landing, Suite 110, Mount Pleasant, SC 29464
 - **License Number:** RBC 694 (South Carolina Residential Builders License)
 - **Google Rating:** 4.9 stars (47 reviews)
 - **Founded:** 2020
@@ -533,7 +533,7 @@ In addition to financing, Restoration Roofing SC accepts payment by check, credi
 ### General Questions
 
 **Q: How do I contact Restoration Roofing SC?**
-A: You can reach Restoration Roofing SC by calling (843) 306-2939, emailing info@restorationroofingsc.com, or visiting the company's website. The office is located at 1261 Pearwood Ct, Mount Pleasant, SC 29464.
+A: You can reach Restoration Roofing SC by calling (843) 306-2939, emailing info@restorationroofingsc.com, or visiting the company's website. The office is located at 75 Port City Landing, Suite 110, Mount Pleasant, SC 29464.
 
 **Q: What areas does Restoration Roofing SC serve?**
 A: Restoration Roofing SC serves the entire Charleston metropolitan area and surrounding Lowcountry communities, including Charleston, Mount Pleasant, Summerville, North Charleston, Goose Creek, James Island, Johns Island, Folly Beach, Isle of Palms, Sullivans Island, Daniel Island, and all surrounding areas.
@@ -672,7 +672,7 @@ Charleston is the heart of the Lowcountry and the largest city in the service ar
 
 ### Mount Pleasant
 
-Mount Pleasant is home to Restoration Roofing SC's headquarters at 1261 Pearwood Ct. As one of the fastest-growing communities in South Carolina, Mount Pleasant has a mix of new construction and established neighborhoods. Roofing considerations in Mount Pleasant include wind exposure on properties near the Wando River, Cooper River, and Intracoastal Waterway, salt air effects on homes in the Old Village and waterfront areas, HOA requirements in many planned communities, and the popularity of newer roofing materials like standing seam metal on modern construction.
+Mount Pleasant is home to Restoration Roofing SC's headquarters at 75 Port City Landing, Suite 110. As one of the fastest-growing communities in South Carolina, Mount Pleasant has a mix of new construction and established neighborhoods. Roofing considerations in Mount Pleasant include wind exposure on properties near the Wando River, Cooper River, and Intracoastal Waterway, salt air effects on homes in the Old Village and waterfront areas, HOA requirements in many planned communities, and the popularity of newer roofing materials like standing seam metal on modern construction.
 
 ### Summerville
 
@@ -788,7 +788,7 @@ For a free roof inspection, estimate, emergency service, or answers to any roofi
 
 - **Phone:** (843) 306-2939
 - **Email:** info@restorationroofingsc.com
-- **Address:** 1261 Pearwood Ct, Mount Pleasant, SC 29464
+- **Address:** 75 Port City Landing, Suite 110, Mount Pleasant, SC 29464
 - **License:** RBC 694
 - **Google Rating:** 4.9 stars (47 reviews)
 - **Service Area:** Charleston, Mount Pleasant, Summerville, North Charleston, Goose Creek, James Island, Johns Island, Folly Beach, Isle of Palms, Sullivans Island, Daniel Island, and surrounding Lowcountry areas

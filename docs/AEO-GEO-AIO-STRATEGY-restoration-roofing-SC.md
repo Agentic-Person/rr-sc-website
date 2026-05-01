@@ -125,7 +125,7 @@ Which schema each page needs, and whether it's emitted today.
 ### Shipped
 - Site-wide geo meta tags (`src/app/layout.tsx:39-44`): `geo.region=US-SC`, `geo.placename=Mount Pleasant`, `geo.position=32.8468;-79.8203`, `ICBM`
 - 21 dedicated location pages each with unique `generateMetadata()` and full LocalBusiness JSON-LD (GeoCoordinates, `areaServed`, `openingHoursSpecification` 24/7, `priceRange`, address, OfferCatalog)
-- Physical address in all schemas: 1261 Pearwood Ct, Mount Pleasant, SC 29464
+- Physical address in all schemas: 75 Port City Landing, Suite 110, Mount Pleasant, SC 29464
 - Service pages declare all 21 cities in `areaServed`
 - Service ↔ location cross-linking (`getServiceAreaLinks`)
 

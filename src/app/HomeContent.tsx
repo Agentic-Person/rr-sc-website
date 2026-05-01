@@ -187,7 +187,11 @@ function HeroSection({ s }: { s: HomeStrings }) {
           <FadeIn delay={0.1} inView={false}
             className="inline-flex items-center gap-2 bg-amber/20 border border-amber/30 rounded-full px-4 py-1.5 mb-6"
           >
-            <Star className="w-3.5 h-3.5 text-amber fill-amber" />
+            <span className="flex items-center gap-0.5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} strokeWidth={2.5} className="w-4 h-4 fill-amber stroke-yellow-200 drop-shadow-[0_0_2px_rgba(250,204,21,0.6)]" />
+              ))}
+            </span>
             <span className="text-sm text-amber font-medium">{s.heroRating}</span>
           </FadeIn>
 

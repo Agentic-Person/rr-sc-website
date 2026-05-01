@@ -28,14 +28,14 @@ export const COMPANY = {
   fullName: "Restoration Roofing SC",
   phone: "(843) 306-2939",
   phoneRaw: "8433062939",
-  address: "1261 Pearwood Ct, Mount Pleasant, SC 29464",
+  address: "75 Port City Landing, Suite 110, Mount Pleasant, SC 29464",
   license: "RBC 694",
   email: "info@restorationroofingsc.com",
   tagline: "Charleston's Trusted Roofing Experts",
   description: "Family-owned roofing contractor serving Charleston, Mount Pleasant & the Lowcountry. 24/7 emergency service, free estimates, insurance claim experts.",
   founded: "2020",
-  googleRating: 4.9,
-  googleReviewCount: 47,
+  googleRating: 5,
+  googleReviewCount: 186,
   projectsCompleted: 500,
   yearsExperience: 10,
   socialLinks: {
@@ -1374,6 +1374,6 @@ export const TRUST_BADGES = [
 export const STATS = [
   { value: "500+", label: "Roofs Completed" },
   { value: "10+", label: "Years Experience" },
-  { value: "4.9★", label: "Google Rating" },
+  { value: "5★", label: "Google Rating" },
   { value: "24/7", label: "Emergency Service" },
 ];

@@ -154,7 +154,7 @@ Geographic / Local SEO. Winning Google Maps, the local 3-pack, and "near me" que
 - **21 dedicated location pages**, each with:
   - Unique server-rendered metadata
   - Full `LocalBusiness` / `RoofingContractor` JSON-LD including `GeoCoordinates`, `areaServed`, `openingHoursSpecification` (24/7), `priceRange`, physical address, and `OfferCatalog`
-- **Physical address in every schema:** 1261 Pearwood Ct, Mount Pleasant, SC 29464
+- **Physical address in every schema:** 75 Port City Landing, Suite 110, Mount Pleasant, SC 29464
 - **All 21 cities declared in `areaServed`** on every service page — reinforces service coverage for each municipality
 - **Service ↔ location cross-linking** via `getServiceAreaLinks()` — every service lists its coverage cities, every city lists available services
 - **NAP consistency on-site** (Name / Address / Phone) — (843) 306-2939 present in schema, footer, and contact page
