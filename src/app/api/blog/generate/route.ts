@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
 - Are between 800-1200 words
 - Include practical, actionable advice for homeowners
 - Mention the company phone number (843) 306-2939 where appropriate
-- Reference SC licensing (RBC 694) when relevant
+- Reference SC licensing (RBS 67027) when relevant
 - Have a professional but approachable tone
 
 Return ONLY the blog post content in markdown format. Do not include the title as an H1 — it will be displayed separately.`,

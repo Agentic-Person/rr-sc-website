@@ -176,7 +176,7 @@ export default function Footer() {
         <div className="border-t border-white/10">
           <div className="container py-5 flex flex-col md:flex-row items-center justify-between gap-3">
             <p className="text-xs text-white/40">
-              © {new Date().getFullYear()} Restoration Roofing SC. {tr.copyright} SC License RBC 694.
+              © {new Date().getFullYear()} Restoration Roofing SC. {tr.copyright} SC License RBS 67027.
             </p>
             <div className="flex items-center gap-4 text-xs text-white/40">
               <Link href="/privacy" className="hover:text-white/60 transition-colors">{tr.privacy}</Link>

@@ -325,7 +325,7 @@ const RQ_ES = {
   // Hero trust badges
   trustBadges: [
     "Empresa Familiar",
-    "Licencia RBC 694",
+    "Licencia RBS 67027",
     "Calificación 5.0★ en Google",
     "Servicio de Emergencia 24/7",
   ],
@@ -613,7 +613,7 @@ const RQ_ES = {
   ],
   promiseTagline: "Protegemos su hogar — y hacemos que el proceso sea tranquilo, no caótico.",
   promiseCTABtn: "Obtenga Su Presupuesto Gratuito Instantáneo",
-  promiseFooterTrust: "Contratista de Techado con Licencia · RBC 694 · Mount Pleasant, SC · Empresa Familiar",
+  promiseFooterTrust: "Contratista de Techado con Licencia · RBS 67027 · Mount Pleasant, SC · Empresa Familiar",
 
   // Breadcrumb / footer nav
   breadcrumbHome: "Inicio",
@@ -709,7 +709,7 @@ export default function RoofQuoteContent() {
             >
               {(es ? RQ_ES.trustBadges : [
                 "Family Owned & Operated",
-                "License RBC 694",
+                "License RBS 67027",
                 "5.0★ Google Rating",
                 "24/7 Emergency Service",
               ]).map((t) => (
@@ -1739,7 +1739,7 @@ export default function RoofQuoteContent() {
             <p className="text-gray-500 text-xs mt-6">
               {es
                 ? RQ_ES.promiseFooterTrust
-                : "Licensed Roofing Contractor · RBC 694 · Mount Pleasant, SC · Family Owned & Operated"}
+                : "Licensed Roofing Contractor · RBS 67027 · Mount Pleasant, SC · Family Owned & Operated"}
             </p>
           </div>
         </div>

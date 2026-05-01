@@ -29,7 +29,7 @@ export const COMPANY = {
   phone: "(843) 306-2939",
   phoneRaw: "8433062939",
   address: "75 Port City Landing, Suite 110, Mount Pleasant, SC 29464",
-  license: "RBC 694",
+  license: "RBS 67027",
   email: "info@restorationroofingsc.com",
   tagline: "Charleston's Trusted Roofing Experts",
   description: "Family-owned roofing contractor serving Charleston, Mount Pleasant & the Lowcountry. 24/7 emergency service, free estimates, insurance claim experts.",
@@ -339,7 +339,7 @@ export const SERVICES: Service[] = [
     faqs: [
       { q: "What should I do immediately after storm damage?", a: "1) Ensure your family's safety. 2) Document damage with photos and video. 3) Call us at (843) 306-2939 for emergency tarping. 4) Contact your insurance company. 5) Do NOT attempt repairs yourself or sign contracts with storm chasers." },
       { q: "Do you handle the insurance claim process?", a: "Yes, this is one of our core specialties. We document all damage thoroughly, communicate directly with your insurance adjuster, and advocate on your behalf to ensure fair claim settlement. We handle this process every day." },
-      { q: "How do I avoid storm chaser scams?", a: "Be wary of out-of-state contractors who appear after storms. Always verify SC licensing (our license is RBC 694), check reviews, never pay large deposits upfront, and never sign over your insurance check to a contractor." },
+      { q: "How do I avoid storm chaser scams?", a: "Be wary of out-of-state contractors who appear after storms. Always verify SC licensing (our license is RBS 67027), check reviews, never pay large deposits upfront, and never sign over your insurance check to a contractor." },
     ],
   },
   {
@@ -1254,7 +1254,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "October 14, 2025",
     category: "Emergency Services",
     excerpt: "When a storm damages your roof, quick action is essential. Here's your step-by-step guide to handling emergency roof repairs in the Charleston area.",
-    content: "Emergency roof damage requires immediate action to prevent further damage to your home. Whether it's a fallen tree limb, wind-stripped shingles, or hurricane damage, here's what to do.\n\n**Immediate Steps:**\n1. Ensure everyone's safety — stay away from downed power lines and structural damage\n2. Document damage with photos and video from safe vantage points\n3. Call Restoration Roofing at (843) 306-2939 — we respond 24/7\n4. If safe, place tarps over exposed areas from inside the attic\n5. Move valuables away from water intrusion areas\n\n**What NOT to Do:**\n- Don't climb on a damaged roof\n- Don't sign contracts with storm chasers who appear after storms\n- Don't make permanent repairs before your insurance adjuster inspects\n- Don't throw away damaged materials — they're evidence for your claim\n\n**The Insurance Process:**\nWe handle insurance claims every day. Our process includes thorough damage documentation, direct communication with your adjuster, and advocacy to ensure fair claim settlement. We'll guide you through every step.\n\n**Beware of Storm Chasers:**\nAfter major storms, out-of-state contractors flood the area offering quick fixes. Always verify SC licensing (ours is RBC 694), check reviews, and never pay large deposits upfront.",
+    content: "Emergency roof damage requires immediate action to prevent further damage to your home. Whether it's a fallen tree limb, wind-stripped shingles, or hurricane damage, here's what to do.\n\n**Immediate Steps:**\n1. Ensure everyone's safety — stay away from downed power lines and structural damage\n2. Document damage with photos and video from safe vantage points\n3. Call Restoration Roofing at (843) 306-2939 — we respond 24/7\n4. If safe, place tarps over exposed areas from inside the attic\n5. Move valuables away from water intrusion areas\n\n**What NOT to Do:**\n- Don't climb on a damaged roof\n- Don't sign contracts with storm chasers who appear after storms\n- Don't make permanent repairs before your insurance adjuster inspects\n- Don't throw away damaged materials — they're evidence for your claim\n\n**The Insurance Process:**\nWe handle insurance claims every day. Our process includes thorough damage documentation, direct communication with your adjuster, and advocacy to ensure fair claim settlement. We'll guide you through every step.\n\n**Beware of Storm Chasers:**\nAfter major storms, out-of-state contractors flood the area offering quick fixes. Always verify SC licensing (ours is RBS 67027), check reviews, and never pay large deposits upfront.",
     image: blogEmergencyRepair,
   },
   {
@@ -1367,7 +1367,7 @@ export const TRUST_BADGES = [
   { icon: "MapPin", title: "Locally Owned & Operated", description: "We live and work in Mount Pleasant — your neighbors, not storm chasers." },
   { icon: "Hammer", title: "Quality Craftsmanship", description: "Hurricane-rated installation methods with premier materials designed for coastal South Carolina." },
   { icon: "FileCheck", title: "Insurance Claim Experts", description: "We handle the entire claims process — documentation, adjuster meetings, and settlement advocacy." },
-  { icon: "Shield", title: "Licensed & Insured", description: "SC License RBC 694 with full liability and workers' comp coverage. Your home is protected." },
+  { icon: "Shield", title: "Licensed & Insured", description: "SC License RBS 67027 with full liability and workers' comp coverage. Your home is protected." },
 ];
 
 // Stats for the stats bar
