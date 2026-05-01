@@ -2,10 +2,20 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import type { MouseEvent as ReactMouseEvent } from "react";
 import { COMPANY, IMAGES } from "@/lib/data";
 import { PageHero, SectionHeader, CTABanner, StatsBar, JsonLdScript } from "@/components/shared";
 import { Shield, Heart, Users, Award, FileCheck, CheckCircle2 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+// Mouse-tracked sheen — feeds .card-sheen pseudo-elements via CSS variables.
+function trackSheen(e: ReactMouseEvent<HTMLDivElement>) {
+  const r = e.currentTarget.getBoundingClientRect();
+  const mx = ((e.clientX - r.left) / r.width) * 100;
+  const my = ((e.clientY - r.top) / r.height) * 100;
+  e.currentTarget.style.setProperty("--mx", `${mx}%`);
+  e.currentTarget.style.setProperty("--my", `${my}%`);
+}
 
 const ABOUT_ES = {
   // Values section
@@ -246,7 +256,7 @@ export default function AboutContent() {
       />
 
       {/* Our Team */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-team-bloom">
         <div className="container">
           <SectionHeader
             eyebrow={lang === "es" ? ABOUT_ES.teamEyebrow : "Our Team"}
@@ -258,11 +268,13 @@ export default function AboutContent() {
             {localizedTeam.map((member, i) => (
               <motion.div
                 key={member.name}
+                onMouseMove={trackSheen}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -6 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-white rounded-lg border border-border/50 overflow-hidden hover:shadow-lg hover:border-amber/30 card-halo transition-all duration-300 group flex flex-col"
+                transition={{ delay: i * 0.08, duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
+                className="bg-white rounded-lg border border-border/50 overflow-hidden card-halo card-sheen group flex flex-col"
               >
                 <div className="relative aspect-[4/5] overflow-hidden bg-linen">
                   <Image
@@ -270,10 +282,25 @@ export default function AboutContent() {
                     alt={`${member.name}, ${member.role} at Restoration Roofing`}
                     fill
                     sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
-                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.06]"
                   />
-                  <div className="absolute top-3 left-3 bg-navy/90 backdrop-blur-sm text-amber text-[10px] font-semibold tracking-[0.15em] uppercase px-2.5 py-1 rounded">
-                    {member.valueTag}
+
+                  {/* Editorial numeral stamp */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute top-3 left-3.5 z-[2] font-display italic text-amber text-sm tracking-wider drop-shadow-[0_1px_3px_rgba(0,0,0,0.65)]"
+                  >
+                    Nº {String(i + 1).padStart(2, "0")}
+                  </span>
+
+                  {/* Editorial caption strip — value tag laid over a navy gradient */}
+                  <div className="absolute inset-x-0 bottom-0 z-[2] bg-gradient-to-t from-navy/95 via-navy/60 to-transparent pt-9 pb-3 px-4">
+                    <div className="flex items-center gap-2.5">
+                      <span className="block h-px w-5 bg-amber/80" />
+                      <span className="text-[10px] font-semibold tracking-[0.28em] uppercase text-amber">
+                        {member.valueTag}
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className="p-5 flex flex-col flex-1">
@@ -283,7 +310,7 @@ export default function AboutContent() {
                   <h3 className="font-display text-lg font-bold text-navy mb-2 leading-tight">
                     {member.name}
                   </h3>
-                  <div className="w-8 h-px bg-amber/60 mb-3" />
+                  <div className="h-px bg-amber/60 mb-3 w-8 transition-[width] duration-500 ease-out group-hover:w-20" />
                   <p className="text-sm text-gray-600 leading-relaxed">{member.bio}</p>
                 </div>
               </motion.div>
@@ -293,12 +320,13 @@ export default function AboutContent() {
       </section>
 
       {/* Our Values */}
-      <section className="section-padding bg-linen">
+      <section className="section-padding bg-blueprint-grid">
         <div className="container">
           <SectionHeader
             eyebrow={lang === "es" ? ABOUT_ES.valuesEyebrow : "Our Values"}
             title={lang === "es" ? ABOUT_ES.valuesTitle : "What We Stand For"}
             subtitle={lang === "es" ? ABOUT_ES.valuesSubtitle : "These aren’t just words on a wall — they’re the principles that guide every decision we make and every project we complete."}
+            light
           />
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-6xl mx-auto lg:items-center">
@@ -310,7 +338,10 @@ export default function AboutContent() {
               transition={{ duration: 0.5 }}
               className="order-2 lg:order-1 lg:col-span-1"
             >
-              <div className="relative w-full max-w-sm mx-auto rounded-lg overflow-hidden shadow-xl ring-1 ring-navy/5">
+              <div
+                onMouseMove={trackSheen}
+                className="relative w-full max-w-sm mx-auto rounded-lg overflow-hidden shadow-xl border border-navy card-sheen"
+              >
                 <Image
                   src="/images/team/team-family.webp"
                   alt="A Restoration Roofing team member with his wife and two boys"
@@ -327,13 +358,17 @@ export default function AboutContent() {
               {localizedValues.map((value, i) => (
                 <motion.div
                   key={value.title}
+                  onMouseMove={trackSheen}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -4 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="bg-white rounded-lg border border-border/50 p-6 hover:shadow-lg hover:border-amber/30 card-halo transition-all duration-300"
+                  transition={{ delay: i * 0.08, duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
+                  className="relative bg-white rounded-lg border border-navy p-6 card-halo card-sheen group"
                 >
-                  <value.icon className="w-8 h-8 text-amber mb-4" />
+                  <div className="w-12 h-12 rounded-full bg-amber/10 ring-1 ring-amber/25 flex items-center justify-center mb-4 transition-[transform,box-shadow] duration-500 ease-out group-hover:scale-110 group-hover:ring-amber/55 group-hover:shadow-[0_0_0_6px_rgba(237,90,0,0.06)]">
+                    <value.icon className="w-5 h-5 text-amber" />
+                  </div>
                   <h3 className="font-display text-lg font-semibold text-navy mb-2">{value.title}</h3>
                   <p className="text-sm text-gray-600 leading-relaxed">{value.description}</p>
                 </motion.div>
@@ -348,7 +383,10 @@ export default function AboutContent() {
               transition={{ duration: 0.5 }}
               className="order-3 lg:order-3 lg:col-span-1"
             >
-              <div className="relative w-full max-w-sm mx-auto rounded-lg overflow-hidden shadow-xl ring-1 ring-navy/5">
+              <div
+                onMouseMove={trackSheen}
+                className="relative w-full max-w-sm mx-auto rounded-lg overflow-hidden shadow-xl border border-navy card-sheen"
+              >
                 <Image
                   src="/images/team/team-matt-family-v2.webp"
                   alt="Matt Vannort with his two sons in the park"
@@ -378,7 +416,7 @@ export default function AboutContent() {
               viewport={{ once: true }}
             >
               <div className="space-y-4 text-gray-800 leading-relaxed">
-                <p>
+                <p className="editorial-dropcap">
                   {lang === "es"
                     ? ABOUT_ES.storyP1
                     : "Restoration Roofing was founded with a simple mission: to provide Charleston-area homeowners with honest, high-quality roofing services they can trust. Based in Mount Pleasant, we understand the unique challenges that coastal South Carolina weather presents to your home’s most important protective system."}
@@ -402,15 +440,25 @@ export default function AboutContent() {
               viewport={{ once: true }}
               className="relative"
             >
+              {/* Drafting frame — amber accent in the upper-left, architectural feel */}
+              <div
+                aria-hidden="true"
+                className="hidden md:block absolute -top-4 -left-4 w-[55%] h-[55%] border-2 border-amber/45 rounded-lg pointer-events-none"
+              />
+              {/* Counter-frame — soft navy outline lower-right for depth */}
+              <div
+                aria-hidden="true"
+                className="hidden md:block absolute -bottom-4 -right-4 w-[40%] h-[40%] border border-navy/15 rounded-lg pointer-events-none"
+              />
               <Image
                 src={IMAGES.heroResidential}
                 alt="Charleston neighborhood with beautiful homes"
                 width={1200}
                 height={800}
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="rounded-lg shadow-xl w-full h-auto"
+                className="relative rounded-lg shadow-xl w-full h-auto"
               />
-              <div className="absolute -bottom-6 -left-6 bg-navy text-white rounded-lg p-5 shadow-xl max-w-xs hidden md:block">
+              <div className="absolute -bottom-6 -left-6 bg-navy text-white rounded-lg p-5 shadow-xl max-w-xs hidden md:block z-10">
                 <div className="font-display text-2xl font-bold text-amber mb-1">{COMPANY.projectsCompleted}+</div>
                 <div className="text-sm text-white/80">
                   {lang === "es" ? ABOUT_ES.projectsLabel : "Projects completed across the Lowcountry"}
