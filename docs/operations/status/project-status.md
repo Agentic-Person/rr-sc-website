@@ -11,6 +11,23 @@
 
 ---
 
+## 🔄 Last Activity (May 1, 2026 — Session 17)
+
+**About hero shortened ~20% to pull Our Team above the fold**
+
+### What shipped (commit `f09ea7b`)
+- Revived the dormant `compact` prop on `PageHero` (`src/components/shared.tsx`). When set, hero `min-h` shrinks from `45svh / 50svh` to `36svh / 40svh` — roughly a 20% reduction.
+- Passed `compact` on the About-page `PageHero` (`src/app/about/AboutContent.tsx`). All other pages still render the full-size hero.
+
+### Why
+With the new section ordering (Our Team directly under the hero, per Session 15), Tom wanted the team section to land in the above-the-fold zone on first paint. Shrinking the About hero by ~20% pulls the team cards visibly into view without scrolling.
+
+### Technical Details
+- The `compact` prop was already in `PageHero`'s type signature with a "kept for backward compat, no longer used" comment. Reused it instead of inventing a new flag and rewrote the doc-comment to describe the new behavior.
+- Inner padding (`py-12 md:py-16 lg:py-20`) and the `flex flex-col justify-end` content layout are untouched, so the title/subtitle still sit at the bottom of the shorter hero with the same breathing room.
+
+---
+
 ## 🔄 Last Activity (May 1, 2026 — Session 16)
 
 **About page visual polish — sheen on cards, dark Values panel, editorial accents**
