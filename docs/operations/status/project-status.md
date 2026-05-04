@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: May 1, 2026
+> Last updated: May 3, 2026
 
 ## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
@@ -8,6 +8,76 @@
 **Repo:** github.com/Agentic-Person/rr-sc-website
 **Client Repo:** github.com/SCROOF1/restorationroofing
 **Previous Repo (Vite SPA):** github.com/Agentic-Person/restorationroofing-sc (archive only)
+
+---
+
+## 🔄 Last Activity (May 3, 2026 — Session 1)
+
+**Chat backend migrated to Anthropic Claude Sonnet 4.6 + scroll-gated mascot fade**
+
+### What shipped (commits `a16fe5e`, `737295c`)
+
+**1. ChatWidget scroll-gated fade-in (`a16fe5e`)**
+- `src/components/ChatWidget.tsx`: outer wrapper is now a `motion.div`
+  with opacity controlled by a scroll listener. Below 50% of viewport
+  height the widget renders at `opacity: 0` + `pointerEvents: none`;
+  above the threshold it fades in (0.35s `easeOut`).
+- Sticky-when-open guard: `widgetVisible = scrolledPastHero || chatOpen`
+  so the chat panel doesn't disappear if the user scrolls back up after
+  opening it.
+- Position kept at bottom-left (`clamp(1rem, 8vw, 10rem)` from left,
+  `bottom-6`) — tested center earlier in the session, felt intrusive.
+
+**2. Anthropic chat migration (`737295c`)**
+- `src/app/api/chat/route.ts`: replaced the OpenAI `gpt-4o-mini` call
+  with the official `@anthropic-ai/sdk` (`claude-sonnet-4-6`,
+  `max_tokens: 600`).
+- System prompt split into a stable block (estimate pricing + persona)
+  and a volatile block (per-request RAG context). Stable block carries
+  `cache_control: { type: 'ephemeral' }` for 5-minute prompt caching —
+  ~90% cheaper on cache reads, breaks even at two requests.
+- Embedding + RAG lookup wrapped in a single try/catch — a dead
+  `OPENAI_API_KEY` no longer 500s the route, chat just answers without
+  knowledge-base grounding.
+- `@anthropic-ai/sdk@^0.92` added to dependencies.
+- `ANTHROPIC_API_KEY` added to Vercel env (Production / Preview /
+  Development) before deploy so the new build doesn't crash.
+
+### Why
+
+**Mascot fade:** the giraffe was sitting on top of the hero CTA buttons
+on Tom's screen, blocking the primary call-to-action. Moving it to
+center didn't help — also intrusive. Fading it in only after the user
+scrolls past the hero gives them a clean view of the CTAs while keeping
+the chat available the moment they engage with the page.
+
+**Anthropic migration:** intent was always Sonnet 4.6, but git history
+showed the chat route was hardcoded to OpenAI `gpt-4o-mini` since the
+original Apr 7 Next.js migration (`858f9ff`) — never on Anthropic in
+this repo. Chat reportedly stopped responding; most likely cause was
+the OpenAI key (revoked, quota, or expired). Migrating fixes the
+breakage and gets onto the originally-intended provider.
+
+### Technical Details
+- **Why OpenAI stays on the embedding path:** Anthropic doesn't ship
+  embeddings, and the Supabase KB is indexed against
+  `text-embedding-ada-002` (1536-dim). Switching embedding providers
+  would require a full re-index — separate project.
+- **Roofle z-index safety:** Roofle slideout overlay = `z-index: 9998`,
+  ChatWidget = `z-50`. When the Roofle estimator opens (covers right
+  ~2/3 of viewport), it draws above the chat widget. Clicks on the
+  Roofle panel cannot fall through to the giraffe.
+- **Prompt caching:** stable system block is large enough to clear
+  Sonnet 4.6's 2048-token minimum. Cache writes cost 1.25× input price,
+  reads ~0.1×.
+- `npx tsc --noEmit` passes clean.
+
+### Files changed
+- `src/components/ChatWidget.tsx` — scroll listener + framer-motion
+  opacity gate (+24/−4)
+- `src/app/api/chat/route.ts` — Anthropic SDK call + system-prompt
+  split + best-effort embeddings
+- `package.json`, `package-lock.json` — `@anthropic-ai/sdk@^0.92`
 
 ---
 
