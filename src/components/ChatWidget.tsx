@@ -39,6 +39,18 @@ export default function ChatWidget() {
   const [isMobile, setIsMobile] = useState(false);
   const [smsCopied, setSmsCopied] = useState(false);
   const [zuperOpen, setZuperOpen] = useState(false);
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolledPastHero(window.scrollY > window.innerHeight * 0.5);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const widgetVisible = scrolledPastHero || chatOpen;
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -126,8 +138,16 @@ export default function ChatWidget() {
   };
 
   return (
-    // clamp() scales left offset with viewport width — consistent inset on every screen size
-    <div className="fixed bottom-6 z-50" style={{ left: 'clamp(1rem, 8vw, 10rem)' }}>
+    // Bottom-left, fades in after user scrolls past ~50% of the hero so it doesn't cover hero CTAs.
+    // Roofle slideout (z-index 9998) covers this z-50 widget when open.
+    <motion.div
+      className="fixed bottom-6 z-50"
+      style={{ left: 'clamp(1rem, 8vw, 10rem)', pointerEvents: widgetVisible ? 'auto' : 'none' }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: widgetVisible ? 1 : 0 }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
+      aria-hidden={!widgetVisible}
+    >
       {/* ───────── Chat Window ───────── */}
       <AnimatePresence>
         {chatOpen && (
@@ -304,7 +324,7 @@ export default function ChatWidget() {
                     alt="Restoration Roofing Mascot"
                     width={98}
                     height={215}
-                    style={{ width: "98px", height: "auto" }}
+                    className="h-auto w-[74px] md:w-[98px]"
                   />
                 </motion.button>
 
@@ -467,6 +487,6 @@ export default function ChatWidget() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }
