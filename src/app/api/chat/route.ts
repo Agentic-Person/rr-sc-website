@@ -2,12 +2,16 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import Anthropic from "@anthropic-ai/sdk";
 
 const supabase = createClient(
 
   process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co",
   process.env.SUPABASE_SERVICE_ROLE_KEY || "placeholder-key",
 );
+
+const anthropic = new Anthropic();
+const CHAT_MODEL = "claude-sonnet-4-6";
 
 // In-memory rate limiter (resets per cold start, which is fine for serverless)
 const ipHits = new Map<string, { count: number; resetAt: number }>();
@@ -50,18 +54,22 @@ async function getEmbedding(text: string): Promise<number[]> {
   return data.data[0].embedding;
 }
 
-async function chatCompletion(messages: { role: string; content: string }[]): Promise<string> {
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify({ model: "gpt-4o-mini", messages, temperature: 0.7, max_tokens: 600 }),
+async function chatCompletion(
+  systemStable: string,
+  systemVolatile: string,
+  messages: { role: "user" | "assistant"; content: string }[],
+): Promise<string> {
+  const response = await anthropic.messages.create({
+    model: CHAT_MODEL,
+    max_tokens: 600,
+    system: [
+      { type: "text", text: systemStable, cache_control: { type: "ephemeral" } },
+      { type: "text", text: systemVolatile },
+    ],
+    messages,
   });
-  if (!res.ok) throw new Error(`OpenAI Chat error: ${res.status}`);
-  const data = await res.json();
-  return data.choices[0].message.content;
+  const textBlock = response.content.find((b) => b.type === "text");
+  return textBlock && textBlock.type === "text" ? textBlock.text : "";
 }
 
 // --- INSTANT ESTIMATE PRICING ENGINE ---
@@ -178,7 +186,8 @@ IMPORTANT GUIDELINES:
 --- END ESTIMATE SYSTEM ---`;
 }
 
-function buildSystemPrompt(ragContext: string): string {
+// Stable prefix — never varies per request, eligible for prompt caching.
+function buildSystemPromptStable(): string {
   return `You are a helpful, knowledgeable roofing assistant for Restoration Roofing SC, serving the Charleston, South Carolina area. You speak as part of the team — use "we" and "our team" rather than referring to yourself by name.
 
 Your tone is warm, professional, and confident. You know roofing inside and out — materials, installation, coastal climate challenges, insurance processes, and local building codes. When a question goes beyond what you can answer precisely, always offer to connect the visitor with our team for specifics.
@@ -195,9 +204,12 @@ Guidelines:
 - When a homeowner asks about cost or pricing, use the Instant Estimate System below to help them. If pricing data is available, calculate an estimate. If not, present our shingle tiers and encourage them to call for a quote.
 - Always encourage the visitor to call us at (843) 306-2939 or schedule a free inspection for anything that requires an on-site assessment.
 - Use the knowledge base context below to ground your answers. If the context doesn't cover the question, rely on general roofing expertise and say so.
-${buildEstimatePricingContext()}
+${buildEstimatePricingContext()}`;
+}
 
---- KNOWLEDGE BASE CONTEXT ---
+// Volatile suffix — per-request RAG context, not cached.
+function buildSystemPromptVolatile(ragContext: string): string {
+  return `--- KNOWLEDGE BASE CONTEXT ---
 ${ragContext || "No specific knowledge base context available for this question."}
 --- END CONTEXT ---`;
 }
@@ -251,13 +263,12 @@ export async function POST(request: NextRequest) {
       history.push({ role: entry.role, content });
     }
 
-    // 1. Embedding
-    const embedding = await getEmbedding(sanitizedMessage);
-
-    // 2. RAG search
+    // 1–2. Embedding + RAG search (best-effort — chat continues if either fails,
+    //      e.g., expired OPENAI_API_KEY shouldn't take down the assistant).
     let ragContext = "";
     let sources: string[] = [];
     try {
+      const embedding = await getEmbedding(sanitizedMessage);
       const { data: matches, error: rpcError } = await supabase.rpc("search_knowledge_base", {
         query_embedding: embedding,
         match_threshold: 0.7,
@@ -268,21 +279,24 @@ export async function POST(request: NextRequest) {
         sources = [...new Set(matches.map((m: any) => m.category).filter(Boolean))] as string[];
       }
     } catch (err) {
-      console.error("Knowledge base search failed:", err);
+      console.error("Embedding/RAG lookup failed (continuing without knowledge base):", err);
     }
 
-    // 3. Build messages
-    const chatMessages: { role: string; content: string }[] = [
-      { role: "system", content: buildSystemPrompt(ragContext) },
+    // 3. Build messages — Anthropic API takes system separately from messages
+    const chatMessages: { role: "user" | "assistant"; content: string }[] = [
       ...history.slice(-20).map((m) => ({
-        role: m.role === "assistant" ? "assistant" : "user",
+        role: (m.role === "assistant" ? "assistant" : "user") as "user" | "assistant",
         content: m.content,
       })),
-      { role: "user", content: sanitizedMessage },
+      { role: "user" as const, content: sanitizedMessage },
     ];
 
-    // 4. Chat completion
-    const response = await chatCompletion(chatMessages);
+    // 4. Chat completion (Claude Sonnet 4.6)
+    const response = await chatCompletion(
+      buildSystemPromptStable(),
+      buildSystemPromptVolatile(ragContext),
+      chatMessages,
+    );
 
     // 5. Lead score
     const leadScore = scoreMessage(sanitizedMessage);
