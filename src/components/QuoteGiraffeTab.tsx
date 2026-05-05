@@ -104,7 +104,7 @@ export default function QuoteGiraffeTab() {
               aria-label="Get an instant roof quote"
             >
               <Image
-                src="/images/giraffe-quote-tab-v5.webp"
+                src="/images/giraffe-quote-tab-v4.webp"
                 alt="Get Instant Roof Quote"
                 width={216}
                 height={282}
