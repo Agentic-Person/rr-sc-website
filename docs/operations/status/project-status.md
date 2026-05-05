@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: May 5, 2026
+> Last updated: May 5, 2026 (Session 2)
 
 ## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
@@ -8,6 +8,34 @@
 **Repo:** github.com/Agentic-Person/rr-sc-website
 **Client Repo:** github.com/SCROOF1/restorationroofing
 **Previous Repo (Vite SPA):** github.com/Agentic-Person/restorationroofing-sc (archive only)
+
+---
+
+## 🔄 Last Activity (May 5, 2026 — Session 2)
+
+**Giraffe mascot blink animation + artifact-free image swap**
+
+### What shipped (commits `3cdabe0`, this session)
+
+**1. Artifact-free mascot image (`3cdabe0`)**
+- `src/components/QuoteGiraffeTab.tsx`: switched from `giraffe-quote-tab-v5.webp` (had render artifacts) to `giraffe-quote-tab-v4.webp`.
+- `RoofleGiraffeOverlay.tsx` was already on v4 — no change needed there.
+
+**2. Winking blink animation**
+- `src/components/QuoteGiraffeTab.tsx`: added a `winking` state + `useEffect` interval. Two images are stacked (base + winking frame); the winking frame's opacity transitions from 0→1 over 40ms then back. First blink fires 3s after mount, then every 8s. Wink holds for 180ms.
+- `public/images/giraffe-quote-tab-v4-orange-hat.png`: winking variant of the mascot, loaded with `priority` so it's preloaded before the first blink fires.
+
+### Why
+The v5 image had visible compression artifacts. The wink adds personality and subtle motion to an otherwise static UI element — makes the mascot feel alive without being distracting.
+
+### Technical Details
+- Overlay approach (two stacked images + CSS opacity) avoids any src-swap flash on first blink.
+- `priority` prop on the winking image ensures it's in the browser cache before the 3s initial timer fires.
+- `npx tsc --noEmit` passes clean.
+
+### Files changed
+- `src/components/QuoteGiraffeTab.tsx` — image swap + blink animation
+- `public/images/giraffe-quote-tab-v4-orange-hat.png` — winking mascot asset
 
 ---
 

@@ -26,7 +26,19 @@ function detectOpen(root: Element): boolean {
 export default function QuoteGiraffeTab() {
   const { openRoofleWidget } = useQuoteWidget();
   const [panelOpen, setPanelOpen] = useState(false);
+  const [winking, setWinking] = useState(false);
   const firstEntry = useRef(true);
+
+  // Blink every ~4s, eye closed for 180ms
+  useEffect(() => {
+    const doBlink = () => {
+      setWinking(true);
+      setTimeout(() => setWinking(false), 180);
+    };
+    const initial = setTimeout(doBlink, 3000);
+    const interval = setInterval(doBlink, 8000);
+    return () => { clearTimeout(initial); clearInterval(interval); };
+  }, []);
 
   useEffect(() => {
     let panelObserver: MutationObserver | null = null;
@@ -103,13 +115,32 @@ export default function QuoteGiraffeTab() {
               className="cursor-pointer drop-shadow-2xl"
               aria-label="Get an instant roof quote"
             >
-              <Image
-                src="/images/giraffe-quote-tab-v4.webp"
-                alt="Get Instant Roof Quote"
-                width={216}
-                height={282}
-                style={{ width: "216px", height: "auto" }}
-              />
+              <div className="relative" style={{ width: 216 }}>
+                <Image
+                  src="/images/giraffe-quote-tab-v4.webp"
+                  alt="Get Instant Roof Quote"
+                  width={216}
+                  height={282}
+                  style={{ width: "216px", height: "auto", display: "block" }}
+                />
+                {/* Winking frame — preloaded, fades in for 180ms on each blink */}
+                <Image
+                  src="/images/giraffe-quote-tab-v4-orange-hat.png"
+                  alt=""
+                  width={216}
+                  height={282}
+                  priority
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "216px",
+                    height: "auto",
+                    opacity: winking ? 1 : 0,
+                    transition: "opacity 40ms ease-in-out",
+                  }}
+                />
+              </div>
             </motion.button>
           </motion.div>
         )}
