@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: May 3, 2026
+> Last updated: May 5, 2026
 
 ## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
@@ -8,6 +8,49 @@
 **Repo:** github.com/Agentic-Person/rr-sc-website
 **Client Repo:** github.com/SCROOF1/restorationroofing
 **Previous Repo (Vite SPA):** github.com/Agentic-Person/restorationroofing-sc (archive only)
+
+---
+
+## 🔄 Last Activity (May 5, 2026 — Session 1)
+
+**Shingle pricing formula calibrated from RoofQuotePRO config (22-square benchmark)**
+
+### What shipped (commits `74a97a2`, `118c561`)
+
+**1. Service card images (`74a97a2`)**
+- Replaced storm damage and gutter installation card images in services section.
+
+**2. Pricing formula overhaul (`118c561`)**
+- `src/lib/materials.ts`: added `PRICING_CONFIG` constant (the single source of truth for all quote math):
+  - `measuredSquares: 22` (21.66 from 605 Julep Dr. benchmark, rounded up)
+  - `wasteFactor: 0.10` → 22 × 1.10 = 24.2 pricing squares, aligned to the manager's 24-square proposal
+  - `pricingSquares: 24`
+  - `steepSlopeChargePerSquare: 30` (manager-approved add-on)
+  - `rangePercent: 0.10` (±10% over/under band, down from prior 15%)
+- Added `catalogPricePerSquare` field to `RoofingMaterial` interface (dollars per roofing square = 100 sq ft).
+- Updated catalog prices for all three estimate-tier shingles:
+  - OC Oakridge: `$411/sq` installed (`$4.11/sq ft`)
+  - OC Duration: `$425/sq` installed (`$4.25/sq ft`)
+  - TAMKO Storm Fighter: `$558/sq` installed (`$5.58/sq ft`)
+- Added `computeQuoteRange(catalogPricePerSquare, steepSlope?)` and `formatQuoteRange()` helpers. Formula: `pricingSquares × (catalogPricePerSquare [+ $30 steep]) × ±10%`.
+- Fixed `formatPriceRange()` to display a single value when min === max.
+- `src/app/roof-quote/roof-quote-content.tsx`: all six `priceRange` strings (EN + ES) now call `formatQuoteRange()` — no magic numbers. Resulting display ranges:
+  - Oakridge regular: `$8,878 – $10,850` / steep: `$9,526 – $11,642`
+  - Duration regular: `$9,180 – $11,220` / steep: `$9,828 – $12,012`
+  - TAMKO regular: `$12,053 – $14,731` / steep: `$12,701 – $15,523`
+- Added `steepPriceRange` property to each tier object (data in place; UI toggle not yet wired).
+- Updated `priceNote` to `"typical home (22 squares / ~2,200 sq ft roof)"`.
+
+### Why
+RoofQuotePRO configuration doc provided exact catalog prices per roofing square and confirmed the correct waste factor (10%, not 20% — the prior version used 20 measured squares making the jump to 24 look like 20% waste; corrected working input is 22 squares). Prices were also significantly underpriced in the old data ($2.02–3.69/sq ft vs correct $4.11–5.58/sq ft).
+
+### Technical Details
+- **Unit distinction:** `installedCostMin/Max` (per sq ft, used by materials comparison table display) vs `catalogPricePerSquare` (per roofing square = 100 sq ft, used exclusively by quote formula). No factor-of-100 error — formula uses the full per-square values (411, 425, 558) directly.
+- `npx tsc --noEmit` passes clean.
+
+### Files changed
+- `src/lib/materials.ts` — PRICING_CONFIG + helpers + updated shingle prices (+34/−4)
+- `src/app/roof-quote/roof-quote-content.tsx` — formula-driven price ranges + steepPriceRange (+22/−14)
 
 ---
 
