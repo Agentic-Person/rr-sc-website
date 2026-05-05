@@ -4,6 +4,16 @@
 
 export type EstimateTier = 'best' | 'better' | 'good';
 
+// Formula: measuredSquares × wasteFactor → pricingSquares × catalogPricePerSquare = quote target
+// Steep slope adds steepSlopeChargePerSquare; range displayed as ±rangePercent of target
+export const PRICING_CONFIG = {
+  measuredSquares: 22,           // 21.66 rounded up (605 Julep Dr. benchmark)
+  wasteFactor: 0.10,             // 22 × 1.10 = 24.2 → aligns to 24-square proposal target
+  pricingSquares: 24,
+  steepSlopeChargePerSquare: 30, // manager-approved add-on for steep slope
+  rangePercent: 0.10,            // ±10% customer-facing over/under band
+} as const;
+
 export interface RoofingMaterial {
   id: string;
   name: string;
@@ -14,6 +24,7 @@ export interface RoofingMaterial {
   materialCostMax: number;
   installedCostMin: number; // per sq ft
   installedCostMax: number;
+  catalogPricePerSquare?: number; // installed price per roofing square (100 sq ft), used for quote formula
   lifespanMin: number; // years
   lifespanMax: number;
   windRating: string; // mph
@@ -40,10 +51,11 @@ export const ROOFING_MATERIALS: RoofingMaterial[] = [
     category: 'asphalt',
     estimateTier: 'better',
     description: 'Our mid-tier shingle offering. Owens Corning TruDefinition Duration shingles deliver a rich, dimensional appearance with patented SureNail Technology for exceptional wind resistance. The heavyweight construction and advanced granule adhesion make this a strong choice for Charleston homeowners who want excellent protection and curb appeal at a balanced price point.',
+    catalogPricePerSquare: 425,
     materialCostMin: 1.16,
     materialCostMax: 1.16,
-    installedCostMin: 2.16,
-    installedCostMax: 2.36,
+    installedCostMin: 4.25,
+    installedCostMax: 4.25,
     lifespanMin: 25,
     lifespanMax: 30,
     windRating: '130 mph',
@@ -67,10 +79,11 @@ export const ROOFING_MATERIALS: RoofingMaterial[] = [
     category: 'asphalt',
     estimateTier: 'good',
     description: 'Our entry-tier shingle option. Owens Corning Oakridge shingles offer a great balance of performance, appearance, and value. These architectural shingles feature a dimensional wood-shake look with reliable wind and algae resistance — a proven choice for Charleston-area homes that need quality coverage at the most accessible price.',
+    catalogPricePerSquare: 411,
     materialCostMin: 1.02,
     materialCostMax: 1.02,
-    installedCostMin: 2.02,
-    installedCostMax: 2.22,
+    installedCostMin: 4.11,
+    installedCostMax: 4.11,
     lifespanMin: 20,
     lifespanMax: 25,
     windRating: '110 mph',
@@ -94,10 +107,11 @@ export const ROOFING_MATERIALS: RoofingMaterial[] = [
     category: 'asphalt',
     estimateTier: 'best',
     description: 'Our top-tier, storm-rated shingle. The TAMKO Storm Fighter with Hail Guard technology is engineered for extreme weather protection, with system warranties up to 160 mph winds. Purpose-built for regions that face hurricanes, hail, and severe storms — making it the premium choice for the South Carolina coast.',
+    catalogPricePerSquare: 558,
     materialCostMin: 2.49,
     materialCostMax: 2.49,
-    installedCostMin: 3.49,
-    installedCostMax: 3.69,
+    installedCostMin: 5.58,
+    installedCostMax: 5.58,
     lifespanMin: 20,
     lifespanMax: 30,
     windRating: '160 mph (system warranty)',
@@ -206,7 +220,24 @@ export function getTierLabel(tier: EstimateTier): string {
 
 // Helper to format price range
 export function formatPriceRange(min: number, max: number): string {
+  if (min === max) return `$${min.toFixed(2)}`;
   return `$${min.toFixed(2)} – $${max.toFixed(2)}`;
+}
+
+// Compute quote range from formula: pricingSquares × (catalogPricePerSquare [+ steepSlopeCharge]) ± rangePercent
+export function computeQuoteRange(catalogPricePerSquare: number, steepSlope = false) {
+  const totalPerSquare = catalogPricePerSquare + (steepSlope ? PRICING_CONFIG.steepSlopeChargePerSquare : 0);
+  const target = PRICING_CONFIG.pricingSquares * totalPerSquare;
+  return {
+    target,
+    min: Math.round(target * (1 - PRICING_CONFIG.rangePercent)),
+    max: Math.round(target * (1 + PRICING_CONFIG.rangePercent)),
+  };
+}
+
+export function formatQuoteRange(catalogPricePerSquare: number, steepSlope = false): string {
+  const { min, max } = computeQuoteRange(catalogPricePerSquare, steepSlope);
+  return `$${min.toLocaleString()} – $${max.toLocaleString()}`;
 }
 
 // Helper to get category label
