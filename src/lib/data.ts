@@ -335,7 +335,7 @@ export const SERVICES: Service[] = [
     longDescription: "When a hurricane or severe storm damages your roof, you need a contractor who responds immediately and handles the entire restoration process — from emergency tarping to insurance claim documentation to final repairs.\n\nRestoration Roofing has been helping Charleston-area homeowners recover from storm damage since our founding. We understand the urgency of the situation and the complexity of the insurance claims process. Our team responds 24/7 with emergency tarping to prevent further damage, then works directly with your insurance company to document the damage, file the claim, and ensure you receive fair compensation.\n\nWe're not storm chasers — we're your neighbors. We live and work in the Charleston area, and we'll be here long after the storm passes to make sure your home is fully restored.",
     features: ["24/7 emergency response", "Emergency tarping and board-up", "Complete damage assessment", "Insurance claim management", "Full restoration services", "Hurricane preparation services"],
     icon: "CloudLightning",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/112751785/QzW5An8GggbtcG7rNRpiT7/svc-storm-damage-bLYYF8qenjiMdbmgqtCNYY.webp",
+    image: "/images/storm-damage-repair-hero.webp",
     faqs: [
       { q: "What should I do immediately after storm damage?", a: "1) Ensure your family's safety. 2) Document damage with photos and video. 3) Call us at (843) 306-2939 for emergency tarping. 4) Contact your insurance company. 5) Do NOT attempt repairs yourself or sign contracts with storm chasers." },
       { q: "Do you handle the insurance claim process?", a: "Yes, this is one of our core specialties. We document all damage thoroughly, communicate directly with your insurance adjuster, and advocate on your behalf to ensure fair claim settlement. We handle this process every day." },
@@ -499,7 +499,7 @@ export const SERVICES: Service[] = [
     longDescription: "Charleston receives an average of 51 inches of rainfall annually — well above the national average. Properly functioning gutters are essential to directing this water away from your home's foundation, preventing erosion, protecting your landscaping, and keeping moisture away from your fascia and exterior walls.\n\nWe install seamless aluminum gutters custom-fabricated on-site to fit your home perfectly. Seamless gutters eliminate the joints and seams where traditional gutters leak, providing superior performance in our heavy-rain climate. We offer a range of styles and colors to complement your home's architecture.",
     features: ["Seamless aluminum construction", "Custom on-site fabrication", "Multiple color options", "Gutter guard options", "Proper slope and drainage design", "Downspout extensions and drainage"],
     icon: "ArrowDownToLine",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/112751785/QzW5An8GggbtcG7rNRpiT7/svc-gutter-install-i47HMUMDhzjnTHPVCBL8t6.webp",
+    image: "/images/gutter-installation-hero.webp",
     faqs: [
       { q: "Why are seamless gutters better?", a: "Seamless gutters are fabricated from a single piece of aluminum, eliminating the joints where traditional gutters leak. In Charleston's heavy rainfall, this means significantly better performance and less maintenance." },
       { q: "What size gutters do I need?", a: "Most Charleston homes need 5-inch gutters with 3x4 inch downspouts. Homes with large roof areas or steep pitches may need 6-inch gutters to handle the volume of water during our heavy storms." },
