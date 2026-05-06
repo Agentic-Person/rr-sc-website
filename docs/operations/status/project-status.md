@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: May 6, 2026 (Session 1)
+> Last updated: May 6, 2026 (Session 2)
 
 ## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
@@ -8,6 +8,29 @@
 **Repo:** github.com/Agentic-Person/rr-sc-website
 **Client Repo:** github.com/SCROOF1/restorationroofing
 **Previous Repo (Vite SPA):** github.com/Agentic-Person/restorationroofing-sc (archive only)
+
+---
+
+## 🔄 Last Activity (May 6, 2026 — Session 2)
+
+**Final client-approved mascot images swapped into quote tab widget**
+
+### What shipped (commit `04ec490`)
+
+**1. Quote tab giraffe replaced with final approved art**
+- `public/images/giraffe-quote-tab-v5b.webp`: replaced prior draft with final mascot art from `RR_SC_Mascot_01.png` (42 KB, 432×576 WebP @ quality 85)
+- `public/images/giraffe-quote-tab-v5b-wink.webp`: replaced prior winking draft with final variant from `RR_SC_Mascot_01a.png` (44 KB, 432×576 WebP @ quality 85)
+
+### Why
+Tom provided finalized mascot illustrations replacing the draft versions that had been in place since the v5b transparency fix. The new images are the client-approved final artwork. No component changes needed — `QuoteGiraffeTab.tsx` and `RoofleGiraffeOverlay.tsx` already reference the v5b filenames.
+
+### Technical Details
+- Both source PNGs are 1086×1448 (RGBA); output resized to 432px wide (2× the 216px display width for retina), sharp quality 85 / alphaQuality 90.
+- Sizes changed: open-eyes 44888 → 42074 bytes; wink 43506 → 43928 bytes.
+
+### Files changed
+- `public/images/giraffe-quote-tab-v5b.webp`
+- `public/images/giraffe-quote-tab-v5b-wink.webp`
 
 ---
 
