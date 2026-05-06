@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import QuoteGiraffeTab from "@/components/QuoteGiraffeTab";
+import ChatWidgetMount from "@/components/ChatWidgetMount";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -76,6 +77,7 @@ export default function RootLayout({
               <main>{children}</main>
               <Footer />
               <QuoteGiraffeTab />
+              <ChatWidgetMount />
               <ScrollToTop />
             </QuoteWidgetProvider>
           </ThemeProvider>

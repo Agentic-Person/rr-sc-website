@@ -20,7 +20,6 @@ import {
 } from "lucide-react";
 import { COMPANY } from "@/lib/data";
 import { formatQuoteRange } from "@/lib/materials";
-import ChatWidget from "@/components/ChatWidget";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useQuoteWidget } from "@/contexts/QuoteWidgetContext";
 
@@ -1751,8 +1750,6 @@ export default function RoofQuoteContent() {
           </div>
         </div>
       </section>
-
-      <ChatWidget />
 
       {/* ── FINAL BREADCRUMB + TRUST ── */}
       <section className="bg-linen py-8">
