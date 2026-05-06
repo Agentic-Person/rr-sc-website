@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: May 5, 2026 (Session 2)
+> Last updated: May 6, 2026 (Session 1)
 
 ## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
@@ -11,7 +11,60 @@
 
 ---
 
-## 🔄 Last Activity (May 5, 2026 — Session 2)
+## 🔄 Last Activity (May 6, 2026 — Session 1)
+
+**Chat pricing alignment, site-wide chat widget, and giraffe transparency fix**
+
+### What shipped (commits `f851a71`, `e3d5d17`, `a789051`, `654e417`)
+
+**1. AI chat estimate engine aligned with calibrated pricing formula (`f851a71`)**
+- `src/app/api/chat/route.ts` was carrying its own hard-coded shingle pricing (`$249` / `$116` / `$102` per sq + a separate `$100`–`$120` install tier + 15% waste) that pre-dated the May 5 RoofQuotePRO calibration. Homeowners asking the chatbot were getting estimates roughly half what the on-page Roof Quote tool displayed.
+- Refactored the route to import `ESTIMATE_MATERIALS`, `PRICING_CONFIG`, and a new `computeQuoteRangeForMeasured()` helper from `src/lib/materials.ts` so the chat and the website now share a single source of truth.
+- Added `computeQuoteRangeForMeasured(measuredSquares, catalogPricePerSquare, steepSlope?)` to `materials.ts` — generalizes the existing `computeQuoteRange` (which is hard-coded to the 22-sq benchmark) so the chat can quote arbitrary roof sizes via `pricingSquares = round(measured × 1.10)`.
+- Rewrote the chat system prompt to explain the new formula: `measuredSquares × 1.10 → pricingSquares × catalogPricePerSquare → ±10%`, with `+$30/sq` as the only optional steep-slope add-on (install/labor is folded into the all-in catalog price). Removed the obsolete install-tier and 15%-waste-on-material-only logic.
+- Worked example for the benchmark 22-square home now matches the published ranges exactly: OC Oakridge $8,878–$10,850, OC Duration $9,180–$11,220, TAMKO Storm Fighter $12,053–$14,731.
+
+**2. Chat widget mounted site-wide via root layout (`e3d5d17`)**
+- `ChatWidget` was only rendered on Home and the Roof Quote page, so navigating into `/services/[slug]`, `/areas-we-serve/[slug]`, `/materials-comparison`, `/blog`, `/contact`, `/financing`, `/portfolio`, `/reviews`, etc. silently dropped the assistant.
+- Created `src/components/ChatWidgetMount.tsx` — a thin client wrapper that uses `usePathname()` to skip `/about` (and any sub-route under `/about/`).
+- Mounted `<ChatWidgetMount />` once in `src/app/layout.tsx` next to the `QuoteGiraffeTab`, then removed the now-redundant per-page `<ChatWidget />` mounts (and imports) from `HomeContent.tsx` and `roof-quote-content.tsx` to prevent double-render on those two pages.
+- Result: the chat widget is now present on every route except `/about`, which stays intentionally chat-free.
+
+**3. Giraffe quote-tab transparency restored (`a789051` + `654e417`)**
+- The giraffe-tab on the right edge had a visible white box behind it on every page. Root cause: `giraffe-quote-tab-v5.webp` and `giraffe-quote-tab-v5-wink.webp` had been exported as standard lossy WebP (VP8 fourcc) with **no alpha channel** — the white background was baked into RGB pixels.
+- The user provided properly transparent PNG sources (`RR_SC_Mascot_01-tsp.png` and `RR_SC_Mascot_01-blink-tsp.png`, color type 6 RGBA). Re-encoded both via `sharp` to alpha-preserving WebP at 433×577 (2× the 216×288 display size for retina), quality 88, alphaQuality 100, effort 6 — both ~43 KB and verified at the byte level (VP8X fourcc with the alpha bit set).
+- After replacing the files, every optimizer width returned correct transparent output **except `w=256`** — the exact size the browser was requesting. The Next.js dev image optimizer had cached an in-memory variant of the broken pre-swap file for that one width and was serving the stale non-alpha output. Disk file, optimizer logic, and the component were all correct; the optimizer's own RAM cache was poisoned.
+- Cache-busted by renaming source files: `giraffe-quote-tab-v5.webp` → `giraffe-quote-tab-v5b.webp` (and the wink variant). New URL = new optimizer cache key = fresh optimization from the transparent source for every width. Updated `QuoteGiraffeTab.tsx` to point at the new filenames; also synced the (currently unused) `RoofleGiraffeOverlay.tsx` reference to keep the codebase consistent.
+- Verified live via Chrome DevTools: every width (`128`, `256`, `384`, `640`) now returns VP8X with `alpha=true`, and the rendered giraffe sits on the photo with no white box.
+
+### Why
+The May 5 pricing calibration only updated the on-page Roof Quote tool — the chat had its own copy of the pricing constants from before and was silently quoting old, lower numbers. The chat widget being missing on most routes was a long-standing oversight that only surfaced once Tom started "surfing the website." The giraffe white-box bug had been live since v5 was first introduced; the original v5 export simply never had alpha.
+
+### Technical Details
+- **Pricing single source of truth:** `src/lib/materials.ts` is now the only place the chat and the page agree to look. `PRICING_CONFIG` + `computeQuoteRangeForMeasured()` is what both consume; the system prompt is built fresh from those constants on each cold start so future calibration changes auto-propagate to the assistant without code edits to the route.
+- **Cache-control on `ChatWidgetMount`:** stays under the existing `cache_control: { type: "ephemeral" }` system-prompt cache because the prompt body is deterministic at module load.
+- **Why not just clear the Next.js image cache:** dev-mode optimizer cache is in-memory (no `.next/cache/images/` directory exists). Restarting the dev server would have cleared it, but the user has multiple projects running; renaming the files achieved the same result without touching the running process.
+- **Verification flow:** disk byte check (VP8X + alpha bit) → curl with browser `Accept` header against `/_next/image?...` for every width → DevTools `evaluate_script` to read the rendered `<img>` `currentSrc` and computed background colors → screenshot.
+- `npx tsc --noEmit` passes clean across all three commits.
+
+### Files changed
+- `src/app/api/chat/route.ts` — replaced hard-coded pricing with imports from materials.ts; rewrote system prompt to match the new formula (+96/−110)
+- `src/lib/materials.ts` — added `computeQuoteRangeForMeasured()` helper (+18/−0)
+- `src/app/layout.tsx` — mounted `ChatWidgetMount` (+2/−0)
+- `src/components/ChatWidgetMount.tsx` — new client-component wrapper with pathname gating (14 lines)
+- `src/app/HomeContent.tsx` — removed redundant per-page mount (−3)
+- `src/app/roof-quote/roof-quote-content.tsx` — removed redundant per-page mount (−3)
+- `public/images/giraffe-quote-tab-v5b.webp` — renamed from v5; transparent (43.8 KB, VP8X alpha)
+- `public/images/giraffe-quote-tab-v5b-wink.webp` — renamed from v5-wink; transparent (42.5 KB, VP8X alpha)
+- `src/components/QuoteGiraffeTab.tsx` — updated image references to v5b
+- `src/components/RoofleGiraffeOverlay.tsx` — synced unused-component reference to v5b
+
+### Deployment
+All four commits pushed to `origin` (Vercel auto-deploys) and `client` (`SCROOF1/restorationroofing`). Final HEAD: `654e417`.
+
+---
+
+## 🔄 Previous Activity (May 5, 2026 — Session 2)
 
 **Giraffe mascot blink animation + artifact-free image swap**
 
