@@ -3,6 +3,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import Anthropic from "@anthropic-ai/sdk";
+import {
+  ESTIMATE_MATERIALS,
+  PRICING_CONFIG,
+  computeQuoteRangeForMeasured,
+  type RoofingMaterial,
+} from "@/lib/materials";
 
 const supabase = createClient(
 
@@ -73,116 +79,88 @@ async function chatCompletion(
 }
 
 // --- INSTANT ESTIMATE PRICING ENGINE ---
-const MATERIAL_PRICING = {
-  best: {
-    name: 'TAMKO Storm Fighter (Hail Guard)',
-    shortName: 'Storm Fighter',
-    tier: 'Best',
-    perSquare: 249,
-    windRating: '160 mph (system warranty)',
-    warranty: 'Limited Lifetime',
-    features: 'Hail Guard impact resistance, highest wind rating in our lineup',
-  },
-  better: {
-    name: 'Owens Corning TruDefinition Duration',
-    shortName: 'OC Duration',
-    tier: 'Better',
-    perSquare: 116,
-    windRating: '130 mph',
-    warranty: 'Lifetime Limited',
-    features: 'SureNail Technology, Class 3 impact resistance, StreakGuard algae resistance',
-  },
-  good: {
-    name: 'Owens Corning Oakridge',
-    shortName: 'OC Oakridge',
-    tier: 'Good',
-    perSquare: 102,
-    windRating: '110 mph (4-nail) / 130 mph (6-nail)',
-    warranty: 'Lifetime Limited',
-    features: 'Double-layer nailing zone, StreakGuard algae resistance',
-  },
-};
+// Single source of truth: src/lib/materials.ts (PRICING_CONFIG + ESTIMATE_MATERIALS).
+// The same formula drives the on-page Roof Quote tool, so the chat and the website
+// always quote the same numbers.
 
-const INSTALL_PRICING = {
-  basic:   { label: 'Basic',   perSquare: 100, description: 'Standard roof — simple layout, walkable pitch, minimal cuts' },
-  custom:  { label: 'Custom',  perSquare: 110, description: 'Moderate complexity — multiple slopes, some dormers or valleys' },
-  complex: { label: 'Complex', perSquare: 120, description: 'High complexity — steep pitch, many gables/valleys/dormers, difficult access' },
-};
-
-const WASTE_FACTOR = 0.15; // 15% material waste — covers cuts, valleys, ridge caps, hip starters, accidental damage
+function tierFor(tier: 'best' | 'better' | 'good'): RoofingMaterial {
+  const m = ESTIMATE_MATERIALS.find((mat) => mat.estimateTier === tier);
+  if (!m || !m.catalogPricePerSquare) {
+    throw new Error(`Missing estimate tier "${tier}" or catalogPricePerSquare in materials catalog`);
+  }
+  return m;
+}
 
 function buildEstimatePricingContext(): string {
-  const m = MATERIAL_PRICING;
-  const i = INSTALL_PRICING;
+  const best = tierFor('best');
+  const better = tierFor('better');
+  const good = tierFor('good');
+
+  const wastePct = Math.round(PRICING_CONFIG.wasteFactor * 100);
+  const rangePct = Math.round(PRICING_CONFIG.rangePercent * 100);
+  const steepAdd = PRICING_CONFIG.steepSlopeChargePerSquare;
+
+  // Benchmark example mirrors the on-page Roof Quote tool (605 Julep Dr.):
+  // 22 measured squares × 1.10 → 24 pricing squares.
+  const exMeasured = PRICING_CONFIG.measuredSquares;
+  const exPricing = PRICING_CONFIG.pricingSquares;
+  const exBest = computeQuoteRangeForMeasured(exMeasured, best.catalogPricePerSquare!);
+  const exBetter = computeQuoteRangeForMeasured(exMeasured, better.catalogPricePerSquare!);
+  const exGood = computeQuoteRangeForMeasured(exMeasured, good.catalogPricePerSquare!);
+
+  const fmt = (n: number) => `$${n.toLocaleString()}`;
+  const range = (r: { min: number; max: number }) => `${fmt(r.min)} – ${fmt(r.max)}`;
 
   return `
 
 --- INSTANT ESTIMATE SYSTEM ---
-You can calculate instant roof estimates. When a homeowner provides their roof square footage, calculate the estimate using the pricing below.
+You can calculate instant roof replacement estimates using the same formula as our website's Roof Quote tool. The catalog price per square is the ALL-IN installed price (materials + labor + standard installation).
 
-IMPORTANT: Roofing is priced in "squares" — 1 square = 100 sq ft. Convert the homeowner's sq ft to squares first (divide by 100).
+PRICING FORMULA:
+  1. Convert roof area to "measured squares" (1 square = 100 sq ft).        measured = sqFt / 100
+  2. Apply ${wastePct}% waste factor for cuts, valleys, ridge caps, etc.    pricing  = round(measured × ${1 + PRICING_CONFIG.wasteFactor})
+  3. Multiply pricing squares by the catalog price per square.             target   = pricing × catalogPricePerSquare
+  4. Show a customer-facing range of ±${rangePct}% around target.           min/max  = target × (1 ∓ 0.${rangePct})
+  5. Add ${fmt(steepAdd)}/sq ONLY if the roof is steep slope (>7/12 pitch). steep    = +${fmt(steepAdd)} per pricing square
 
-Every estimate has THREE line items plus a total:
-  1. Material  = squares × material_per_square
-  2. Install   = squares × install_per_square
-  3. Waste     = Material × ${WASTE_FACTOR * 100}%   (covers cuts, valleys, ridge caps, accidental damage — applied to material only, NEVER to labor)
-  Total      = Material + Install + Waste
+SHINGLE TIERS (catalog price per square — installed):
+Best: ${best.name} — ${fmt(best.catalogPricePerSquare!)}/sq
+  Wind: ${best.windRating} | Warranty: ${best.warranty}
+  Hail Guard impact resistance; highest wind rating in our lineup; ideal for coastal SC.
 
-Equivalent shorthand: squares × ((material × ${1 + WASTE_FACTOR}) + install)
+Better: ${better.name} — ${fmt(better.catalogPricePerSquare!)}/sq
+  Wind: ${better.windRating} | Warranty: ${better.warranty}
+  SureNail Technology, StreakGuard algae resistance, premium curb appeal.
 
-SHINGLE TIERS (material cost per square):
-Best: ${m.best.name} — $${m.best.perSquare}/sq
-  Wind: ${m.best.windRating} | Warranty: ${m.best.warranty}
-  ${m.best.features}
-
-Better: ${m.better.name} — $${m.better.perSquare}/sq
-  Wind: ${m.better.windRating} | Warranty: ${m.better.warranty}
-  ${m.better.features}
-
-Good: ${m.good.name} — $${m.good.perSquare}/sq
-  Wind: ${m.good.windRating} | Warranty: ${m.good.warranty}
-  ${m.good.features}
-
-INSTALL COST TIERS (labor per square):
-${i.basic.label}: $${i.basic.perSquare}/sq — ${i.basic.description}
-${i.custom.label}: $${i.custom.perSquare}/sq — ${i.custom.description}
-${i.complex.label}: $${i.complex.perSquare}/sq — ${i.complex.description}
+Good: ${good.name} — ${fmt(good.catalogPricePerSquare!)}/sq
+  Wind: ${good.windRating} | Warranty: ${good.warranty}
+  Solid value; meets SC building code; same Owens Corning quality at an accessible price.
 
 ESTIMATE FLOW:
-1. Ask the homeowner for their roof square footage. If they don't know, tell them the average Charleston-area home is 1,500-2,500 sq ft of roof area.
-2. Ask about their roof complexity (basic, custom, or complex). Give them the descriptions to help them choose. If they don't know or don't mention complexity, default to Custom ($${i.custom.perSquare}/sq) and note that you've assumed Custom — they can clarify if their roof is simpler or more complex.
-3. Calculate estimates for all three shingle tiers using their sq ft and the chosen install tier.
-4. Present a neat comparison showing all three options with the four-line breakdown (Material / Install / Waste / Total).
-5. After presenting, encourage them to schedule a free inspection for an exact quote: (843) 306-2939.
+1. Ask the homeowner for their roof square footage. If they don't know, tell them most Charleston-area homes have 1,500–2,500 sq ft of roof area, and ask roughly how big their home is.
+2. Optionally ask if their roof is steep slope (steeper than a 7/12 pitch — typical homes are NOT steep slope). If they don't know or don't mention it, assume standard slope and note the assumption.
+3. Compute the price range for ALL THREE tiers using the formula above.
+4. Present the three tiers as a clean comparison with the range for each (e.g., "${range(exGood)}").
+5. Always note this is a ballpark range; the on-site inspection produces the exact quote.
+6. Encourage them to call (843) 306-2939 or use the on-page "Get Your Instant Quote" button for the official quote.
 
-EXAMPLE — 2,000 sq ft roof, Custom complexity (default):
-Squares: 2,000 / 100 = 20 squares
+WORKED EXAMPLE — typical ${exMeasured}-square home (~${exMeasured * 100} sq ft of roof, standard slope):
+  measured = ${exMeasured} squares
+  pricing  = round(${exMeasured} × 1.${wastePct.toString().padStart(2, '0')}) = ${exPricing} squares
 
-Best (Storm Fighter):
-  Material:  20 × $249 = $4,980
-  Install:   20 × $110 = $2,200
-  Waste:     $4,980 × 0.15 = $747
-  Total:     $7,927
+  Best  (${best.shortName}):  ${exPricing} × ${fmt(best.catalogPricePerSquare!)} = ${fmt(exBest.target)}  →  range ${range(exBest)}
+  Better (${better.shortName}): ${exPricing} × ${fmt(better.catalogPricePerSquare!)} = ${fmt(exBetter.target)}  →  range ${range(exBetter)}
+  Good  (${good.shortName}): ${exPricing} × ${fmt(good.catalogPricePerSquare!)} = ${fmt(exGood.target)}  →  range ${range(exGood)}
 
-Better (OC Duration):
-  Material:  20 × $116 = $2,320
-  Install:   20 × $110 = $2,200
-  Waste:     $2,320 × 0.15 = $348
-  Total:     $4,868
-
-Good (OC Oakridge):
-  Material:  20 × $102 = $2,040
-  Install:   20 × $110 = $2,200
-  Waste:     $2,040 × 0.15 = $306
-  Total:     $4,546
+  Steep slope (if applicable) adds ${fmt(steepAdd)} × ${exPricing} = ${fmt(steepAdd * exPricing)} to each tier's target before the ±${rangePct}% range.
 
 IMPORTANT GUIDELINES:
-- ALWAYS show the four-line breakdown (Material / Install / Waste / Total) for each tier — never just the total.
-- Apply the 15% waste factor to MATERIAL ONLY. Do NOT apply waste to install/labor.
-- Note that these are ballpark estimates — final pricing depends on on-site inspection.
-- Material pricing is based on current market rates and may vary.
-- The Storm Fighter (Best tier) carries the highest price because of its 160 mph wind system warranty and Hail Guard impact resistance — it's our top-tier storm-rated shingle, ideal for coastal South Carolina homes. All three options are quality products; the tier reflects price and protection level.
-- Always end with: "For an exact quote tailored to your home, give us a call at (843) 306-2939 or schedule a free roof inspection."
+- The catalog price per square is ALL-IN installed (no separate material/labor/waste line items). Do NOT break out material and labor — the formula already includes both.
+- Always present a RANGE (min – max), not a single number. The range is ±${rangePct}% of the target.
+- Steep slope is a per-square add-on (${fmt(steepAdd)}/sq) applied BEFORE the ±${rangePct}% range. Default to standard slope unless the homeowner says otherwise.
+- These ranges match what the on-page Roof Quote tool shows. If a homeowner has seen a number on the website, your math should agree.
+- The Best tier (${best.shortName}) is our top storm-rated option — 160 mph system warranty, Hail Guard impact resistance, ideal for hurricane-prone coastal homes.
+- Always end with: "For an exact quote tailored to your home, give us a call at (843) 306-2939 or use the Get Your Instant Quote button on this page."
 --- END ESTIMATE SYSTEM ---`;
 }
 

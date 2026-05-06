@@ -240,6 +240,24 @@ export function formatQuoteRange(catalogPricePerSquare: number, steepSlope = fal
   return `$${min.toLocaleString()} – $${max.toLocaleString()}`;
 }
 
+// Same formula generalized to any roof size (chat uses this for arbitrary homes).
+// Pricing squares = round(measuredSquares × (1 + wasteFactor)).
+export function computeQuoteRangeForMeasured(
+  measuredSquares: number,
+  catalogPricePerSquare: number,
+  steepSlope = false,
+) {
+  const pricingSquares = Math.round(measuredSquares * (1 + PRICING_CONFIG.wasteFactor));
+  const totalPerSquare = catalogPricePerSquare + (steepSlope ? PRICING_CONFIG.steepSlopeChargePerSquare : 0);
+  const target = pricingSquares * totalPerSquare;
+  return {
+    pricingSquares,
+    target,
+    min: Math.round(target * (1 - PRICING_CONFIG.rangePercent)),
+    max: Math.round(target * (1 + PRICING_CONFIG.rangePercent)),
+  };
+}
+
 // Helper to get category label
 export function getCategoryLabel(category: RoofingMaterial['category']): string {
   const labels: Record<RoofingMaterial['category'], string> = {
