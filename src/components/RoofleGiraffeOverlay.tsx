@@ -104,7 +104,7 @@ export default function RoofleGiraffeOverlay() {
       }}
     >
       <Image
-        src="/images/giraffe-quote-tab-v4.webp"
+        src="/images/giraffe-quote-tab-v5b.webp"
         alt=""
         width={160}
         height={213}

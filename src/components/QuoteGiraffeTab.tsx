@@ -117,18 +117,18 @@ export default function QuoteGiraffeTab() {
             >
               <div className="relative" style={{ width: 216 }}>
                 <Image
-                  src="/images/giraffe-quote-tab-v4.webp"
+                  src="/images/giraffe-quote-tab-v5b.webp"
                   alt="Get Instant Roof Quote"
                   width={216}
-                  height={282}
+                  height={288}
                   style={{ width: "216px", height: "auto", display: "block" }}
                 />
                 {/* Winking frame — preloaded, fades in for 180ms on each blink */}
                 <Image
-                  src="/images/giraffe-quote-tab-v4-orange-hat.png"
+                  src="/images/giraffe-quote-tab-v5b-wink.webp"
                   alt=""
                   width={216}
-                  height={282}
+                  height={288}
                   priority
                   style={{
                     position: "absolute",
