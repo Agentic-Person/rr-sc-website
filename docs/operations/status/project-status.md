@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: May 6, 2026 (Session 2)
+> Last updated: May 6, 2026 (Session 3)
 
 ## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
@@ -8,6 +8,30 @@
 **Repo:** github.com/Agentic-Person/rr-sc-website
 **Client Repo:** github.com/SCROOF1/restorationroofing
 **Previous Repo (Vite SPA):** github.com/Agentic-Person/restorationroofing-sc (archive only)
+
+---
+
+## 🔄 Last Activity (May 6, 2026 — Session 3)
+
+**Mascot size reduction + roof quote red flags copy update**
+
+### What shipped (commits `24a2885`, `85acb15`)
+
+**1. Quote tab giraffe scaled down 15% (`24a2885`)**
+- `QuoteGiraffeTab.tsx`: both Image elements and container div scaled 216→184px wide (height prop 288→245)
+- `RoofleGiraffeOverlay.tsx`: Image scaled 160→136px wide (height prop 213→181)
+
+**2. Red flags section — RR SC inclusions added (`85acb15`)**
+- Red flag #2 (underlayment): copy now specifies two layers are standard and that every RR SC bid already includes both (synthetic full-deck + ice & water shield at eaves)
+- Red flag #3 (decking): copy now states every RR SC bid includes up to three full 4×8 sheets of replacement plywood to avoid change-order surprises on install day
+
+### Why
+Client requested smaller mascot. Red flags section previously only described competitor shortfalls — adding the "we already include this" contrast turns each flag into a direct differentiator.
+
+### Files changed
+- `src/components/QuoteGiraffeTab.tsx`
+- `src/components/RoofleGiraffeOverlay.tsx`
+- `src/app/roof-quote/roof-quote-content.tsx`
 
 ---
 
