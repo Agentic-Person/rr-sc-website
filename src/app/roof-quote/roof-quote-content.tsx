@@ -1434,12 +1434,12 @@ export default function RoofQuoteContent() {
                 {
                   n: "2",
                   title: "Only one layer of underlayment proposed",
-                  body: "In a coastal climate with hurricane exposure, synthetic underlayment paired with self-adhering ice & water shield at the eaves is standard. One layer is not enough.",
+                  body: "In a coastal climate with hurricane exposure, two layers are standard: synthetic underlayment across the full deck, plus self-adhering ice & water shield at the eaves. Every Restoration Roofing bid already includes both — one layer is not enough.",
                 },
                 {
                   n: "3",
                   title: "No discussion of your decking",
-                  body: "They can’t know your decking condition without tearing off the old roof. A contractor who doesn’t mention this isn’t planning to check — or to be accountable for what they find.",
+                  body: "They can’t know your decking condition without tearing off the old roof. A contractor who doesn’t mention this isn’t planning to check — or to be accountable for what they find. Every Restoration Roofing bid already includes up to three full 4×8 sheets of replacement plywood, so minor decking surprises don’t become a change-order conversation on install day.",
                 },
                 {
                   n: "4",
