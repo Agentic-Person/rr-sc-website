@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RoofQuoteContent from "./roof-quote-content";
 import { COMPANY, SITE_URL } from "@/lib/data";
+import { getPricing } from "@/lib/pricing";
 
 export const metadata: Metadata = {
   title: "Instant Roof Quote | Restoration Roofing SC",
@@ -61,14 +62,16 @@ const jsonLd = {
   },
 };
 
-export default function RoofQuotePage() {
+export default async function RoofQuotePage() {
+  const pricing = await getPricing();
   return (
     <>
       <script
         type="application/ld+json"
+        // eslint-disable-next-line react/no-danger -- trusted, build-time JSON-LD
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <RoofQuoteContent />
+      <RoofQuoteContent pricing={pricing} />
     </>
   );
 }

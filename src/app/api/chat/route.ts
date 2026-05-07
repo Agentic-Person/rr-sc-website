@@ -4,11 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import Anthropic from "@anthropic-ai/sdk";
 import {
-  ESTIMATE_MATERIALS,
-  PRICING_CONFIG,
   computeQuoteRangeForMeasured,
-  type RoofingMaterial,
-} from "@/lib/materials";
+  computeTiers,
+  getPricing,
+  type PricingConfig,
+} from "@/lib/pricing";
 
 const supabase = createClient(
 
@@ -79,34 +79,24 @@ async function chatCompletion(
 }
 
 // --- INSTANT ESTIMATE PRICING ENGINE ---
-// Single source of truth: src/lib/materials.ts (PRICING_CONFIG + ESTIMATE_MATERIALS).
-// The same formula drives the on-page Roof Quote tool, so the chat and the website
-// always quote the same numbers.
+// Live pricing comes from getPricing() (src/lib/pricing.ts), which reads from the
+// pricing_config table in Supabase and is cached until the admin tool publishes
+// a change. The chat and the on-page Roof Quote tool share this single source of
+// truth so they never disagree on a number.
 
-function tierFor(tier: 'best' | 'better' | 'good'): RoofingMaterial {
-  const m = ESTIMATE_MATERIALS.find((mat) => mat.estimateTier === tier);
-  if (!m || !m.catalogPricePerSquare) {
-    throw new Error(`Missing estimate tier "${tier}" or catalogPricePerSquare in materials catalog`);
-  }
-  return m;
-}
+function buildEstimatePricingContext(p: PricingConfig): string {
+  const tiers = computeTiers(p);
+  const good = tiers.find((t) => t.id === "good")!;
+  const better = tiers.find((t) => t.id === "better")!;
+  const best = tiers.find((t) => t.id === "best")!;
 
-function buildEstimatePricingContext(): string {
-  const best = tierFor('best');
-  const better = tierFor('better');
-  const good = tierFor('good');
+  const wastePct = Math.round(((p.billableSquares / p.measuredSquares) - 1) * 100);
+  const rangePct = Math.round(p.quoteRangePct);
+  const steepAdd = p.steepSlopeAdd;
 
-  const wastePct = Math.round(PRICING_CONFIG.wasteFactor * 100);
-  const rangePct = Math.round(PRICING_CONFIG.rangePercent * 100);
-  const steepAdd = PRICING_CONFIG.steepSlopeChargePerSquare;
-
-  // Benchmark example mirrors the on-page Roof Quote tool (605 Julep Dr.):
-  // 22 measured squares × 1.10 → 24 pricing squares.
-  const exMeasured = PRICING_CONFIG.measuredSquares;
-  const exPricing = PRICING_CONFIG.pricingSquares;
-  const exBest = computeQuoteRangeForMeasured(exMeasured, best.catalogPricePerSquare!);
-  const exBetter = computeQuoteRangeForMeasured(exMeasured, better.catalogPricePerSquare!);
-  const exGood = computeQuoteRangeForMeasured(exMeasured, good.catalogPricePerSquare!);
+  const exBest = computeQuoteRangeForMeasured(p, p.measuredSquares, best.installedPerSquare);
+  const exBetter = computeQuoteRangeForMeasured(p, p.measuredSquares, better.installedPerSquare);
+  const exGood = computeQuoteRangeForMeasured(p, p.measuredSquares, good.installedPerSquare);
 
   const fmt = (n: number) => `$${n.toLocaleString()}`;
   const range = (r: { min: number; max: number }) => `${fmt(r.min)} – ${fmt(r.max)}`;
@@ -114,26 +104,23 @@ function buildEstimatePricingContext(): string {
   return `
 
 --- INSTANT ESTIMATE SYSTEM ---
-You can calculate instant roof replacement estimates using the same formula as our website's Roof Quote tool. The catalog price per square is the ALL-IN installed price (materials + labor + standard installation).
+You can calculate instant roof replacement estimates using the same formula as our website's Roof Quote tool. The installed price per square is ALL-IN (materials + labor + standard installation).
 
 PRICING FORMULA:
-  1. Convert roof area to "measured squares" (1 square = 100 sq ft).        measured = sqFt / 100
-  2. Apply ${wastePct}% waste factor for cuts, valleys, ridge caps, etc.    pricing  = round(measured × ${1 + PRICING_CONFIG.wasteFactor})
-  3. Multiply pricing squares by the catalog price per square.             target   = pricing × catalogPricePerSquare
-  4. Show a customer-facing range of ±${rangePct}% around target.           min/max  = target × (1 ∓ 0.${rangePct})
-  5. Add ${fmt(steepAdd)}/sq ONLY if the roof is steep slope (>7/12 pitch). steep    = +${fmt(steepAdd)} per pricing square
+  1. Convert roof area to "measured squares" (1 square = 100 sq ft).    measured = sqFt / 100
+  2. Apply waste/pricing factor (benchmark: ${p.measuredSquares} sq → ${p.billableSquares} sq, ${wastePct}% uplift).  pricing = round(measured × ${(p.billableSquares / p.measuredSquares).toFixed(3)})
+  3. Multiply pricing squares by the installed price per square.        target  = pricing × installedPerSquare
+  4. Show a customer-facing range of ±${rangePct}% around target.        min/max = target × (1 ∓ 0.${rangePct.toString().padStart(2, '0')})
+  5. Add ${fmt(steepAdd)}/sq ONLY if the roof is steep slope (>7/12 pitch).
 
-SHINGLE TIERS (catalog price per square — installed):
-Best: ${best.name} — ${fmt(best.catalogPricePerSquare!)}/sq
-  Wind: ${best.windRating} | Warranty: ${best.warranty}
-  Hail Guard impact resistance; highest wind rating in our lineup; ideal for coastal SC.
+SHINGLE TIERS (installed price per square):
+Best: ${best.fullName} — ${fmt(best.installedPerSquare)}/sq
+  Hail Guard impact resistance; 160 mph system warranty; ideal for coastal SC.
 
-Better: ${better.name} — ${fmt(better.catalogPricePerSquare!)}/sq
-  Wind: ${better.windRating} | Warranty: ${better.warranty}
+Better: ${better.fullName} — ${fmt(better.installedPerSquare)}/sq
   SureNail Technology, StreakGuard algae resistance, premium curb appeal.
 
-Good: ${good.name} — ${fmt(good.catalogPricePerSquare!)}/sq
-  Wind: ${good.windRating} | Warranty: ${good.warranty}
+Good: ${good.fullName} — ${fmt(good.installedPerSquare)}/sq
   Solid value; meets SC building code; same Owens Corning quality at an accessible price.
 
 ESTIMATE FLOW:
@@ -144,18 +131,18 @@ ESTIMATE FLOW:
 5. Always note this is a ballpark range; the on-site inspection produces the exact quote.
 6. Encourage them to call (843) 306-2939 or use the on-page "Get Your Instant Quote" button for the official quote.
 
-WORKED EXAMPLE — typical ${exMeasured}-square home (~${exMeasured * 100} sq ft of roof, standard slope):
-  measured = ${exMeasured} squares
-  pricing  = round(${exMeasured} × 1.${wastePct.toString().padStart(2, '0')}) = ${exPricing} squares
+WORKED EXAMPLE — typical ${p.measuredSquares}-square home (~${p.measuredSquares * 100} sq ft of roof, standard slope):
+  measured = ${p.measuredSquares} squares
+  pricing  = ${p.billableSquares} squares
 
-  Best  (${best.shortName}):  ${exPricing} × ${fmt(best.catalogPricePerSquare!)} = ${fmt(exBest.target)}  →  range ${range(exBest)}
-  Better (${better.shortName}): ${exPricing} × ${fmt(better.catalogPricePerSquare!)} = ${fmt(exBetter.target)}  →  range ${range(exBetter)}
-  Good  (${good.shortName}): ${exPricing} × ${fmt(good.catalogPricePerSquare!)} = ${fmt(exGood.target)}  →  range ${range(exGood)}
+  Best   (${best.shortName}):  ${p.billableSquares} × ${fmt(best.installedPerSquare)} = ${fmt(exBest.target)}  →  range ${range(exBest)}
+  Better (${better.shortName}): ${p.billableSquares} × ${fmt(better.installedPerSquare)} = ${fmt(exBetter.target)}  →  range ${range(exBetter)}
+  Good   (${good.shortName}): ${p.billableSquares} × ${fmt(good.installedPerSquare)} = ${fmt(exGood.target)}  →  range ${range(exGood)}
 
-  Steep slope (if applicable) adds ${fmt(steepAdd)} × ${exPricing} = ${fmt(steepAdd * exPricing)} to each tier's target before the ±${rangePct}% range.
+  Steep slope (if applicable) adds ${fmt(steepAdd)} × pricingSquares to each tier's target before the ±${rangePct}% range.
 
 IMPORTANT GUIDELINES:
-- The catalog price per square is ALL-IN installed (no separate material/labor/waste line items). Do NOT break out material and labor — the formula already includes both.
+- The installed price per square is ALL-IN. Do NOT break out material and labor — the formula already includes both.
 - Always present a RANGE (min – max), not a single number. The range is ±${rangePct}% of the target.
 - Steep slope is a per-square add-on (${fmt(steepAdd)}/sq) applied BEFORE the ±${rangePct}% range. Default to standard slope unless the homeowner says otherwise.
 - These ranges match what the on-page Roof Quote tool shows. If a homeowner has seen a number on the website, your math should agree.
@@ -164,8 +151,10 @@ IMPORTANT GUIDELINES:
 --- END ESTIMATE SYSTEM ---`;
 }
 
-// Stable prefix — never varies per request, eligible for prompt caching.
-function buildSystemPromptStable(): string {
+// Stable prefix — when pricing changes, this string changes too, so Anthropic's
+// content-keyed prompt cache automatically invalidates. Within a 5-minute cache
+// window where pricing is unchanged, repeat queries hit the cache as expected.
+function buildSystemPromptStable(p: PricingConfig): string {
   return `You are a helpful, knowledgeable roofing assistant for Restoration Roofing SC, serving the Charleston, South Carolina area. You speak as part of the team — use "we" and "our team" rather than referring to yourself by name.
 
 Your tone is warm, professional, and confident. You know roofing inside and out — materials, installation, coastal climate challenges, insurance processes, and local building codes. When a question goes beyond what you can answer precisely, always offer to connect the visitor with our team for specifics.
@@ -182,7 +171,7 @@ Guidelines:
 - When a homeowner asks about cost or pricing, use the Instant Estimate System below to help them. If pricing data is available, calculate an estimate. If not, present our shingle tiers and encourage them to call for a quote.
 - Always encourage the visitor to call us at (843) 306-2939 or schedule a free inspection for anything that requires an on-site assessment.
 - Use the knowledge base context below to ground your answers. If the context doesn't cover the question, rely on general roofing expertise and say so.
-${buildEstimatePricingContext()}`;
+${buildEstimatePricingContext(p)}`;
 }
 
 // Volatile suffix — per-request RAG context, not cached.
@@ -269,9 +258,10 @@ export async function POST(request: NextRequest) {
       { role: "user" as const, content: sanitizedMessage },
     ];
 
-    // 4. Chat completion (Claude Sonnet 4.6)
+    // 4. Chat completion (Claude Sonnet 4.6) — pricing read from cached Supabase config
+    const pricing = await getPricing();
     const response = await chatCompletion(
-      buildSystemPromptStable(),
+      buildSystemPromptStable(pricing),
       buildSystemPromptVolatile(ragContext),
       chatMessages,
     );

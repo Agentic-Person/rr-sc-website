@@ -19,7 +19,7 @@ import {
   FileText,
 } from "lucide-react";
 import { COMPANY } from "@/lib/data";
-import { formatQuoteRange } from "@/lib/materials";
+import { computeTiers, formatQuoteRange, type PricingConfig, type PricingTier } from "@/lib/pricing";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useQuoteWidget } from "@/contexts/QuoteWidgetContext";
 
@@ -56,9 +56,7 @@ const SHINGLE_TIERS = [
       "Dimensional wood-shake appearance with proven Owens Corning performance. StreakGuard algae resistance fights the Lowcountry humidity. 110 mph rated, Lifetime Limited warranty.",
     windRating: "110 mph",
     lifespan: "20–25 years",
-    priceRange: formatQuoteRange(411),
-    steepPriceRange: formatQuoteRange(411, true),
-    priceNote: "typical home (22 squares / ~2,200 sq ft roof)",
+    tierKey: "good" as const,
     highlights: ["Dimensional appearance", "StreakGuard algae resistance", "Owens Corning Lifetime warranty", "Wide color selection"],
     houseImage: "/images/material-oc-oakridge-house.webp",
     badgeColor: "bg-sage text-white",
@@ -74,9 +72,7 @@ const SHINGLE_TIERS = [
       "Our flagship shingle. SureNail Technology for a reinforced nail zone, 130 mph wind warranty, bold TruDefinition color, and StreakGuard protection. The go-to for premium curb appeal on Lowcountry homes.",
     windRating: "130 mph",
     lifespan: "25–30 years",
-    priceRange: formatQuoteRange(425),
-    steepPriceRange: formatQuoteRange(425, true),
-    priceNote: "typical home (22 squares / ~2,200 sq ft roof)",
+    tierKey: "better" as const,
     highlights: ["SureNail Technology", "130 mph wind warranty", "Class 4 impact option", "TruDefinition color platform"],
     houseImage: "/images/material-oc-duration-house.webp",
     badgeColor: "bg-amber text-black",
@@ -93,9 +89,7 @@ const SHINGLE_TIERS = [
       "Engineered for the South Carolina coast. 160 mph system wind warranty, Hail Guard impact protection, and Class 4 rating — may qualify for insurance discounts.",
     windRating: "160 mph system",
     lifespan: "20–30 years",
-    priceRange: formatQuoteRange(558),
-    steepPriceRange: formatQuoteRange(558, true),
-    priceNote: "typical home (22 squares / ~2,200 sq ft roof)",
+    tierKey: "best" as const,
     highlights: ["160 mph wind warranty", "Hail Guard impact resistance", "Insurance discount eligible", "Built for coastal SC"],
     houseImage: "/images/material-tamko-house.webp",
     badgeColor: "bg-navy text-white",
@@ -114,9 +108,7 @@ const SHINGLE_TIERS_ES = [
       "Apariencia dimensional de madera con el rendimiento comprobado de Owens Corning. La resistencia al algas StreakGuard combate la humedad del Lowcountry. Clasificación 110 mph, garantía limitada de por vida.",
     windRating: "110 mph",
     lifespan: "20–25 años",
-    priceRange: formatQuoteRange(411),
-    steepPriceRange: formatQuoteRange(411, true),
-    priceNote: "hogar típico (22 cuadrados / ~2,200 sq ft de techo)",
+    tierKey: "good" as const,
     highlights: ["Apariencia dimensional", "Resistencia al algas StreakGuard", "Garantía de por vida Owens Corning", "Amplia selección de colores"],
     houseImage: "/images/material-oc-oakridge-house.webp",
     badgeColor: "bg-sage text-white",
@@ -132,9 +124,7 @@ const SHINGLE_TIERS_ES = [
       "Nuestra teja insignia. Tecnología SureNail para una zona de clavado reforzada, garantía de viento de 130 mph, color TruDefinition intenso y protección StreakGuard. La opción preferida para mayor atractivo visual en hogares del Lowcountry.",
     windRating: "130 mph",
     lifespan: "25–30 años",
-    priceRange: formatQuoteRange(425),
-    steepPriceRange: formatQuoteRange(425, true),
-    priceNote: "hogar típico (22 cuadrados / ~2,200 sq ft de techo)",
+    tierKey: "better" as const,
     highlights: ["Tecnología SureNail", "Garantía de viento de 130 mph", "Opción de impacto Clase 4", "Plataforma de color TruDefinition"],
     houseImage: "/images/material-oc-duration-house.webp",
     badgeColor: "bg-amber text-black",
@@ -151,9 +141,7 @@ const SHINGLE_TIERS_ES = [
       "Diseñada para la costa de South Carolina. Garantía de viento de 160 mph en sistema, protección contra granizo Hail Guard y clasificación Clase 4 — puede calificar para descuentos de seguro.",
     windRating: "160 mph sistema",
     lifespan: "20–30 años",
-    priceRange: formatQuoteRange(558),
-    steepPriceRange: formatQuoteRange(558, true),
-    priceNote: "hogar típico (22 cuadrados / ~2,200 sq ft de techo)",
+    tierKey: "best" as const,
     highlights: ["Garantía de viento de 160 mph", "Resistencia al granizo Hail Guard", "Elegible para descuento de seguro", "Diseñada para la costa de SC"],
     houseImage: "/images/material-tamko-house.webp",
     badgeColor: "bg-navy text-white",
@@ -632,11 +620,36 @@ const RQ_ES = {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export default function RoofQuoteContent() {
+export default function RoofQuoteContent({ pricing }: { pricing: PricingConfig }) {
   const { lang } = useLanguage();
   const es = lang === "es";
 
-  const activeTiers = es ? SHINGLE_TIERS_ES : SHINGLE_TIERS;
+  // Live pricing — merges static tier copy with computed price ranges from the
+  // current pricing_config row. Recomputes whenever `pricing` changes (i.e., on
+  // a fresh page render after a Publish from /tools/pricing).
+  const tierByKey: Record<PricingTier["id"], PricingTier> = computeTiers(pricing).reduce(
+    (acc, t) => ({ ...acc, [t.id]: t }),
+    {} as Record<PricingTier["id"], PricingTier>,
+  );
+  const priceNoteEn = `typical home (${pricing.measuredSquares} squares / ~${pricing.measuredSquares * 100} sq ft roof)`;
+  const priceNoteEs = `hogar típico (${pricing.measuredSquares} cuadrados / ~${pricing.measuredSquares * 100} sq ft de techo)`;
+  const withPrices = <T extends { tierKey: PricingTier["id"] }>(
+    base: readonly T[],
+    note: string,
+  ) =>
+    base.map((tier) => {
+      const t = tierByKey[tier.tierKey];
+      return {
+        ...tier,
+        priceRange: formatQuoteRange(pricing, t.installedPerSquare),
+        steepPriceRange: formatQuoteRange(pricing, t.installedPerSquare, true),
+        priceNote: note,
+      };
+    });
+
+  const activeTiers = es
+    ? withPrices(SHINGLE_TIERS_ES, priceNoteEs)
+    : withPrices(SHINGLE_TIERS, priceNoteEn);
   const activeCostDrivers = es ? COST_DRIVERS_ES : COST_DRIVERS;
   const activeProcessSteps = es ? PROCESS_STEPS_ES : PROCESS_STEPS;
 

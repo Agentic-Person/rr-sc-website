@@ -4,15 +4,10 @@
 
 export type EstimateTier = 'best' | 'better' | 'good';
 
-// Formula: measuredSquares × wasteFactor → pricingSquares × catalogPricePerSquare = quote target
-// Steep slope adds steepSlopeChargePerSquare; range displayed as ±rangePercent of target
-export const PRICING_CONFIG = {
-  measuredSquares: 22,           // 21.66 rounded up (605 Julep Dr. benchmark)
-  wasteFactor: 0.10,             // 22 × 1.10 = 24.2 → aligns to 24-square proposal target
-  pricingSquares: 24,
-  steepSlopeChargePerSquare: 30, // manager-approved add-on for steep slope
-  rangePercent: 0.10,            // ±10% customer-facing over/under band
-} as const;
+// Live customer-facing pricing now lives in src/lib/pricing.ts (sourced from the
+// pricing_config Supabase row, edited via /tools/pricing). The fields below are
+// retained for the materials-comparison page only — they describe per-sq-ft market
+// ranges shown for context, not the calibrated installed quote prices.
 
 export interface RoofingMaterial {
   id: string;
@@ -222,40 +217,6 @@ export function getTierLabel(tier: EstimateTier): string {
 export function formatPriceRange(min: number, max: number): string {
   if (min === max) return `$${min.toFixed(2)}`;
   return `$${min.toFixed(2)} – $${max.toFixed(2)}`;
-}
-
-// Compute quote range from formula: pricingSquares × (catalogPricePerSquare [+ steepSlopeCharge]) ± rangePercent
-export function computeQuoteRange(catalogPricePerSquare: number, steepSlope = false) {
-  const totalPerSquare = catalogPricePerSquare + (steepSlope ? PRICING_CONFIG.steepSlopeChargePerSquare : 0);
-  const target = PRICING_CONFIG.pricingSquares * totalPerSquare;
-  return {
-    target,
-    min: Math.round(target * (1 - PRICING_CONFIG.rangePercent)),
-    max: Math.round(target * (1 + PRICING_CONFIG.rangePercent)),
-  };
-}
-
-export function formatQuoteRange(catalogPricePerSquare: number, steepSlope = false): string {
-  const { min, max } = computeQuoteRange(catalogPricePerSquare, steepSlope);
-  return `$${min.toLocaleString()} – $${max.toLocaleString()}`;
-}
-
-// Same formula generalized to any roof size (chat uses this for arbitrary homes).
-// Pricing squares = round(measuredSquares × (1 + wasteFactor)).
-export function computeQuoteRangeForMeasured(
-  measuredSquares: number,
-  catalogPricePerSquare: number,
-  steepSlope = false,
-) {
-  const pricingSquares = Math.round(measuredSquares * (1 + PRICING_CONFIG.wasteFactor));
-  const totalPerSquare = catalogPricePerSquare + (steepSlope ? PRICING_CONFIG.steepSlopeChargePerSquare : 0);
-  const target = pricingSquares * totalPerSquare;
-  return {
-    pricingSquares,
-    target,
-    min: Math.round(target * (1 - PRICING_CONFIG.rangePercent)),
-    max: Math.round(target * (1 + PRICING_CONFIG.rangePercent)),
-  };
 }
 
 // Helper to get category label
