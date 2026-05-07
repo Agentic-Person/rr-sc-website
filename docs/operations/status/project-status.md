@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: May 6, 2026 (Session 3)
+> Last updated: May 6, 2026 (Session 4)
 
 ## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
@@ -11,7 +11,127 @@
 
 ---
 
-## 🔄 Last Activity (May 6, 2026 — Session 3)
+## 🔄 Last Activity (May 6, 2026 — Session 4)
+
+**Internal admin tool: gated `/tools/pricing` calculator drives live customer pricing**
+
+### What shipped (commit `f46a1c1`)
+
+A self-service pricing admin replacing the previous "tell Claude to edit
+materials.ts" workflow. Same formula as the standalone HTML tool (Duration
+installed price as benchmark, other shingles as cost deltas, ±10% range,
+optional `+$30/sq` steep-slope), but now backed by Supabase and wired
+through the chat assistant and the `/roof-quote` page.
+
+**1. Routes**
+- `/tools` — landing page (Header + Footer), card for the Pricing Formula,
+  placeholder for SEO/AEO snapshot. Future home for additional internal tools.
+- `/tools/pricing` — the calculator. Gated by middleware → redirects
+  unauthenticated visits to `/admin/login?redirect=/tools/pricing`.
+- `/admin/login` — Supabase Auth email/password sign-in.
+
+**2. Storage**
+- `supabase/migrations/004_pricing_config.sql` — single-row table (CHECK
+  id=1), draft jsonb column, audit fields (`last_published_at`,
+  `last_published_by`), RLS service-role-only. Seeded with current
+  production values (22/24/$425/±10%/$30, $102/$116/$249 raw shingle costs).
+- Edits go through three Server Actions (`src/app/tools/pricing/actions.ts`):
+  Save Draft, Publish, Discard Draft. Auth verified server-side; writes
+  go through the service-role client.
+
+**3. Read side: `src/lib/pricing.ts`**
+- `getPricing()` — async, server-only, reads `pricing_config` row 1,
+  cached forever via `unstable_cache` with the `pricing` tag.
+- `computeTiers(p)` — returns Good/Better/Best with installed price
+  derived as `durationInstalled + (shingleCost − durationCost)`.
+- `formatQuoteRange(p, installedPerSquare, steepSlope?)` and
+  `computeQuoteRangeForMeasured(p, measured, installed, steep?)` — pure
+  functions taking pricing as an argument (chat uses the latter for
+  arbitrary roof sizes).
+- Falls back to hard-coded defaults if Supabase is unreachable, so a
+  transient outage never bricks the site.
+
+**4. Cache invalidation**
+- Publish action calls `updateTag("pricing")` (Next 16's read-your-own-writes
+  cache invalidator). Cache busts immediately; next call to `getPricing()`
+  refetches from Supabase. Chat and `/roof-quote` reflect the new numbers
+  on the next request — no redeploy.
+- DB hit roughly once per Publish, never on regular page renders.
+  (Originally proposed a 60s revalidate window; user pushed back, correctly,
+  and we landed on `revalidate: false` + explicit Publish-only invalidation.)
+
+**5. Consumers refactored**
+- `src/app/api/chat/route.ts` — pricing block in the system prompt is now
+  built from `getPricing()` per request. The catalog price/install split,
+  hard-coded $249/$116/$102 numbers, and 15%-waste-on-material logic are
+  gone — replaced with the same Duration-baseline-plus-delta model the
+  HTML tool uses. Worked example in the prompt mirrors the on-page Roof
+  Quote tool exactly.
+- `src/app/roof-quote/page.tsx` (server) fetches pricing and prop-drills
+  it to `roof-quote-content.tsx`. The two-language `SHINGLE_TIERS` arrays
+  no longer hard-code $411/$425/$558 — the priceRange/steepPriceRange
+  strings are computed per-render from the prop.
+- `src/lib/materials.ts` — legacy `PRICING_CONFIG`, `formatQuoteRange`,
+  `computeQuoteRange`, `computeQuoteRangeForMeasured` removed (superseded
+  by `pricing.ts`). Static catalog (names, warranties, descriptions,
+  images) intact for the materials-comparison page.
+
+**6. Auth**
+- `@supabase/ssr` installed for App Router cookie handling.
+- `src/lib/supabase-server.ts` — Server Component / Route Handler client
+  (anon key, reads cookies for session) and a service-role client for
+  admin actions.
+- `src/middleware.ts` — gates `/tools/pricing` and any future `/tools/*`
+  admin tool. `/tools` landing page is public.
+- `src/app/admin/login/login-form.tsx` — client component using
+  `@supabase/ssr`'s browser client + `signInWithPassword`.
+
+### Why
+RoofQuotePRO numbers move occasionally; the "tell Claude to edit
+materials.ts" loop was a bottleneck. With this tool the client can
+self-serve, see a live preview, and explicitly Publish when satisfied.
+The chat and the on-page quote tool now share a single source of truth
+they can never drift out of sync from.
+
+### End-to-end verification
+Walked the round trip on localhost:3006 with an ephemeral demo admin
+(`claude-demo@agenticpersonnel.com`, deleted after the test):
+1. Login → landed on `/tools` showing "Signed in as claude-demo@…"
+2. Clicked Pricing Formula card → calculator rendered with seed values
+3. Changed `durationInstalled` from $425 → $426 → all live previews
+   updated (spread table, per-tier breakdown, formula explanation)
+4. Clicked Publish → "Published — site updated" banner; Last published
+   timestamp + email updated immediately
+5. Verified Supabase row: `duration_installed: 426`,
+   `last_published_by: claude-demo@agenticpersonnel.com` ✓
+6. Hit `/roof-quote` HTTP 200; embedded RSC payload contained
+   `"durationInstalled":426` — cache invalidation worked, no redeploy ✓
+7. Reverted to $425 via second Publish → DB confirms `duration_installed: 425`
+8. Demo user deleted from Supabase Auth.
+
+### Pending operator setup (one-time)
+- The admin Auth user has been created in the dashboard
+  (`agenticpersonnel@gmail.com`); first-time sign-in works against the
+  same `dxhjmyzttozjifhemifj` Supabase project (no separate dev/prod DB).
+- Migration 004 was applied via the Supabase SQL Editor; row 1 is seeded.
+
+### Files changed
+- `package.json`, `package-lock.json` — added `@supabase/ssr`
+- `src/lib/pricing.ts` (new, 216 lines) — getPricing + helpers
+- `src/lib/supabase-server.ts` (new) — server + service-role clients
+- `src/middleware.ts` (new) — auth gate for `/tools/pricing`
+- `src/app/admin/login/page.tsx`, `login-form.tsx` (new)
+- `src/app/tools/page.tsx` (new) — landing page
+- `src/app/tools/pricing/page.tsx`, `pricing-tool-form.tsx`, `actions.ts` (new)
+- `src/app/api/chat/route.ts` — uses `getPricing()`, system prompt updated
+- `src/app/roof-quote/page.tsx` — async, fetches pricing
+- `src/app/roof-quote/roof-quote-content.tsx` — accepts pricing prop
+- `src/lib/materials.ts` — legacy pricing helpers removed
+- `supabase/migrations/004_pricing_config.sql` (new)
+
+---
+
+## 🔄 Previous Activity (May 6, 2026 — Session 3)
 
 **Mascot size reduction + roof quote red flags copy update**
 
