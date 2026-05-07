@@ -358,11 +358,11 @@ export default function PricingToolForm({
                             </span>
                           )}
                         </td>
-                        <td className="py-3 pr-4">{fmtMoney(t.shingleCost, 2)}</td>
-                        <td className="py-3 pr-4">{t.materialDelta >= 0 ? "+" : ""}{fmtMoney(t.materialDelta, 2)}</td>
-                        <td className="py-3 pr-4 font-semibold">{fmtMoney(installed, 2)}</td>
-                        <td className="py-3 pr-4 font-semibold">{fmtMoney(total)}</td>
-                        <td className="py-3 pr-4 text-gray-700">{fmtMoney(range.min)} – {fmtMoney(range.max)}</td>
+                        <td className="py-3 pr-4 font-bold text-navy">{fmtMoney(t.shingleCost, 2)}</td>
+                        <td className="py-3 pr-4 font-bold text-navy">{t.materialDelta >= 0 ? "+" : ""}{fmtMoney(t.materialDelta, 2)}</td>
+                        <td className="py-3 pr-4 font-bold text-navy">{fmtMoney(installed, 2)}</td>
+                        <td className="py-3 pr-4 font-bold text-navy">{fmtMoney(total)}</td>
+                        <td className="py-3 pr-4 font-bold text-navy">{fmtMoney(range.min)} – {fmtMoney(range.max)}</td>
                       </tr>
                     );
                   })}
@@ -470,7 +470,7 @@ function NumField({
             const v = parseFloat(e.target.value);
             onChange(Number.isFinite(v) ? v : 0);
           }}
-          className="flex-1 min-w-0 px-3 py-2 text-sm outline-none"
+          className="flex-1 min-w-0 px-3 py-2 text-sm font-bold text-navy outline-none"
         />
         {suffix && <span className="px-2 flex items-center text-sm text-gray-500 bg-gray-50 border-l border-gray-300">{suffix}</span>}
       </div>
