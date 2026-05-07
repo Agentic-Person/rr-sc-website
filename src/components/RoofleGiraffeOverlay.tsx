@@ -106,9 +106,9 @@ export default function RoofleGiraffeOverlay() {
       <Image
         src="/images/giraffe-quote-tab-v5b.webp"
         alt=""
-        width={160}
-        height={213}
-        style={{ width: "160px", height: "auto" }}
+        width={136}
+        height={181}
+        style={{ width: "136px", height: "auto" }}
         priority
       />
     </div>

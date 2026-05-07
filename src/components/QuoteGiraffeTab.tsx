@@ -115,26 +115,26 @@ export default function QuoteGiraffeTab() {
               className="cursor-pointer drop-shadow-2xl"
               aria-label="Get an instant roof quote"
             >
-              <div className="relative" style={{ width: 216 }}>
+              <div className="relative" style={{ width: 184 }}>
                 <Image
                   src="/images/giraffe-quote-tab-v5b.webp"
                   alt="Get Instant Roof Quote"
-                  width={216}
-                  height={288}
-                  style={{ width: "216px", height: "auto", display: "block" }}
+                  width={184}
+                  height={245}
+                  style={{ width: "184px", height: "auto", display: "block" }}
                 />
                 {/* Winking frame — preloaded, fades in for 180ms on each blink */}
                 <Image
                   src="/images/giraffe-quote-tab-v5b-wink.webp"
                   alt=""
-                  width={216}
-                  height={288}
+                  width={184}
+                  height={245}
                   priority
                   style={{
                     position: "absolute",
                     top: 0,
                     left: 0,
-                    width: "216px",
+                    width: "184px",
                     height: "auto",
                     opacity: winking ? 1 : 0,
                     transition: "opacity 40ms ease-in-out",
