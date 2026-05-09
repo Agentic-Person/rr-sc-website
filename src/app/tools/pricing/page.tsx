@@ -16,6 +16,8 @@ type PricingRow = {
   measured_squares: number;
   billable_squares: number;
   duration_installed: number;
+  oak_installed: number;
+  tamko_installed: number;
   quote_range_pct: number;
   steep_slope_add: number;
   oak_cost: number;
@@ -36,6 +38,7 @@ type PricingRow = {
 
 const FALLBACK: PricingConfig = {
   measuredSquares: 22, billableSquares: 24, durationInstalled: 425,
+  oakInstalled: 411, tamkoInstalled: 558,
   quoteRangePct: 10, steepSlopeAdd: 30,
   oakCost: 102, durationCost: 116, tamkoCost: 249,
   laborRate: 85, dumpRate: 15, permitCost: 352, eagleCost: 28,
@@ -59,6 +62,8 @@ function rowToConfig(row: PricingRow | null, useDraft: boolean): PricingConfig {
     measuredSquares: num("measured_squares"),
     billableSquares: num("billable_squares"),
     durationInstalled: num("duration_installed"),
+    oakInstalled: num("oak_installed"),
+    tamkoInstalled: num("tamko_installed"),
     quoteRangePct: num("quote_range_pct"),
     steepSlopeAdd: num("steep_slope_add"),
     oakCost: num("oak_cost"),

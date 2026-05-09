@@ -17,6 +17,8 @@ const DEFAULTS = {
   measuredSquares: 22,
   billableSquares: 24,
   durationInstalled: 425,
+  oakInstalled: 411,
+  tamkoInstalled: 558,
   quoteRangePct: 10,
   steepSlopeAdd: 30,
   oakCost: 102,
@@ -36,6 +38,8 @@ export type PricingConfig = {
   measuredSquares: number;
   billableSquares: number;
   durationInstalled: number;
+  oakInstalled: number;
+  tamkoInstalled: number;
   quoteRangePct: number;
   steepSlopeAdd: number;
   oakCost: number;
@@ -85,6 +89,8 @@ function toConfig(row: Record<string, unknown> | null | undefined): PricingConfi
     measuredSquares: num("measured_squares", DEFAULTS.measuredSquares),
     billableSquares: num("billable_squares", DEFAULTS.billableSquares),
     durationInstalled: num("duration_installed", DEFAULTS.durationInstalled),
+    oakInstalled: num("oak_installed", DEFAULTS.oakInstalled),
+    tamkoInstalled: num("tamko_installed", DEFAULTS.tamkoInstalled),
     quoteRangePct: num("quote_range_pct", DEFAULTS.quoteRangePct),
     steepSlopeAdd: num("steep_slope_add", DEFAULTS.steepSlopeAdd),
     oakCost: num("oak_cost", DEFAULTS.oakCost),
@@ -143,25 +149,35 @@ export async function getPricing(): Promise<PricingConfig> {
 }
 
 /**
- * Compute per-tier installed prices using the HTML tool's parameterization:
- *   installedPerSquare = durationInstalled + (shingleCost - durationCost)
+ * Compute per-tier installed prices. Each tier now stores its own installed
+ * price independently in pricing_config (oak_installed, duration_installed,
+ * tamko_installed) — the prior duration-anchored derivation was dropped so
+ * Tom can set tier prices independently of the underlying shingle cost.
+ *
+ * `materialDelta` is still surfaced (shingleCost − durationCost) for display
+ * purposes in the admin tool, but no longer drives the installed price.
+ *
  * Returns tiers in the order they're displayed on /roof-quote (good → better → best).
  */
 export function computeTiers(p: PricingConfig): PricingTier[] {
-  const make = (id: PricingTier["id"], shingleCost: number): PricingTier => {
-    const materialDelta = shingleCost - p.durationCost;
-    const installed = p.durationInstalled + materialDelta;
-    return {
-      id,
-      shortName: TIER_LABELS[id].shortName,
-      fullName: TIER_LABELS[id].fullName,
-      shingleCost,
-      materialDelta,
-      installedPerSquare: installed,
-      steepInstalledPerSquare: installed + p.steepSlopeAdd,
-    };
-  };
-  return [make("good", p.oakCost), make("better", p.durationCost), make("best", p.tamkoCost)];
+  const make = (
+    id: PricingTier["id"],
+    shingleCost: number,
+    installed: number,
+  ): PricingTier => ({
+    id,
+    shortName: TIER_LABELS[id].shortName,
+    fullName: TIER_LABELS[id].fullName,
+    shingleCost,
+    materialDelta: shingleCost - p.durationCost,
+    installedPerSquare: installed,
+    steepInstalledPerSquare: installed + p.steepSlopeAdd,
+  });
+  return [
+    make("good", p.oakCost, p.oakInstalled),
+    make("better", p.durationCost, p.durationInstalled),
+    make("best", p.tamkoCost, p.tamkoInstalled),
+  ];
 }
 
 /**

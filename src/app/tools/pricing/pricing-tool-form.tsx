@@ -238,13 +238,6 @@ export default function PricingToolForm({
               help="The first company benchmark priced the job at 24 squares."
             />
             <NumField
-              label="Duration Installed Benchmark"
-              value={values.durationInstalled}
-              onChange={(v) => update("durationInstalled", v)}
-              prefix="$" suffix="/sq" step={0.01}
-              help={`Baseline: ${values.billableSquares} × ${fmtMoney(values.durationInstalled, 2)} = ${fmtMoney(values.billableSquares * values.durationInstalled)}.`}
-            />
-            <NumField
               label="Customer Quote Range"
               value={values.quoteRangePct}
               onChange={(v) => update("quoteRangePct", v)}
@@ -274,7 +267,31 @@ export default function PricingToolForm({
             </div>
           </Card>
 
-          <Card title="Shingle Cost Inputs" subtitle="Raw shingle costs (drive each tier's installed price via the delta vs Duration).">
+          <Card title="Installed Price per Tier" subtitle="Total customer-facing installed price per square (labor + materials + overhead). Each tier is now set independently.">
+            <NumField
+              label={`${SHINGLE_NAMES.good} — Installed`}
+              value={values.oakInstalled}
+              onChange={(v) => update("oakInstalled", v)}
+              prefix="$" suffix="/sq" step={0.01}
+              help={`${values.billableSquares} × ${fmtMoney(values.oakInstalled, 2)} = ${fmtMoney(values.billableSquares * values.oakInstalled)} target.`}
+            />
+            <NumField
+              label={`${SHINGLE_NAMES.better} — Installed`}
+              value={values.durationInstalled}
+              onChange={(v) => update("durationInstalled", v)}
+              prefix="$" suffix="/sq" step={0.01}
+              help={`${values.billableSquares} × ${fmtMoney(values.durationInstalled, 2)} = ${fmtMoney(values.billableSquares * values.durationInstalled)} target.`}
+            />
+            <NumField
+              label={`${SHINGLE_NAMES.best} — Installed`}
+              value={values.tamkoInstalled}
+              onChange={(v) => update("tamkoInstalled", v)}
+              prefix="$" suffix="/sq" step={0.01}
+              help={`${values.billableSquares} × ${fmtMoney(values.tamkoInstalled, 2)} = ${fmtMoney(values.billableSquares * values.tamkoInstalled)} target.`}
+            />
+          </Card>
+
+          <Card title="Shingle Cost Inputs" subtitle="Raw shingle costs (reference only — installed prices are now set per tier above).">
             <NumField
               label={SHINGLE_NAMES.good}
               value={values.oakCost}
@@ -324,20 +341,19 @@ export default function PricingToolForm({
               note="Customer low/high range"
             />
             <Metric
-              label="Duration Benchmark"
+              label="Duration Installed"
               value={fmtMoney(values.durationInstalled)}
-              note="Installed price per square"
+              note="Per square (Better tier)"
             />
           </div>
 
-          <Card title="Installed Pricing Spread" subtitle="Tiers calculated from the Duration benchmark. Update a shingle cost to see the installed price move by the same per-square delta.">
+          <Card title="Installed Pricing Spread" subtitle="Each tier's installed price is set independently above. Shingle cost is shown for reference only.">
             <div className="overflow-x-auto -mx-5 px-5">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="text-left text-xs uppercase tracking-wide text-gray-500 border-b border-gray-200">
                     <th className="py-2 pr-4">Product</th>
                     <th className="py-2 pr-4">Shingle Cost</th>
-                    <th className="py-2 pr-4">Δ vs Duration</th>
                     <th className="py-2 pr-4">Installed / sq</th>
                     <th className="py-2 pr-4">Quote Total</th>
                     <th className="py-2 pr-4">± Range</th>
@@ -359,7 +375,6 @@ export default function PricingToolForm({
                           )}
                         </td>
                         <td className="py-3 pr-4 font-bold text-navy">{fmtMoney(t.shingleCost, 2)}</td>
-                        <td className="py-3 pr-4 font-bold text-navy">{t.materialDelta >= 0 ? "+" : ""}{fmtMoney(t.materialDelta, 2)}</td>
                         <td className="py-3 pr-4 font-bold text-navy">{fmtMoney(installed, 2)}</td>
                         <td className="py-3 pr-4 font-bold text-navy">{fmtMoney(total)}</td>
                         <td className="py-3 pr-4 font-bold text-navy">{fmtMoney(range.min)} – {fmtMoney(range.max)}</td>
@@ -408,8 +423,7 @@ export default function PricingToolForm({
             </div>
             <div className="mt-4 rounded-lg bg-gray-50 border border-gray-200 p-4 font-mono text-xs leading-relaxed text-gray-700">
               Waste % = ((${values.billableSquares} ÷ ${values.measuredSquares}) − 1) × 100 = {wastePct.toFixed(2)}%<br />
-              Material Δ = {fmtMoney(detailTier.shingleCost, 2)} − {fmtMoney(values.durationCost, 2)} = {detailTier.materialDelta >= 0 ? "+" : ""}{fmtMoney(detailTier.materialDelta, 2)}<br />
-              Installed/sq = {fmtMoney(values.durationInstalled, 2)} + ({detailTier.materialDelta >= 0 ? "+" : ""}{fmtMoney(detailTier.materialDelta, 2)}){steepOn ? ` + ${fmtMoney(values.steepSlopeAdd, 2)} steep` : ""} = {fmtMoney(detailTier.installedPerSquare + (steepOn ? values.steepSlopeAdd : 0), 2)}<br />
+              Installed/sq = {fmtMoney(detailTier.installedPerSquare, 2)}{steepOn ? ` + ${fmtMoney(values.steepSlopeAdd, 2)} steep = ${fmtMoney(detailTier.installedPerSquare + values.steepSlopeAdd, 2)}` : ""}<br />
               Total = {values.billableSquares} × {fmtMoney(detailTier.installedPerSquare + (steepOn ? values.steepSlopeAdd : 0), 2)} = {fmtMoney(values.billableSquares * (detailTier.installedPerSquare + (steepOn ? values.steepSlopeAdd : 0)))}<br />
               Range = ±{values.quoteRangePct.toFixed(2)}% → {fmtMoney(detailRange.min)} – {fmtMoney(detailRange.max)}
             </div>

@@ -7,7 +7,9 @@ import { PRICING_CACHE_TAG, type PricingConfig } from "@/lib/pricing";
 // Validate the form values before persisting. Returns null if valid.
 function validate(p: Partial<PricingConfig>): string | null {
   const required: (keyof PricingConfig)[] = [
-    "measuredSquares", "billableSquares", "durationInstalled", "quoteRangePct", "steepSlopeAdd",
+    "measuredSquares", "billableSquares",
+    "durationInstalled", "oakInstalled", "tamkoInstalled",
+    "quoteRangePct", "steepSlopeAdd",
     "oakCost", "durationCost", "tamkoCost",
     "laborRate", "dumpRate", "permitCost", "eagleCost", "deckingSheets", "deckingPrice",
   ];
@@ -29,6 +31,8 @@ function toRowColumns(p: PricingConfig) {
     measured_squares: p.measuredSquares,
     billable_squares: p.billableSquares,
     duration_installed: p.durationInstalled,
+    oak_installed: p.oakInstalled,
+    tamko_installed: p.tamkoInstalled,
     quote_range_pct: p.quoteRangePct,
     steep_slope_add: p.steepSlopeAdd,
     oak_cost: p.oakCost,
