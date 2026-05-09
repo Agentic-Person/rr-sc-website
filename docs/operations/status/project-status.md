@@ -1,5 +1,5 @@
 # Restoration Roofing SC — Project Status
-> Last updated: May 6, 2026 (Session 4)
+> Last updated: May 9, 2026
 
 ## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
 
@@ -11,7 +11,51 @@
 
 ---
 
-## 🔄 Last Activity (May 6, 2026 — Session 4)
+## 🔄 Last Activity (May 9, 2026)
+
+**Pricing model: independent installed price per shingle tier**
+
+### What shipped (commit `60f7d60`)
+
+Refactored `pricing_config` so each shingle tier carries its own installed
+price instead of deriving Oakridge and Hail Guard from Duration's price.
+The duration-anchored formula made it impossible to set tier prices
+independently of the underlying shingle cost — Tom now needs that
+flexibility because installed price covers labor, overhead, and margin
+which vary tier-to-tier outside the old single-formula model.
+
+**1. Migration** (`supabase/migrations/005_pricing_per_tier_installed.sql`)
+- Added `oak_installed` and `tamko_installed` columns to `pricing_config`.
+- Backfilled the live row from the prior derivation (411 / 558) so the
+  public site was unchanged at migration time.
+- Then published new live values via service-role PATCH:
+  Oakridge **$450**, Duration **$500**, Hail Guard **$700**.
+  Shingle costs unchanged ($102 / $116 / $249).
+
+**2. `src/lib/pricing.ts`**
+- `PricingConfig` gains `oakInstalled` and `tamkoInstalled`.
+- `computeTiers()` reads each tier's installed price directly. The
+  `materialDelta` field is still surfaced (for admin display) but no
+  longer drives the installed price.
+- Consumers (`/roof-quote`, chat route) didn't change — they still read
+  `tier.installedPerSquare`, which now comes straight from config.
+
+**3. `/tools/pricing` admin form**
+- New "Installed Price per Tier" card with three editable inputs;
+  removed "Duration Installed Benchmark" from Core Variables.
+- Spread table dropped the "Δ vs Duration" column; the formula
+  breakdown is rewritten for the simpler model.
+- `actions.ts` validation + persistence and `page.tsx` row mapper
+  cover the new columns.
+
+**4. Cache invalidation**
+- Live row was updated via direct service-role PATCH (bypassing the
+  admin Publish action), so the cached `getPricing()` read kept serving
+  old values until Vercel redeployed on this push and busted the cache.
+
+---
+
+## 🔄 Previous Activity (May 6, 2026 — Session 4)
 
 **Internal admin tool: gated `/tools/pricing` calculator drives live customer pricing**
 
