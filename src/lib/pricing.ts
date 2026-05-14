@@ -71,7 +71,7 @@ export type PricingTier = {
 const TIER_LABELS: Record<PricingTier["id"], { shortName: string; fullName: string }> = {
   good: { shortName: "OC Oakridge", fullName: "Owens Corning Oakridge" },
   better: { shortName: "OC Duration", fullName: "Owens Corning TruDefinition Duration" },
-  best: { shortName: "Storm Fighter", fullName: "TAMKO Storm Fighter (Hail Guard)" },
+  best: { shortName: "HailGuard", fullName: "TAMKO HailGuard" },
 };
 
 function toConfig(row: Record<string, unknown> | null | undefined): PricingConfig {

@@ -83,14 +83,14 @@ const SHINGLE_TIERS = [
   {
     tier: "Storm-Rated",
     label: "BEST",
-    name: "TAMKO Storm Fighter",
-    tagline: "Built for hurricane season",
+    name: "TAMKO HailGuard",
+    tagline: "The only shingle with a hail warranty",
     description:
-      "Engineered for the South Carolina coast. 160 mph system wind warranty, Hail Guard impact protection, and Class 4 rating — may qualify for insurance discounts.",
+      "The first and only asphalt shingle system with a hail warranty. ImpactCore™ Technology, UL Class 4 impact rating, and a 160 mph system wind warranty — may qualify for insurance premium discounts.",
     windRating: "160 mph system",
-    lifespan: "20–30 years",
+    lifespan: "30–50 years",
     tierKey: "best" as const,
-    highlights: ["160 mph wind warranty", "Hail Guard impact resistance", "Insurance discount eligible", "Built for coastal SC"],
+    highlights: ["Industry-first hail warranty", "UL Class 4 impact resistance", "160 mph system wind warranty", "Insurance discount eligible"],
     houseImage: "/images/material-tamko-house.webp",
     badgeColor: "bg-navy text-white",
     borderColor: "border-navy/30",
@@ -135,14 +135,14 @@ const SHINGLE_TIERS_ES = [
   {
     tier: "Resistente a Tormentas",
     label: "LA MEJOR",
-    name: "TAMKO Storm Fighter",
-    tagline: "Diseñada para la temporada de huracanes",
+    name: "TAMKO HailGuard",
+    tagline: "La única teja con garantía contra granizo",
     description:
-      "Diseñada para la costa de South Carolina. Garantía de viento de 160 mph en sistema, protección contra granizo Hail Guard y clasificación Clase 4 — puede calificar para descuentos de seguro.",
+      "La primera y única teja asfáltica con garantía contra granizo. Tecnología ImpactCore™, clasificación Clase 4 UL y garantía de viento de 160 mph en sistema — puede calificar para descuentos de seguro.",
     windRating: "160 mph sistema",
-    lifespan: "20–30 años",
+    lifespan: "30–50 años",
     tierKey: "best" as const,
-    highlights: ["Garantía de viento de 160 mph", "Resistencia al granizo Hail Guard", "Elegible para descuento de seguro", "Diseñada para la costa de SC"],
+    highlights: ["Garantía contra granizo (única en la industria)", "Resistencia al impacto Clase 4 UL", "Garantía de viento de 160 mph en sistema", "Elegible para descuento de seguro"],
     houseImage: "/images/material-tamko-house.webp",
     badgeColor: "bg-navy text-white",
     borderColor: "border-navy/30",
@@ -176,7 +176,7 @@ const COST_DRIVERS = [
   {
     number: "05",
     title: "Shingle Tier & Material",
-    body: "TAMKO Storm Fighter, OC Oakridge, and OC Duration each carry different material costs and wind warranties. The difference in installed cost between tiers is typically $2–$5 per square foot.",
+    body: "TAMKO HailGuard, OC Oakridge, and OC Duration each carry different material costs and wind warranties. The difference in installed cost between tiers is typically $2–$5 per square foot.",
   },
   {
     number: "06",
@@ -219,7 +219,7 @@ const COST_DRIVERS_ES = [
   {
     number: "05",
     title: "Nivel de Teja y Material",
-    body: "TAMKO Storm Fighter, OC Oakridge y OC Duration tienen diferentes costos de materiales y garantías de viento. La diferencia en costo instalado entre niveles es típicamente de $2–$5 por pie cuadrado.",
+    body: "TAMKO HailGuard, OC Oakridge y OC Duration tienen diferentes costos de materiales y garantías de viento. La diferencia en costo instalado entre niveles es típicamente de $2–$5 por pie cuadrado.",
   },
   {
     number: "06",
