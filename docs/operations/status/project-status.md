@@ -1,7 +1,41 @@
 # Restoration Roofing SC — Project Status
-> Last updated: May 9, 2026
+> Last updated: May 14, 2026
 
 ## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
+
+---
+
+## 🔄 Last Activity (May 14, 2026)
+
+**TAMKO HailGuard specs + team section cleanup**
+
+### What shipped
+
+**Commit `363c536` — TAMKO product rename and accurate specs**
+- Corrected product name site-wide from "TAMKO Storm Fighter (Hail Guard)" →
+  **TAMKO HailGuard™** (official TAMKO product name per brochure Phillipsburg 41002067 ©2026)
+- `src/lib/materials.ts`: full spec rewrite — ImpactCore™ Technology, UL 2218 Class 4
+  impact resistance, 160 mph system wind warranty, Limited Lifetime + industry-first
+  hail warranty (as of March 2026), lifespan updated to 30–50 yrs, all 8 color options
+  documented, hail warranty system requirements (Synthetic Guard™ + Moisture Guard®
+  underlayments required)
+- `src/lib/pricing.ts`: tier label updated to HailGuard / TAMKO HailGuard
+- `src/app/roof-quote/roof-quote-content.tsx`: EN and ES shingle tier cards updated
+  (name, tagline, description, highlights, lifespan); cost-driver FAQ copy updated
+- `lib/knowledgebase/restoration-roofing-content.md`: spec block fully rewritten with
+  all colors, UL report numbers (ER2919-01/02), CRRC note on Olde English Pewter,
+  and hail warranty system requirements
+
+**Commit `1ea3d23` — Team section: remove Devin Ringle, reflow to 3-col**
+- `src/app/about/AboutContent.tsx`: removed Devin "D" Ringle (no longer on staff)
+- Grid reflowed from `lg:grid-cols-4 gap-6 max-w-6xl` → `lg:grid-cols-3 gap-8 max-w-5xl`
+  so remaining 3 cards (Josh McElroy, Matt Vannort, Chase Garrett) are wider and centered
+- Image `sizes` hint updated from 22vw → 30vw for correct Next.js resolution at wider size
+
+### Key marketing note
+TAMKO HailGuard's primary differentiator: **first and only asphalt shingle system
+with a hail warranty** (industry-first as of March 2026). Lean on this in SC storm
+season marketing — can help homeowners avoid paying their deductible after hail events.
 
 **Phase:** All website development done; remaining items are integrations (Zuper, SMS) and launch steps (domain, GA4, QA). See `docs/operations/phase-1.5-remaining.md` for the full remaining task list.
 **Live:** https://rr-sc-website.vercel.app
