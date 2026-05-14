@@ -178,13 +178,6 @@ const team = [
     image: "/images/team/chase-garrett.png",
     bio: "Six years in the U.S. Coast Guard built a foundation of discipline and precision. Brings that same standard to every project — clear communication, professional execution, total customer satisfaction.",
   },
-  {
-    name: "Devin \"D\" Ringle",
-    role: "Project Specialist",
-    valueTag: "Community",
-    image: "/images/team/devin-ringle.jpeg",
-    bio: "Nearly four years in roofing combining hands-on installation expertise with project management know-how. His easy-going style keeps communication clear and his Google reviews speak for themselves.",
-  },
 ];
 
 const insuranceBulletsEN = [
@@ -265,7 +258,7 @@ export default function AboutContent() {
             subtitle={lang === "es" ? ABOUT_ES.teamSubtitle : "A South Carolina–rooted crew with construction management, military, and field-built expertise — bringing decades of combined experience to every Lowcountry roof."}
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {localizedTeam.map((member, i) => (
               <motion.div
                 key={member.name}
@@ -282,7 +275,7 @@ export default function AboutContent() {
                     src={member.image}
                     alt={`${member.name}, ${member.role} at Restoration Roofing`}
                     fill
-                    sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
+                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
                     className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.06]"
                   />
 
