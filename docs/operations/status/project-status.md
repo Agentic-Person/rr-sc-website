@@ -1,7 +1,96 @@
 # Restoration Roofing SC — Project Status
-> Last updated: May 14, 2026
+> Last updated: May 31, 2026
 
-## 🟡 Status: Phase 1.5 Nearly Complete — Blocked on Zuper/SMS + Domain Cutover
+## 🟡 Status: Handed off to JD Plumbing Partners — Audit + Comparison Documents Delivered
+
+---
+
+## 🔄 Last Activity (May 31, 2026)
+
+**Independent audit of JDMPS rebuild + Nova comparison documentation series**
+
+### What shipped (commit `a08991a`)
+
+JDMPS delivered a staging URL for the rebuilt Restoration Roofing SC site at
+`rr.jdmps.com` (WordPress + Elementor + Yoast + Schema Pro + WP Rocket).
+Independent audit and comparison documentation prepared for Tom Davis with
+shareable client-facing PDFs and an internal Nova extraction checklist.
+
+**Client-facing deliverables (Tom + JDMPS)**
+- `docs/restoration-roofing-website-audit-2026-05-31.{md,pdf}` — joint audit
+  documenting strengths (Yoast schema graph, canonicals, programmatic area×service
+  pages, wider Lowcountry coverage), pre-launch items (license number duplication,
+  template logo in schema, missing H1s, staging URLs in sitemap, missing FAQ
+  schema, generic identical schema repeated across pages), AI-search readiness
+  assessment, and features available for import from the original Next.js build.
+- `docs/tom-three-website-comparison-2026-05-31.{md,pdf}` — brief, table-heavy
+  comparison for Tom: what JDMPS changed, what cannot be cited by AI search
+  engines, technical appendix with measured load-time data (JDMPS TTFB
+  2.5–2.7s vs Nova 0.17–0.32s, ~10–15× delta) and plugin-sprawl observations,
+  and the case for Nova covering classic SEO + GBP alignment + AI search
+  optimization in one stack.
+
+**Internal references**
+- `docs/scorpion-site-audit-2026-05-31.md` — initial dead-end audit of the
+  legacy `restorationroofingsc.com` (Scorpion CMS site, not our build).
+  Documents the stale NAP and old `RBC 694` license still showing publicly —
+  needs Tom action regardless of which site eventually owns the domain.
+- `docs/jdmps-seo-team-audit-2026-05-31.md` — first-pass technical audit notes
+  for rr.jdmps.com.
+- `docs/jdmps-extraction-for-nova.md` — surgical extraction checklist of what
+  JDMPS does well, with Next.js implementation patterns for porting into Nova.
+- `docs/nova-vs-jdmps-comparison-2026-05-31.md` — internal status report
+  mapping the extraction checklist against Nova's current state at
+  `rr-nova-website.vercel.app`.
+- `docs/nova-fixes-handoff-2026-05-31.md` — P0/P1/P2 fix list for the Nova
+  repo, formatted for consumption by another Claude Code instance (SC→VA
+  migration artifacts, FAQ schema rollout across all service pages,
+  programmatic combo pages, MCP endpoint, etc.).
+- `docs/client-executive-summary-2026-05-31-handoff.md` — Tom-only summary of
+  the JDMPS handoff implications.
+
+**Tooling**
+- `scripts/md-to-pdf.js` — reusable markdown-to-PDF helper using Chrome
+  headless + inline CSS template (Letter size, professional typography,
+  table-friendly page breaks). Used for the audit and comparison PDFs;
+  reusable for future deliverables.
+
+### Key findings
+
+- JDMPS rebuild is solid classic SEO foundation (Yoast schema, canonicals,
+  programmatic area pages) but **removes the AI-native features that
+  differentiated the original** (Claude chat, Roofle on every CTA, materials
+  comparison, TAMKO HailGuard specs, calibrated pricing formula, Spanish
+  toggle UI, mascot, custom About design, customized CTAs).
+- **As currently scoped, the JDMPS site will not be cited by AI search
+  engines.** Missing: FAQ schema, Service schema per page, Review/AggregateRating
+  schema, entity graph @id linking, `sameAs` to GBP/FB/BBB, AI bot allow
+  directives, `llms.txt`, on-site AI chat. All can be added on WordPress
+  (most via plugins/config; the AI chat requires real custom development).
+- Measured load-time delta is dramatic: JDMPS TTFB 2.5–2.7s vs Nova
+  0.17–0.32s. JDMPS homepage loads 71 external assets from `<head>` (50 link
+  tags, 17 scripts, 4 inline) vs Nova's 25. The slow page loads observed are
+  structural to the stack, not internet speed.
+- Nova (`rr-nova-website.vercel.app`) is meaningfully ahead of JDMPS on most
+  AEO dimensions already: AI bot allows, llms.txt, schema entity graph with
+  @id linking, RoofingContractor typed array, AggregateRating with real
+  numbers (4.9/47), sameAs grounding, QuoteAction + makesOffer signals.
+  Remaining work tracked in `docs/nova-fixes-handoff-2026-05-31.md`.
+
+### Strategic posture
+Restoration Roofing SC continues under JDMPS for classic SEO + agency ops.
+Nova Roofing & Restoration is the AI-native, schema-rich build that covers
+classic SEO + Google Business Profile alignment + AI search optimization in
+one site. Tom is not locked in to JDMPS — evaluation runway is the next
+60–90 days post-launch.
+
+**Phase:** Site handed off to JDMPS for operations. Active development on
+this repo paused; AI-native build work continues on Nova.
+**Live:** https://rr-sc-website.vercel.app (our Next.js build, still up)
+**JDMPS staging:** https://rr.jdmps.com (their WordPress rebuild)
+**Nova build:** https://rr-nova-website.vercel.app
+**Repo:** github.com/Agentic-Person/rr-sc-website
+**Client Repo:** github.com/SCROOF1/restorationroofing
 
 ---
 
