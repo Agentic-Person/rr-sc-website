@@ -31,6 +31,14 @@ export const metadata: Metadata = {
   description:
     "Family-owned roofing contractor serving Charleston, Mount Pleasant & the Lowcountry. 24/7 emergency service, free estimates, insurance claim experts.",
   metadataBase: new URL("https://www.restorationroofingsc.com"),
+  icons: {
+    icon: [
+      { url: "/favicon.webp", type: "image/webp" },
+      { url: "/apple-icon.png", type: "image/png", sizes: "180x180" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
